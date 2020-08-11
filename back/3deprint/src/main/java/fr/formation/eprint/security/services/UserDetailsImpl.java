@@ -1,19 +1,41 @@
 package fr.formation.eprint.security.services;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import fr.formation.eprint.apiFlow.request.LoginRequest;
+import fr.formation.eprint.apiFlow.request.SignupRequest;
+import fr.formation.eprint.apiFlow.response.JwtResponse;
+import fr.formation.eprint.apiFlow.response.MessageResponse;
+import fr.formation.eprint.entities.ERole;
+import fr.formation.eprint.entities.Role;
 import fr.formation.eprint.entities.User;
+import fr.formation.eprint.repositories.RoleRepository;
+import fr.formation.eprint.repositories.UserRepository;
+import fr.formation.eprint.security.jwt.JwtUtils;
 
 public class UserDetailsImpl implements UserDetails {
+	
+	
+
+	
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
@@ -48,6 +70,9 @@ public class UserDetailsImpl implements UserDetails {
 				user.getPassword(), 
 				authorities);
 	}
+	
+	
+	
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
