@@ -23,7 +23,7 @@ import fr.formation.eprint.entities.FileDB;
 import fr.formation.eprint.security.services.FileStorageService;
 
 @Controller
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/eprint")
 public class FileController {
 

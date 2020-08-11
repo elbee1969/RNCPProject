@@ -23,13 +23,13 @@ import fr.formation.eprint.entities.FileDB;
 import fr.formation.eprint.security.services.FileStorageService;
 
 @Controller
-@CrossOrigin(origins = "http://localhost:8081")
-@RequestMapping("/api/eprint")
+@CrossOrigin("http://localhost:8081")
+@RequestMapping("/api/eprint/all")
 public class FileController {
 
   @Autowired
   private FileStorageService storageService;
-
+ 
   @PostMapping("/upload")
   public ResponseEntity<MessageResponse> uploadFile(@RequestParam("file") MultipartFile file) {
     String message = "";
@@ -43,13 +43,13 @@ public class FileController {
       return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new MessageResponse(message));
     }
   }
-
-  @GetMapping("/api/eprint/files")
+  @CrossOrigin("https://localhost:8081")
+  @GetMapping("/file")
   public ResponseEntity<List<FileResponse>> getListFiles() {
     List<FileResponse> files = storageService.getAllFiles().map(dbFile -> {
       String fileDownloadUri = ServletUriComponentsBuilder
           .fromCurrentContextPath()
-          .path("/files/")
+          .path("/file/")
           .path(dbFile.getId())
           .toUriString();
 
@@ -63,7 +63,7 @@ public class FileController {
     return ResponseEntity.status(HttpStatus.OK).body(files);
   }
 
-  @GetMapping("/files/{id}")
+  @GetMapping("/file/{id}")
   public ResponseEntity<byte[]> getFile(@PathVariable String id) {
     FileDB fileDB = storageService.getFile(id);
 

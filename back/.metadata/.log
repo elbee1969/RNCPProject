@@ -6523,3 +6523,15 @@ java.lang.ClassCastException: class org.eclipse.jdt.internal.corext.fix.LinkedPr
 	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:657)
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:594)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1447)
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2020-08-11 21:39:58.083
+!MESSAGE ClasspathListenerHandler removeClasspathListener sts4.classpath.AOsFNJxr
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2020-08-11 21:39:58.205
+!MESSAGE unsubscribing from classpath changes: sts4.classpath.AOsFNJxr
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2020-08-11 21:39:58.213
+!MESSAGE subsribers = {}
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2020-08-11 21:39:58.222
+!MESSAGE ClasspathListenerHandler removeClasspathListener sts4.classpath.AOsFNJxr => OK

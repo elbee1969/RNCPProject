@@ -8,6 +8,8 @@
 		<item key="moveWizard.updateQualifiedNames" value="false"/>
 		<item key="patterns" value="*"/>
 		<item key="deleteSubPackages" value="false"/>
+		<item key="CREATE_GETTER_SETTER" value="false"/>
+		<item key="CREATE_TOPLEVEL" value="true"/>
 	</section>
 	<section name="RefactoringStatusDialog">
 		<item key="DIALOG_WIDTH" value="816"/>
