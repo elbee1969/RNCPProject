@@ -1,0 +1,5 @@
+package fr.formation.deprint.entities;
+
+public class User {
+
+}

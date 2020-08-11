@@ -1,0 +1,5 @@
+package fr.formation.deprint.repositories;
+
+public class UserRepository {
+
+}
