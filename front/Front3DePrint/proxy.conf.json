@@ -1,5 +1,5 @@
 {
-    "/api/eprint": {
+    "/api/eprint/upload": {
         "target": "http://localhost:8081",
         "secure": false
     }
