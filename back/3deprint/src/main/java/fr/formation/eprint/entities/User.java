@@ -17,19 +17,17 @@ import javax.validation.constraints.Size;
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name= "id")
 	private Long id;
 
-	@NotBlank
-	@Size(max = 20)
+	@Column(name= "username")
 	private String username;
 
-	@NotBlank
-	@Size(max = 50)
 	@Email
+	@Column(name= "email")
 	private String email;
 
-	@NotBlank
-	@Size(max = 120)
+	@Column(name= "password")
 	private String password;
 
 	@ManyToMany(fetch = FetchType.LAZY)
