@@ -23,7 +23,7 @@ import fr.formation.eprint.entities.FileDB;
 import fr.formation.eprint.security.services.FileStorageService;
 
 @Controller
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin("http://localhost:8081")
 @RequestMapping("/api/eprint")
 public class FileController {
 
@@ -64,7 +64,7 @@ public class FileController {
   }
 
   @GetMapping("/files/{id}")
-  public ResponseEntity<byte[]> getFile(@PathVariable String id) {
+  public ResponseEntity<T[]> getFile(@PathVariable String id) {
     FileDB fileDB = storageService.getFile(id);
 
     return ResponseEntity.ok()

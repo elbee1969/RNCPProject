@@ -44,12 +44,12 @@ public class FileController {
     }
   }
 
-  @GetMapping("/files")
+  @GetMapping("/file")
   public ResponseEntity<List<FileResponse>> getListFiles() {
     List<FileResponse> files = storageService.getAllFiles().map(dbFile -> {
       String fileDownloadUri = ServletUriComponentsBuilder
           .fromCurrentContextPath()
-          .path("/files/")
+          .path("/file/")
           .path(dbFile.getId())
           .toUriString();
 
