@@ -15,7 +15,7 @@ import fr.formation.eprint.apiFlow.request.SignupRequest;
 import fr.formation.eprint.security.jwt.JwtUtils;
 import fr.formation.eprint.security.services.UserDetailsServiceImpl;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
