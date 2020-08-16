@@ -1,5 +1,0 @@
-package fr.formation.eprint.security.jwt;
-
-public class AuthTokenFilter {
-
-}

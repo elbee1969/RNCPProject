@@ -3,8 +3,11 @@ package fr.formation.eprint.entities;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.ForeignKey;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -22,6 +25,12 @@ public class FileDB {
 
   @Lob
   private byte[] data;
+  
+  @ManyToOne
+  @JoinColumn(name = "user_id", referencedColumnName = "id",
+          nullable = false,
+          foreignKey = @ForeignKey(name = "FK_file_user"))
+  private User user; 
 
   public FileDB() {
   }

@@ -3,6 +3,7 @@ package fr.formation.eprint.security.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -53,13 +54,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.cors().and().csrf().disable()
-			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-			.authorizeRequests().antMatchers("/api/auth/**").permitAll()
-			.antMatchers("/api/eprint/**").permitAll()
-			.anyRequest().authenticated();
-
+		http.httpBasic().disable().csrf().disable()
+				.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+		        .sessionManagement()
+		        .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+		        .authorizeRequests().antMatchers(HttpMethod.OPTIONS).permitAll()
+		        .and().authorizeRequests()
+		        .antMatchers("/api/eprint/all/**","/api/auth/**")
+		        .permitAll().antMatchers("/api/eprint/**").authenticated();
+		
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+	}
+
+	public AuthEntryPointJwt getUnauthorizedHandler() {
+		return unauthorizedHandler;
+	}
+
+	public void setUnauthorizedHandler(AuthEntryPointJwt unauthorizedHandler) {
+		this.unauthorizedHandler = unauthorizedHandler;
 	}
 }

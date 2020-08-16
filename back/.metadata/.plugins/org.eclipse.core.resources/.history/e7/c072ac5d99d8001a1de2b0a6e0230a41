@@ -1,5 +1,0 @@
-package fr.formation.deprint.entities;
-
-public enum ERole {
-
-}
