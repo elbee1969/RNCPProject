@@ -4,14 +4,10 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-//import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import fr.formation.eprint.apiFlow.request.LoginRequest;
-import fr.formation.eprint.apiFlow.request.SignupRequest;
 import fr.formation.eprint.dtos.UserCreateDTO;
 import fr.formation.eprint.dtos.UserLoginDTO;
 import fr.formation.eprint.security.jwt.JwtUtils;

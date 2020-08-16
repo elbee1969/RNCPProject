@@ -32,16 +32,29 @@ public class FileDB {
           foreignKey = @ForeignKey(name = "FK_file_user"))
   private User user; 
 
-  public FileDB() {
-  }
-
+ 
   public FileDB(String name, String type, byte[] data) {
     this.name = name;
     this.type = type;
     this.data = data;
+
   }
 
-  public String getId() {
+
+
+public User getUser() {
+	return user;
+}
+
+public void setUser(User user) {
+	this.user = user;
+}
+
+public void setId(String id) {
+	this.id = id;
+}
+
+public String getId() {
     return id;
   }
 
