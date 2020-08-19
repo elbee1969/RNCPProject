@@ -30,24 +30,27 @@ public class FileDB {
   @JoinColumn(name = "user_id", referencedColumnName = "id",
           nullable = false,
           foreignKey = @ForeignKey(name = "FK_file_user"))
-  private User user; 
+private User User; 
 
+  public FileDB() {
+  }
  
   public FileDB(String name, String type, byte[] data) {
     this.name = name;
     this.type = type;
     this.data = data;
 
+
   }
 
 
 
 public User getUser() {
-	return user;
+	return getUser();
 }
 
 public void setUser(User user) {
-	this.user = user;
+	this.User = user;
 }
 
 public void setId(String id) {
