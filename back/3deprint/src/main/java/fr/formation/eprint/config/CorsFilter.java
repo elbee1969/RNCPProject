@@ -10,25 +10,28 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Component
-@PropertySource("classpath:application.properties")
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class CorsFilter implements Filter {
+	@Value("${3deprint.allowedOrigin}")
+	private String allowedOrigin;
 
-    @Value("${server.url}")
-    private String allowedOrigin;
-
-    @Override
-    public void doFilter(ServletRequest servletRequest,
-            ServletResponse servletResponse, FilterChain filterChain)
-            throws IOException, ServletException {
-	HttpServletResponse response = (HttpServletResponse) servletResponse;
-	response.setHeader("Access-Control-Allow-Origin", allowedOrigin);
-	response.setHeader("Access-Control-Allow-Credentials", "true");
-	response.setHeader("Access-Control-Allow-Headers",
-	        "x-request-with, Authorization, content-type");
-	filterChain.doFilter(servletRequest, servletResponse);
-    }
+	@Override
+	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain)
+			throws IOException, ServletException {
+		HttpServletResponse response = (HttpServletResponse) servletResponse;
+		response.setHeader("Access-Control-Allow-Origin", allowedOrigin);
+		response.setHeader("Access-Control-Allow-Credentials", "true");	
+		response.setHeader("Access-Control-Allow-Headers", "x-requested-with, Authorization, content-type");
+		response.setHeader("Access-Control-Allow-Methods",
+		        "GET, POST, OPTIONS, PUT, DELETE");
+		chain.doFilter(servletRequest, servletResponse);
+		
+	}
+	
+	
 }

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class UploadFileService {
 
-  private baseUrl = 'http://localhost:8081/api/eprint';
+  private baseUrl = 'http://localhost:9090/api/private';
 
   constructor(private http: HttpClient) { }
 
