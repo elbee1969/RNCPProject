@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name = "role")
 public class Role extends AbstractEntity  {
 
-	@Column(length = 20)
+	@Column(name= "code", length = 20)
 	private String code;
 	
 	@Convert(converter = BooleanConverter.class)

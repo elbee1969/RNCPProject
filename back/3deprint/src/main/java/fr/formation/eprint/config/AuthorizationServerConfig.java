@@ -3,6 +3,7 @@ package fr.formation.eprint.config;
 import java.security.Principal;
 import java.util.Arrays;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -68,6 +69,7 @@ public class AuthorizationServerConfig
 
     // user details service to authenticate users with username and
     // password from the database
+
     private final ApplicationUserDetailsService userDetailsService;
 
     // Custom token converter to store custom info within access token

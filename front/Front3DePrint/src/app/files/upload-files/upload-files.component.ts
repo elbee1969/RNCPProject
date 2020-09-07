@@ -17,13 +17,15 @@ export class UploadFilesComponent implements OnInit {
 
   fileInfos: Observable<any>;
 
-  constructor(private uploadService: UploadFileService) { }
+  constructor(private uploadService: UploadFileService) { 
+  }
 
   selectFile(event) {
     this.selectedFiles = event.target.files;
   }
 
   upload() {
+    
     this.progress = 0;
 
     this.currentFile = this.selectedFiles.item(0);
@@ -35,6 +37,7 @@ export class UploadFilesComponent implements OnInit {
           this.message = event.body.message;
           this.fileInfos = this.uploadService.getFiles();
         }
+        return !this.currentFile;
       },
       err => {
         this.progress = 0;

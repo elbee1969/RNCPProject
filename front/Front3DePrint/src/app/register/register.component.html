@@ -37,6 +37,50 @@
         </div>
       </div>
       <div class="form-group">
+        <label for="firstname">Firstname</label>
+        <input
+          type="text"
+          class="form-control"
+          name="firstname"
+          [(ngModel)]="form.firstname"
+          required
+          minlength="2"
+          maxlength="40"
+          #firstname="ngModel"
+        />
+        <div class="alert-danger" *ngIf="f.submitted && firstname.invalid">
+          <div *ngIf="firstname.errors.required">Username is required</div>
+          <div *ngIf="firstname.errors.minlength">
+            Username must be at least 2 characters
+          </div>
+          <div *ngIf="firstname.errors.maxlength">
+            Username must be at most 40 characters
+          </div>
+        </div>
+      </div>
+            <div class="form-group">
+        <label for="lastname">Lastname</label>
+        <input
+          type="text"
+          class="form-control"
+          name="lastname"
+          [(ngModel)]="form.lastname"
+          required
+          minlength="2"
+          maxlength="40"
+          #lastname="ngModel"
+        />
+        <div class="alert-danger" *ngIf="f.submitted && lastname.invalid">
+          <div *ngIf="lastname.errors.required">Username is required</div>
+          <div *ngIf="lastname.errors.minlength">
+            Username must be at least 2 characters
+          </div>
+          <div *ngIf="lastname.errors.maxlength">
+            Username must be at most 40 characters
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
         <label for="email">Email</label>
         <input
           type="email"
@@ -54,6 +98,8 @@
           </div>
         </div>
       </div>
+
+
       <div class="form-group">
         <label for="password">Password</label>
         <input
@@ -72,6 +118,8 @@
           </div>
         </div>
       </div>
+      
+
       <div class="form-group">
         <button class="btn btn-primary btn-block">Sign Up</button>
       </div>

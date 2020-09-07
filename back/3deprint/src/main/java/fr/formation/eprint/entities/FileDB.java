@@ -2,47 +2,66 @@ package fr.formation.eprint.entities;
 
 import java.util.Arrays;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.ForeignKey;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name = "file")
+@Table(name = "fileDB", indexes = {
+		@Index(name = "fileDB_album_id_IDX", columnList = "album_id") })
 public class FileDB {
   @Id
   @GeneratedValue(generator = "uuid")
   @GenericGenerator(name = "uuid", strategy = "uuid2")
   private String id;
-
+  
+  @Column(name= "name")
   private String name;
-
+  
+  @Column(name= "type")
   private String type;
 
   @Lob
+  @Basic(fetch = FetchType.LAZY)
+  @Column(name= "data")
   private byte[] data;
   
-//  @ManyToOne
-//  @JoinColumn(name = "album_id", referencedColumnName = "id",
-//          nullable = false,
-//          foreignKey = @ForeignKey(name = "FK_file_album"))
-//  private Album album;
+  @ManyToOne
+  @JoinColumn(name="album_id", foreignKey = @ForeignKey(name="fileDB_album_id_FK"), nullable = false)
+  private Album album;
 
 public FileDB() {
-	super();
 	// TODO Auto-generated constructor stub
 }
 
-public FileDB(String id, String name, String type, byte[] data) {
+
+
+public FileDB(String id, String name, String type, byte[] data, Album album) {
 	super();
 	this.id = id;
 	this.name = name;
 	this.type = type;
 	this.data = data;
-//	this.album = album;
+	this.album = album;
 }
+
+
+
+public FileDB(String fileName, String contentType, String fileName2, byte[] bytes, Long user_id) {
+	// TODO Auto-generated constructor stub
+}
+
+
 
 public String getId() {
 	return id;
@@ -76,20 +95,27 @@ public void setData(byte[] data) {
 	this.data = data;
 }
 
-//public Album getAlbum() {
-//	return album;
-//}
-//
-//public void setAlbum(Album album) {
-//	this.album = album;
-//}
+
+
+public Album getAlbum() {
+	return album;
+}
+
+
+
+public void setAlbum(Album album) {
+	this.album = album;
+}
+
+
 
 @Override
 public String toString() {
-	return "FileDB [id=" + id + ", name=" + name + ", type=" + type + ", data=" + Arrays.toString(data) + ", getId()=" + getId() + ", getName()=" + getName() + ", getType()=" + getType() + ", getData()="
-			+ Arrays.toString(getData()) + ", getClass()=" + getClass() + ", hashCode()="
-			+ hashCode() + ", toString()=" + super.toString() + "]";
-} 
+	return "FileDB [id=" + id + ", name=" + name + ", type=" + type + ", data=" + Arrays.toString(data) + ", album="
+			+ album + "]";
+}
+
+
 
   
 

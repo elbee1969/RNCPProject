@@ -10,15 +10,18 @@ import javax.validation.constraints.Email;
 		uniqueConstraints = { 
 			@UniqueConstraint(columnNames = "username"),
 			@UniqueConstraint(columnNames = "email") 
+//			@UniqueConstraint(name = "user_album_id_UQ", columnNames = {
+//			"album_id" }) }, indexes = {
+//				@Index(name = "user_album_id_IDX", columnList = "album_id")
 		})
 public class User extends AbstractEntity {
 
 
-	@Column(name= "username")
+	@Column(name= "username",length = 40, nullable = false)
 	private String username;
 	
 	@Email
-	@Column(name= "email")
+	@Column(name= "email",length = 100, nullable = false)
 	private String email;
 
 	@Column(name= "password")
@@ -29,6 +32,11 @@ public class User extends AbstractEntity {
 				joinColumns = @JoinColumn(name = "user_id"), 
 				inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles;
+	
+//	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	
+	@OneToOne(mappedBy = "user")
+    private Album album;
 	
 	@Convert(converter = BooleanConverter.class)
     @Column(length = 1, nullable = false)
@@ -46,10 +54,10 @@ public class User extends AbstractEntity {
     @Column(length = 1, nullable = false)
     private boolean credentialsNonExpired;
 
-    @Column(length = 256, nullable = false)
+    @Column(length = 40, nullable = false)
     private String firstname;
 
-    @Column(length = 256, nullable = false)
+    @Column(length = 40, nullable = false)
     private String lastname;
 
 	
@@ -97,19 +105,9 @@ public class User extends AbstractEntity {
 	
 	
 
-	/**
-	 * @param username
-	 * @param email
-	 * @param password
-	 * @param roles
-	 * @param enabled
-	 * @param accountNonExpired
-	 * @param accountNonLocked
-	 * @param credentialsNonExpired
-	 * @param firstname
-	 * @param lastname
-	 */
-	public User(String username, @Email String email, String password, Set<Role> roles, boolean enabled,
+	
+
+	public User(String username, @Email String email, String password, Set<Role> roles, Album album, boolean enabled,
 			boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, String firstname,
 			String lastname) {
 		super();
@@ -117,12 +115,21 @@ public class User extends AbstractEntity {
 		this.email = email;
 		this.password = password;
 		this.roles = roles;
+		this.album = album;
 		this.enabled = enabled;
 		this.accountNonExpired = accountNonExpired;
 		this.accountNonLocked = accountNonLocked;
 		this.credentialsNonExpired = credentialsNonExpired;
 		this.firstname = firstname;
 		this.lastname = lastname;
+	}
+
+	public Album getAlbum() {
+		return album;
+	}
+
+	public void setAlbum(Album album) {
+		this.album = album;
 	}
 
 	public String getUsername() {
@@ -208,15 +215,11 @@ public class User extends AbstractEntity {
 	@Override
 	public String toString() {
 		return "User [username=" + username + ", email=" + email + ", password=" + password + ", roles=" + roles
-				+ ", enabled=" + enabled + ", accountNonExpired=" + accountNonExpired + ", accountNonLocked="
-				+ accountNonLocked + ", credentialsNonExpired=" + credentialsNonExpired + ", firstname=" + firstname
-				+ ", lastname=" + lastname + ", getUsername()=" + getUsername() + ", getEmail()=" + getEmail()
-				+ ", getPassword()=" + getPassword() + ", getRoles()=" + getRoles() + ", isEnabled()=" + isEnabled()
-				+ ", isAccountNonExpired()=" + isAccountNonExpired() + ", isAccountNonLocked()=" + isAccountNonLocked()
-				+ ", isCredentialsNonExpired()=" + isCredentialsNonExpired() + ", getFirstname()=" + getFirstname()
-				+ ", getLastname()=" + getLastname() + ", getId()=" + getId() + ", toString()=" + super.toString()
-				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + "]";
+				+ ", album=" + album + ", enabled=" + enabled + ", accountNonExpired=" + accountNonExpired
+				+ ", accountNonLocked=" + accountNonLocked + ", credentialsNonExpired=" + credentialsNonExpired
+				+ ", firstname=" + firstname + ", lastname=" + lastname + "]";
 	}
+
 
 	
 

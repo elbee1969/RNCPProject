@@ -1,11 +1,19 @@
 package fr.formation.eprint.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.formation.eprint.config.SecurityHelper;
+import fr.formation.eprint.dtos.UserCreateDto;
+import fr.formation.eprint.dtos.UserCreateViewDto;
+import fr.formation.eprint.dtos.UserDto;
+import fr.formation.eprint.security.services.UserService;
 
 
 
@@ -35,5 +43,19 @@ public class PublicController {
     //    return ResponseEntity.ok(user);
     }
     
+    /**
+     * 
+     *   
+     *   create a new user
+     *   
+     *   
+     *   */
     
+    private UserService userService;
+    
+    
+    @PostMapping("/register")
+    public UserCreateDto create(@Valid @RequestBody UserCreateViewDto dto) {
+	return userService.create(dto);
+    }
 }

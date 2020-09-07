@@ -5,7 +5,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import fr.formation.eprint.config.ApplicationUserDetails;
-import fr.formation.eprint.dtos.UserAuthDto;
+import fr.formation.eprint.dtos.UserAuthViewDto;
+import fr.formation.eprint.dtos.UserCreateDto;
+import fr.formation.eprint.dtos.UserDto;
 import fr.formation.eprint.dtos.UserInfoDto;
 import fr.formation.eprint.exception.ResourceNotFoundException;
 import fr.formation.eprint.repositories.UserJpaRepository;
@@ -14,18 +16,20 @@ import fr.formation.eprint.repositories.UserJpaRepository;
 
 @Service
 public class ApplicationUserDetailsServiceImpl implements ApplicationUserDetailsService {
+//    @Autowired
+    private final UserJpaRepository userJpaRepository;
 
-    private final UserJpaRepository repo;
-
-    protected ApplicationUserDetailsServiceImpl(UserJpaRepository repo) {
-	this.repo = repo;
+    protected ApplicationUserDetailsServiceImpl(UserJpaRepository userJpaRepository) {
+    	
+    	this.userJpaRepository = userJpaRepository;
     }
+
 
     // Throws UsernameNotFoundException (Spring contract)
     @Override
     public UserDetails loadUserByUsername(String username)
 	    throws UsernameNotFoundException {
-	UserAuthDto user = repo.findByUsername(username)
+	UserAuthViewDto user = userJpaRepository.findByUsername(username)
 		.orElseThrow(() -> new UsernameNotFoundException(
 			"no user found with username: " + username));
 	return new ApplicationUserDetails(user);
@@ -34,7 +38,9 @@ public class ApplicationUserDetailsServiceImpl implements ApplicationUserDetails
     // Throws ResourceNotFoundException (restful practice)
     @Override
     public UserInfoDto getCurrentUserInfo(Long id) {
-	return (UserInfoDto) repo.getById(id).orElseThrow(
+	return (UserInfoDto) userJpaRepository.findById(id).orElseThrow(
 		() -> new ResourceNotFoundException("with id:" + id));
     }
-}
+
+	
+    }

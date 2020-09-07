@@ -7,7 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
-import fr.formation.eprint.dtos.UserAuthDto;
+import fr.formation.eprint.dtos.UserAuthViewDto;
 import fr.formation.eprint.entities.Role;
 
 
@@ -21,7 +21,7 @@ public class ApplicationUserDetails extends User {
 
     private Long id;
 
-    public ApplicationUserDetails(UserAuthDto user) {
+    public ApplicationUserDetails(UserAuthViewDto user) {
 	super(user.getUsername(), user.getPassword(), user.isEnabled(),
 		user.isAccountNonExpired(), user.isCredentialsNonExpired(),
 		user.isAccountNonLocked(), buildAuthorities(user.getRoles()));

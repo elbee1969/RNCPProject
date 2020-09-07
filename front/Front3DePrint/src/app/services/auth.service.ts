@@ -66,8 +66,10 @@ getProfile() {
 
 
   register(user): Observable<any> {
-    return this.http.post(AUTH_API + 'signup', {
+    return this.http.post('localhost:9090/api/public/register', {
       username: user.username,
+      firstname: user.firstname,
+      lastname: user.lastname,
       email: user.email,
       password: user.password
     }, httpOptions);
