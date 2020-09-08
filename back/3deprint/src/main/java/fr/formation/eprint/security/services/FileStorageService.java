@@ -22,7 +22,7 @@ public class FileStorageService {
   public FileDB store(MultipartFile file) throws IOException {
     String fileName = StringUtils.cleanPath(file.getOriginalFilename());
     Album album = new Album();
-    UserAuthViewDto.class.cast(album).getId();
+//    UserAuthViewDto.class.cast(album).getId();
     		
 	FileDB FileDB = new FileDB(fileName, file.getContentType(),fileName, file.getBytes(), (album).getId() ) ;
 

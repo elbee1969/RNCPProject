@@ -30,17 +30,17 @@ public class CustomUser extends AbstractEntity {
 	@Column(name= "password")
 	private String password;
 
+	@Column(length = 40, nullable = false)
+	private String firstname;
+	
+	@Column(length = 40, nullable = false)
+	private String lastname;
+	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(	name = "user_role", 
 				joinColumns = @JoinColumn(name = "user_id"), 
 				inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "album_id", referencedColumnName = "id")
-    private Album album;
-	
-	@Transient Long userId = AlbumDto.getUserId();
 	
 	@Convert(converter = BooleanConverter.class)
     @Column(length = 1, nullable = false)
@@ -58,17 +58,28 @@ public class CustomUser extends AbstractEntity {
     @Column(length = 1, nullable = false)
     private boolean credentialsNonExpired;
 
-    @Column(length = 40, nullable = false)
-    private String firstname;
-
-    @Column(length = 40, nullable = false)
-    private String lastname;
+    @OneToOne(mappedBy = "customuser", cascade = CascadeType.ALL)
+    private Album album;
+    
+    
 
 	
-    public CustomUser() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+   
+    public CustomUser(String username, @Email String email, String password, Set<Role> roles, String firstname,
+    		String lastname, boolean enabled, boolean accountNonExpired, boolean accountNonLocked,
+    		boolean credentialsNonExpired) {
+    	super();
+    	this.username = username;
+    	this.email = email;
+    	this.password = password;
+    	this.roles = roles;
+    	this.firstname = firstname;
+    	this.lastname = lastname;
+    	this.enabled = enabled;
+    	this.accountNonExpired = accountNonExpired;
+    	this.accountNonLocked = accountNonLocked;
+    	this.credentialsNonExpired = credentialsNonExpired;
+    }
 
 	/**
      * Creates a new enabled user.
@@ -97,60 +108,21 @@ public class CustomUser extends AbstractEntity {
 	this.enabled = enabled;
     }
 
-	/**
-	 * @param id
-	 */
+	
+		
+
+
+
+
+	public CustomUser() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public CustomUser(Long id) {
 		super(id);
 		// TODO Auto-generated constructor stub
 	}
-	
-	
-	
-	
-
-	
-
-//	public CustomUser(String username, @Email String email, String password, Set<Role> roles, Long userId, boolean enabled,
-//			boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, String firstname,
-//			String lastname) {
-//		super();
-//		this.username = username;
-//		this.email = email;
-//		this.password = password;
-//		this.roles = roles;
-//		this.album = album;
-//		this.enabled = enabled;
-//		this.accountNonExpired = accountNonExpired;
-//		this.accountNonLocked = accountNonLocked;
-//		this.credentialsNonExpired = credentialsNonExpired;
-//		this.firstname = firstname;
-//		this.lastname = lastname;
-//	}
-
-
-	
-	public CustomUser(String username, @Email String email, String password, Set<Role> roles, Long userId,
-			boolean enabled, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired,
-			String firstname, String lastname) {
-		this.username = username;
-		this.email = email;
-		this.password = password;
-		this.roles = roles;
-		this.userId = userId;
-		this.enabled = enabled;
-		this.accountNonExpired = accountNonExpired;
-		this.accountNonLocked = accountNonLocked;
-		this.credentialsNonExpired = credentialsNonExpired;
-		this.firstname = firstname;
-		this.lastname = lastname;
-	}
-
-	public CustomUser(Album album) {
-		super();
-		this.album = album;
-	}
-
 
 	public Album getAlbum() {
 		return album;
@@ -240,20 +212,7 @@ public class CustomUser extends AbstractEntity {
 		this.lastname = lastname;
 	}
 
-	@Override
-	public String toString() {
-		return "User [username=" + username + ", email=" + email + ", password=" + password + ", roles=" + roles
-				+ ", album=" + album + ", enabled=" + enabled + ", accountNonExpired=" + accountNonExpired
-				+ ", accountNonLocked=" + accountNonLocked + ", credentialsNonExpired=" + credentialsNonExpired
-				+ ", firstname=" + firstname + ", lastname=" + lastname + "]";
-	}
 
-
-	
-
-	
-	
-	
 
 	
 }

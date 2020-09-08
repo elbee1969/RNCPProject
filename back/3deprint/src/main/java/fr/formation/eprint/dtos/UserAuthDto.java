@@ -25,10 +25,6 @@ public class UserAuthDto {
 	@NotNull
 	private Set<Role> roles;
 	
-	@NotNull
-    @Size(max = 4)
-	private Long albumId;
-	
 	@NotEmpty
     @Size(min = 2, max = 40)
 	private String firstname;
@@ -84,14 +80,6 @@ public class UserAuthDto {
 
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
-	}
-
-	public Long getAlbumId() {
-		return albumId;
-	}
-
-	public void setAlbumId(Long albumId) {
-		this.albumId = albumId;
 	}
 
 	public String getFirstname() {

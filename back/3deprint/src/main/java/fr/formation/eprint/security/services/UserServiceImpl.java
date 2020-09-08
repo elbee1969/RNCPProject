@@ -13,6 +13,7 @@ import fr.formation.eprint.dtos.UserDto;
 import fr.formation.eprint.entities.Album;
 import fr.formation.eprint.entities.Role;
 import fr.formation.eprint.entities.CustomUser;
+import fr.formation.eprint.repositories.NewUserJpaRepository;
 import fr.formation.eprint.repositories.RoleJpaRepository;
 import fr.formation.eprint.repositories.UserJpaRepository;
 
@@ -21,14 +22,14 @@ public class UserServiceImpl implements UserService {
 	
     private final PasswordEncoder passwordEncoder;
     
-    private final UserJpaRepository userJpaRepository;
+    private final NewUserJpaRepository userJpaRepository;
 
     private final RoleJpaRepository roleJpaRepository;
     
 
     private ModelMapper mapper;
     
-    protected UserServiceImpl(PasswordEncoder passwordEncoder, UserJpaRepository userRepository, RoleJpaRepository roleJpaRepository) {
+    protected UserServiceImpl(PasswordEncoder passwordEncoder, NewUserJpaRepository userRepository, RoleJpaRepository roleJpaRepository) {
 		// TODO Auto-generated constructor stub
     	this.passwordEncoder = passwordEncoder;
     	this.userJpaRepository = userRepository;
@@ -47,8 +48,8 @@ public class UserServiceImpl implements UserService {
   	String encodedPassword = passwordEncoder.encode(dto.getPassword());
   	Set<Role> role = new HashSet<>();
   	role.add(roleJpaRepository.findByDefaultRole(true));
-	CustomUser user = new CustomUser(dto.getUsername(),dto.getEmail(),encodedPassword, role, dto.getUserId(),
-  	        true, true, true, true, dto.getFirstname(),dto.getLastname());
+	CustomUser user = new CustomUser(dto.getUsername(),dto.getEmail(),encodedPassword,role, dto.getFirstname(), dto.getLastname(),
+  	        true, true, true, true);
   	CustomUser newUser = userJpaRepository.save(user);
   	return mapper.map(newUser, UserCreateViewDto.class);
   }

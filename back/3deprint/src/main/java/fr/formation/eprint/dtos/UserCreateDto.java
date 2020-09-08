@@ -1,17 +1,24 @@
 package fr.formation.eprint.dtos;
 
+import java.util.Set;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import org.springframework.stereotype.Repository;
+
+import fr.formation.eprint.entities.Role;
+
 
 public class UserCreateDto {
 	
 	
 	
-//	private final String message = "Must contains at least 6 characters, 1 uppercase, 1 lowercase, 1 digit and 1 special char";
-//    private final String pattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*~{}&.,§+=°_();/]).{8,30}$";
-//    @Pattern(regexp = pattern, message = message)
+	private final String message = "Must contains at least 6 characters, 1 uppercase, 1 lowercase, 1 digit and 1 special char";
+    private final String pattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*~{}&.,§+=°_();/]).{8,30}$";
     
     @NotBlank
     @Size(min = 3, max = 20)
@@ -23,11 +30,10 @@ public class UserCreateDto {
     private String email;
     
     
-    
+    @Pattern(regexp = pattern, message = message)
     @NotBlank
     @Size(min = 6, max = 40)
     private String password;
-    
     
     @NotBlank
     @Size(min = 2, max = 40)
@@ -37,24 +43,18 @@ public class UserCreateDto {
     @Size(min = 2, max = 40)
     private String lastname;
     
-    @NotNull
-    private Long userId;
-
-	public UserCreateDto() {
-		// TODO Auto-generated constructor stub
-	}
+	    
 	
-	
-	public UserCreateDto( String username,
-			String email,String password,
-			String firstname, String lastname, Long userId) {
+	public UserCreateDto(String username, String email,Set<Role> roles,  String password, String firstname, String lastname,
+			boolean enabled,  boolean accountNonExpired, boolean accountNonLocked,  boolean credentialsNonExpired) {
 		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.firstname = firstname;
 		this.lastname = lastname;
-		this.userId = userId;
 	}
+
+
 
 
 	public String getUsername() {
@@ -98,17 +98,6 @@ public class UserCreateDto {
 		this.lastname = lastname;
 	}
 
-
-	public Long getUserId() {
-		return userId;
-	}
-
-
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
-
-
 	public String getMessage() {
 		return getMessage();
 	}
@@ -116,6 +105,5 @@ public class UserCreateDto {
 	public String getPattern() {
 		return getPattern();
 	}
-  
-    
+
 }

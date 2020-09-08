@@ -14,8 +14,9 @@ import javax.persistence.Table;
 @Table(name = "album")
 public class Album extends AbstractEntity {
 	
-	@OneToOne(mappedBy = "album")
-    private CustomUser user;
+    @OneToOne
+    @MapsId
+    private CustomUser customuser;
 	
 	
 	
@@ -30,13 +31,15 @@ public class Album extends AbstractEntity {
 		// TODO Auto-generated constructor stub
 	}
 
-	public CustomUser getUser() {
-		return user;
+	public CustomUser getCustomuser() {
+		return customuser;
 	}
 
-	public void setUser(CustomUser user) {
-		this.user = user;
+	public void setCustomuser(CustomUser customuser) {
+		this.customuser = customuser;
 	}
+
+	
 	
 		
 	
