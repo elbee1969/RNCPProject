@@ -2,6 +2,7 @@ package fr.formation.eprint.controllers;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,12 +51,12 @@ public class PublicController {
      *   
      *   
      *   */
-    
+    @Autowired
     private UserService userService;
     
     
     @PostMapping("/register")
-    public UserCreateDto create(@Valid @RequestBody UserCreateViewDto dto) {
+    public UserCreateViewDto create(@Valid @RequestBody UserCreateDto dto) {
 	return userService.create(dto);
     }
 }

@@ -5,8 +5,11 @@ import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 
+import fr.formation.eprint.dtos.AlbumDto;
+import fr.formation.eprint.dtos.UserCreateDto;
+
 @Entity
-@Table(	name = "user", 
+@Table(	name = "customuser", 
 		uniqueConstraints = { 
 			@UniqueConstraint(columnNames = "username"),
 			@UniqueConstraint(columnNames = "email") 
@@ -14,7 +17,7 @@ import javax.validation.constraints.Email;
 //			"album_id" }) }, indexes = {
 //				@Index(name = "user_album_id_IDX", columnList = "album_id")
 		})
-public class User extends AbstractEntity {
+public class CustomUser extends AbstractEntity {
 
 
 	@Column(name= "username",length = 40, nullable = false)
@@ -33,10 +36,11 @@ public class User extends AbstractEntity {
 				inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles;
 	
-//	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	
-	@OneToOne(mappedBy = "user")
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "album_id", referencedColumnName = "id")
     private Album album;
+	
+	@Transient Long userId = AlbumDto.getUserId();
 	
 	@Convert(converter = BooleanConverter.class)
     @Column(length = 1, nullable = false)
@@ -61,7 +65,7 @@ public class User extends AbstractEntity {
     private String lastname;
 
 	
-    public User() {
+    public CustomUser() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -73,7 +77,7 @@ public class User extends AbstractEntity {
      * @param username a unique username
      * @param roles    some roles
      */
-    public User(String password, String username, Set<Role> roles) {
+    public CustomUser(String password, String username, Set<Role> roles) {
 	this(password, username, roles, true);
     }
 
@@ -85,7 +89,7 @@ public class User extends AbstractEntity {
      * @param roles    some roles
      * @param enabled  {@code true} if enabled; {@code false} otherwise
      */
-    public User(String password, String username, Set<Role> roles,
+    public CustomUser(String password, String username, Set<Role> roles,
 	    boolean enabled) {
 	this.password = password;
 	this.username = username;
@@ -96,7 +100,7 @@ public class User extends AbstractEntity {
 	/**
 	 * @param id
 	 */
-	public User(Long id) {
+	public CustomUser(Long id) {
 		super(id);
 		// TODO Auto-generated constructor stub
 	}
@@ -107,15 +111,33 @@ public class User extends AbstractEntity {
 
 	
 
-	public User(String username, @Email String email, String password, Set<Role> roles, Album album, boolean enabled,
-			boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, String firstname,
-			String lastname) {
-		super();
+//	public CustomUser(String username, @Email String email, String password, Set<Role> roles, Long userId, boolean enabled,
+//			boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, String firstname,
+//			String lastname) {
+//		super();
+//		this.username = username;
+//		this.email = email;
+//		this.password = password;
+//		this.roles = roles;
+//		this.album = album;
+//		this.enabled = enabled;
+//		this.accountNonExpired = accountNonExpired;
+//		this.accountNonLocked = accountNonLocked;
+//		this.credentialsNonExpired = credentialsNonExpired;
+//		this.firstname = firstname;
+//		this.lastname = lastname;
+//	}
+
+
+	
+	public CustomUser(String username, @Email String email, String password, Set<Role> roles, Long userId,
+			boolean enabled, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired,
+			String firstname, String lastname) {
 		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.roles = roles;
-		this.album = album;
+		this.userId = userId;
 		this.enabled = enabled;
 		this.accountNonExpired = accountNonExpired;
 		this.accountNonLocked = accountNonLocked;
@@ -123,6 +145,12 @@ public class User extends AbstractEntity {
 		this.firstname = firstname;
 		this.lastname = lastname;
 	}
+
+	public CustomUser(Album album) {
+		super();
+		this.album = album;
+	}
+
 
 	public Album getAlbum() {
 		return album;

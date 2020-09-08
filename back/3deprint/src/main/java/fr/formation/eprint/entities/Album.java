@@ -14,11 +14,8 @@ import javax.persistence.Table;
 @Table(name = "album")
 public class Album extends AbstractEntity {
 	
-//	@OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL, 
-//	        mappedBy = "album")
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
+	@OneToOne(mappedBy = "album")
+    private CustomUser user;
 	
 	
 	
@@ -33,11 +30,11 @@ public class Album extends AbstractEntity {
 		// TODO Auto-generated constructor stub
 	}
 
-	public User getUser() {
+	public CustomUser getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(CustomUser user) {
 		this.user = user;
 	}
 	

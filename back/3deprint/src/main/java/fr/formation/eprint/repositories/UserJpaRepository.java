@@ -7,11 +7,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import fr.formation.eprint.dtos.UserAuthViewDto;
 import fr.formation.eprint.dtos.UserDto;
 import fr.formation.eprint.dtos.UserInfoDto;
-import fr.formation.eprint.entities.User;
+import fr.formation.eprint.entities.CustomUser;
 
 
 public interface UserJpaRepository
-	extends JpaRepository<User, Long> {
+	extends JpaRepository<CustomUser, Long> {
 
     /**
      * Retrieves a projected view of the {@code User} with given username.

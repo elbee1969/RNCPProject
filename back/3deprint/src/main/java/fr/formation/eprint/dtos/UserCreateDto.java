@@ -1,11 +1,8 @@
 package fr.formation.eprint.dtos;
 
-import java.util.Set;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 public class UserCreateDto {
@@ -14,6 +11,7 @@ public class UserCreateDto {
 	
 //	private final String message = "Must contains at least 6 characters, 1 uppercase, 1 lowercase, 1 digit and 1 special char";
 //    private final String pattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*~{}&.,§+=°_();/]).{8,30}$";
+//    @Pattern(regexp = pattern, message = message)
     
     @NotBlank
     @Size(min = 3, max = 20)
@@ -24,14 +22,8 @@ public class UserCreateDto {
     @Email
     private String email;
     
-    @NotNull
-    private Set<String> role;
     
-    @NotNull
-    @Size(max = 4)
-	private Long albumId;
     
-//    @Pattern(regexp = pattern, message = message)
     @NotBlank
     @Size(min = 6, max = 40)
     private String password;
@@ -44,28 +36,25 @@ public class UserCreateDto {
     @NotBlank
     @Size(min = 2, max = 40)
     private String lastname;
+    
+    @NotNull
+    private Long userId;
 
 	public UserCreateDto() {
-		super();
 		// TODO Auto-generated constructor stub
 	}
 	
 	
-
-	public UserCreateDto(@NotBlank @Size(min = 3, max = 20) String username,
-			@NotBlank @Size(max = 50) @Email String email, @NotNull Set<String> role,
-			@NotNull @Size(max = 4) Long albumId, @NotBlank @Size(min = 6, max = 40) String password,
-			@NotBlank @Size(min = 2, max = 40) String firstname, @NotBlank @Size(min = 2, max = 40) String lastname) {
-		super();
+	public UserCreateDto( String username,
+			String email,String password,
+			String firstname, String lastname, Long userId) {
 		this.username = username;
 		this.email = email;
-		this.role = role;
-		this.albumId = albumId;
 		this.password = password;
 		this.firstname = firstname;
 		this.lastname = lastname;
+		this.userId = userId;
 	}
-
 
 
 	public String getUsername() {
@@ -84,23 +73,7 @@ public class UserCreateDto {
 		this.email = email;
 	}
 
-	public Set<String> getRole() {
-		return role;
-	}
-
-	public void setRole(Set<String> role) {
-		this.role = role;
-	}
 	
-
-	public Long getAlbumId() {
-		return albumId;
-	}
-
-	public void setAlbumId(Long albumId) {
-		this.albumId = albumId;
-	}
-
 	public String getPassword() {
 		return password;
 	}
@@ -124,6 +97,17 @@ public class UserCreateDto {
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
+
+
+	public Long getUserId() {
+		return userId;
+	}
+
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
 
 	public String getMessage() {
 		return getMessage();

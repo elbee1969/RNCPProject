@@ -1,5 +1,7 @@
 package fr.formation.eprint.security.services;
 
+import javax.validation.Valid;
+
 import fr.formation.eprint.dtos.UserCreateDto;
 import fr.formation.eprint.dtos.UserCreateViewDto;
 
@@ -13,7 +15,8 @@ public interface UserService {
 
 
 
-		UserCreateDto create(UserCreateViewDto dto);
+
+		UserCreateViewDto create(@Valid UserCreateDto dto);
 
 
 

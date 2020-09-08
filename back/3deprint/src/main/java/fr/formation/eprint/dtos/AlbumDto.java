@@ -8,14 +8,15 @@ public class AlbumDto {
 	
 	@NotNull
 	@Max(20)
-	private Long userId;
+	private static Long userId;
 
 	public AlbumDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Long getUserId() {
+	
+	public static Long getUserId() {
 		return userId;
 	}
 
