@@ -48,9 +48,8 @@ public FileDB() {
 
 
 
-public FileDB(String id, String name, String type, byte[] data) {
+public FileDB( byte[] data,String name, String type) {
 	super();
-	this.id = id;
 	this.name = name;
 	this.type = type;
 	this.data = data;
