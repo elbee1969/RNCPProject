@@ -28,7 +28,7 @@ public interface UserJpaRepository
      * @param id user id
      * @return a projected view
      */
-    //Optional<UserInfoDto> getById(Long id);
+    Optional<UserInfoDto> getById(Long id);
     
     
 //    Optional<UserAuthViewDto> getById(Long id); 

@@ -16,7 +16,7 @@ INSERT INTO role (id, code, default_role) VALUES (1,'ROLE_USER','T'), (2,'ROLE_A
 
 INSERT INTO user_role (user_id, role_id) VALUES (1,1),(3,1),(2,2),(3,2);
 
-INSERT INTO album (id, user_id) VALUES (1,1),(2,2),(3,3);
+INSERT INTO album (id,id_customuser) VALUES (1,1),(2,2),(3,3);
 
  /* Validation of the inserted datas */
 COMMIT;

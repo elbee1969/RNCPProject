@@ -17,8 +17,10 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name = "fileDB", indexes = {
-		@Index(name = "fileDB_album_id_IDX", columnList = "album_id") })
+@Table(name = "fileDB")
+
+//, indexes = {
+//		@Index(name = "fileDB_album_id_IDX", columnList = "album_id") }
 public class FileDB {
   @Id
   @GeneratedValue(generator = "uuid")
@@ -36,9 +38,9 @@ public class FileDB {
   @Column(name= "data")
   private byte[] data;
   
-  @ManyToOne
-  @JoinColumn(name="album_id", foreignKey = @ForeignKey(name="fileDB_album_id_FK"), nullable = false)
-  private Album album;
+//  @ManyToOne
+//  @JoinColumn(name="album_id", foreignKey = @ForeignKey(name="fileDB_album_id_FK"), nullable = false)
+//  private Album album;
 
 public FileDB() {
 	// TODO Auto-generated constructor stub
@@ -46,20 +48,15 @@ public FileDB() {
 
 
 
-public FileDB(String id, String name, String type, byte[] data, Album album) {
+public FileDB(String id, String name, String type, byte[] data) {
 	super();
 	this.id = id;
 	this.name = name;
 	this.type = type;
 	this.data = data;
-	this.album = album;
+//	this.album = album;
 }
 
-
-
-public FileDB(String fileName, String contentType, String fileName2, byte[] bytes, Long user_id) {
-	// TODO Auto-generated constructor stub
-}
 
 
 
@@ -97,26 +94,17 @@ public void setData(byte[] data) {
 
 
 
-public Album getAlbum() {
-	return album;
-}
+//public Album getAlbum() {
+//	return album;
+//}
+//
+//
+//
+//public void setAlbum(Album album) {
+//	this.album = album;
+//}
 
 
 
-public void setAlbum(Album album) {
-	this.album = album;
-}
-
-
-
-@Override
-public String toString() {
-	return "FileDB [id=" + id + ", name=" + name + ", type=" + type + ", data=" + Arrays.toString(data) + ", album="
-			+ album + "]";
-}
-
-
-
-  
 
 }

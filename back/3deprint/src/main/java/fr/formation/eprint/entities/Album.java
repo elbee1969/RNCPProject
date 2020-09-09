@@ -9,16 +9,12 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import fr.formation.eprint.dtos.AlbumCreateViewDto;
+
 
 @Entity
 @Table(name = "album")
 public class Album extends AbstractEntity {
-	
-    @OneToOne
-    @MapsId
-    private CustomUser customuser;
-	
-	
 	
 
 	public Album() {
@@ -26,26 +22,11 @@ public class Album extends AbstractEntity {
 		// TODO Auto-generated constructor stub
 	}
 
+	
 	public Album(Long id) {
 		super(id);
 		// TODO Auto-generated constructor stub
 	}
 
-	public CustomUser getCustomuser() {
-		return customuser;
-	}
 
-	public void setCustomuser(CustomUser customuser) {
-		this.customuser = customuser;
-	}
-
-	
-	
-		
-	
-	
-	
-
-	
-	
 }

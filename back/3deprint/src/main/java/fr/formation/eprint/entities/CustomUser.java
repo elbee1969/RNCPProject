@@ -1,11 +1,12 @@
 package fr.formation.eprint.entities;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 
-import fr.formation.eprint.dtos.AlbumDto;
+import fr.formation.eprint.dtos.AlbumCreateDto;
 import fr.formation.eprint.dtos.UserCreateDto;
 
 @Entity
@@ -30,57 +31,62 @@ public class CustomUser extends AbstractEntity {
 	@Column(name= "password")
 	private String password;
 
-	@Column(length = 40, nullable = false)
+	@Column(name= "firstname",length = 40, nullable = false)
 	private String firstname;
 	
-	@Column(length = 40, nullable = false)
+	@Column(name = "lastname",length = 40, nullable = false)
 	private String lastname;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(	name = "user_role", 
 				joinColumns = @JoinColumn(name = "user_id"), 
 				inverseJoinColumns = @JoinColumn(name = "role_id"))
+	@Column(name = "roles" )
 	private Set<Role> roles;
 	
 	@Convert(converter = BooleanConverter.class)
-    @Column(length = 1, nullable = false)
+    @Column(name = "enabled", length = 1, nullable = false)
     private boolean enabled;
 
     @Convert(converter = BooleanConverter.class)
-    @Column(length = 1, nullable = false)
+    @Column(name = "accountNonExpired", length = 1, nullable = false)
     private boolean accountNonExpired;
 
     @Convert(converter = BooleanConverter.class)
-    @Column(length = 1, nullable = false)
+    @Column(name = "accountNonLocked", length = 1, nullable = false)
     private boolean accountNonLocked;
 
     @Convert(converter = BooleanConverter.class)
-    @Column(length = 1, nullable = false)
+    @Column(name = "credentialsNonExpired", length = 1, nullable = false)
     private boolean credentialsNonExpired;
-
-    @OneToOne(mappedBy = "customuser", cascade = CascadeType.ALL)
-    private Album album;
     
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "id_customuser", nullable = false)
+    @Column(name = "albums")
+    private List<Album> albums;
     
 
+
+	public CustomUser(String username, @Email String email, String password, String firstname, String lastname,
+			Set<Role> roles, boolean enabled, boolean accountNonExpired, boolean accountNonLocked,
+			boolean credentialsNonExpired, AlbumCreateDto albumCreateDto) {
+		super();
+		this.username = username;
+		this.email = email;
+		this.password = password;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.roles = roles;
+		this.enabled = enabled;
+		this.accountNonExpired = accountNonExpired;
+		this.accountNonLocked = accountNonLocked;
+		this.credentialsNonExpired = credentialsNonExpired;
+		this.albums = (List<Album>) albumCreateDto;
+	}
 	
-   
-    public CustomUser(String username, @Email String email, String password, Set<Role> roles, String firstname,
-    		String lastname, boolean enabled, boolean accountNonExpired, boolean accountNonLocked,
-    		boolean credentialsNonExpired) {
-    	super();
-    	this.username = username;
-    	this.email = email;
-    	this.password = password;
-    	this.roles = roles;
-    	this.firstname = firstname;
-    	this.lastname = lastname;
-    	this.enabled = enabled;
-    	this.accountNonExpired = accountNonExpired;
-    	this.accountNonLocked = accountNonLocked;
-    	this.credentialsNonExpired = credentialsNonExpired;
-    }
-
+	
+	
+	
 	/**
      * Creates a new enabled user.
      *
@@ -108,11 +114,14 @@ public class CustomUser extends AbstractEntity {
 	this.enabled = enabled;
     }
 
-	
-		
 
+	public List<Album> getAlbums() {
+		return albums;
+	}
 
-
+	public void setAlbums(List<Album> albums) {
+		this.albums = albums;
+	}
 
 	public CustomUser() {
 		super();
@@ -124,13 +133,6 @@ public class CustomUser extends AbstractEntity {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Album getAlbum() {
-		return album;
-	}
-
-	public void setAlbum(Album album) {
-		this.album = album;
-	}
 
 	public String getUsername() {
 		return username;

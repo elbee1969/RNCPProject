@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import fr.formation.eprint.entities.Role;
 
-@Repository
 public interface UserCreateViewDto {
 	
   	Long getId();

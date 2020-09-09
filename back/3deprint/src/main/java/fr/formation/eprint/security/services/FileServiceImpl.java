@@ -8,16 +8,16 @@ import fr.formation.eprint.dtos.FileDBDto;
 import fr.formation.eprint.dtos.FileDBViewDto;
 import fr.formation.eprint.entities.Album;
 import fr.formation.eprint.entities.FileDB;
-import fr.formation.eprint.repositories.AlbumRepository;
+import fr.formation.eprint.repositories.AlbumJpaRepository;
 import fr.formation.eprint.repositories.FileDBRepository;
 
 public class FileServiceImpl implements FileService {
 	
 	private FileDBRepository fileDBRepositoty;
-	private AlbumRepository albumRepository;
+	private AlbumJpaRepository albumRepository;
 	
 	
-	protected FileServiceImpl (FileDBRepository fileDBRepositoty,AlbumRepository albumRepository) {
+	protected FileServiceImpl (FileDBRepository fileDBRepositoty,AlbumJpaRepository albumRepository) {
 		this.fileDBRepositoty = fileDBRepositoty;
 		this.albumRepository = albumRepository;
 	}
@@ -46,7 +46,7 @@ public class FileServiceImpl implements FileService {
 		fileDB.setData(dto.getData());
 		fileDB.setType(dto.getType());
 		Album album = albumRepository.getOne(dto.getUserId());
-		fileDB.setAlbum(album);
+//		fileDB.setAlbum(album);
 		fileDBRepositoty.save(fileDB);
 		
 	}

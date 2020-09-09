@@ -19,8 +19,6 @@ public class FileDBDto {
 	@NotNull
 	  private byte[] data;
 	  
-	@NotNull
-	  private Long albumId;
 
 	public FileDBDto() {
 		super();
@@ -53,13 +51,7 @@ public class FileDBDto {
 		this.data = data;
 	}
 
-	public Long getAlbumId() {
-		return albumId;
-	}
-
-	public void setAlbumId(Long albumId) {
-		this.albumId = albumId;
-	}
+	
 
 	public Long getUserId() {
 		// TODO Auto-generated method stub
