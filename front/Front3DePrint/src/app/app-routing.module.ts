@@ -14,6 +14,7 @@ import { ListFilesComponent } from './files/list-files/list-files.component';
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'oauth/callback', component: BoardUserComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'user', component: BoardUserComponent },

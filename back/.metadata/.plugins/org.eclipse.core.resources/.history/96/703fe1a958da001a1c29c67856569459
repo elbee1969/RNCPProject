@@ -1,5 +1,0 @@
-package fr.formation.eprint.apiFlow.response;
-
-public class FileResponse {
-
-}

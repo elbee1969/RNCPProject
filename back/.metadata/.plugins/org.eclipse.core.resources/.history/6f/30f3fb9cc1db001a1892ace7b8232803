@@ -1,5 +1,0 @@
-package fr.formation.eprint.dtos;
-
-public class UserDto {
-
-}

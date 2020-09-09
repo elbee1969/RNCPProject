@@ -3,37 +3,55 @@ package fr.formation.eprint.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "roles")
-public class Role {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+@Table(name = "role")
+public class Role extends AbstractEntity  {
 
-	@Enumerated(EnumType.STRING)
-	@Column(length = 20)
-	private ERole name;
+	@Column(name= "code", length = 20)
+	private String code;
+	
+	@Convert(converter = BooleanConverter.class)
+    @Column(length = 1, nullable = false)
+    private boolean defaultRole = false;
 
-	public Role() {
-
+	protected Role() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
-	public Role(ERole name) {
-		this.name = name;
+	/**
+	 * @param id
+	 */
+	public Role(Long id) {
+		super(id);
+		// TODO Auto-generated constructor stub
 	}
 
-	public Integer getId() {
-		return id;
+	public Role(String code) {
+		setCode(code);
+	    }
+
+	public String getCode() {
+		return code;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setCode(String code) {
+		this.code = code;
 	}
 
-	public ERole getName() {
-		return name;
+	public boolean isDefaultRole() {
+		return defaultRole;
 	}
 
-	public void setName(ERole name) {
-		this.name = name;
+	public void setDefaultRole(boolean defaultRole) {
+		this.defaultRole = defaultRole;
 	}
+
+	@Override
+	public String toString() {
+		return "Role [code=" + code + ", defaultRole=" + defaultRole + ", getId()=" + getId() + ", toString()="
+				+ super.toString() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + "]";
+	}
+
+	
+	
 }
