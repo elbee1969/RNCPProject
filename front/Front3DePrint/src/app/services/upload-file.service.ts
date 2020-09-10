@@ -28,4 +28,12 @@ export class UploadFileService {
   getFiles(): Observable<any> {
     return this.http.get(`${this.baseUrl}/files`);
   }
+
+  selectedFile(id) {
+    return this.http.get(`${this.baseUrl}/files/${id}`);
+  }
+
+  delete(id){
+    return this.http.delete(`${this.baseUrl}/files/${id}`);
+  }
 }

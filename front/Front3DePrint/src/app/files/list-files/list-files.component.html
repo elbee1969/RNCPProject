@@ -1,11 +1,15 @@
 <div class="card">
-  <div class="card-header">List of Files</div>
+  <div class="card-header">List of Files et merde</div>
   <ul
     class="list-group list-group-flush"
     *ngFor="let file of fileInfos | async"
   >
     <li class="list-group-item">
       <a href="{{ file.url }}">{{ file.name }}</a>
+      <button class="badge badge-danger mr-2" (click)="deleteFile()">
+    Delete
+  </button>
+
     </li>
   </ul>
 </div>

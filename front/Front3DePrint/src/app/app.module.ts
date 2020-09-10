@@ -17,6 +17,7 @@ import { BoardUserComponent } from './board-user/board-user.component';
 import { authInterceptorProviders } from './helpers/auth.interceptor';
 import { UploadFilesComponent } from './files/upload-files/upload-files.component';
 import { ListFilesComponent } from './files/list-files/list-files.component';
+import { ShowFileComponent } from './files/show-file/show-file.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { ListFilesComponent } from './files/list-files/list-files.component';
     BoardSupervisorComponent,
     BoardUserComponent,
     UploadFilesComponent,
-    ListFilesComponent
+    ListFilesComponent,
+    ShowFileComponent
   ],
   imports: [
     BrowserModule,
