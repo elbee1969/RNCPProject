@@ -9,6 +9,7 @@ import { BoardAdminComponent } from './board-admin/board-admin.component';
 import { BoardSupervisorComponent } from './board-supervisor/board-supervisor.component';
 import { UploadFilesComponent } from './files/upload-files/upload-files.component';
 import { ListFilesComponent } from './files/list-files/list-files.component';
+import { ShowFileComponent } from './files/show-file/show-file.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'user', component: BoardUserComponent },
   { path: 'upload', component: UploadFilesComponent },
   { path: 'files', component: ListFilesComponent },
+  { path: 'files/:id', component: ShowFileComponent },
   { path: 'sup', component: BoardSupervisorComponent },
   { path: 'admin', component: BoardAdminComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }

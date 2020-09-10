@@ -9,11 +9,12 @@ import { Observable } from 'rxjs';
 })
 export class ListFilesComponent implements OnInit {
   selectedFiles: FileList;
+
   fileInfos: Observable<any>;
   constructor(private uploadService: UploadFileService) { 
 
   }
-  selectFile(event) {
+  selectedFile(event) {
     this.selectedFiles = event.target.files;
 
   }
