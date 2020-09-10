@@ -6,10 +6,12 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +28,7 @@ import fr.formation.eprint.dtos.AlbumCreateViewDto;
 import fr.formation.eprint.dtos.UserCreateDto;
 import fr.formation.eprint.dtos.UserCreateViewDto;
 import fr.formation.eprint.dtos.UserDto;
+import fr.formation.eprint.entities.FileDB;
 import fr.formation.eprint.security.services.FileStorageService;
 import fr.formation.eprint.security.services.UserService;
 
@@ -86,6 +89,7 @@ public class PublicController {
     @PostMapping("/upload")
     public ResponseEntity<MessageResponse> uploadFile(@RequestParam("file") MultipartFile file) {
       String message = "";
+      
       try {
         storageService.store(file);
 
@@ -115,5 +119,14 @@ public class PublicController {
       }).collect(Collectors.toList());
 
       return ResponseEntity.status(HttpStatus.OK).body(files);
+    }
+    
+    @GetMapping("/files/{id}")
+    public ResponseEntity<FileDB> getFile(@PathVariable String id) {
+      FileDB fileDB = storageService.getFile(id);
+
+      return ResponseEntity.ok()
+          .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileDB.getName() + "\"")
+          .body(fileDB);
     }
 }
