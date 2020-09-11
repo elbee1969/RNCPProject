@@ -29,7 +29,7 @@ export class UploadFileService {
     return this.http.get(`${this.baseUrl}/files`);
   }
 
-  selectedFile(id) {
+  getCurrentFile(id) {
     return this.http.get(`${this.baseUrl}/files/${id}`);
   }
 

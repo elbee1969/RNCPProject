@@ -13,7 +13,6 @@ export class AppComponent {
 
 
   showAdminBoard = false;
-  showSupervisorBoard = false;
   isLoggedIn: boolean;
   greeting = {};
   showUserBoard: boolean = false;
@@ -29,12 +28,9 @@ export class AppComponent {
     if (this.isLoggedIn) {
       this.username = this.tokenStorageService.getUser().user_name
       const user = this.tokenStorageService.getUser();
-      console.log("user : "+ JSON.stringify(user));
       this.roles = this.tokenStorageService.getUser().authorities;
-      console.log("role : " + this.roles);
       this.showUserBoard = this.roles.includes('ROLE_USER');
       this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-      this.showSupervisorBoard = this.roles.includes('ROLE_SUPERVISOR');
     }
   }
 

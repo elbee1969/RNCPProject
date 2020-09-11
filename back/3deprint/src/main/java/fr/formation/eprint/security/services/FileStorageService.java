@@ -27,8 +27,9 @@ public class FileStorageService {
     return fileDBRepository.save(FileDB);
   }
 
-  public FileDB getFile(String id) {
-    return fileDBRepository.findById(id).get();
+  public FileDB getFile(String name) {
+	  
+    return fileDBRepository.findByname(name).get();
   }
   
   public Stream<FileDB> getAllFiles() {

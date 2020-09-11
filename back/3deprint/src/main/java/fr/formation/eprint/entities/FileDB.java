@@ -49,7 +49,6 @@ public FileDB() {
 
 
 public FileDB( byte[] data,String name, String type) {
-	super();
 	this.name = name;
 	this.type = type;
 	this.data = data;

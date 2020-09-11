@@ -8,7 +8,7 @@ import fr.formation.eprint.entities.FileDB;
 
 
 public interface FileDBRepository extends JpaRepository<FileDB, String> {
-	Optional<FileDB> findById(String id);
+	Optional<FileDB> findByname(String name);
 
 //	FileDB findById(Long id);
 

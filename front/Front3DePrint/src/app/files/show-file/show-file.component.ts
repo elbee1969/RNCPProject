@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UploadFileService } from 'src/app/services/upload-file.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -8,27 +8,27 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./show-file.component.css']
 })
 export class ShowFileComponent implements OnInit {
-  currentFile = null;
-
-  constructor(private router: Router,private uploadService: UploadFileService, private route: ActivatedRoute) { }
+  id: any;
+  currentFile: any;
+  image: any;
+  constructor(private uploadService: UploadFileService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.getFile(this.route.snapshot.paramMap.get('id'));
-  }
-  getFile(id) {
-    this.uploadService.selectedFile(id)
-      .subscribe(
-        data => {
-          this.currentFile = data;
-          console.log(data);
-        },
+      this.id = this.route.snapshot.params['id']
+      this.uploadService.getCurrentFile(this.id).subscribe(response => {
+        this.image = response;
+        console.log('file infos : ' + response);
+      },
         error => {
           console.log(error);
-        });
-  }
+        }
+      )
 
+    console.log('file infos : ' + this.route.snapshot.params['id']);
+  }
+  
   deleteFile() {
-    this.uploadService.delete(this.currentFile.id)
+ /*   this.uploadService.delete(this.fileInfos)
       .subscribe(
         response => {
           console.log(response);
@@ -36,7 +36,7 @@ export class ShowFileComponent implements OnInit {
         },
         error => {
           console.log(error);
-        });
+        });*/
   }
 
 }

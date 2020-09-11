@@ -121,12 +121,12 @@ public class PublicController {
       return ResponseEntity.status(HttpStatus.OK).body(files);
     }
     
-    @GetMapping("/files/{id}")
-    public ResponseEntity<FileDB> getFile(@PathVariable String id) {
-      FileDB fileDB = storageService.getFile(id);
+    @GetMapping("/files/{name:.+}")
+    public ResponseEntity<byte[]> getFile(@PathVariable String name) {
+      FileDB fileDB = storageService.getFile(name);
 
       return ResponseEntity.ok()
           .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileDB.getName() + "\"")
-          .body(fileDB);
+          .body(fileDB.getData());
     }
 }
