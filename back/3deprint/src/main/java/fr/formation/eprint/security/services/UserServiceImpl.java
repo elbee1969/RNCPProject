@@ -11,6 +11,7 @@ import fr.formation.eprint.dtos.AlbumCreateDto;
 import fr.formation.eprint.dtos.UserCreateDto;
 import fr.formation.eprint.dtos.UserDto;
 import fr.formation.eprint.entities.Role;
+import fr.formation.eprint.entities.Album;
 import fr.formation.eprint.entities.CustomUser;
 import fr.formation.eprint.repositories.AlbumJpaRepository;
 import fr.formation.eprint.repositories.NewUserJpaRepository;
@@ -49,9 +50,11 @@ public class UserServiceImpl implements UserService {
   	String encodedPassword = passwordEncoder.encode(dto.getPassword());
   	Set<Role> role = new HashSet<>();
   	role.add(roleJpaRepository.findByDefaultRole(true));
+  	
+  	Album album = new Album();
 	
 	CustomUser user = new CustomUser(dto.getUsername(),dto.getEmail(),encodedPassword,dto.getLastname(), dto.getFirstname(), role,
-  	        true, true, true, true,(AlbumCreateDto) dto.getAlbum());
+  	        true, true, true, true, album);
   	CustomUser newUser = userJpaRepository.save(user);
   	return mapper.map(newUser, UserDto.class);
   }

@@ -1,13 +1,9 @@
 package fr.formation.eprint.entities;
 
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-
-import fr.formation.eprint.dtos.AlbumCreateDto;
-import fr.formation.eprint.dtos.UserCreateDto;
 
 @Entity
 @Table(	name = "customUser", 
@@ -60,14 +56,17 @@ public class CustomUser extends AbstractEntity {
     @Column(name = "credentialsNonExpired", length = 1, nullable = false)
     private boolean credentialsNonExpired;
     
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "customUser")
-    private List<Album> albums;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "album_id", nullable = false, 
+       referencedColumnName = "id",
+            foreignKey = @ForeignKey(name = "FK_custom_user_id"))
+    private Album album;
     
 
 
 	public CustomUser(String username, @Email String email, String password, String firstname, String lastname,
 			Set<Role> roles, boolean enabled, boolean accountNonExpired, boolean accountNonLocked,
-			boolean credentialsNonExpired, AlbumCreateDto albumCreateDto) {
+			boolean credentialsNonExpired, Album album) {
 		super();
 		this.username = username;
 		this.email = email;
@@ -79,7 +78,7 @@ public class CustomUser extends AbstractEntity {
 		this.accountNonExpired = accountNonExpired;
 		this.accountNonLocked = accountNonLocked;
 		this.credentialsNonExpired = credentialsNonExpired;
-		this.albums = (List<Album>) albumCreateDto;
+		this.album = album;
 	}
 	
 	
@@ -113,14 +112,6 @@ public class CustomUser extends AbstractEntity {
     }
 
 
-	public List<Album> getAlbums() {
-		return albums;
-	}
-
-	public void setAlbums(List<Album> albums) {
-		this.albums = albums;
-	}
-
 	public CustomUser() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -130,6 +121,9 @@ public class CustomUser extends AbstractEntity {
 		super(id);
 		// TODO Auto-generated constructor stub
 	}
+
+
+
 
 
 	public String getUsername() {
@@ -210,6 +204,14 @@ public class CustomUser extends AbstractEntity {
 
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
+	}
+
+	public Album getAlbum() {
+		return album;
+	}
+
+	public void setAlbum(Album album) {
+		this.album = album;
 	}
 
 
