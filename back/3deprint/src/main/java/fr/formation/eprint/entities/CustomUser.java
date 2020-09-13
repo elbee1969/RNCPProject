@@ -10,7 +10,7 @@ import fr.formation.eprint.dtos.AlbumCreateDto;
 import fr.formation.eprint.dtos.UserCreateDto;
 
 @Entity
-@Table(	name = "customuser", 
+@Table(	name = "customUser", 
 		uniqueConstraints = { 
 			@UniqueConstraint(columnNames = "username"),
 			@UniqueConstraint(columnNames = "email") 
@@ -60,9 +60,7 @@ public class CustomUser extends AbstractEntity {
     @Column(name = "credentialsNonExpired", length = 1, nullable = false)
     private boolean credentialsNonExpired;
     
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "id_customuser", nullable = false)
-    @Column(name = "albums")
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "customUser")
     private List<Album> albums;
     
 

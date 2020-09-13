@@ -38,10 +38,9 @@ public class FileDB {
   @Column(name= "data")
   private byte[] data;
   
-//  @ManyToOne
-//  @JoinColumn(name="album_id", foreignKey = @ForeignKey(name="fileDB_album_id_FK"), nullable = false)
-//  private Album album;
-
+  @ManyToOne
+  @JoinColumn(name = "album_id") 
+   private Album album;
 public FileDB() {
 	// TODO Auto-generated constructor stub
 }

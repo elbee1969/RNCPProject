@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -19,11 +20,11 @@ import fr.formation.eprint.dtos.AlbumCreateViewDto;
 @Table(name = "album")
 public class Album extends AbstractEntity {
 	
+	  @ManyToOne
+	  @JoinColumn(name = "customUser_id") 
+	   private CustomUser customUser;
 	
-	
-	@OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "id_album", nullable = false)
-    @Column(name = "FileDBs")
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "album")
     private List<FileDB> FileDBs;
 	
 
@@ -46,6 +47,16 @@ public class Album extends AbstractEntity {
 
 	public void setFileDBs(List<FileDB> fileDBs) {
 		FileDBs = fileDBs;
+	}
+
+
+	public CustomUser getCustomUser() {
+		return customUser;
+	}
+
+
+	public void setCustomUser(CustomUser customUser) {
+		this.customUser = customUser;
 	}
 
 
