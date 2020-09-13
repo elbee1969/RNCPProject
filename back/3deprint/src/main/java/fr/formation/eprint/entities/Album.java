@@ -39,4 +39,14 @@ public class Album extends AbstractEntity {
 	}
 
 
+	public List<FileDB> getFileDBs() {
+		return FileDBs;
+	}
+
+
+	public void setFileDBs(List<FileDB> fileDBs) {
+		FileDBs = fileDBs;
+	}
+
+
 }
