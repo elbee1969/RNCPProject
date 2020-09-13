@@ -53,6 +53,7 @@ export class UserService {
 
 
   register(user): Observable<any> {
+    console.log()
     return this.http.post('localhost:9090/api/public/register', {
       username: user.username,
       firstname: user.firstname,

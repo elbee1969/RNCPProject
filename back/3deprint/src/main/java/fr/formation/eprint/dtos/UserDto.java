@@ -5,6 +5,13 @@ public class UserDto {
 	private String firstname;
 	private String lastname;
 	private String password;
+	
+	public UserDto() {
+
+	}
+
+
+	
 
 	public String getFirstname() {
 		return firstname;
@@ -43,10 +50,5 @@ public class UserDto {
 		this.password = password;
 	}
 
-	public UserDto() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-
+	
 }

@@ -1,14 +1,15 @@
 package fr.formation.eprint.dtos;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.stereotype.Repository;
 
+import fr.formation.eprint.entities.Album;
 import fr.formation.eprint.entities.Role;
 
 public interface UserCreateViewDto {
 	
-  	Long getId();
 
 	String getUsername();
     
@@ -30,4 +31,5 @@ public interface UserCreateViewDto {
 
     boolean isCredentialsNonExpired();
     
+	public void setAlbums(List<Album> albums); 
 }

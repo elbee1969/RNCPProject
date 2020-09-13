@@ -72,7 +72,7 @@ public class PublicController {
     
     
     @PostMapping("/register")
-    public UserCreateViewDto create(@Valid @RequestBody UserCreateDto dto) {
+    public UserDto create(@Valid @RequestBody UserCreateDto dto) {
 	return userService.create(dto);
     }
     

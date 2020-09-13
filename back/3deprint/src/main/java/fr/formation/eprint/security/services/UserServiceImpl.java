@@ -8,17 +8,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import fr.formation.eprint.dtos.AlbumCreateDto;
-import fr.formation.eprint.dtos.AlbumCreateViewDto;
 import fr.formation.eprint.dtos.UserCreateDto;
-import fr.formation.eprint.dtos.UserCreateViewDto;
 import fr.formation.eprint.dtos.UserDto;
-import fr.formation.eprint.entities.Album;
 import fr.formation.eprint.entities.Role;
 import fr.formation.eprint.entities.CustomUser;
 import fr.formation.eprint.repositories.AlbumJpaRepository;
 import fr.formation.eprint.repositories.NewUserJpaRepository;
 import fr.formation.eprint.repositories.RoleJpaRepository;
-import fr.formation.eprint.repositories.UserJpaRepository;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -38,6 +34,7 @@ public class UserServiceImpl implements UserService {
     	this.passwordEncoder = passwordEncoder;
     	this.userJpaRepository = userRepository;
     	this.roleJpaRepository = roleJpaRepository;
+
    	}
 
 	@Override
@@ -48,15 +45,15 @@ public class UserServiceImpl implements UserService {
 
 
   @Override
-  public UserCreateViewDto create(UserCreateDto dto) {
+  public UserDto create(UserCreateDto dto) {
   	String encodedPassword = passwordEncoder.encode(dto.getPassword());
   	Set<Role> role = new HashSet<>();
   	role.add(roleJpaRepository.findByDefaultRole(true));
 	
 	CustomUser user = new CustomUser(dto.getUsername(),dto.getEmail(),encodedPassword,dto.getLastname(), dto.getFirstname(), role,
-  	        true, true, true, true,dto.getAlbum());
+  	        true, true, true, true,(AlbumCreateDto) dto.getAlbum());
   	CustomUser newUser = userJpaRepository.save(user);
-  	return mapper.map(newUser, UserCreateViewDto.class);
+  	return mapper.map(newUser, UserDto.class);
   }
 //  @Override
 //  public AlbumCreateViewDto create(AlbumCreateDto dto) {

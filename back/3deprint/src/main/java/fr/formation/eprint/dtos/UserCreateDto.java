@@ -16,7 +16,7 @@ public class UserCreateDto {
 	
 	
 //	private final String message = "Must contains at least 6 characters, 1 uppercase, 1 lowercase, 1 digit and 1 special char";
-//    private final String pattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*~{}&.,§+=°_();/]).{8,30}$";
+//    private final String pattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*~{}&.,§+=°_();/]).{6,40}$";
 //    @Pattern(regexp = pattern, message = message)
     
     @NotBlank
@@ -42,31 +42,30 @@ public class UserCreateDto {
     private String lastname;
     
 
-    private AlbumCreateDto album;
+    private List<AlbumCreateDto> album;
     
-	
-	
+    
+    public UserCreateDto() {
+    	
+    }
+    
+//	public UserCreateDto(String username, String email, String password, String firstname, String lastname,	List<AlbumCreateDto> album) {
+//		super();
+//		this.username = username;
+//		this.email = email;
+//		this.password = password;
+//		this.firstname = firstname;
+//		this.lastname = lastname;
+//		this.album = album;
+//	}
 
-	public UserCreateDto(String username, String email, String password, String firstname, String lastname,	AlbumCreateDto album) {
-		super();
-		this.username = username;
-		this.email = email;
-		this.password = password;
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.album = album;
-	}
-
-
-	public AlbumCreateDto getAlbum() {
+	public List<AlbumCreateDto> getAlbum() {
 		return album;
 	}
 
-
-	public void setAlbum(AlbumCreateDto album) {
+	public void setAlbum(List<AlbumCreateDto> album) {
 		this.album = album;
 	}
-
 
 	public String getUsername() {
 		return username;
@@ -115,5 +114,7 @@ public class UserCreateDto {
 	public String getPattern() {
 		return getPattern();
 	}
+
+
 
 }
