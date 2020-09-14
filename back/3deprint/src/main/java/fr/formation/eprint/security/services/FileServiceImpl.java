@@ -45,7 +45,7 @@ public class FileServiceImpl implements FileService {
 		fileDB.setName(dto.getName());
 		fileDB.setData(dto.getData());
 		fileDB.setType(dto.getType());
-		Album album = albumRepository.getOne(dto.getUserId());
+		//Album album = albumRepository.getOne(dto.getUserId());
 //		fileDB.setAlbum(album);
 		fileDBRepositoty.save(fileDB);
 		
@@ -58,13 +58,18 @@ public class FileServiceImpl implements FileService {
 	}
 
 		
-
-	@Override
-	public void store(MultipartFile file) {
+@Override
+	public List<FileDBViewDto> findAll() {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
+
+	@Override
+	public FileDB store(MultipartFile file) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	public List<FileDBViewDto> getAll() {
@@ -73,13 +78,13 @@ public class FileServiceImpl implements FileService {
 	}
 
 	@Override
-	public List<FileDBViewDto> findAll() {
+	public Object getAllFiles() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public FileDB getOne(Long id) {
+	public FileDB getOne(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

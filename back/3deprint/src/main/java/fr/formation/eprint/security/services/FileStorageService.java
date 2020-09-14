@@ -16,24 +16,23 @@ import fr.formation.eprint.repositories.FileDBRepository;
 
 @Service
 public class FileStorageService {
+	@Autowired
+	  private FileDBRepository fileDBRepository;
 
-  @Autowired
-  private FileDBRepository fileDBRepository;
-  public FileDB store(MultipartFile file) throws IOException {
-    String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-    		
-	FileDB FileDB = new FileDB(file.getBytes(),fileName, file.getContentType()) ;
+	
+	public FileDB store(MultipartFile file) throws IOException {
+	    String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
-    return fileDBRepository.save(FileDB);
-  }
+	    FileDB FileDB = new FileDB(file.getBytes(), file.getContentType(), fileName ) ;
 
-  public FileDB getFile(String name) {
+	    return fileDBRepository.save(FileDB);
+	  }
+
+	  public FileDB getFile(String id) {
+	    return fileDBRepository.findById(id).get();
+	  }
 	  
-    return fileDBRepository.findByname(name).get();
-  }
-  
-  public Stream<FileDB> getAllFiles() {
-    return fileDBRepository.findAll().stream();
-  }
-}
-
+	  public Stream<FileDB> getAllFiles() {
+	    return fileDBRepository.findAll().stream();
+	  }
+	}

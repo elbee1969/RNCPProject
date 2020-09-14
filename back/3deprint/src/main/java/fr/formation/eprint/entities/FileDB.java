@@ -30,12 +30,7 @@ public class FileDB {
   @Column(name= "data")
   private byte[] data;
   
-//  
-//  @ManyToOne(cascade = CascadeType.ALL)
-//  @JoinColumn(name = "albumId", insertable = false, updatable = false)
-//  //@Transient
-//  private Album album;
-  
+
 
 public FileDB() {
 
@@ -48,20 +43,6 @@ public FileDB( byte[] data,String name, String type) {
 	this.type = type;
 	this.data = data;
 }
-
-//
-//
-//
-//public Album getAlbum() {
-//	return album;
-//}
-//
-//
-//
-//public void setAlbum(Album album) {
-//	this.album = album;
-//}
-//
 
 
 public String getId() {

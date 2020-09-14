@@ -76,20 +76,13 @@ public class PublicController {
 	return userService.create(dto);
     }
     
-//    @PostMapping("/album")
-//    public AlbumCreateViewDto create(@Valid @RequestBody AlbumCreateDto dto) {
-//	return userService.create(dto);
-//    }
-    
-    
     @Autowired
     private FileStorageService storageService;
-    
-    
+
     @PostMapping("/upload")
+    
     public ResponseEntity<MessageResponse> uploadFile(@RequestParam("file") MultipartFile file) {
       String message = "";
-      
       try {
         storageService.store(file);
 
@@ -100,8 +93,7 @@ public class PublicController {
         return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new MessageResponse(message));
       }
     }
-    
-    
+
     @GetMapping("/files")
     public ResponseEntity<List<FileResponse>> getListFiles() {
       List<FileResponse> files = storageService.getAllFiles().map(dbFile -> {
@@ -120,13 +112,13 @@ public class PublicController {
 
       return ResponseEntity.status(HttpStatus.OK).body(files);
     }
-    
-    @GetMapping("/files/{name:.+}")
-    public ResponseEntity<byte[]> getFile(@PathVariable String name) {
-      FileDB fileDB = storageService.getFile(name);
+
+    @GetMapping("/files/{id}")
+    public ResponseEntity<FileDB> getFile(@PathVariable String id) {
+      FileDB fileDB = storageService.getFile(id);
 
       return ResponseEntity.ok()
           .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileDB.getName() + "\"")
-          .body(fileDB.getData());
+          .body(fileDB);
     }
 }

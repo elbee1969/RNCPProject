@@ -49,16 +49,6 @@ public class UserCreateDto {
     	
     }
     
-//	public UserCreateDto(String username, String email, String password, String firstname, String lastname,	List<AlbumCreateDto> album) {
-//		super();
-//		this.username = username;
-//		this.email = email;
-//		this.password = password;
-//		this.firstname = firstname;
-//		this.lastname = lastname;
-//		this.album = album;
-//	}
-
 	public List<AlbumCreateDto> getAlbum() {
 		return album;
 	}

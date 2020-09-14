@@ -14,15 +14,17 @@ public interface FileService {
 
     void delete(Long id);
 
-    FileDB getOne(Long id);
+    FileDB getOne(String id);
 
     List<FileDBViewDto> findAll();
 
-	void store(MultipartFile file);
+	FileDB store(MultipartFile file);
 
 
 
 	List<FileDBViewDto> getAll();
+
+	Object getAllFiles();
 	
 
 }

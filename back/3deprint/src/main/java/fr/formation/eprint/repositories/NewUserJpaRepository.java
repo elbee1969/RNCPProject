@@ -12,8 +12,4 @@ import fr.formation.eprint.entities.CustomUser;
 public interface NewUserJpaRepository extends JpaRepository<CustomUser, Long>{
 	
 	   Optional<UserCreateViewDto> getById(Long id); 
-	    
-	   //Optional<UserAuthViewDto> getById(Long id); 
-	   
-	   // boolean existsByUsername(String username);
 }
