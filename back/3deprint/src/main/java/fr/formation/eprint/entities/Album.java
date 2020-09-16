@@ -23,10 +23,10 @@ public class Album extends AbstractEntity {
 	
 
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "fileDB_id", nullable = true, 
+	@JoinColumn(name = "image_id", nullable = true, 
 	       referencedColumnName = "id",
 	            foreignKey = @ForeignKey(name = "FK_album_id"))
-    private List<FileDB> FileDBs;
+    private List<ImageModel> images;
 	
 
 	public Album() {
@@ -39,13 +39,15 @@ public class Album extends AbstractEntity {
 		// TODO Auto-generated constructor stub
 	}
 
-	public List<FileDB> getFileDBs() {
-		return FileDBs;
+	public List<ImageModel> getImages() {
+		return images;
 	}
 
-	public void setFileDBs(List<FileDB> fileDBs) {
-		FileDBs = fileDBs;
+	public void setImages(List<ImageModel> images) {
+		this.images = images;
 	}
+
+
 	
 
 

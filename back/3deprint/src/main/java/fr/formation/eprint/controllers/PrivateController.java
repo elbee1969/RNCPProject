@@ -1,5 +1,6 @@
 package fr.formation.eprint.controllers;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,11 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import fr.formation.eprint.apiFlow.response.FileResponse;
-import fr.formation.eprint.apiFlow.response.MessageResponse;
 import fr.formation.eprint.config.SecurityHelper;
-import fr.formation.eprint.entities.FileDB;
-import fr.formation.eprint.security.services.FileStorageService;
+import fr.formation.eprint.entities.ImageModel;
+import fr.formation.eprint.repositories.ImageRepository;
+import fr.formation.eprint.response.ImageResponse;
+import fr.formation.eprint.response.MessageResponse;
+import fr.formation.eprint.services.ImageStorageService;
 
 
 
@@ -86,32 +88,40 @@ public class PrivateController {
     }
    /* part of the controller dedicated to the fields managment */
     @Autowired
-    private FileStorageService storageService;
+    private ImageStorageService storageService;
+    @Autowired
+    ImageRepository imageRepository;
 
     @PostMapping("/upload")
+//    public ImageModel uplaodImage(@RequestParam("file") MultipartFile file) throws IOException {
+//        ImageModel img = new ImageModel( file.getBytes(),file.getContentType(),file.getOriginalFilename());
+//        final ImageModel savedImage = imageRepository.save(img);
+//        System.out.println("Image saved");
+//        return savedImage;
+//    }
     public ResponseEntity<MessageResponse> uploadFile(@RequestParam("file") MultipartFile file) {
-      String message = "";
-      try {
-        storageService.store(file);
+        String message = "";
+        try {
+          storageService.store(file);
 
-        message = "Uploaded the file successfully: " + file.getOriginalFilename();
-        return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(message));
-      } catch (Exception e) {
-        message = "Could not upload the file: " + file.getOriginalFilename() + "!";
-        return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new MessageResponse(message));
+          message = "Uploaded the file successfully: " + file.getOriginalFilename();
+          return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(message));
+        } catch (Exception e) {
+          message = "Could not upload the file: " + file.getOriginalFilename() + "!";
+          return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new MessageResponse(message));
+        }
       }
-    }
-
+    
     @GetMapping("/files")
-    public ResponseEntity<List<FileResponse>> getListFiles() {
-      List<FileResponse> files = storageService.getAllFiles().map(dbFile -> {
+    public ResponseEntity<List<ImageResponse>> getListFiles() {
+      List<ImageResponse> files = storageService.getAllFiles().map(dbFile -> {
         String fileDownloadUri = ServletUriComponentsBuilder
             .fromCurrentContextPath()
             .path("/files/")
             .path(dbFile.getId())
             .toUriString();
 
-        return new FileResponse(
+        return new ImageResponse(
             dbFile.getName(),
             fileDownloadUri,
             dbFile.getType(),
@@ -122,8 +132,8 @@ public class PrivateController {
     }
 
     @GetMapping("/files/{id}")
-    public ResponseEntity<FileDB> getFile(@PathVariable String id) {
-      FileDB fileDB = storageService.getFile(id);
+    public ResponseEntity<ImageModel> getFile(@PathVariable String id) {
+      ImageModel fileDB = storageService.getFile(id);
 
       return ResponseEntity.ok()
           .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileDB.getName() + "\"")

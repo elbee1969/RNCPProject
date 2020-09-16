@@ -1,4 +1,4 @@
-package fr.formation.eprint.security.services;
+package fr.formation.eprint.services;
 
 import javax.validation.Valid;
 

@@ -1,4 +1,4 @@
-package fr.formation.eprint.apiFlow.response;
+package fr.formation.eprint.response;
 
 
 public class MessageResponse {

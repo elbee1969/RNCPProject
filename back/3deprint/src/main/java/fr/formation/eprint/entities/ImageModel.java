@@ -11,8 +11,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name = "fileDB")
-public class FileDB {
+@Table(name = "image")
+public class ImageModel {
   @Id
   @GeneratedValue(generator = "uuid")
   @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
@@ -32,13 +32,13 @@ public class FileDB {
   
 
 
-public FileDB() {
+public ImageModel() {
 
 }
 
 
 
-public FileDB( byte[] data,String name, String type) {
+public ImageModel( byte[] data,String name, String type) {
 	this.name = name;
 	this.type = type;
 	this.data = data;

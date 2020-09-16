@@ -6,12 +6,12 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
 import fr.formation.eprint.entities.CustomUser;
-import fr.formation.eprint.entities.FileDB;
+import fr.formation.eprint.entities.ImageModel;
 
 public class AlbumCreateDto {
 	
 	
-    private List<FileDB> fileDBs;
+    private List<ImageModel> fileDBs;
 	
 
 	public AlbumCreateDto() {
@@ -20,12 +20,12 @@ public class AlbumCreateDto {
 	}
 
 
-	public List<FileDB> getFileDBs() {
+	public List<ImageModel> getFileDBs() {
 		return fileDBs;
 	}
 
 
-	public void setFileDBs(List<FileDB> fileDBs) {
+	public void setFileDBs(List<ImageModel> fileDBs) {
 		this.fileDBs = fileDBs;
 	}
 

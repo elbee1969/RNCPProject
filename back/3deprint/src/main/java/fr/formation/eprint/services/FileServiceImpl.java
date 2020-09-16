@@ -1,4 +1,4 @@
-package fr.formation.eprint.security.services;
+package fr.formation.eprint.services;
 
 import java.util.List;
 
@@ -7,17 +7,17 @@ import org.springframework.web.multipart.MultipartFile;
 import fr.formation.eprint.dtos.FileDBDto;
 import fr.formation.eprint.dtos.FileDBViewDto;
 import fr.formation.eprint.entities.Album;
-import fr.formation.eprint.entities.FileDB;
+import fr.formation.eprint.entities.ImageModel;
 import fr.formation.eprint.repositories.AlbumJpaRepository;
-import fr.formation.eprint.repositories.FileDBRepository;
+import fr.formation.eprint.repositories.ImageRepository;
 
 public class FileServiceImpl implements FileService {
 	
-	private FileDBRepository fileDBRepositoty;
+	private ImageRepository fileDBRepositoty;
 	private AlbumJpaRepository albumRepository;
 	
 	
-	protected FileServiceImpl (FileDBRepository fileDBRepositoty,AlbumJpaRepository albumRepository) {
+	protected FileServiceImpl (ImageRepository fileDBRepositoty,AlbumJpaRepository albumRepository) {
 		this.fileDBRepositoty = fileDBRepositoty;
 		this.albumRepository = albumRepository;
 	}
@@ -25,7 +25,7 @@ public class FileServiceImpl implements FileService {
 	@Override
 	public void create(FileDBDto dto) {
 		// TODO Auto-generated method stub
-		FileDB fileDB = new FileDB();
+		ImageModel fileDB = new ImageModel();
 		populateAndSave(dto, fileDB);
 				
 //		public FileDB store(MultipartFile file) throws IOException {
@@ -40,7 +40,7 @@ public class FileServiceImpl implements FileService {
 		
 	}
 
-	private void populateAndSave(FileDBDto dto, FileDB fileDB) {
+	private void populateAndSave(FileDBDto dto, ImageModel fileDB) {
 		// TODO Auto-generated method stub
 		fileDB.setName(dto.getName());
 		fileDB.setData(dto.getData());
@@ -66,7 +66,7 @@ public class FileServiceImpl implements FileService {
 
 
 	@Override
-	public FileDB store(MultipartFile file) {
+	public ImageModel store(MultipartFile file) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -84,7 +84,7 @@ public class FileServiceImpl implements FileService {
 	}
 
 	@Override
-	public FileDB getOne(String id) {
+	public ImageModel getOne(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

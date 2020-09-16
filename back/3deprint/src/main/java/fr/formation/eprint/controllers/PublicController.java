@@ -20,8 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import fr.formation.eprint.apiFlow.response.FileResponse;
-import fr.formation.eprint.apiFlow.response.MessageResponse;
 import fr.formation.eprint.config.SecurityHelper;
 import fr.formation.eprint.dtos.AlbumCreateDto;
 import fr.formation.eprint.dtos.AlbumCreateViewDto;
@@ -29,9 +27,11 @@ import fr.formation.eprint.dtos.CustomUserAuthDto;
 import fr.formation.eprint.dtos.UserCreateDto;
 import fr.formation.eprint.dtos.UserCreateViewDto;
 import fr.formation.eprint.dtos.UserDto;
-import fr.formation.eprint.entities.FileDB;
-import fr.formation.eprint.security.services.FileStorageService;
-import fr.formation.eprint.security.services.CustomUserCreateService;
+import fr.formation.eprint.entities.ImageModel;
+import fr.formation.eprint.response.ImageResponse;
+import fr.formation.eprint.response.MessageResponse;
+import fr.formation.eprint.services.CustomUserCreateService;
+import fr.formation.eprint.services.ImageStorageService;
 
 
 
@@ -78,7 +78,7 @@ public class PublicController {
     }
 
     @Autowired
-    private FileStorageService storageService;
+    private ImageStorageService storageService;
 
     @PostMapping("/upload")
     
@@ -96,15 +96,15 @@ public class PublicController {
     }
 
     @GetMapping("/files")
-    public ResponseEntity<List<FileResponse>> getListFiles() {
-      List<FileResponse> files = storageService.getAllFiles().map(dbFile -> {
+    public ResponseEntity<List<ImageResponse>> getListFiles() {
+      List<ImageResponse> files = storageService.getAllFiles().map(dbFile -> {
         String fileDownloadUri = ServletUriComponentsBuilder
             .fromCurrentContextPath()
             .path("/files/")
             .path(dbFile.getId())
             .toUriString();
 
-        return new FileResponse(
+        return new ImageResponse(
             dbFile.getName(),
             fileDownloadUri,
             dbFile.getType(),
@@ -115,8 +115,8 @@ public class PublicController {
     }
 
     @GetMapping("/files/{id}")
-    public ResponseEntity<FileDB> getFile(@PathVariable String id) {
-      FileDB fileDB = storageService.getFile(id);
+    public ResponseEntity<ImageModel> getFile(@PathVariable String id) {
+      ImageModel fileDB = storageService.getFile(id);
 
       return ResponseEntity.ok()
           .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileDB.getName() + "\"")

@@ -10,11 +10,12 @@
     {{ progress }}%
   </div>
 </div>
-
+<div>
 <label class="btn btn-default">
   <input type="file" (change)="selectFile($event)" />
-</label>
-
+  </label>
+  <img id="image" [src]="imgURL" height="200" *ngIf="imgURL">
+</div>
 <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">
   Upload
 </button>

@@ -1,12 +1,12 @@
-package fr.formation.eprint.apiFlow.response;
+package fr.formation.eprint.response;
 
-public class FileResponse {
+public class ImageResponse {
 	private String name;
 	  private String url;
 	  private String type;
 	  private long size;
 
-	  public FileResponse(String name, String url, String type, long size) {
+	  public ImageResponse(String name, String url, String type, long size) {
 	    this.name = name;
 	    this.url = url;
 	    this.type = type;
