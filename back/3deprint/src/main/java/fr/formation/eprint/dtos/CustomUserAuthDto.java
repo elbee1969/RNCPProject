@@ -5,22 +5,25 @@ import java.util.Set;
 import fr.formation.eprint.entities.Album;
 import fr.formation.eprint.entities.Role;
 
-public interface UserAuthViewDto {
+/**
+ * A projection of a {@code CustomUser} for authentication.
+ */
+public interface CustomUserAuthDto {
 	
-	  	Long getId();
+		Long getId();
 
 	    String getUsername();
 	    
-	    String getFirstname();
-
-	    String getLastname();
-
-	    String getPassword();
+	    String getFirstName();
+	    
+	    String getLastName();
 	    
 	    String getEmail();
 
+	    String getPassword();
+
 	    Set<Role> getRoles();
-	    
+
 	    boolean isEnabled();
 
 	    boolean isAccountNonExpired();
@@ -30,5 +33,6 @@ public interface UserAuthViewDto {
 	    boolean isCredentialsNonExpired();
 	    
 	    Album getAlbum();
-	}
-
+	    
+	    
+}

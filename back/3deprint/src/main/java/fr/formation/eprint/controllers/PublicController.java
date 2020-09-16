@@ -25,12 +25,13 @@ import fr.formation.eprint.apiFlow.response.MessageResponse;
 import fr.formation.eprint.config.SecurityHelper;
 import fr.formation.eprint.dtos.AlbumCreateDto;
 import fr.formation.eprint.dtos.AlbumCreateViewDto;
+import fr.formation.eprint.dtos.CustomUserAuthDto;
 import fr.formation.eprint.dtos.UserCreateDto;
 import fr.formation.eprint.dtos.UserCreateViewDto;
 import fr.formation.eprint.dtos.UserDto;
 import fr.formation.eprint.entities.FileDB;
 import fr.formation.eprint.security.services.FileStorageService;
-import fr.formation.eprint.security.services.UserService;
+import fr.formation.eprint.security.services.CustomUserCreateService;
 
 
 
@@ -68,14 +69,14 @@ public class PublicController {
      *   
      *   */
     @Autowired
-    private UserService userService;
+    private CustomUserCreateService userService;
     
     
     @PostMapping("/register")
     public UserDto create(@Valid @RequestBody UserCreateDto dto) {
 	return userService.create(dto);
     }
-    
+
     @Autowired
     private FileStorageService storageService;
 

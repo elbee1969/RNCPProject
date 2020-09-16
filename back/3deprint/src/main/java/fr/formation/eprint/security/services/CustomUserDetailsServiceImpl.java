@@ -4,24 +4,26 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import fr.formation.eprint.config.ApplicationUserDetails;
+import fr.formation.eprint.config.CustomUserDetails;
+import fr.formation.eprint.dtos.CustomUserAuthDto;
 import fr.formation.eprint.dtos.UserAuthViewDto;
 import fr.formation.eprint.dtos.UserCreateDto;
+import fr.formation.eprint.dtos.UserCreateViewDto;
 import fr.formation.eprint.dtos.UserDto;
-import fr.formation.eprint.dtos.UserInfoDto;
+import fr.formation.eprint.dtos.CustomUserInfoDto;
 import fr.formation.eprint.exception.ResourceNotFoundException;
-import fr.formation.eprint.repositories.UserJpaRepository;
+import fr.formation.eprint.repositories.CustomUserJpaRepository;
 
 
 
 @Service
-public class ApplicationUserDetailsServiceImpl implements ApplicationUserDetailsService {
+public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
 //    @Autowired
-    private final UserJpaRepository userJpaRepository;
+    private final CustomUserJpaRepository userRepo;
 
-    protected ApplicationUserDetailsServiceImpl(UserJpaRepository userJpaRepository) {
+    protected CustomUserDetailsServiceImpl(CustomUserJpaRepository userRepo) {
     	
-    	this.userJpaRepository = userJpaRepository;
+    	this.userRepo = userRepo;
     }
 
 
@@ -29,18 +31,17 @@ public class ApplicationUserDetailsServiceImpl implements ApplicationUserDetails
     @Override
     public UserDetails loadUserByUsername(String username)
 	    throws UsernameNotFoundException {
-	UserAuthViewDto user = userJpaRepository.findByUsername(username)
+    	CustomUserAuthDto user = userRepo.findByUsername(username)
 		.orElseThrow(() -> new UsernameNotFoundException(
 			"no user found with username: " + username));
-	return new ApplicationUserDetails(user);
+	return new CustomUserDetails(user);
     }
 
     // Throws ResourceNotFoundException (restful practice)
     @Override
-    public UserInfoDto getCurrentUserInfo(Long id) {
-	return (UserInfoDto) userJpaRepository.findById(id).orElseThrow(
+    public CustomUserInfoDto getCurrentUserInfo(Long id) {
+	return userRepo.getById(id).orElseThrow(
 		() -> new ResourceNotFoundException("with id:" + id));
     }
-
 	
-    }
+  }

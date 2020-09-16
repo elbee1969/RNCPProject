@@ -28,8 +28,10 @@ import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFacto
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.formation.eprint.dtos.UserInfoDto;
-import fr.formation.eprint.security.services.ApplicationUserDetailsService;
+import fr.formation.eprint.dtos.UserCreateDto;
+import fr.formation.eprint.dtos.UserCreateViewDto;
+import fr.formation.eprint.dtos.CustomUserInfoDto;
+import fr.formation.eprint.security.services.CustomUserDetailsService;
 
 
 
@@ -69,8 +71,8 @@ public class AuthorizationServerConfig
 
     // user details service to authenticate users with username and
     // password from the database
-
-    private final ApplicationUserDetailsService userDetailsService;
+   // @Autowired
+    private final CustomUserDetailsService userDetailsService;
 
     // Custom token converter to store custom info within access token
     private final CustomAccessTokenConverter customAccessTokenConverter;
@@ -79,7 +81,7 @@ public class AuthorizationServerConfig
 
     protected AuthorizationServerConfig(
 	    AuthenticationManager authenticationManagerBean,
-	    ApplicationUserDetailsService userDetailsService,
+	    CustomUserDetailsService userDetailsService,
 	    CustomAccessTokenConverter customAccessTokenConverter) {
     		authenticationManager = authenticationManagerBean;
     		this.userDetailsService = userDetailsService;
@@ -190,7 +192,7 @@ public class AuthorizationServerConfig
      * @return a view of the current authenticated user
      */
     @GetMapping("/userInfo")
-    public UserInfoDto userInfo() {
+    public CustomUserInfoDto userInfo() {
 	Long userId = SecurityHelper.getUserId();
 	return userDetailsService.getCurrentUserInfo(userId);
     }

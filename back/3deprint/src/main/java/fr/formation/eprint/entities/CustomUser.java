@@ -84,6 +84,23 @@ public class CustomUser extends AbstractEntity {
 	
 	
 	
+	public CustomUser(String username, String password, String firstname, String lastname, Set<Role> roles,
+			boolean enabled, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.roles = roles;
+		this.enabled = enabled;
+		this.accountNonExpired = accountNonExpired;
+		this.accountNonLocked = accountNonLocked;
+		this.credentialsNonExpired = credentialsNonExpired;
+	}
+
+
+
+
 	/**
      * Creates a new enabled user.
      *
@@ -112,15 +129,10 @@ public class CustomUser extends AbstractEntity {
     }
 
 
-	public CustomUser() {
-		super();
-		// TODO Auto-generated constructor stub
+	protected CustomUser() {
+
 	}
 
-	public CustomUser(Long id) {
-		super(id);
-		// TODO Auto-generated constructor stub
-	}
 
 
 

@@ -4,13 +4,14 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import fr.formation.eprint.dtos.CustomUserAuthDto;
 import fr.formation.eprint.dtos.UserAuthViewDto;
 import fr.formation.eprint.dtos.UserDto;
-import fr.formation.eprint.dtos.UserInfoDto;
+import fr.formation.eprint.dtos.CustomUserInfoDto;
 import fr.formation.eprint.entities.CustomUser;
 
 
-public interface UserJpaRepository
+public interface CustomUserJpaRepository
 	extends JpaRepository<CustomUser, Long> {
 
     /**
@@ -19,7 +20,7 @@ public interface UserJpaRepository
      * @param username a username
      * @return a projected view
      */
-    Optional<UserAuthViewDto> findByUsername(String username);
+    Optional<CustomUserAuthDto> findByUsername(String username);
 
     /**
      * Retrieves a projected view of the current authenticated
@@ -28,7 +29,7 @@ public interface UserJpaRepository
      * @param id user id
      * @return a projected view
      */
-    Optional<UserInfoDto> getById(Long id);
+    Optional<CustomUserInfoDto> getById(Long id);
     
     
 //    Optional<UserAuthViewDto> getById(Long id); 

@@ -41,23 +41,14 @@ public class UserCreateDto {
     @Size(min = 2, max = 40)
     private String lastname;
     
-
-    private List<AlbumCreateDto> album;
-    
-    
+    @NotNull
+    Album album;
+      
     public UserCreateDto() {
     	
     }
-    
-	public List<AlbumCreateDto> getAlbum() {
-		return album;
-	}
-
-	public void setAlbum(List<AlbumCreateDto> album) {
-		this.album = album;
-	}
-
-	public String getUsername() {
+   
+ 	public String getUsername() {
 		return username;
 	}
 
@@ -95,6 +86,14 @@ public class UserCreateDto {
 
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
+	}
+
+	public Album getAlbum() {
+		return album;
+	}
+
+	public void setAlbum(Album album) {
+		this.album = album;
 	}
 
 	public String getMessage() {

@@ -42,7 +42,7 @@ export class UserService {
 
   getProfile() {
     console.log("in get profile");
-    return this.http.get<any>('localhost:9090/api/public/login', {
+    return this.http.get<any>('localhost:9090/api/private/login', {
       headers: new HttpHeaders({
         'Authorization': 'Bearer ' + this.tokenStorage.getToken()
 

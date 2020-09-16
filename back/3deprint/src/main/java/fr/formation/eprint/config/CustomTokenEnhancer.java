@@ -3,10 +3,13 @@ package fr.formation.eprint.config;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+
+import fr.formation.eprint.entities.CustomUser;
 
 public class CustomTokenEnhancer implements TokenEnhancer {
 
@@ -19,7 +22,7 @@ public class CustomTokenEnhancer implements TokenEnhancer {
 	Map<String, Object> additionalInfo = new HashMap<>();
 	// Authentication principal not yet flattened to username
 	// Will be available in access token and Authentication object
-	ApplicationUserDetails user = (ApplicationUserDetails) authentication
+	CustomUserDetails user = (CustomUserDetails) authentication
 		.getPrincipal();
 	
 	additionalInfo.put(USER_ID_KEY, user.getId());

@@ -1,9 +1,14 @@
 package fr.formation.eprint.dtos;
 
+import java.util.Set;
+
+import fr.formation.eprint.entities.Album;
+import fr.formation.eprint.entities.Role;
+
 /**
  * A projection of a {@code User} for user info.
  */
-public interface UserInfoDto {
+public interface CustomUserInfoDto {
 
     Long getId();
 
@@ -14,5 +19,9 @@ public interface UserInfoDto {
     String getFirstname();
 
     String getLastname();
+    
+    Set<Role> getRoles();
+    
+    AlbumCreateViewDto getAlbum();
     
 }
