@@ -24,7 +24,7 @@ public class CustomUser extends AbstractEntity {
 	@Column(name= "email",length = 100, nullable = false)
 	private String email;
 
-	@Column(name= "password")
+	@Column(name= "password",length = 255, nullable = false)
 	private String password;
 
 	@Column(name= "firstname",length = 40, nullable = false)
@@ -132,10 +132,6 @@ public class CustomUser extends AbstractEntity {
 	protected CustomUser() {
 
 	}
-
-
-
-
 
 
 	public String getUsername() {

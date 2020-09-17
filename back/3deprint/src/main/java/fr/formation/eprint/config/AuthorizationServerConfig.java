@@ -71,7 +71,7 @@ public class AuthorizationServerConfig
 
     // user details service to authenticate users with username and
     // password from the database
-   // @Autowired
+   
     private final CustomUserDetailsService userDetailsService;
 
     // Custom token converter to store custom info within access token

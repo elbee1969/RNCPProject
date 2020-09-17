@@ -12,17 +12,17 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "image")
-public class ImageModel {
+public class Image {
   @Id
   @GeneratedValue(generator = "uuid")
   @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
   @Column(name= "id")
   private String id;
   
-  @Column(name= "name")
+  @Column(name= "name", length = 255, nullable = false)
   private String name;
   
-  @Column(name= "type")
+  @Column(name= "type", length = 40, nullable = false)
   private String type;
 
   @Lob
@@ -32,13 +32,13 @@ public class ImageModel {
   
 
 
-public ImageModel() {
+public Image() {
 
 }
 
 
 
-public ImageModel( byte[] data,String name, String type) {
+public Image( byte[] data,String name, String type) {
 	this.name = name;
 	this.type = type;
 	this.data = data;

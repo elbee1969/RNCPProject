@@ -4,11 +4,11 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import fr.formation.eprint.entities.ImageModel;
+import fr.formation.eprint.entities.Image;
 
 
-public interface ImageRepository extends JpaRepository<ImageModel, String> {
-	Optional<ImageModel> findByname(String id);
+public interface ImageRepository extends JpaRepository<Image, String> {
+	Optional<Image> findByname(String id);
 
 //	FileDB findById(Long id);
 

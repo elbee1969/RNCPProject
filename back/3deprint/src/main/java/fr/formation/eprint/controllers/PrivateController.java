@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import fr.formation.eprint.config.SecurityHelper;
-import fr.formation.eprint.entities.ImageModel;
+import fr.formation.eprint.entities.Image;
 import fr.formation.eprint.repositories.ImageRepository;
 import fr.formation.eprint.response.ImageResponse;
 import fr.formation.eprint.response.MessageResponse;
@@ -132,8 +132,8 @@ public class PrivateController {
     }
 
     @GetMapping("/files/{id}")
-    public ResponseEntity<ImageModel> getFile(@PathVariable String id) {
-      ImageModel fileDB = storageService.getFile(id);
+    public ResponseEntity<Image> getFile(@PathVariable String id) {
+      Image fileDB = storageService.getFile(id);
 
       return ResponseEntity.ok()
           .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileDB.getName() + "\"")

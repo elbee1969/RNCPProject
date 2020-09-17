@@ -6,7 +6,7 @@ import fr.formation.eprint.dtos.CustomUserAuthDto;
 import fr.formation.eprint.dtos.UserCreateDto;
 import fr.formation.eprint.dtos.UserDto;
 
-public interface CustomUserCreateService {
+public interface CustomUserService {
 
 	boolean isValid(String username);
     

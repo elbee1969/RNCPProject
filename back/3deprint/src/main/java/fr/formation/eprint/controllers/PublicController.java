@@ -27,10 +27,10 @@ import fr.formation.eprint.dtos.CustomUserAuthDto;
 import fr.formation.eprint.dtos.UserCreateDto;
 import fr.formation.eprint.dtos.UserCreateViewDto;
 import fr.formation.eprint.dtos.UserDto;
-import fr.formation.eprint.entities.ImageModel;
+import fr.formation.eprint.entities.Image;
 import fr.formation.eprint.response.ImageResponse;
 import fr.formation.eprint.response.MessageResponse;
-import fr.formation.eprint.services.CustomUserCreateService;
+import fr.formation.eprint.services.CustomUserService;
 import fr.formation.eprint.services.ImageStorageService;
 
 
@@ -69,7 +69,7 @@ public class PublicController {
      *   
      *   */
     @Autowired
-    private CustomUserCreateService userService;
+    private CustomUserService userService;
     
     
     @PostMapping("/register")
@@ -115,8 +115,8 @@ public class PublicController {
     }
 
     @GetMapping("/files/{id}")
-    public ResponseEntity<ImageModel> getFile(@PathVariable String id) {
-      ImageModel fileDB = storageService.getFile(id);
+    public ResponseEntity<Image> getFile(@PathVariable String id) {
+      Image fileDB = storageService.getFile(id);
 
       return ResponseEntity.ok()
           .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileDB.getName() + "\"")

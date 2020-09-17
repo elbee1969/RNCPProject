@@ -4,25 +4,25 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import fr.formation.eprint.dtos.FileDBDto;
-import fr.formation.eprint.dtos.FileDBViewDto;
-import fr.formation.eprint.entities.ImageModel;
+import fr.formation.eprint.dtos.ImageDto;
+import fr.formation.eprint.dtos.ImageViewDto;
+import fr.formation.eprint.entities.Image;
 
 public interface FileService {
 	
-	void create(FileDBDto dto);
+	void create(ImageDto dto);
 
     void delete(Long id);
 
-    ImageModel getOne(String id);
+    Image getOne(String id);
 
-    List<FileDBViewDto> findAll();
+    List<ImageViewDto> findAll();
 
-	ImageModel store(MultipartFile file);
+	Image store(MultipartFile file);
 
 
 
-	List<FileDBViewDto> getAll();
+	List<ImageViewDto> getAll();
 
 	Object getAllFiles();
 	

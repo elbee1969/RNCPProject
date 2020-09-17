@@ -26,7 +26,7 @@ public class Album extends AbstractEntity {
 	@JoinColumn(name = "image_id", nullable = true, 
 	       referencedColumnName = "id",
 	            foreignKey = @ForeignKey(name = "FK_album_id"))
-    private List<ImageModel> images;
+    private List<Image> images;
 	
 
 	public Album() {
@@ -39,11 +39,11 @@ public class Album extends AbstractEntity {
 		// TODO Auto-generated constructor stub
 	}
 
-	public List<ImageModel> getImages() {
+	public List<Image> getImages() {
 		return images;
 	}
 
-	public void setImages(List<ImageModel> images) {
+	public void setImages(List<Image> images) {
 		this.images = images;
 	}
 

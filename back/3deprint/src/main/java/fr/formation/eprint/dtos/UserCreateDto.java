@@ -41,7 +41,6 @@ public class UserCreateDto {
     @Size(min = 2, max = 40)
     private String lastname;
     
-    @NotNull
     Album album;
       
     public UserCreateDto() {

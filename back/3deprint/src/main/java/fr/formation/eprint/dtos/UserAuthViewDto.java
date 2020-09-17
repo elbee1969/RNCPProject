@@ -21,6 +21,8 @@ public interface UserAuthViewDto {
 
 	    Set<Role> getRoles();
 	    
+	    Long getAlbumId();
+
 	    boolean isEnabled();
 
 	    boolean isAccountNonExpired();
@@ -29,6 +31,5 @@ public interface UserAuthViewDto {
 
 	    boolean isCredentialsNonExpired();
 	    
-	    Album getAlbum();
 	}
 

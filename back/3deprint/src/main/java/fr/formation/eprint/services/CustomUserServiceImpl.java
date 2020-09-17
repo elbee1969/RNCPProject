@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,14 +21,15 @@ import fr.formation.eprint.repositories.NewUserJpaRepository;
 import fr.formation.eprint.repositories.RoleJpaRepository;
 
 @Service
-public class CustomUserCreateServiceImpl implements CustomUserCreateService {
+public class CustomUserServiceImpl implements CustomUserService {
 	
     private final PasswordEncoder passwordEncoder;
     private final NewUserJpaRepository userJpaRepository;
     private final RoleJpaRepository roleJpaRepository;
     private ModelMapper mapper;
     
-    protected CustomUserCreateServiceImpl(PasswordEncoder passwordEncoder, NewUserJpaRepository userRepository, RoleJpaRepository roleJpaRepository, AlbumJpaRepository albumJpaRepository) {
+    @Autowired
+    protected CustomUserServiceImpl(PasswordEncoder passwordEncoder, NewUserJpaRepository userRepository, RoleJpaRepository roleJpaRepository, AlbumJpaRepository albumJpaRepository) {
 		// TODO Auto-generated constructor stub
     	this.passwordEncoder = passwordEncoder;
     	this.userJpaRepository = userRepository;

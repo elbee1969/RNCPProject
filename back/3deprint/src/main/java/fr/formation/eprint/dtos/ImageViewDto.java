@@ -1,6 +1,6 @@
 package fr.formation.eprint.dtos;
 
-public interface FileDBViewDto {
+public interface ImageViewDto {
 	
 	String getName();
 	

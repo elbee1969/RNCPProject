@@ -31,5 +31,5 @@ public interface UserCreateViewDto {
 
     boolean isCredentialsNonExpired();
     
-    Album getAlbum(); 
+    public void setAlbum(Album album);
 }

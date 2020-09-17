@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import fr.formation.eprint.dtos.FileDBDto;
-import fr.formation.eprint.dtos.FileDBViewDto;
+import fr.formation.eprint.dtos.ImageDto;
+import fr.formation.eprint.dtos.ImageViewDto;
 import fr.formation.eprint.entities.Album;
-import fr.formation.eprint.entities.ImageModel;
+import fr.formation.eprint.entities.Image;
 import fr.formation.eprint.repositories.AlbumJpaRepository;
 import fr.formation.eprint.repositories.ImageRepository;
 
@@ -23,9 +23,9 @@ public class FileServiceImpl implements FileService {
 	}
 
 	@Override
-	public void create(FileDBDto dto) {
+	public void create(ImageDto dto) {
 		// TODO Auto-generated method stub
-		ImageModel fileDB = new ImageModel();
+		Image fileDB = new Image();
 		populateAndSave(dto, fileDB);
 				
 //		public FileDB store(MultipartFile file) throws IOException {
@@ -40,7 +40,7 @@ public class FileServiceImpl implements FileService {
 		
 	}
 
-	private void populateAndSave(FileDBDto dto, ImageModel fileDB) {
+	private void populateAndSave(ImageDto dto, Image fileDB) {
 		// TODO Auto-generated method stub
 		fileDB.setName(dto.getName());
 		fileDB.setData(dto.getData());
@@ -59,20 +59,20 @@ public class FileServiceImpl implements FileService {
 
 		
 @Override
-	public List<FileDBViewDto> findAll() {
+	public List<ImageViewDto> findAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 
 	@Override
-	public ImageModel store(MultipartFile file) {
+	public Image store(MultipartFile file) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<FileDBViewDto> getAll() {
+	public List<ImageViewDto> getAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -84,7 +84,7 @@ public class FileServiceImpl implements FileService {
 	}
 
 	@Override
-	public ImageModel getOne(String id) {
+	public Image getOne(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

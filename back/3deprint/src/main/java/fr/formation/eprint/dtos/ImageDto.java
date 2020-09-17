@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-public class FileDBDto {
+public class ImageDto {
 	
 	@NotBlank
 	@Max(255)
@@ -20,7 +20,7 @@ public class FileDBDto {
 	  private byte[] data;
 	  
 
-	public FileDBDto() {
+	public ImageDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

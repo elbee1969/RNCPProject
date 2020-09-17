@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import fr.formation.eprint.entities.ImageModel;
+import fr.formation.eprint.entities.Image;
 import fr.formation.eprint.repositories.ImageRepository;
 
 @Service
@@ -17,19 +17,19 @@ public class ImageStorageService {
 	  private ImageRepository imageRepository;
 
 	
-	public ImageModel store(MultipartFile file) throws IOException {
+	public Image store(MultipartFile file) throws IOException {
 	    String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
-	    ImageModel imageModel = new ImageModel(file.getBytes(), file.getContentType(), fileName ) ;
+	    Image imageModel = new Image(file.getBytes(), file.getContentType(), fileName ) ;
 
 	    return imageRepository.save(imageModel);
 	  }
 
-	  public ImageModel getFile(String id) {
+	  public Image getFile(String id) {
 	    return imageRepository.findById(id).get();
 	  }
 	  
-	  public Stream<ImageModel> getAllFiles() {
+	  public Stream<Image> getAllFiles() {
 	    return imageRepository.findAll().stream();
 	  }
 	}
