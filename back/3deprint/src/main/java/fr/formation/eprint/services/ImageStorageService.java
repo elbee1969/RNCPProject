@@ -15,6 +15,8 @@ import fr.formation.eprint.repositories.ImageRepository;
 public class ImageStorageService {
 	@Autowired
 	  private ImageRepository imageRepository;
+	
+	
 
 	
 	public Image store(MultipartFile file) throws IOException {

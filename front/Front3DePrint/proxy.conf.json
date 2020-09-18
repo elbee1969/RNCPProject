@@ -1,6 +1,6 @@
 {
-    "/api/eprint/upload": {
-        "target": "http://localhost:8081",
+    "/api": {
+        "target": "http://localhost:9090",
         "secure": false
     }
 }

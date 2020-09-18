@@ -8,7 +8,7 @@ const API_PUBLIC_URL = 'http://localhost:9090/api/public/';
 const API_PRIVATE_URL = 'http://localhost:9090/api/private/';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json',  })
 };
 
 
@@ -42,7 +42,7 @@ export class UserService {
 
   getProfile() {
     console.log("in get profile");
-    return this.http.get<any>('localhost:9090/api/private/login', {
+    return this.http.get<any>(API_PRIVATE_URL + 'login', {
       headers: new HttpHeaders({
         'Authorization': 'Bearer ' + this.tokenStorage.getToken()
 
@@ -51,10 +51,9 @@ export class UserService {
   }
 
 
-
   register(user): Observable<any> {
-    console.log()
-    return this.http.post('localhost:9090/api/public/register', {
+    console.log("in register profile : " + user.username);
+    return this.http.post<any>(API_PUBLIC_URL + 'register', {
       username: user.username,
       firstname: user.firstname,
       lastname: user.lastname,

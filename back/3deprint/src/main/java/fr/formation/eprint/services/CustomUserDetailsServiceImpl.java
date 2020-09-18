@@ -6,10 +6,6 @@ import org.springframework.stereotype.Service;
 
 import fr.formation.eprint.config.CustomUserDetails;
 import fr.formation.eprint.dtos.CustomUserAuthDto;
-import fr.formation.eprint.dtos.UserAuthViewDto;
-import fr.formation.eprint.dtos.UserCreateDto;
-import fr.formation.eprint.dtos.UserCreateViewDto;
-import fr.formation.eprint.dtos.UserDto;
 import fr.formation.eprint.dtos.CustomUserInfoDto;
 import fr.formation.eprint.exception.ResourceNotFoundException;
 import fr.formation.eprint.repositories.CustomUserJpaRepository;

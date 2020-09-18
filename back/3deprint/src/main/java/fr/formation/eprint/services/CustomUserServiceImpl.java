@@ -1,19 +1,27 @@
 package fr.formation.eprint.services;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
-import javax.validation.Valid;
-
 import org.modelmapper.ModelMapper;
+import org.modelmapper.config.Configuration.AccessLevel;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import fr.formation.eprint.config.CustomUserDetails;
 import fr.formation.eprint.dtos.CustomUserAuthDto;
+import fr.formation.eprint.dtos.CustomUserInfoDto;
 import fr.formation.eprint.dtos.UserCreateDto;
+import fr.formation.eprint.dtos.UserCreateViewDto;
 import fr.formation.eprint.dtos.UserDto;
 import fr.formation.eprint.entities.Role;
+import fr.formation.eprint.exception.ResourceNotFoundException;
 import fr.formation.eprint.entities.Album;
 import fr.formation.eprint.entities.CustomUser;
 import fr.formation.eprint.repositories.AlbumJpaRepository;
@@ -29,12 +37,18 @@ public class CustomUserServiceImpl implements CustomUserService {
     private ModelMapper mapper;
     
     @Autowired
-    protected CustomUserServiceImpl(PasswordEncoder passwordEncoder, NewUserJpaRepository userRepository, RoleJpaRepository roleJpaRepository, AlbumJpaRepository albumJpaRepository) {
+    protected CustomUserServiceImpl(PasswordEncoder passwordEncoder,
+    								NewUserJpaRepository userRepository,
+    								RoleJpaRepository roleJpaRepository,
+    								AlbumJpaRepository albumJpaRepository,
+    								ModelMapper mapper) {
 		// TODO Auto-generated constructor stub
     	this.passwordEncoder = passwordEncoder;
     	this.userJpaRepository = userRepository;
     	this.roleJpaRepository = roleJpaRepository;
+    	this.mapper = mapper;
    	}
+
 
 	@Override
 	public boolean isValid(String username) {
@@ -55,13 +69,26 @@ public class CustomUserServiceImpl implements CustomUserService {
   	return mapper.map(newUser, UserDto.class);
   }
 
-  
+//Throws UsernameNotFoundException (Spring contract)
+  @Override
+  public UserDetails loadUserByUsername(String username)
+	    throws UsernameNotFoundException {
+  	CustomUserAuthDto user = (CustomUserAuthDto) ((Optional<UserCreateViewDto>) userJpaRepository.findByUsername(username))
+		.orElseThrow(() -> new UsernameNotFoundException(
+			"no user found with username: " + username));
+	return new CustomUserDetails(user);
+  }
 	@Override
 	public void deleteOne(Long id) {
 		// TODO Auto-generated method stub
 		
 	}
 
-
+	// Throws ResourceNotFoundException (restful practice)
+    @Override
+    public CustomUserInfoDto getCurrentUserInfo(Long id) {
+	return (CustomUserInfoDto) userJpaRepository.getById(id).orElseThrow(
+		() -> new ResourceNotFoundException("with id:" + id));
+    }
 
 }

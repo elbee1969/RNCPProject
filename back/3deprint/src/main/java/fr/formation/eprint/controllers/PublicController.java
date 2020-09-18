@@ -5,7 +5,11 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import org.modelmapper.ModelMapper;
+import org.modelmapper.config.Configuration.AccessLevel;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,6 +45,15 @@ import fr.formation.eprint.services.ImageStorageService;
 @RestController
 @RequestMapping("/public") // "/api/public/*"
 public class PublicController {
+	
+    @Bean
+    protected ModelMapper modelMapper() {
+	ModelMapper mapper = new ModelMapper();
+	mapper.getConfiguration().setFieldMatchingEnabled(true)
+	        .setFieldAccessLevel(AccessLevel.PRIVATE)
+	        .setMatchingStrategy(MatchingStrategies.STANDARD);
+	return mapper;
+    }
 
     /**
      * Accessible for anyone even anonymous.
