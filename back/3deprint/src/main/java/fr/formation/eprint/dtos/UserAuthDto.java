@@ -44,6 +44,8 @@ public class UserAuthDto {
 	
 	@NotNull
     private boolean credentialsNonExpired;
+	
+	private AlbumCreateDto album;
 
 	public UserAuthDto() {
 		super();
@@ -128,6 +130,14 @@ public class UserAuthDto {
 
 	public void setCredentialsNonExpired(boolean credentialsNonExpired) {
 		this.credentialsNonExpired = credentialsNonExpired;
+	}
+
+	public AlbumCreateDto getAlbum() {
+		return album;
+	}
+
+	public void setAlbum(AlbumCreateDto album) {
+		this.album = album;
 	}
 	
 	

@@ -25,20 +25,20 @@ import fr.formation.eprint.exception.ResourceNotFoundException;
 import fr.formation.eprint.entities.Album;
 import fr.formation.eprint.entities.CustomUser;
 import fr.formation.eprint.repositories.AlbumJpaRepository;
-import fr.formation.eprint.repositories.NewUserJpaRepository;
+import fr.formation.eprint.repositories.CustomUserJpaRepository;
 import fr.formation.eprint.repositories.RoleJpaRepository;
 
 @Service
 public class CustomUserServiceImpl implements CustomUserService {
 	
     private final PasswordEncoder passwordEncoder;
-    private final NewUserJpaRepository userJpaRepository;
+    private final CustomUserJpaRepository userJpaRepository;
     private final RoleJpaRepository roleJpaRepository;
     private ModelMapper mapper;
     
     @Autowired
     protected CustomUserServiceImpl(PasswordEncoder passwordEncoder,
-    								NewUserJpaRepository userRepository,
+    								CustomUserJpaRepository userRepository,
     								RoleJpaRepository roleJpaRepository,
     								AlbumJpaRepository albumJpaRepository,
     								ModelMapper mapper) {
@@ -73,7 +73,7 @@ public class CustomUserServiceImpl implements CustomUserService {
   @Override
   public UserDetails loadUserByUsername(String username)
 	    throws UsernameNotFoundException {
-  	CustomUserAuthDto user = (CustomUserAuthDto) ((Optional<UserCreateViewDto>) userJpaRepository.findByUsername(username))
+  	CustomUserAuthDto user = userJpaRepository.findByUsername(username)
 		.orElseThrow(() -> new UsernameNotFoundException(
 			"no user found with username: " + username));
 	return new CustomUserDetails(user);
