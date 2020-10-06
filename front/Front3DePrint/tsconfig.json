@@ -7,6 +7,8 @@
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "node",
     "importHelpers": true,
@@ -20,7 +22,9 @@
     ]
   },
   "angularCompilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
     "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true
+    "strictInjectionParameters": true,
   }
 }

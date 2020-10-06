@@ -1,0 +1,23 @@
+<div class="table-container" role="table" aria-label="List of Users">
+	<div class="flex-table header" role="rowgroup">
+		<div class="flex-row" role="columnheader">Username</div>
+		<div class="flex-row" role="columnheader">Fisrtname</div>
+		<div class="flex-row" role="columnheader">Lastname</div>
+		<div class="flex-row" role="columnheader">Email</div>
+		<div class="flex-row" role="columnheader">X</div>
+		<div class="flex-row" role="columnheader">+</div>		
+	  </div>
+	  
+			<div class="flex-table row" role="rowgroup" *ngFor="let user of users | paginate: config">
+
+					<div class="flex-row"  role="cell">{{ user.username }}</div>
+					<div class="flex-row" role="cell"> {{ user.firstname }}</div>
+					<div class="flex-row" role="cell"> {{ user.lastname }}</div>
+					<div class="flex-row" role="cell"> {{ user.email }}</div>
+					<div class="flex-row"  role="cell"><button (click)="deleteEmployee(user.id)" class="btn btn-danger">Delete</button></div>
+              <div class="flex-row"  role="cell"><button (click)="employeeDetails(user.id)" class="btn btn-info" style="margin-left: 10px">Details</button></div>
+
+			</div>
+			<pagination-controls (pageChange)="pageChange($event)" class="my-pagination"></pagination-controls>
+			</div>
+

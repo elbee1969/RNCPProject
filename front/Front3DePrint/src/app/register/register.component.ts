@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit {
         console.log("data : " + data);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
-        this.router.navigate(['/']);
+        this.router.navigate(['login']);
         console.log("Enregistrement réussi");
       },
       err => {

@@ -2,6 +2,7 @@ package fr.formation.eprint.config;
 
 import java.security.Principal;
 import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -205,4 +207,10 @@ public class AuthorizationServerConfig
   	public Principal user(Principal user) {
   		return user;
   	}
+  	
+  	 @GetMapping("/users")
+     @PreAuthorize("hasRole('ROLE_ADMIN')")
+     public List<CustomUserInfoDto> getAll() {
+  		 return userDetailsService.getAll();
+     }
 }

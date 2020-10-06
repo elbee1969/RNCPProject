@@ -13,10 +13,19 @@
         <a href="/admin" class="nav-link" routerLink="admin">Admin Board</a>
       </li>
       <li class="nav-item">
-        <a href="/user" class="nav-link" *ngIf="isLoggedIn" routerLink="user">User</a>
+        <a href="/user" class="nav-link" *ngIf="isLoggedIn && showUserBoard" routerLink="user" routerLinkActive="active">User Board</a>
       </li>
       <li class="nav-item">
-        <a href="/upload" class="nav-link" *ngIf="isLoggedIn" routerLink="upload">Upload File</a>
+        <a href="/profile" class="nav-link" *ngIf="isLoggedIn && showUserBoard" routerLink="profile" routerLinkActive="active">Profil of {{ username }}</a>
+      </li>
+       <li class="nav-item">
+        <a href="/users" class="nav-link" *ngIf="isLoggedIn && showAdminBoard" routerLink="users">Users</a>
+      </li>
+      <li class="nav-item">
+        <a href="/upload" class="nav-link" *ngIf="isLoggedIn && showUserBoard" routerLink="upload">Upload Files</a>
+      </li>
+       <li class="nav-item">
+        <a href="/files" class="nav-link" *ngIf="isLoggedIn && showAdminBoard" routerLink="files">Files</a>
       </li>
     </ul>
 

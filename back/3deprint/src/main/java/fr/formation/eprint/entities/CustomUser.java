@@ -224,5 +224,14 @@ public class CustomUser extends AbstractEntity {
 
 
 
+
+	@Override
+	public String toString() {
+		return "CustomUser [username=" + username + ", email=" + email + ", firstname=" + firstname + ", lastname="
+				+ lastname + ", album=" + album + "]";
+	}
+
+
+
 	
 }

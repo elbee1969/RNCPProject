@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TokenStorageService } from './services/token-storage.service';
 import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
 const isLoggedIn = false;
 @Component({
   selector: 'app-root',
@@ -12,14 +13,15 @@ export class AppComponent {
   private roles: string[];
 
 
-  showAdminBoard = false;
+  showAdminBoard: boolean = false;
   isLoggedIn: boolean;
   greeting = {};
   showUserBoard: boolean = false;
   username: any;
-
-  constructor(private tokenStorageService: TokenStorageService) { 
-
+  
+  constructor(private tokenStorageService: TokenStorageService, private router: Router) { 
+    
+    // window.location.reload();
   }
 
   ngOnInit() {
@@ -29,9 +31,16 @@ export class AppComponent {
       this.username = this.tokenStorageService.getUser().user_name
       const user = this.tokenStorageService.getUser();
       this.roles = this.tokenStorageService.getUser().authorities;
-      this.showUserBoard = this.roles.includes('ROLE_USER');
-      this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
+      if (this.roles.includes('ROLE_USER')) {
+        this.showUserBoard = this.roles.includes('ROLE_USER');
+        this.router.navigate(['/user']);
+      } else {
+        this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
+        this.router.navigate(['/admin']);
+      }
     }
+    // this.showUserBoard = this.roles.includes('ROLE_USER');
+    
   }
 
   

@@ -9,6 +9,8 @@ import org.modelmapper.config.Configuration.AccessLevel;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -90,5 +92,6 @@ public class CustomUserServiceImpl implements CustomUserService {
 	return (CustomUserInfoDto) userJpaRepository.getById(id).orElseThrow(
 		() -> new ResourceNotFoundException("with id:" + id));
     }
+
 
 }

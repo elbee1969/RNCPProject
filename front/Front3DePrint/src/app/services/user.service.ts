@@ -5,7 +5,7 @@ import { User } from '../interface/user';
 import { TokenStorageService } from './token-storage.service';
 
 const API_PUBLIC_URL = 'http://localhost:9090/api/public/';
-const API_PRIVATE_URL = 'http://localhost:9090/api/private/';
+const API_PRIVATE_URL = 'http://localhost:9090/api/private';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json',  })
@@ -24,25 +24,26 @@ export class UserService {
   }
 
   getUserBoard(): Observable<any> {
-    return this.http.get(API_PRIVATE_URL + 'user', { responseType: 'text' });
+    return this.http.get(API_PRIVATE_URL + '/user', { responseType: 'text' });
   }
 
   getAdminBoard(): Observable<any> {
-    return this.http.get(API_PRIVATE_URL + 'admin', { responseType: 'text' });
+    return this.http.get(API_PRIVATE_URL + '/admin', { responseType: 'text' });
   }
 
-  getAll() {
-    return this.http.get<User[]>(`/users`);
+  getAll(): Observable<User>  {
+    // return this.http.get<User[]>(API_PRIVATE_URL + `/users`);
+    return this.http.get<User>(API_PRIVATE_URL + `/users`);
   }
 
 
-  delete(id: number) {
-    return this.http.delete(`/users/${id}`);
+  delete(id: number): Observable<any> {
+    return this.http.delete(API_PRIVATE_URL + `/user/${id}`);
   }
 
   getProfile() {
     console.log("in get profile");
-    return this.http.get<any>(API_PRIVATE_URL + 'login', {
+    return this.http.get<any>(API_PRIVATE_URL + '/login', {
       headers: new HttpHeaders({
         'Authorization': 'Bearer ' + this.tokenStorage.getToken()
 

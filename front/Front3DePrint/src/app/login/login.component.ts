@@ -55,6 +55,7 @@ export class LoginComponent implements OnInit {
         console.log('roles : ' + this.roles);
         console.log('name : ' + this.username);
         this.reloadPage();
+        this.rediRectPage();
 
       },
       err => {
@@ -63,8 +64,16 @@ export class LoginComponent implements OnInit {
       }
     );
     }
-
   reloadPage() {
     window.location.reload();
+    
+  };
+  rediRectPage() {
+    if (this.roles.includes('ROLE_USER')) {
+
+    this.router.navigate(['/user']);
+    } else {
+    this.router.navigate(['/admin']);
+    }
   }
 }

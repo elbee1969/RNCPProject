@@ -2,6 +2,8 @@ package fr.formation.eprint.services;
 
 import javax.validation.Valid;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
@@ -20,5 +22,6 @@ public interface CustomUserService {
 	UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 
 	CustomUserInfoDto getCurrentUserInfo(Long id);
+
 
 }

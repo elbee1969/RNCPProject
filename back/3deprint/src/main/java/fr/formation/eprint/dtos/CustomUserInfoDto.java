@@ -2,7 +2,7 @@ package fr.formation.eprint.dtos;
 
 import java.util.Set;
 
-import fr.formation.eprint.entities.Album;
+import fr.formation.eprint.entities.CustomUser;
 import fr.formation.eprint.entities.Role;
 
 /**
@@ -23,5 +23,8 @@ public interface CustomUserInfoDto {
     Set<Role> getRoles();
     
     AlbumCreateViewDto getAlbum();
+
+//    CustomUser findByUsername(String username);
+    
     
 }

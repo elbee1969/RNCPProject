@@ -1,12 +1,13 @@
 package fr.formation.eprint.repositories;
 
+import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import fr.formation.eprint.dtos.CustomUserAuthDto;
-import fr.formation.eprint.dtos.UserAuthViewDto;
-import fr.formation.eprint.dtos.UserDto;
 import fr.formation.eprint.dtos.CustomUserInfoDto;
 import fr.formation.eprint.entities.CustomUser;
 
@@ -21,7 +22,9 @@ public interface CustomUserJpaRepository
      * @return a projected view
      */
     Optional<CustomUserAuthDto> findByUsername(String username);
-
+    
+    
+//    Optional<CustomUserAuthDto> findAll(String username);
     /**
      * Retrieves a projected view of the current authenticated
      * {@code User}.
@@ -30,6 +33,9 @@ public interface CustomUserJpaRepository
      * @return a projected view
      */
     Optional<CustomUserInfoDto> getById(Long id);
+
+
+	List<CustomUserInfoDto> getAllProjectedBy();
     
     
 //    Optional<UserAuthViewDto> getById(Long id); 
