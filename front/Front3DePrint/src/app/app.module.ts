@@ -36,7 +36,8 @@ import { DetailsComponent } from './details/details.component';
     ShowFileComponent,
     UsersComponent,
     JwPaginationComponent,
-    DetailsComponent
+    DetailsComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -49,5 +50,6 @@ import { DetailsComponent } from './details/details.component';
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
+ 
 })
 export class AppModule { }

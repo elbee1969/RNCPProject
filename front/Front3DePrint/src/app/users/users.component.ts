@@ -21,7 +21,7 @@ export class UsersComponent implements OnInit {
     this.config = {
       currentPage: 1,
       itemsPerPage: 10,
-      totalItems: 0
+      totalItems: this.taille
    }
     // an example array of 150 items to be paged
     route.queryParams.subscribe(
@@ -45,7 +45,8 @@ reloadData(){
   pageChange(newPage: number) {
     this.router.navigate(['/users/callback'], { queryParams: { page: newPage } });
 }
-  deleteEmployee(id: number) {
+  deleteUser(id: number) {
+    alert("Are you sure to delete this user ?!");
     this.userService.delete(id)
       .subscribe(
         data => {
@@ -55,7 +56,7 @@ reloadData(){
         error => console.log(error));
   }
 
-  employeeDetails(id: number) {
+  userDetails(id: number) {
     this.router.navigate(['/details', id]);
   }
 }

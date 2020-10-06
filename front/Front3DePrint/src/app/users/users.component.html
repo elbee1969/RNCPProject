@@ -14,8 +14,8 @@
 					<div class="flex-row" role="cell"> {{ user.firstname }}</div>
 					<div class="flex-row" role="cell"> {{ user.lastname }}</div>
 					<div class="flex-row" role="cell"> {{ user.email }}</div>
-					<div class="flex-row"  role="cell"><button (click)="deleteEmployee(user.id)" class="btn btn-danger">Delete</button></div>
-              <div class="flex-row"  role="cell"><button (click)="employeeDetails(user.id)" class="btn btn-info" style="margin-left: 10px">Details</button></div>
+					<div class="flex-row"  role="cell"><button (click)="deleteUser(user.id)" class="btn btn-danger">Delete</button></div>
+              <div class="flex-row"  role="cell"><button (click)="userDetails(user.id)" class="btn btn-info" style="margin-left: 10px">Details</button></div>
 
 			</div>
 			<pagination-controls (pageChange)="pageChange($event)" class="my-pagination"></pagination-controls>

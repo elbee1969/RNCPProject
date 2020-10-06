@@ -38,7 +38,7 @@ export class UserService {
 
 
   delete(id: number): Observable<any> {
-    return this.http.delete(API_PRIVATE_URL + `/user/${id}`);
+    return this.http.delete(API_PRIVATE_URL + `/delete/${id}`);
   }
 
   getProfile() {

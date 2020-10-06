@@ -20,6 +20,10 @@ public interface CustomUserDetailsService extends UserDetailsService {
 
 	   List<CustomUserInfoDto> getAll();
 
+
+
+	void deleteOne(Long id);
+
     
     //UserInfoDto getById(Long id);
     //UserDto create(UserCreateDto dto);

@@ -2,6 +2,7 @@ package fr.formation.eprint.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -54,7 +55,15 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
 	return userRepo.getAllProjectedBy();
     }
 
-
+    @Override
+    public void deleteOne(Long id) {
+	Optional<CustomUserInfoDto> value = userRepo.getById(id);
+	if (value.isPresent()) {
+		userRepo.deleteById(id);
+	} else {
+	    throw new AccountNotFoundException("Invalid id : " + id);
+	}
+    }
 
     
   }
