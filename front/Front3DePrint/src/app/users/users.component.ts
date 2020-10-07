@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { User } from '../model/user';
+import { ModalService } from '../services/modal.service';
 
 import { UserService } from '../services/user.service';
 
@@ -16,8 +17,12 @@ export class UsersComponent implements OnInit {
   usersInfos: Observable<any>;
   users: any;
   taille: number;
+  bodyText: string;
 
-  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) {
+  constructor(private userService: UserService,
+              private route: ActivatedRoute,
+              private router: Router,
+              private modalService: ModalService) {
     this.config = {
       currentPage: 1,
       itemsPerPage: 10,
@@ -33,7 +38,7 @@ export class UsersComponent implements OnInit {
   }
   ngOnInit() {
     this.reloadData();
-    
+    this.bodyText = 'Cette action est irréversible ...';
   }
 reloadData(){
     this.userService.getAll()
@@ -46,7 +51,6 @@ reloadData(){
     this.router.navigate(['/users/callback'], { queryParams: { page: newPage } });
 }
   deleteUser(id: number) {
-    alert("Are you sure to delete this user ?!");
     this.userService.delete(id)
       .subscribe(
         data => {
@@ -58,5 +62,13 @@ reloadData(){
 
   userDetails(id: number) {
     this.router.navigate(['/details', id]);
+  }
+
+  openModal(id: string) {
+    this.modalService.open(id);
+  }
+
+  closeModal(id: string) {
+    this.modalService.close(id);
   }
 }
