@@ -9,8 +9,8 @@ import fr.formation.eprint.dtos.ImageViewDto;
 import fr.formation.eprint.entities.Image;
 
 public interface FileService {
-	
-	void create(ImageDto dto);
+
+    void create(ImageDto dto);
 
     void delete(Long id);
 
@@ -18,13 +18,10 @@ public interface FileService {
 
     List<ImageViewDto> findAll();
 
-	Image store(MultipartFile file);
+    Image store(MultipartFile file);
 
+    List<ImageViewDto> getAll();
 
-
-	List<ImageViewDto> getAll();
-
-	Object getAllFiles();
-	
+    Object getAllFiles();
 
 }
