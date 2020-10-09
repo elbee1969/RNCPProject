@@ -2,19 +2,18 @@ package fr.formation.eprint.entities;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "album")
 public class Album extends AbstractEntity {
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "album_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_image_id"))
+    @ManyToMany
+    @JoinTable(name = "album_image", joinColumns = @JoinColumn(name = "album_id"), inverseJoinColumns = @JoinColumn(name = "image_id"))
     private List<Image> images;
 
     public Album() {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UploadFileService } from 'src/app/services/upload-file.service';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-Upload-files',
@@ -21,7 +22,7 @@ export class UploadFilesComponent implements OnInit {
   base64Data: any;
   convertedImage: any;
 
-  constructor(private uploadService: UploadFileService) { 
+  constructor(private uploadService: UploadFileService, private router: Router) { 
   }
 
   public selectFile(event) {
@@ -46,6 +47,7 @@ export class UploadFilesComponent implements OnInit {
         console.log("event req : " + event);
         if (event.type === HttpEventType.UploadProgress) {
           this.progress = Math.round(100 * event.loaded / event.total);
+          this.router.navigate['upload'];
         } else if (event instanceof HttpResponse) {
           this.message = event.body.message;
           this.fileInfos = this.uploadService.getFiles();

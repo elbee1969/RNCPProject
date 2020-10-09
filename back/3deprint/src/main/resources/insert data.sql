@@ -7,10 +7,10 @@ SET autocommit=0;
 SET NAMES utf8mb4;
 
 	/*
-INSERT INTO customuser (id, email, password, username, account_non_expired, account_non_locked, credentials_non_expired, enabled, firstname, lastname)
-	VALUES (1,'charles.darwin@gmail.com','$2a$10$VdQQpPC9NPCf4AF96aedIOpQ6/5NYoyBzX4a.ncqyanBcS5joxNWi','darwin','T','T','T','T','Charles','DARWIN'),
-	(2,'albert.einstein@gmail.com','$2a$10$VdQQpPC9NPCf4AF96aedIOpQ6/5NYoyBzX4a.ncqyanBcS5joxNWi','einstein','T','T','T','T','Albert','EINSTEIN'),
-    (3,'william.shakespeare@gmail.com','$2a$10$VdQQpPC9NPCf4AF96aedIOpQ6/5NYoyBzX4a.ncqyanBcS5joxNWi','shakespeare','T','T','T','T','William','SHAKESPEARE');
+INSERT INTO customuser (id, email, password, username, account_non_expired, account_non_locked, credentials_non_expired, enabled, firstname, lastname, address_id,album_id)
+	VALUES (1,'charles.darwin@gmail.com','$2a$10$VdQQpPC9NPCf4AF96aedIOpQ6/5NYoyBzX4a.ncqyanBcS5joxNWi','darwin','T','T','T','T','Charles','DARWIN',1,1),
+	(2,'albert.einstein@gmail.com','$2a$10$VdQQpPC9NPCf4AF96aedIOpQ6/5NYoyBzX4a.ncqyanBcS5joxNWi','einstein','T','T','T','T','Albert','EINSTEIN',2,2),
+    (3,'william.shakespeare@gmail.com','$2a$10$VdQQpPC9NPCf4AF96aedIOpQ6/5NYoyBzX4a.ncqyanBcS5joxNWi','shakespeare','T','T','T','T','William','SHAKESPEARE',3,3);
 */
 INSERT INTO role (id, code, default_role) VALUES (1,'ROLE_USER','T'), (2,'ROLE_ADMIN','F');
 /*

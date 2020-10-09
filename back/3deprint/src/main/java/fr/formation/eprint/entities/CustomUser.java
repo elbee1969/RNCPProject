@@ -47,7 +47,7 @@ public class CustomUser extends AbstractEntity {
     private Set<Role> roles;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id", nullable = false, referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_custom_user_id"))
+    @JoinColumn(name = "address_id", nullable = false, referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_custom_user_address_id"))
     private Address address;
 
     @Convert(converter = BooleanConverter.class)
@@ -67,7 +67,7 @@ public class CustomUser extends AbstractEntity {
     private boolean credentialsNonExpired;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "album_id", nullable = false, referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_custom_user_id"))
+    @JoinColumn(name = "album_id", nullable = false, referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_custom_user_album_id"))
     private Album album;
 
     public CustomUser(String username, @Email String email, String password, String firstname, String lastname,

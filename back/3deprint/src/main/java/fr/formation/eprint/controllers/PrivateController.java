@@ -134,7 +134,7 @@ public class PrivateController<CustomUser> {
     public ResponseEntity<MessageResponse> uploadFile(@RequestParam("file") MultipartFile file) {
 	String message = "";
 	try {
-	    storageService.store(file, null);
+	    storageService.store(file);
 
 	    message = "Uploaded the file successfully: " + file.getOriginalFilename();
 	    return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(message));
