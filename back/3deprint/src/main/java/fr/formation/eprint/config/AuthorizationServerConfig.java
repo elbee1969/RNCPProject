@@ -4,7 +4,9 @@ import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.config.Configuration.AccessLevel;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,18 +32,13 @@ import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFacto
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.formation.eprint.dtos.UserCreateDto;
-import fr.formation.eprint.dtos.UserCreateViewDto;
-import fr.formation.eprint.services.CustomUserDetailsService;
 import fr.formation.eprint.dtos.CustomUserInfoDto;
-
-
+import fr.formation.eprint.services.CustomUserDetailsService;
 
 @Configuration
 @EnableAuthorizationServer
 @RestController // for "/me" endpoint
-public class AuthorizationServerConfig
-	extends AuthorizationServerConfigurerAdapter {
+public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
     // Get custom properties from application.properties
     // Could be different between environments
@@ -53,46 +50,40 @@ public class AuthorizationServerConfig
 
     @Value("${3deprint.keyAlias}")
     private String keyAlias;
-    
- 
+
     @Value("${3deprint.accessTokenValiditySeconds}")
     private int accessTokenValiditySeconds;
 
     @Value("${3deprint.refreshTokenValiditySeconds}")
     private int refreshTokenValiditySeconds;
-    
 
     // Defined as Spring bean in WebSecurity
     /**
      * 
-     * Attempts to authenticate the passed {@link Authentication} object, returning a
-	 * fully populated <code>Authentication</code> object (including granted authorities)
-	 * if successful.
+     * Attempts to authenticate the passed {@link Authentication} object, returning
+     * a fully populated <code>Authentication</code> object (including granted
+     * authorities) if successful.
      */
     private final AuthenticationManager authenticationManager;
 
     // user details service to authenticate users with username and
     // password from the database
-   
+
     private final CustomUserDetailsService userDetailsService;
 
     // Custom token converter to store custom info within access token
     private final CustomAccessTokenConverter customAccessTokenConverter;
-    
-    
 
-    protected AuthorizationServerConfig(
-	    AuthenticationManager authenticationManagerBean,
-	    CustomUserDetailsService userDetailsService,
-	    CustomAccessTokenConverter customAccessTokenConverter) {
-    		authenticationManager = authenticationManagerBean;
-    		this.userDetailsService = userDetailsService;
-    		this.customAccessTokenConverter = customAccessTokenConverter;
-    	}
+    protected AuthorizationServerConfig(AuthenticationManager authenticationManagerBean,
+	    CustomUserDetailsService userDetailsService, CustomAccessTokenConverter customAccessTokenConverter) {
+	authenticationManager = authenticationManagerBean;
+	this.userDetailsService = userDetailsService;
+	this.customAccessTokenConverter = customAccessTokenConverter;
+    }
 
     /**
-     * Token service using random UUID values for the access token and refresh
-     * token values. Specifies the token store and enables the refresh token.
+     * Token service using random UUID values for the access token and refresh token
+     * values. Specifies the token store and enables the refresh token.
      */
     @Bean
     protected DefaultTokenServices tokenServices() {
@@ -119,14 +110,11 @@ public class AuthorizationServerConfig
      * All in one.
      */
     @Override
-    public void configure(AuthorizationServerEndpointsConfigurer endpoints)
-	    throws Exception {
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 	TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-	tokenEnhancerChain.setTokenEnhancers(
-		Arrays.asList(tokenEnhancer(), accessTokenConverter()));
+	tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer(), accessTokenConverter()));
 	endpoints.tokenStore(tokenStore()).tokenEnhancer(tokenEnhancerChain)
-		.authenticationManager(authenticationManager)
-		.userDetailsService(userDetailsService);
+		.authenticationManager(authenticationManager).userDetailsService(userDetailsService);
     }
 
     /**
@@ -145,13 +133,12 @@ public class AuthorizationServerConfig
     }
 
     /**
-     * Change authorization server security allowing form auth for clients (vs
-     * HTTP Basic). The client_id is sent as form parameter instead.
+     * Change authorization server security allowing form auth for clients (vs HTTP
+     * Basic). The client_id is sent as form parameter instead.
      */
     @Override
-    public void configure(AuthorizationServerSecurityConfigurer oauthServer)
-	    throws Exception {
-    	oauthServer.allowFormAuthenticationForClients();
+    public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
+	oauthServer.allowFormAuthenticationForClients();
     }
 
     /**
@@ -161,16 +148,13 @@ public class AuthorizationServerConfig
      * Authorized grant types are <i>password</i> and <i>refresh_token</i>.
      * <p>
      * The scope is trusted (convention) and no need to specify it during client
-     * authentication. We do not use scope-based authorization in this
-     * application.
+     * authentication. We do not use scope-based authorization in this application.
      */
     @Override
-    public void configure(ClientDetailsServiceConfigurer clients)
-	    throws Exception {
-	clients.inMemory().withClient("3D-ePrint-app")
-		.secret(passwordEncoder().encode("")).scopes("trusted")
+    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+	clients.inMemory().withClient("3D-ePrint-app").secret(passwordEncoder().encode("")).scopes("trusted")
 		.authorizedGrantTypes("password", "refresh_token")
-		//.redirectUris("http://localhost:4200/oauth/callback")
+		// .redirectUris("http://localhost:4200/oauth/callback")
 		.accessTokenValiditySeconds(accessTokenValiditySeconds)
 		.refreshTokenValiditySeconds(refreshTokenValiditySeconds);
     }
@@ -183,6 +167,14 @@ public class AuthorizationServerConfig
     @Bean
     protected PasswordEncoder passwordEncoder() {
 	return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    protected ModelMapper modelMapper() {
+	ModelMapper mapper = new ModelMapper();
+	mapper.getConfiguration().setFieldMatchingEnabled(true).setFieldAccessLevel(AccessLevel.PRIVATE)
+		.setMatchingStrategy(MatchingStrategies.STANDARD);
+	return mapper;
     }
 
     /**
@@ -198,19 +190,22 @@ public class AuthorizationServerConfig
 	Long userId = SecurityHelper.getUserId();
 	return userDetailsService.getCurrentUserInfo(userId);
     }
+
     /**
-     * This method will be used to check if the user has a valid token to access the resource
+     * This method will be used to check if the user has a valid token to access the
+     * resource
+     * 
      * @param user
      * @return
      */
-  	@GetMapping("/validateUser")
-  	public Principal user(Principal user) {
-  		return user;
-  	}
-  	
-  	 @GetMapping("/users")
-     @PreAuthorize("hasRole('ROLE_ADMIN')")
-     public List<CustomUserInfoDto> getAll() {
-  		 return userDetailsService.getAll();
-     }
+    @GetMapping("/validateUser")
+    public Principal user(Principal user) {
+	return user;
+    }
+
+    @GetMapping("/users")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public List<CustomUserInfoDto> getAll() {
+	return userDetailsService.getAll();
+    }
 }

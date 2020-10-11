@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class UploadFileService {
   private baseUrl = 'http://localhost:9090/api/private';
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   upload(file: File): Observable<HttpEvent<any>> {
     console.log("file : " + file);
@@ -21,14 +22,15 @@ export class UploadFileService {
       reportProgress: true,
       responseType: 'json'
     });
- 
-    return this.http.request(req);
+     return this.http.request(req);
   }
 
   getFiles(): Observable<any> {
     return this.http.get(`${this.baseUrl}/files`);
   }
-
+  getOwnerFiles(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/files`);
+  }
   getCurrentFile(id) {
     return this.http.get(`${this.baseUrl}/files/${id}`);
   }

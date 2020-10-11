@@ -31,9 +31,9 @@ public class UserCreateDto {
     @Size(min = 2, max = 40)
     private String lastname;
 
-    AddressCreateDto address;
+    private AddressCreateDto address;
 
-    AlbumCreateDto album;
+    private AlbumCreateDto album;
 
     public UserCreateDto() {
 

@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-public class ImageDto {
+public class ImageCreateDto {
 
     @NotBlank
     @Max(255)
@@ -20,9 +20,9 @@ public class ImageDto {
     @NotNull
     private byte[] data;
 
-    private AlbumCreateDto album;
+    AlbumCreateDto album;
 
-    public ImageDto() {
+    public ImageCreateDto() {
 	super();
 	// TODO Auto-generated constructor stub
     }

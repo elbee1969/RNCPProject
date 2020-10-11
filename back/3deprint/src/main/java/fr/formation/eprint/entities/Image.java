@@ -1,13 +1,11 @@
 package fr.formation.eprint.entities;
 
-import java.util.List;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -25,17 +23,23 @@ public class Image extends AbstractEntity {
     @Column(name = "data", nullable = false)
     private byte[] data;
 
-    @ManyToMany(mappedBy = "images")
-    private List<Album> albums;
+    @ManyToOne
+//    @Column(name = "album_id", nullable = false)
+    private Album album;
 
     public Image() {
 
     }
 
-    public Image(byte[] data, String name, String type) {
+    public Image(byte[] data, String name, String type, Album album) {
 	this.name = name;
 	this.type = type;
 	this.data = data;
+	this.album = album;
+    }
+
+    public Image(String name2, String fileDownloadUri, String type2, int length, Album album2) {
+	// TODO Auto-generated constructor stub
     }
 
     public String getName() {
@@ -60,6 +64,14 @@ public class Image extends AbstractEntity {
 
     public void setData(byte[] data) {
 	this.data = data;
+    }
+
+    public Album getAlbum() {
+	return album;
+    }
+
+    public void setAlbum(Album album) {
+	this.album = album;
     }
 
 }

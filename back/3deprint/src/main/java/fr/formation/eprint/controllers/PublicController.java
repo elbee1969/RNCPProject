@@ -1,15 +1,8 @@
 package fr.formation.eprint.controllers;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import javax.validation.Valid;
 
-import org.modelmapper.ModelMapper;
-import org.modelmapper.config.Configuration.AccessLevel;
-import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,14 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import fr.formation.eprint.config.ResourceServerConfig;
 import fr.formation.eprint.config.SecurityHelper;
 import fr.formation.eprint.dtos.UserCreateDto;
 import fr.formation.eprint.dtos.UserDto;
 import fr.formation.eprint.entities.Image;
-import fr.formation.eprint.response.ImageResponse;
 import fr.formation.eprint.response.MessageResponse;
 import fr.formation.eprint.services.CustomUserService;
 import fr.formation.eprint.services.ImageStorageService;
@@ -41,13 +32,13 @@ import fr.formation.eprint.services.ImageStorageService;
 @RequestMapping("/public") // "/api/public/*"
 public class PublicController {
 
-    @Bean
-    protected ModelMapper modelMapper() {
-	ModelMapper mapper = new ModelMapper();
-	mapper.getConfiguration().setFieldMatchingEnabled(true).setFieldAccessLevel(AccessLevel.PRIVATE)
-		.setMatchingStrategy(MatchingStrategies.STANDARD);
-	return mapper;
-    }
+//    @Bean
+//    protected ModelMapper modelMapper() {
+//	ModelMapper mapper = new ModelMapper();
+//	mapper.getConfiguration().setFieldMatchingEnabled(true).setFieldAccessLevel(AccessLevel.PRIVATE)
+//		.setMatchingStrategy(MatchingStrategies.STANDARD);
+//	return mapper;
+//    }
 
     /**
      * Accessible for anyone even anonymous.
@@ -99,18 +90,6 @@ public class PublicController {
 	    message = "Could not upload the file: " + file.getOriginalFilename() + "!";
 	    return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new MessageResponse(message));
 	}
-    }
-
-    @GetMapping("/files")
-    public ResponseEntity<List<ImageResponse>> getListFiles() {
-	List<ImageResponse> images = storageService.getAllFiles().map(image -> {
-	    String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/files/")
-		    .path(image.getName()).toUriString();
-
-	    return new ImageResponse(image.getName(), fileDownloadUri, image.getType(), image.getData().length);
-	}).collect(Collectors.toList());
-
-	return ResponseEntity.status(HttpStatus.OK).body(images);
     }
 
     @GetMapping("/files/{id}")

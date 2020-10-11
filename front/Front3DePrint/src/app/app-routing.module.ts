@@ -25,6 +25,7 @@ const routes: Routes = [
   { path: 'users/callback', component: UsersComponent },
   { path: 'upload', component: UploadFilesComponent},
   { path: 'files', component: ListFilesComponent },
+  { path: 'files/callback', component: ListFilesComponent },
   { path: 'files/:id', component: ShowFileComponent },
   { path: 'admin', component: BoardAdminComponent  },
   { path: '', redirectTo: 'home', pathMatch: 'full' }

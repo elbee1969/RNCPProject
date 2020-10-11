@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { UploadFileService } from 'src/app/services/upload-file.service';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-Upload-files',
@@ -22,7 +23,7 @@ export class UploadFilesComponent implements OnInit {
   base64Data: any;
   convertedImage: any;
 
-  constructor(private uploadService: UploadFileService, private router: Router) { 
+  constructor(private uploadService: UploadFileService, private router: Router, private domSanitizer: DomSanitizer) { 
   }
 
   public selectFile(event) {
@@ -39,15 +40,14 @@ export class UploadFilesComponent implements OnInit {
 
     this.progress = 0;
     this.currentFile = this.selectedFiles.item(0);
-    console.log("current file : " + this.currentFile);
+    console.log("current file : " + JSON.stringify(this.currentFile));
     
 
     this.uploadService.upload(this.currentFile).subscribe(
       event => {
-        console.log("event req : " + event);
+        console.log("event req : " + JSON.stringify(event));
         if (event.type === HttpEventType.UploadProgress) {
           this.progress = Math.round(100 * event.loaded / event.total);
-          this.router.navigate['upload'];
         } else if (event instanceof HttpResponse) {
           this.message = event.body.message;
           this.fileInfos = this.uploadService.getFiles();
@@ -57,7 +57,9 @@ export class UploadFilesComponent implements OnInit {
         this.progress = 0;
         this.message = 'Could not upload the file! : ' + err;
         this.currentFile = undefined;
-      });
+      },
+         this.router.navigate['upload']
+      );
 
     this.selectedFiles = undefined;
   }
