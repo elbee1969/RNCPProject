@@ -2,37 +2,35 @@ package fr.formation.eprint.dtos;
 
 import java.util.Set;
 
-import fr.formation.eprint.entities.Album;
 import fr.formation.eprint.entities.Role;
 
 /**
  * A projection of a {@code CustomUser} for authentication.
  */
 public interface CustomUserAuthDto {
-	
-		Long getId();
 
-	    String getUsername();
-	    
-	    String getFirstName();
-	    
-	    String getLastName();
-	    
-	    String getEmail();
+    Long getId();
 
-	    String getPassword();
+    String getUsername();
 
-	    Set<Role> getRoles();
+    String getFirstName();
 
-	    boolean isEnabled();
+    String getLastName();
 
-	    boolean isAccountNonExpired();
+    String getEmail();
 
-	    boolean isAccountNonLocked();
+    String getPassword();
 
-	    boolean isCredentialsNonExpired();
-	    
-	    Long getAlbumId();
-	    
-	    
+    Set<Role> getRoles();
+
+    boolean isEnabled();
+
+    boolean isAccountNonExpired();
+
+    boolean isAccountNonLocked();
+
+    boolean isCredentialsNonExpired();
+
+    Long getAlbumId();
+
 }

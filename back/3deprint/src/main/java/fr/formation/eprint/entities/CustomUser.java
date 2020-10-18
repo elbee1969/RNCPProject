@@ -1,5 +1,6 @@
 package fr.formation.eprint.entities;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -11,6 +12,7 @@ import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -66,13 +68,12 @@ public class CustomUser extends AbstractEntity {
     @Column(name = "credentialsNonExpired", length = 1, nullable = false)
     private boolean credentialsNonExpired;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "album_id", nullable = false, referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_custom_user_album_id"))
-    private Album album;
+    @OneToMany(mappedBy = "customUser", cascade = CascadeType.ALL)
+    private List<Image> images;
 
     public CustomUser(String username, @Email String email, String password, String firstname, String lastname,
 	    Set<Role> roles, Address address, boolean enabled, boolean accountNonExpired, boolean accountNonLocked,
-	    boolean credentialsNonExpired, Album album) {
+	    boolean credentialsNonExpired) {
 	super();
 	this.username = username;
 	this.email = email;
@@ -85,7 +86,7 @@ public class CustomUser extends AbstractEntity {
 	this.accountNonExpired = accountNonExpired;
 	this.accountNonLocked = accountNonLocked;
 	this.credentialsNonExpired = credentialsNonExpired;
-	this.album = album;
+
     }
 
     public CustomUser(String username, String password, String firstname, String lastname, Set<Role> roles,
@@ -220,18 +221,12 @@ public class CustomUser extends AbstractEntity {
 	this.lastname = lastname;
     }
 
-    public Album getAlbum() {
-	return album;
+    public List<Image> getImages() {
+	return images;
     }
 
-    public void setAlbum(Album album) {
-	this.album = album;
-    }
-
-    @Override
-    public String toString() {
-	return "CustomUser [username=" + username + ", email=" + email + ", firstname=" + firstname + ", lastname="
-		+ lastname + ", album=" + album + "]";
+    public void setImages(List<Image> images) {
+	this.images = images;
     }
 
 }

@@ -1,6 +1,6 @@
 package fr.formation.eprint.dtos;
 
-public interface AlbumCreateViewDto {
+public interface ImageCreateViewDto {
 	
 	Long getId();
 //	Long getCustomuser();

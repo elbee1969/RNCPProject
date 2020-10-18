@@ -33,8 +33,6 @@ public class UserCreateDto {
 
     private AddressCreateDto address;
 
-    private AlbumCreateDto album;
-
     public UserCreateDto() {
 
     }
@@ -89,14 +87,6 @@ public class UserCreateDto {
 
     public String getMessage() {
 	return getMessage();
-    }
-
-    public AlbumCreateDto getAlbum() {
-	return album;
-    }
-
-    public void setAlbum(AlbumCreateDto album) {
-	this.album = album;
     }
 
     public String getPattern() {

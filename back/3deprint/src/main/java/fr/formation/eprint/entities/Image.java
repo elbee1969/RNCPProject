@@ -4,6 +4,7 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -23,22 +24,24 @@ public class Image extends AbstractEntity {
     @Column(name = "data", nullable = false)
     private byte[] data;
 
-    @ManyToOne
-//    @Column(name = "album_id", nullable = false)
-    private Album album;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "customUser_id")
+    private CustomUser customUser;
 
-    public Image() {
-
-    }
-
-    public Image(byte[] data, String name, String type, Album album) {
+    public Image(byte[] data, String name, String type, CustomUser customUser) {
 	this.name = name;
 	this.type = type;
 	this.data = data;
-	this.album = album;
+	this.customUser = customUser;
     }
 
-    public Image(String name2, String fileDownloadUri, String type2, int length, Album album2) {
+    public Image() {
+	super();
+	// TODO Auto-generated constructor stub
+    }
+
+    public Image(Long id) {
+	super(id);
 	// TODO Auto-generated constructor stub
     }
 
@@ -66,12 +69,12 @@ public class Image extends AbstractEntity {
 	this.data = data;
     }
 
-    public Album getAlbum() {
-	return album;
+    public CustomUser getCustomUser() {
+	return customUser;
     }
 
-    public void setAlbum(Album album) {
-	this.album = album;
+    public void setCustomUser(CustomUser customUser) {
+	this.customUser = customUser;
     }
 
 }

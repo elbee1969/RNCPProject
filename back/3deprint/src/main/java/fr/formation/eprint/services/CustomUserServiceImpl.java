@@ -1,6 +1,8 @@
 package fr.formation.eprint.services;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.modelmapper.ModelMapper;
@@ -16,11 +18,10 @@ import fr.formation.eprint.dtos.CustomUserInfoDto;
 import fr.formation.eprint.dtos.UserCreateDto;
 import fr.formation.eprint.dtos.UserDto;
 import fr.formation.eprint.entities.Address;
-import fr.formation.eprint.entities.Album;
 import fr.formation.eprint.entities.CustomUser;
+import fr.formation.eprint.entities.Image;
 import fr.formation.eprint.entities.Role;
 import fr.formation.eprint.exception.ResourceNotFoundException;
-import fr.formation.eprint.repositories.AlbumJpaRepository;
 import fr.formation.eprint.repositories.CustomUserJpaRepository;
 import fr.formation.eprint.repositories.RoleJpaRepository;
 
@@ -34,7 +35,7 @@ public class CustomUserServiceImpl implements CustomUserService {
 
     @Autowired
     protected CustomUserServiceImpl(PasswordEncoder passwordEncoder, CustomUserJpaRepository userRepository,
-	    RoleJpaRepository roleJpaRepository, AlbumJpaRepository albumJpaRepository, ModelMapper mapper) {
+	    RoleJpaRepository roleJpaRepository, ModelMapper mapper) {
 	// TODO Auto-generated constructor stub
 	this.passwordEncoder = passwordEncoder;
 	this.userJpaRepository = userRepository;
@@ -53,10 +54,10 @@ public class CustomUserServiceImpl implements CustomUserService {
 	Set<Role> role = new HashSet<>();
 	role.add(roleJpaRepository.findByDefaultRole(true));
 
-	Album album = new Album();
+	List<Image> images = new ArrayList<>();
 	Address address = new Address();
 	CustomUser user = new CustomUser(dto.getUsername(), dto.getEmail(), encodedPassword, dto.getLastname(),
-		dto.getFirstname(), role, address, true, true, true, true, album);
+		dto.getFirstname(), role, address, true, true, true, true);
 	CustomUser newUser = userJpaRepository.save(user);
 	return mapper.map(newUser, UserDto.class);
     }

@@ -20,7 +20,7 @@ public class ImageDto {
     @NotNull
     private byte[] data;
 
-    private AlbumCreateDto album;
+    private Long customUserId;
 
     public ImageDto() {
 	super();
@@ -53,17 +53,12 @@ public class ImageDto {
 	this.data = data;
     }
 
-    public AlbumCreateDto getAlbum() {
-	return album;
+    public Long getCustomUserId() {
+	return customUserId;
     }
 
-    public void setAlbum(AlbumCreateDto album) {
-	this.album = album;
-    }
-
-    public Long getUserId() {
-	// TODO Auto-generated method stub
-	return getUserId();
+    public void setCustomUserId(Long customUserId) {
+	this.customUserId = customUserId;
     }
 
 }

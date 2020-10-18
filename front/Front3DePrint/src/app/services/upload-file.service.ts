@@ -28,8 +28,8 @@ export class UploadFileService {
   getFiles(): Observable<any> {
     return this.http.get(`${this.baseUrl}/files`);
   }
-  getOwnerFiles(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/files`);
+  getOwnedFiles(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/ownedfiles`);
   }
   getCurrentFile(id) {
     return this.http.get(`${this.baseUrl}/files/${id}`);

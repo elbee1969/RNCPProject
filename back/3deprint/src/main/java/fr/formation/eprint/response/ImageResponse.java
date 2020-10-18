@@ -5,12 +5,14 @@ public class ImageResponse {
     private String url;
     private String type;
     private long size;
+    private Long userId;
 
-    public ImageResponse(String name, String url, String type, long size) {
+    public ImageResponse(String name, String url, String type, long size, Long userId) {
 	this.name = name;
 	this.url = url;
 	this.type = type;
 	this.size = size;
+	this.userId = userId;
     }
 
     public String getName() {
@@ -44,4 +46,13 @@ public class ImageResponse {
     public void setSize(long size) {
 	this.size = size;
     }
+
+    public Long getUserId() {
+	return userId;
+    }
+
+    public void setUserId(Long userId) {
+	this.userId = userId;
+    }
+
 }

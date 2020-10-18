@@ -121,6 +121,7 @@ public class PrivateController<CustomUser> {
      */
     @Autowired
     private ImageStorageService storageService;
+
     @Autowired
     ImageRepository imageRepository;
 
@@ -150,7 +151,21 @@ public class PrivateController<CustomUser> {
 	    String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/files/")
 		    .path(image.getName()).toUriString();
 
-	    return new ImageResponse(image.getName(), fileDownloadUri, image.getType(), image.getData().length);
+	    return new ImageResponse(image.getName(), fileDownloadUri, image.getType(), image.getData().length,
+		    image.getId());
+	}).collect(Collectors.toList());
+
+	return ResponseEntity.status(HttpStatus.OK).body(files);
+    }
+
+    @GetMapping("/ownedfiles")
+    public ResponseEntity<List<ImageResponse>> getListOwnedFiles() {
+	List<ImageResponse> files = storageService.getAllFiles().map(image -> {
+	    String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/ownedfiles/")
+		    .path(image.getName()).toUriString();
+	    Long customUserId = SecurityHelper.getUserId();
+	    Long userId = storageService.getAllOwnedFiles(customUserId);
+	    return new ImageResponse(image.getName(), fileDownloadUri, image.getType(), image.getData().length, userId);
 	}).collect(Collectors.toList());
 
 	return ResponseEntity.status(HttpStatus.OK).body(files);
