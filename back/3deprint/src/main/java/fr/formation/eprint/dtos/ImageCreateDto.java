@@ -20,7 +20,7 @@ public class ImageCreateDto {
     @NotNull
     private byte[] data;
 
-    AlbumCreateDto album;
+    private Long customUserId;;
 
     public ImageCreateDto() {
 	super();
@@ -53,12 +53,12 @@ public class ImageCreateDto {
 	this.data = data;
     }
 
-    public AlbumCreateDto getAlbum() {
-	return album;
+    public Long getCustomUserId() {
+	return customUserId;
     }
 
-    public void setAlbum(AlbumCreateDto album) {
-	this.album = album;
+    public void setCustomUserId(Long customUserId) {
+	this.customUserId = customUserId;
     }
 
     public Long getUserId() {

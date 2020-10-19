@@ -19,7 +19,7 @@ export class ListFilesComponent implements OnInit {
 
   }
   ngOnInit() {
-    this.fileInfos = this.uploadService.getFiles();
+    this.fileInfos = this.uploadService.getOwnedFiles();
   }
 
 }

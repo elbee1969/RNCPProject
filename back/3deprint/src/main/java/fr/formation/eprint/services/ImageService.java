@@ -1,8 +1,12 @@
 package fr.formation.eprint.services;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.stream.Stream;
 
 import javax.validation.Valid;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import fr.formation.eprint.dtos.ImageCreateDto;
 import fr.formation.eprint.dtos.ImageDto;
@@ -19,17 +23,18 @@ public interface ImageService {
 
     List<ImageViewDto> findAll();
 
-//    Image store(MultipartFile file);
+    void store(MultipartFile file) throws IOException;
 
     List<ImageViewDto> getAll();
 
     void create(@Valid ImageDto dto);
 
-//    Object getAllFiles();
+    Stream<Image> getAllFiles();
 
-//    void populateAndSave(ImageDto dto, Image image);
+    Image getOne(Long id);
 
-//    ImageDto populateAndSave(@Valid ImageCreateDto dto);
+    Image getAllImage();
 
-//    ImageDto create(@Valid ImageCreateDto dto);
+    Image getFile(Long id);
+
 }

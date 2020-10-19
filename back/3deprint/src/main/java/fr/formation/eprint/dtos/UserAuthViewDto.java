@@ -20,8 +20,6 @@ public interface UserAuthViewDto {
 
     Set<Role> getRoles();
 
-    Long getAlbumId();
-
     boolean isEnabled();
 
     boolean isAccountNonExpired();

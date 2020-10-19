@@ -47,8 +47,6 @@ public class UserAuthDto {
     @NotNull
     private boolean credentialsNonExpired;
 
-    private AlbumCreateDto album;
-
     public UserAuthDto() {
 	super();
 	// TODO Auto-generated constructor stub
@@ -134,12 +132,12 @@ public class UserAuthDto {
 	this.credentialsNonExpired = credentialsNonExpired;
     }
 
-    public AlbumCreateDto getAlbum() {
-	return album;
+    public AddressCreateDto getAddress() {
+	return address;
     }
 
-    public void setAlbum(AlbumCreateDto album) {
-	this.album = album;
+    public void setAddress(AddressCreateDto address) {
+	this.address = address;
     }
 
 }

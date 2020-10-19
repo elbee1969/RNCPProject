@@ -1,6 +1,7 @@
 package fr.formation.eprint.services;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.stream.Stream;
 
 import org.springframework.stereotype.Service;
@@ -10,17 +11,17 @@ import org.springframework.web.multipart.MultipartFile;
 import fr.formation.eprint.config.SecurityHelper;
 import fr.formation.eprint.entities.CustomUser;
 import fr.formation.eprint.entities.Image;
+import fr.formation.eprint.repositories.CustomUserJpaRepository;
 import fr.formation.eprint.repositories.ImageRepository;
-import fr.formation.eprint.repositories.NewUserJpaRepository;
 
 @Service
 public class ImageStorageService {
 
     private ImageRepository imageRepository;
 
-    private NewUserJpaRepository userRepository;
+    private CustomUserJpaRepository userRepository;
 
-    protected ImageStorageService(ImageRepository imageRepository, NewUserJpaRepository userRepository) {
+    protected ImageStorageService(ImageRepository imageRepository, CustomUserJpaRepository userRepository) {
 	this.imageRepository = imageRepository;
 	this.userRepository = userRepository;
 
@@ -48,7 +49,7 @@ public class ImageStorageService {
 	return imageRepository.findAll().stream();
     }
 
-    public Long getAllOwnedFiles(Long customUserId) {
+    public List<Image> getAllOwnedFiles(Long customUserId) {
 	// TODO Auto-generated method stub
 	return imageRepository.findAllImagesByUserId(customUserId);
     }

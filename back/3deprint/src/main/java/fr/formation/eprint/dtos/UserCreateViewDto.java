@@ -5,6 +5,7 @@ import java.util.Set;
 import fr.formation.eprint.entities.Role;
 
 public interface UserCreateViewDto {
+    Long getId();
 
     String getUsername();
 
