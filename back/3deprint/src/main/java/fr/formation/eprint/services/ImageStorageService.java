@@ -51,7 +51,7 @@ public class ImageStorageService {
 
     public List<Image> getAllOwnedFiles(Long customUserId) {
 	// TODO Auto-generated method stub
-	return imageRepository.findAllImagesByUserId(customUserId);
+	return imageRepository.findImageByUserId(customUserId);
     }
 
 }

@@ -24,8 +24,8 @@ public class Image extends AbstractEntity {
     @Column(name = "data", nullable = false)
     private byte[] data;
 
-    @ManyToOne
-    @JoinColumn(name = "custom_user_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customUser_id")
     private CustomUser customUser;
 
     public Image(byte[] data, String name, String type, CustomUser customUser) {

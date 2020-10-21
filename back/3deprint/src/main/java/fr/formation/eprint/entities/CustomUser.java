@@ -1,5 +1,6 @@
 package fr.formation.eprint.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -69,7 +70,7 @@ public class CustomUser extends AbstractEntity {
     private boolean credentialsNonExpired;
 
     @OneToMany(mappedBy = "customUser", cascade = CascadeType.ALL)
-    private List<Image> images;
+    private List<Image> images = new ArrayList<Image>();
 
     public CustomUser(String username, @Email String email, String password, String firstname, String lastname,
 	    Set<Role> roles, Address address, boolean enabled, boolean accountNonExpired, boolean accountNonLocked,
@@ -87,6 +88,24 @@ public class CustomUser extends AbstractEntity {
 	this.accountNonLocked = accountNonLocked;
 	this.credentialsNonExpired = credentialsNonExpired;
 
+    }
+
+    public CustomUser(String username, @Email String email, String password, String firstname, String lastname,
+	    Set<Role> roles, Address address, boolean enabled, boolean accountNonExpired, boolean accountNonLocked,
+	    boolean credentialsNonExpired, List<Image> images) {
+	super();
+	this.username = username;
+	this.email = email;
+	this.password = password;
+	this.firstname = firstname;
+	this.lastname = lastname;
+	this.roles = roles;
+	this.address = address;
+	this.enabled = enabled;
+	this.accountNonExpired = accountNonExpired;
+	this.accountNonLocked = accountNonLocked;
+	this.credentialsNonExpired = credentialsNonExpired;
+	this.images = images;
     }
 
     public CustomUser(String username, String password, String firstname, String lastname, Set<Role> roles,

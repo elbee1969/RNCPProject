@@ -24,6 +24,7 @@ const routes: Routes = [
   { path: 'details/:id', component: DetailsComponent },
   { path: 'users/callback', component: UsersComponent },
   { path: 'upload', component: UploadFilesComponent},
+  { path: 'upload/callback', component: UploadFilesComponent },
   { path: 'files', component: ListFilesComponent },
   { path: 'files/callback', component: ListFilesComponent },
   { path: 'files/:id', component: ShowFileComponent },

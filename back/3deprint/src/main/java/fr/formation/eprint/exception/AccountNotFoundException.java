@@ -1,4 +1,4 @@
-package fr.formation.eprint.services;
+package fr.formation.eprint.exception;
 
 public class AccountNotFoundException extends RuntimeException {
 

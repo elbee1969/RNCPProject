@@ -15,6 +15,7 @@ import fr.formation.eprint.config.CustomUserDetails;
 import fr.formation.eprint.dtos.CustomUserAuthDto;
 import fr.formation.eprint.dtos.CustomUserInfoDto;
 import fr.formation.eprint.entities.CustomUser;
+import fr.formation.eprint.exception.AccountNotFoundException;
 import fr.formation.eprint.exception.ResourceNotFoundException;
 import fr.formation.eprint.repositories.CustomUserJpaRepository;
 

@@ -27,6 +27,15 @@ public class ImageDto {
 	// TODO Auto-generated constructor stub
     }
 
+    public ImageDto(@NotBlank @Max(255) String name, @NotBlank @Max(255) String type, @NotNull byte[] data,
+	    Long customUserId) {
+	super();
+	this.name = name;
+	this.type = type;
+	this.data = data;
+	this.customUserId = customUserId;
+    }
+
     public String getName() {
 	MultipartFile file = null;
 	name = StringUtils.cleanPath(file.getOriginalFilename());

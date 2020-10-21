@@ -4,18 +4,14 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Stream;
 
-import javax.validation.Valid;
-
 import org.springframework.web.multipart.MultipartFile;
 
-import fr.formation.eprint.dtos.ImageCreateDto;
-import fr.formation.eprint.dtos.ImageDto;
 import fr.formation.eprint.dtos.ImageViewDto;
 import fr.formation.eprint.entities.Image;
 
 public interface ImageService {
 
-    Image create(@Valid ImageCreateDto dto);
+//    Image create(@Valid ImageCreateDto dto);
 
     void delete(Long id);
 
@@ -23,11 +19,11 @@ public interface ImageService {
 
     List<ImageViewDto> findAll();
 
-    void store(MultipartFile file) throws IOException;
+//    void store(MultipartFile file) throws IOException;
 
     List<ImageViewDto> getAll();
 
-    void create(@Valid ImageDto dto);
+//    void create(@Valid ImageDto dto);
 
     Stream<Image> getAllFiles();
 
@@ -36,5 +32,11 @@ public interface ImageService {
     Image getAllImage();
 
     Image getFile(Long id);
+
+    Image store(MultipartFile file) throws IOException;
+
+//    BodyBuilder uplaodImage(MultipartFile file) throws IOException;
+
+    List<Image> getAllOwnedFiles();
 
 }

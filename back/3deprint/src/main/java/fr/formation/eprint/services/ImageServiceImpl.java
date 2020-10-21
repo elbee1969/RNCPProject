@@ -1,18 +1,21 @@
 package fr.formation.eprint.services;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Stream;
+import java.util.zip.DataFormatException;
+import java.util.zip.Deflater;
+import java.util.zip.Inflater;
 
-import javax.validation.Valid;
-
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import fr.formation.eprint.config.SecurityHelper;
-import fr.formation.eprint.dtos.ImageCreateDto;
-import fr.formation.eprint.dtos.ImageDto;
 import fr.formation.eprint.dtos.ImageViewDto;
 import fr.formation.eprint.entities.CustomUser;
 import fr.formation.eprint.entities.Image;
@@ -29,51 +32,6 @@ public class ImageServiceImpl implements ImageService {
 	this.imageRepository = imageRepository;
 	this.userRepository = userRepository;
     }
-
-    @Override
-    public void create(@Valid ImageDto dto) {
-	// TODO Auto-generated method stub
-	Image image = new Image();
-	populateAndSave(dto, image);
-    }
-
-    @Override
-    public Image create(@Valid ImageCreateDto dto) {
-	// TODO Auto-generated method stub
-	Image image = new Image();
-	image.setName(dto.getName());
-	image.setData(dto.getData());
-	image.setType(dto.getType());
-	Long userId = SecurityHelper.getUserId();
-	CustomUser user = userRepository.getOne(userId);
-	image.setCustomUser(user);
-	return imageRepository.save(image);
-    }
-
-    public void populateAndSave(ImageDto dto, Image image) {
-	// TODO Auto-generated method stub
-	image.setName(dto.getName());
-	image.setData(dto.getData());
-	image.setType(dto.getType());
-	Long userId = SecurityHelper.getUserId();
-	CustomUser user = userRepository.getOne(userId);
-	image.setCustomUser(user);
-	imageRepository.save(image);
-    }
-
-//    public Image store(MultipartFile file) throws IOException {
-//	String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-//	if (fileName.endsWith(".jpg") || fileName.endsWith(".png") || fileName.endsWith(".stl")) {
-//	    Long userId = SecurityHelper.getUserId();
-//	    CustomUser customUser = userRepository.getOne(userId);
-//	    Image imageModel = new Image(file.getBytes(), fileName, file.getContentType(), customUser);
-//	    return imageRepository.save(imageModel);
-//	} else {
-//	    return null;
-//
-//	}
-//
-//    }
 
     @Override
     public void delete(Long id) {
@@ -128,24 +86,78 @@ public class ImageServiceImpl implements ImageService {
     }
 
     public Stream<Image> getAllFiles() {
+
 	return imageRepository.findAll().stream();
     }
 
-    public List<Image> getAllOwnedFiles(Long customUserId) {
-	// TODO Auto-generated method stub
-	return imageRepository.findAllImagesByUserId(customUserId);
+    public List<Image> getAllOwnedFiles() {
+	Long UserId = SecurityHelper.getUserId();
+	return (List<Image>) imageRepository.findImageByUserId(UserId).stream();
     }
 
     @Override
-    public void store(MultipartFile file) throws IOException {
+    public Image store(@RequestParam("file") MultipartFile file) throws IOException {
 	// TODO Auto-generated method stub
 	String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 	if (fileName.endsWith(".jpg") || fileName.endsWith(".png") || fileName.endsWith(".stl")) {
 	    Long userId = SecurityHelper.getUserId();
 	    CustomUser customUser = userRepository.getOne(userId);
-	    Image imageModel = new Image(file.getBytes(), fileName, file.getContentType(), customUser);
-	    imageRepository.save(imageModel);
+	    Image image = new Image(compressZLib(file.getBytes()), fileName, file.getContentType(), customUser);
+	    return imageRepository.save(image);
 	}
+	return (Image) ResponseEntity.status(HttpStatus.OK);
+    }
+
+//    @Override
+//    public BodyBuilder uplaodImage(MultipartFile file) throws IOException {
+//	// TODO Auto-generated method stub
+//	System.out.println("Original Image Byte Size - " + file.getBytes().length);
+//	String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+//	Long userId = SecurityHelper.getUserId();
+//	CustomUser customUser = userRepository.getOne(userId);
+//	Image image = new Image(compressZLib(file.getBytes()), fileName, file.getContentType(), customUser);
+//
+//	imageRepository.save(image);
+//	return ResponseEntity.status(HttpStatus.OK);
+//    }
+
+    // compress the image bytes before storing it in the database
+    public static byte[] compressZLib(byte[] data) {
+	Deflater deflater = new Deflater();
+	deflater.setInput(data);
+	deflater.finish();
+
+	ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
+	byte[] buffer = new byte[1024];
+	while (!deflater.finished()) {
+	    int count = deflater.deflate(buffer);
+	    outputStream.write(buffer, 0, count);
+	}
+	try {
+	    outputStream.close();
+	} catch (IOException e) {
+	}
+	System.out.println("Compressed Image Byte Size - " + outputStream.toByteArray().length);
+
+	return outputStream.toByteArray();
+    }
+
+    // uncompress the image bytes before returning it to the angular application
+    public static byte[] decompressZLib(byte[] data) {
+	Inflater inflater = new Inflater();
+	inflater.setInput(data);
+	ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
+	byte[] buffer = new byte[1024];
+	try {
+	    while (!inflater.finished()) {
+		int count = inflater.inflate(buffer);
+		outputStream.write(buffer, 0, count);
+	    }
+	    outputStream.close();
+	} catch (IOException ioe) {
+	} catch (DataFormatException e) {
+	}
+	return outputStream.toByteArray();
     }
 
 }

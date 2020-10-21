@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -29,28 +28,37 @@ import fr.formation.eprint.services.ImageService;
 @RequestMapping("/private") // "/api/private/*"
 public class ImageController {
 
+    @Autowired
+    ImageRepository imageRepository;
+
+    @Autowired
+    private NewUserJpaRepository userRepository;
+
     private final ImageService imageService;
 
     protected ImageController(ImageService imageService) {
 	this.imageService = imageService;
     }
 
+//    @PostMapping("/upload")
+//    @ResponseStatus(HttpStatus.OK)
+//    public void uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
+//	imageService.store(file);
+//    }
+
     @PostMapping("/upload")
-    @ResponseStatus(HttpStatus.OK)
-    public void uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
+    public void uplaodImage(@RequestParam("file") MultipartFile file) throws IOException {
+
+//	System.out.println("Original Image Byte Size - " + file.getBytes().length);
+//	String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+//	Long userId = SecurityHelper.getUserId();
+//	CustomUser customUser = userRepository.getOne(userId);
+//	Image image = new Image(compressZLib(file.getBytes()), fileName, file.getContentType(), customUser);
+//
+//	imageRepository.save(image);
+//	return ResponseEntity.status(HttpStatus.OK);
 	imageService.store(file);
     }
-
-    /**
-     * part of the controller dedicated to the fields management
-     * 
-     */
-
-    @Autowired
-    ImageRepository imageRepository;
-
-    @Autowired
-    private NewUserJpaRepository userRepository;
 
     @GetMapping("/files")
     public ResponseEntity<List<ImageResponse>> getListFiles() {
