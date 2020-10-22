@@ -21,6 +21,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { DetailsComponent } from './details/details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalModule } from './modals/modal/modal.module';
+import { UserUpdateComponent } from './user-update/user-update.component';
 
 
 
@@ -37,7 +38,8 @@ import { ModalModule } from './modals/modal/modal.module';
     ListFilesComponent,
     ShowFileComponent,
     UsersComponent,
-    DetailsComponent
+    DetailsComponent,
+    UserUpdateComponent
   
 
   ],

@@ -12,6 +12,7 @@ import { ShowFileComponent } from './files/show-file/show-file.component';
 import { AuthGuard } from './helpers/auth.guard';
 import { UsersComponent } from './users/users.component';
 import { DetailsComponent } from './details/details.component';
+import { UserUpdateComponent } from './user-update/user-update.component';
 
 
 const routes: Routes = [
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent  },
   { path: 'user', component: BoardUserComponent },
   { path: 'users', component: UsersComponent },
+  { path: 'update/:id', component: UserUpdateComponent },
   { path: 'details/:id', component: DetailsComponent },
   { path: 'users/callback', component: UsersComponent },
   { path: 'upload', component: UploadFilesComponent},
