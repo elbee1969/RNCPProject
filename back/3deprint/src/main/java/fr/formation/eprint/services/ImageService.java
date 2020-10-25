@@ -11,23 +11,19 @@ import fr.formation.eprint.entities.Image;
 
 public interface ImageService {
 
-//    Image create(@Valid ImageCreateDto dto);
 
     void delete(Long id);
 
-    Image getOne(String id);
 
     List<ImageViewDto> findAll();
 
-//    void store(MultipartFile file) throws IOException;
-
     List<ImageViewDto> getAll();
-
-//    void create(@Valid ImageDto dto);
+    
+    List<ImageViewDto> getAllByUserId(Long id);
 
     Stream<Image> getAllFiles();
 
-    Image getOne(Long id);
+    ImageViewDto getOne(Long id);
 
     Image getAllImage();
 
@@ -35,8 +31,5 @@ public interface ImageService {
 
     Image store(MultipartFile file) throws IOException;
 
-//    BodyBuilder uplaodImage(MultipartFile file) throws IOException;
-
-    List<Image> getAllOwnedFiles();
 
 }

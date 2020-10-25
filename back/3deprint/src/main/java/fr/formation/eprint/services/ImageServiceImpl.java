@@ -54,7 +54,7 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public List<ImageViewDto> getAll() {
 	// TODO Auto-generated method stub
-	return null;
+    	return imageRepository.getAllProjectedBy();
     }
 
 //    @Override
@@ -64,16 +64,11 @@ public class ImageServiceImpl implements ImageService {
 //    }
 
     @Override
-    public Image getOne(String id) {
+    public ImageViewDto getOne(Long id) {
 	// TODO Auto-generated method stub
-	return null;
+	return imageRepository.getById(id);
     }
 
-    @Override
-    public Image getOne(Long id) {
-	// TODO Auto-generated method stub
-	return null;
-    }
 
     @Override
     public Image getAllImage() {
@@ -90,10 +85,6 @@ public class ImageServiceImpl implements ImageService {
 	return imageRepository.findAll().stream();
     }
 
-    public List<Image> getAllOwnedFiles() {
-	Long UserId = SecurityHelper.getUserId();
-	return (List<Image>) imageRepository.findImageByUserId(UserId).stream();
-    }
 
     @Override
     public Image store(@RequestParam("file") MultipartFile file) throws IOException {
@@ -159,5 +150,11 @@ public class ImageServiceImpl implements ImageService {
 	}
 	return outputStream.toByteArray();
     }
+
+	@Override
+	public List<ImageViewDto> getAllByUserId(Long id) {
+
+		return imageRepository.getAllImageByUserId(id);
+	}
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UploadFileService } from 'src/app/services/upload-file.service';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-files',
@@ -11,7 +12,7 @@ export class ListFilesComponent implements OnInit {
   selectedFiles: FileList;
 
   fileInfos: Observable<any>;
-  constructor(private uploadService: UploadFileService) { 
+  constructor(private uploadService: UploadFileService, private router: Router) { 
 
   }
   selectedFile(event) {
@@ -21,5 +22,7 @@ export class ListFilesComponent implements OnInit {
   ngOnInit() {
     this.fileInfos = this.uploadService.getOwnedFiles();
   }
-
+  imageDetail(id: number) {
+    this.router.navigate(['/files/',id]);
+  }
 }

@@ -5,7 +5,10 @@
     *ngFor="let file of fileInfos | async"
   >
     <li class="list-group-item">
-      <a href="/files/{{ file.name }}">{{ file.name }}</a>
+
+      <p>{{ file.name }} 
+      <button (click) = "imageDetail(file.id)" class="btn btn-info" style="margin-left: 10px">Voir</button>
+      </p>
     </li>
   </ul>
 </div>

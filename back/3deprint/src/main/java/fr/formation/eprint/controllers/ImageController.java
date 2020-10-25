@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import fr.formation.eprint.config.SecurityHelper;
+import fr.formation.eprint.dtos.ImageViewDto;
 import fr.formation.eprint.entities.Image;
 import fr.formation.eprint.repositories.ImageRepository;
 import fr.formation.eprint.repositories.NewUserJpaRepository;
@@ -40,26 +41,23 @@ public class ImageController {
 	this.imageService = imageService;
     }
 
-//    @PostMapping("/upload")
-//    @ResponseStatus(HttpStatus.OK)
-//    public void uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
-//	imageService.store(file);
-//    }
-
     @PostMapping("/upload")
     public void uplaodImage(@RequestParam("file") MultipartFile file) throws IOException {
 
-//	System.out.println("Original Image Byte Size - " + file.getBytes().length);
-//	String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-//	Long userId = SecurityHelper.getUserId();
-//	CustomUser customUser = userRepository.getOne(userId);
-//	Image image = new Image(compressZLib(file.getBytes()), fileName, file.getContentType(), customUser);
-//
-//	imageRepository.save(image);
-//	return ResponseEntity.status(HttpStatus.OK);
 	imageService.store(file);
     }
 
+    @GetMapping("/images") // GET "/api/forum/reponses" pas d'id, retourne toute la collection des réponces (posts)
+	public List<ImageViewDto> getAll() {
+		return imageService.getAll();
+	}
+    
+    @GetMapping("/ownedImages") // GET "/api/forum/reponses" pas d'id, retourne toute la collection des réponces (posts)
+	public List<ImageViewDto> getAllByUserId() {
+		return imageService.getAll();
+	}
+    
+    
     @GetMapping("/files")
     public ResponseEntity<List<ImageResponse>> getListFiles() {
 	List<ImageResponse> files = imageService.getAllFiles().map(image -> {
@@ -93,5 +91,8 @@ public class ImageController {
 		.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + image.getName() + "\"")
 		.body(image);
     }
-
+ @GetMapping("/image/{id}") // GET "/api/forum/sujet/1" ou 1 correspond à l'id d'un sujet du forum existant en bdd
+public ImageViewDto getImage(@PathVariable Long id) {
+return imageService.getOne(id);
+}
 }

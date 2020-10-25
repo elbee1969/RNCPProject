@@ -2,7 +2,9 @@ package fr.formation.eprint.dtos;
 
 public interface ImageViewDto {
 
-    String getName();
+	Long getId();
+	
+	String getName();
 
     String getType();
 

@@ -11,7 +11,7 @@ export class ShowFileComponent implements OnInit {
   id: any;
   currentFile: any;
   image: any;
-  constructor(private uploadService: UploadFileService, private route: ActivatedRoute) { }
+  constructor(private uploadService: UploadFileService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
       this.id = this.route.snapshot.params['id']
@@ -24,9 +24,10 @@ export class ShowFileComponent implements OnInit {
         }
       )
 
-    console.log('file infos : ' + this.route.snapshot.params['id']);
   }
-  
+  backToImageslist() {
+    this.router.navigate(['/files']);
+  }
   deleteFile() {
  /*   this.uploadService.delete(this.fileInfos)
       .subscribe(
