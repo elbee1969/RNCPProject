@@ -30,6 +30,7 @@ const routes: Routes = [
   { path: 'files', component: ListFilesComponent },
   { path: 'files/callback', component: ListFilesComponent },
   { path: 'files/:id', component: ShowFileComponent },
+  { path: 'files/:id/callback', component: ShowFileComponent },
   { path: 'admin', component: BoardAdminComponent  },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];

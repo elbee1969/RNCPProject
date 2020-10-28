@@ -25,6 +25,7 @@ import { UserUpdateComponent } from './user-update/user-update.component';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +51,8 @@ import { UserUpdateComponent } from './user-update/user-update.component';
     HttpClientModule,
     NgxPaginationModule,
     BrowserAnimationsModule,
-    ModalModule
+    ModalModule,
+
 
 
   ],
