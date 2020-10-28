@@ -1,8 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewContainerRef, ViewChild, ComponentFactoryResolver } from '@angular/core';
 import { UploadFileService } from 'src/app/services/upload-file.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
-// import { stlViewer } from 'src/stlviewer/stl_viewer.min.js';
+import { FormControl } from '@angular/forms';
+import * as THREE from 'three';
 
 @Component({
   selector: 'app-show-file',
@@ -15,20 +16,57 @@ export class ShowFileComponent implements OnInit {
   image: any;
   thumbnail: any;
   base64Data: any;
-  constructor(private uploadService: UploadFileService, private route: ActivatedRoute, private router: Router, private sanitizer: DomSanitizer) { }
-
-  ngOnInit() {
+  
+  @ViewChild('vc', { read: ViewContainerRef, static: false }) vc: ViewContainerRef;
+  file = new FormControl('');
+  imagePath: string;
+  imgURL: any;
+  camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 1, 15);
+  stlfiles = "";
+  _reload = false;
+  stlmodels: string;
+  
+  
+  
+  
+  constructor(private uploadService: UploadFileService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private sanitizer: DomSanitizer,
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private _vcr: ViewContainerRef,
+    private viewContainerRef: ViewContainerRef
+    
+    
+    
+    ) { 
+      
+    }
+    
+    
+    ngOnInit() {
+      
       this.id = this.route.snapshot.params['id']
       this.uploadService.getCurrentFile(this.id).subscribe(response => {
         this.image = response;
         console.log('file infos : ' + JSON.stringify(response));
-        console.log('file infos data : ' + this.image);
-        this.base64Data = this.image.data;
-        this.image = 'data:image/jpeg;base64,' + this.base64Data;
+        console.log('file infos data : ' + this.image.name);
+        this.thumbnail = this.image.name;
+        // this.base64Data = this.image.data;
+        // this.image = 'data:image/jpeg;base64,' + this.base64Data;
+        //  this.thumbnail = this.sanitizer.bypassSecurityTrustUrl(this.image);
+        this.stlfiles = this.thumbnail;
 
-        this.thumbnail = this.sanitizer.bypassSecurityTrustUrl(this.image);
-        // var stl_viewer = new stlViewer(document.getElementById("stl_cont"), { models: [{ id: 0, filename: this.image.name }] });
+        debugger;
+        this.stlfiles.slice(0, this.file.value)
+        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ShowFileComponent);
 
+        const viewContainerRef = this.vc;
+        viewContainerRef.clear();
+
+        const componentRef = viewContainerRef.createComponent(componentFactory);
+        (componentRef.instance).stlmodels = this.stlfiles;
+        
       },
         error => {
           console.log(error);

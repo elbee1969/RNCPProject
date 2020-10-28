@@ -22,6 +22,10 @@ import { DetailsComponent } from './details/details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalModule } from './modals/modal/modal.module';
 import { UserUpdateComponent } from './user-update/user-update.component';
+import { StlModelViewerModule } from 'angular-stl-model-viewer';
+
+
+
 
 
 
@@ -52,8 +56,7 @@ import { UserUpdateComponent } from './user-update/user-update.component';
     NgxPaginationModule,
     BrowserAnimationsModule,
     ModalModule,
-
-
+    StlModelViewerModule
 
   ],
   providers: [authInterceptorProviders],

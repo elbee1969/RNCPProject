@@ -2,10 +2,8 @@
   <div class="card-header">image</div>
 
     <li class="list-group-item" >
-      <img [src]="thumbnail" alt="image" style="max-width:350px"/>
-
-<p>details works!</p>
-<button (click)="backToImageslist()" class="btn btn-info" style="margin-left: 10px">Retour</button>
+  <stl-model-viewer class="threedee" [stlModels]="thumbnail"></stl-model-viewer>
+<button (click)="backToImageslist()" class="btn btn-info" style="margin-left: 10px">Retour aux images</button>
     </li>
 </div>
 <button class="badge badge-danger mr-2" (click)="deleteFile()">

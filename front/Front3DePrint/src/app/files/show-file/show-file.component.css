@@ -1,5 +1,3 @@
-stl-model-viewer {
-    width: 100%;
-    height: 100%;
-    display: block;
+.threedee canvas {
+    height: 100vh;
 }

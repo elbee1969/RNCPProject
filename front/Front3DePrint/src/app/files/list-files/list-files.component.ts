@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { UploadFileService } from 'src/app/services/upload-file.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./list-files.component.css']
 })
 export class ListFilesComponent implements OnInit {
+
   selectedFiles: FileList;
 
   fileInfos: Observable<any>;
