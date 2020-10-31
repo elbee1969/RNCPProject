@@ -31,6 +31,5 @@ public interface CustomUserAuthDto {
 
     boolean isCredentialsNonExpired();
 
-    Long getAlbumId();
-
+ 
 }

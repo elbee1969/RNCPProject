@@ -17,13 +17,13 @@ export class ListFilesComponent implements OnInit {
 
   }
   selectedFile(event) {
-    this.selectedFiles = event.target.files;
+    //this.selectedFiles = event.target.files;
 
   }
   ngOnInit() {
     this.fileInfos = this.uploadService.getOwnedFiles();
   }
   imageDetail(id: number) {
-    this.router.navigate(['/files/',id]);
+    this.router.navigate(['/image/',id]);
   }
 }

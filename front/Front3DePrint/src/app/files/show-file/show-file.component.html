@@ -2,7 +2,16 @@
   <div class="card-header">image</div>
 
     <li class="list-group-item" >
-  <stl-model-viewer class="threedee" [stlModels]="thumbnail"></stl-model-viewer>
+  <stl-model-viewer class="threedee" [stlModels]="stlfiles"></stl-model-viewer>
+    <stl-model-viewer class="threedee" [meshOptions]="[{position: {x: 0, y: 0, z: 0}}]" [stlModels]="['./assets/xwing.stl']"></stl-model-viewer>
+    <stl-model-viewer [meshOptions]="[{position: {x: 0, y: 0, z: 0}}]" [stlModels]="[image]"></stl-model-viewer>
+    <stl-model-viewer [meshOptions]="[{position: {x: 0, y: 0, z: 0}}]" [stlModels]="image"></stl-model-viewer>
+    <stl-model-viewer [meshOptions]="[{position: {x: 0, y: 0, z: 0}}]" [stlModels]="imagejson"></stl-model-viewer>                
+    <stl-model-viewer [meshOptions]="[{position: {x: 0, y: 0, z: 0}}]" [stlModels]="imagename"></stl-model-viewer>  
+    <stl-model-viewer [meshOptions]="[{position: {x: 0, y: 0, z: 0}}]" [stlModels]="[imagejson]"></stl-model-viewer>                
+    <stl-model-viewer [meshOptions]="[{position: {x: 0, y: 0, z: 0}}]" [stlModels]="[imagename]"></stl-model-viewer>
+   <!-- <stl-model-viewer [meshOptions]="[{position: {x: 0, y: 0, z: 0}}]" [stlModels]="['imagejson']"></stl-model-viewer>                
+    <stl-model-viewer [meshOptions]="[{position: {x: 0, y: 0, z: 0}}]" [stlModels]="['imagename']"></stl-model-viewer>  -->      
 <button (click)="backToImageslist()" class="btn btn-info" style="margin-left: 10px">Retour aux images</button>
     </li>
 </div>

@@ -6,7 +6,9 @@ import java.util.stream.Stream;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import fr.formation.eprint.dtos.ImageDto;
 import fr.formation.eprint.dtos.ImageViewDto;
+import fr.formation.eprint.entities.CustomUser;
 import fr.formation.eprint.entities.Image;
 
 public interface ImageService {
@@ -17,10 +19,6 @@ public interface ImageService {
 
     List<ImageViewDto> findAll();
 
-    List<ImageViewDto> getAll();
-    
-    List<ImageViewDto> getAllByUserId(Long id);
-
     Stream<Image> getAllFiles();
 
     ImageViewDto getOne(Long id);
@@ -30,6 +28,18 @@ public interface ImageService {
     Image getFile(Long id);
 
     Image store(MultipartFile file) throws IOException;
+
+
+	List<ImageViewDto> getAll();
+
+
+	List<ImageViewDto> getAllByUserId(Long id);
+
+
+
+
+
+
 
 
 }

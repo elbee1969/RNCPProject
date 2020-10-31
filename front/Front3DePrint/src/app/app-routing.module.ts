@@ -13,6 +13,7 @@ import { AuthGuard } from './helpers/auth.guard';
 import { UsersComponent } from './users/users.component';
 import { DetailsComponent } from './details/details.component';
 import { UserUpdateComponent } from './user-update/user-update.component';
+import { ThreeComponent } from './three/three.component';
 
 
 const routes: Routes = [
@@ -29,9 +30,10 @@ const routes: Routes = [
   { path: 'upload/callback', component: UploadFilesComponent },
   { path: 'files', component: ListFilesComponent },
   { path: 'files/callback', component: ListFilesComponent },
-  { path: 'files/:id', component: ShowFileComponent },
+  { path: 'image/:id', component: ShowFileComponent },
   { path: 'files/:id/callback', component: ShowFileComponent },
   { path: 'admin', component: BoardAdminComponent  },
+  { path: 'three/:id', component: ThreeComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 

@@ -50,7 +50,7 @@ export class UploadFilesComponent implements OnInit {
           this.progress = Math.round(100 * event.loaded / event.total);
         } else if (event instanceof HttpResponse) {
           this.message = event.body.message;
-          this.fileInfos = this.uploadService.getFiles();
+          //this.fileInfos = this.uploadService.getOwnedFiles();
         }
       },
       err => {
@@ -65,7 +65,7 @@ export class UploadFilesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.fileInfos = this.uploadService.getFiles();
+    this.fileInfos = this.uploadService.getOwnedFiles();
   }
 
 }

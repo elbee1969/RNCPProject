@@ -53,8 +53,8 @@ public class ImageController {
 	}
     
     @GetMapping("/ownedImages") // GET "/api/forum/reponses" pas d'id, retourne toute la collection des réponces (posts)
-	public List<ImageViewDto> getAllByUserId() {
-		return imageService.getAll();
+	public List<ImageViewDto> getAllById(Long id) {
+		return imageService.getAllByUserId(id);
 	}
     
     

@@ -151,10 +151,15 @@ public class ImageServiceImpl implements ImageService {
 	return outputStream.toByteArray();
     }
 
-	@Override
 	public List<ImageViewDto> getAllByUserId(Long id) {
 
-		return imageRepository.getAllImageByUserId(id);
+		Long userId = SecurityHelper.getUserId();
+		CustomUser customUser = userRepository.getOne(userId);
+		id = customUser.getId();
+		
+		List<ImageViewDto> image = imageRepository.getAllImageByUserId(customUser);
+		return image;
 	}
+
 
 }
