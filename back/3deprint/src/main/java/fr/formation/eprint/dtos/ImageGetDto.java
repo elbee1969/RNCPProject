@@ -4,24 +4,25 @@ import fr.formation.eprint.entities.CustomUser;
 
 public class ImageGetDto {
     private String name;
-    private String url;
     private String type;
-    private long size;
-    private Long customUserId;
+    private byte[] data;
+    private CustomUser customUser;
 
-    public ImageGetDto(String name, String url, String type, long size, Long customUserId) {
+    public ImageGetDto(String name,String type, byte[] data,CustomUser customUser) {
 	this.name = name;
-	this.url = url;
 	this.type = type;
-	this.size = size;
-	this.customUserId = customUserId;
+	this.data = data;
+	this.customUser = customUser;
     }
 
-    public ImageGetDto(byte[] bytes, String contentType, String originalFilename, CustomUser user) {
-	// TODO Auto-generated constructor stub
-    }
 
-    public String getName() {
+    public ImageGetDto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+	public String getName() {
 	return name;
     }
 
@@ -29,14 +30,7 @@ public class ImageGetDto {
 	this.name = name;
     }
 
-    public String getUrl() {
-	return url;
-    }
-
-    public void setUrl(String url) {
-	this.url = url;
-    }
-
+ 
     public String getType() {
 	return type;
     }
@@ -45,20 +39,26 @@ public class ImageGetDto {
 	this.type = type;
     }
 
-    public long getSize() {
-	return size;
-    }
+ 
+    public byte[] getData() {
+		return data;
+	}
 
-    public void setSize(long size) {
-	this.size = size;
-    }
 
-    public Long getCustomUserId() {
-	return customUserId;
-    }
+	public void setData(byte[] data) {
+		this.data = data;
+	}
 
-    public void setCustomUserId(Long customUserId) {
-	this.customUserId = customUserId;
-    }
 
+	public CustomUser getCustomUser() {
+		return customUser;
+	}
+
+
+	public void setCustomUser(CustomUser customUser) {
+		this.customUser = customUser;
+	}
+
+
+	
 }

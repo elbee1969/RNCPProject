@@ -9,7 +9,7 @@ import fr.formation.eprint.entities.CustomUser;
 @Repository
 public interface NewUserJpaRepository extends JpaRepository<CustomUser, Long> {
 
-    UserCreateViewDto getById(Long id);
+    long getById(Long id);
 
     Object findByUsername(String username);
 }

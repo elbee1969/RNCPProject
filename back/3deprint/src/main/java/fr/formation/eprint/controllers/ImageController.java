@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import fr.formation.eprint.config.SecurityHelper;
+import fr.formation.eprint.dtos.ImageGetDto;
 import fr.formation.eprint.dtos.ImageViewDto;
 import fr.formation.eprint.entities.Image;
 import fr.formation.eprint.repositories.ImageRepository;
@@ -53,8 +54,8 @@ public class ImageController {
 	}
     
     @GetMapping("/ownedImages") // GET "/api/forum/reponses" pas d'id, retourne toute la collection des réponces (posts)
-	public List<ImageViewDto> getAllById(Long id) {
-		return imageService.getAllByUserId(id);
+	public List<ImageGetDto> getAllById() {
+		return imageService.getAllByUserId();
 	}
     
     

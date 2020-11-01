@@ -10,6 +10,7 @@ import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import fr.formation.eprint.config.SecurityHelper;
 import fr.formation.eprint.dtos.ImageDto;
+import fr.formation.eprint.dtos.ImageGetDto;
 import fr.formation.eprint.dtos.ImageViewDto;
 import fr.formation.eprint.entities.CustomUser;
 import fr.formation.eprint.entities.Image;
@@ -30,10 +32,12 @@ public class ImageServiceImpl implements ImageService {
 
     private ImageRepository imageRepository;
     private NewUserJpaRepository userRepository;
+    private ModelMapper mapper;
 
-    protected ImageServiceImpl(ImageRepository imageRepository, NewUserJpaRepository userRepository) {
+    protected ImageServiceImpl(ImageRepository imageRepository, NewUserJpaRepository userRepository, ModelMapper mapper) {
 	this.imageRepository = imageRepository;
 	this.userRepository = userRepository;
+	this.mapper = mapper;
     }
 
     @Override
@@ -148,18 +152,24 @@ public class ImageServiceImpl implements ImageService {
 		outputStream.write(buffer, 0, count);
 	    }
 	    outputStream.close();
-	} catch (IOException ioe) {
-	} catch (DataFormatException e) {
+	} catch (IOException | DataFormatException ioe) {
 	}
 	return outputStream.toByteArray();
     }
 
-	public List<ImageViewDto> getAllByUserId(Long id) {
+	public List<ImageGetDto> getAllByUserId() {
 
-		Long userId = SecurityHelper.getUserId();
-		CustomUser customUser = userRepository.getOne(userId);
+		Long customUserId = SecurityHelper.getUserId();
+
+//		List<ImageViewDto> images = new ArrayList<>();
 		
-		return imageRepository.getAllImageByUserId(customUser);
+		List<Image> images = imageRepository.getAllImageByUserId(customUserId);
+		List<ImageGetDto> imagesToReturn = images.stream()
+//				.map(elt -> decompressZLib(elt.getData()))
+		        .map(elt -> mapper.map(elt, ImageGetDto.class))
+		        .collect(Collectors.toList());
+		return imagesToReturn;
+		
 
 	}
 

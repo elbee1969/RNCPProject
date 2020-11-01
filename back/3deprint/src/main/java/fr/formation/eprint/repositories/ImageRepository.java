@@ -20,8 +20,8 @@ public interface ImageRepository extends JpaRepository<Image, Long> {
 
 //    @Query(value = "SELECT i.id FROM image i INNER JOIN custom_user u ON i.custom_user_id = u.id WHERE custom_user_id = :customUserId", nativeQuery = true)
 
-    @Query("SELECT i.id FROM Image i INNER JOIN CustomUser u ON i.customUser = u.id WHERE i.customUser = :customUserId")
-    public List<ImageViewDto> getAllImageByUserId(@Param("customUserId") CustomUser customUserId);
+    @Query("SELECT i FROM Image i INNER JOIN CustomUser u ON i.customUser.id = u.id WHERE i.customUser.id = :customUserId")
+    public List<Image> getAllImageByUserId(@Param("customUserId") Long customUserId);
 
     Optional<Image> findById(Long id);
 
@@ -32,6 +32,8 @@ public interface ImageRepository extends JpaRepository<Image, Long> {
     ImageViewDto getById(Long id);
 
 	List<ImageViewDto> getAllProjectedBy();
+
+
 
 
 

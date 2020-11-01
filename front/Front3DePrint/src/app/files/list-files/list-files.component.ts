@@ -21,7 +21,12 @@ export class ListFilesComponent implements OnInit {
 
   }
   ngOnInit() {
-    this.fileInfos = this.uploadService.getOwnedFiles();
+    console.log('in <<<<NGonINIT');
+    this.uploadService.getOwnedFiles().subscribe(result => {
+      console.log(result)},
+      error => console.log(error)
+      );
+  //  / console.log("file info : " + this.fileInfos);
   }
   imageDetail(id: number) {
     this.router.navigate(['/image/',id]);
