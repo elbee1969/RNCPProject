@@ -2,7 +2,9 @@ package fr.formation.eprint.services;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import fr.formation.eprint.config.SecurityHelper;
+import fr.formation.eprint.dtos.ImageDto;
 import fr.formation.eprint.dtos.ImageViewDto;
 import fr.formation.eprint.entities.CustomUser;
 import fr.formation.eprint.entities.Image;
@@ -155,10 +158,9 @@ public class ImageServiceImpl implements ImageService {
 
 		Long userId = SecurityHelper.getUserId();
 		CustomUser customUser = userRepository.getOne(userId);
-		id = customUser.getId();
 		
-		List<ImageViewDto> image = imageRepository.getAllImageByUserId(customUser);
-		return image;
+		return imageRepository.getAllImageByUserId(customUser);
+
 	}
 
 
