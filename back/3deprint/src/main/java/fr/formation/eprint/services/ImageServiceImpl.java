@@ -160,17 +160,12 @@ public class ImageServiceImpl implements ImageService {
 	public List<ImageGetDto> getAllByUserId() {
 
 		Long customUserId = SecurityHelper.getUserId();
-
-//		List<ImageViewDto> images = new ArrayList<>();
-		
 		List<Image> images = imageRepository.getAllImageByUserId(customUserId);
 		List<ImageGetDto> imagesToReturn = images.stream()
-//				.map(elt -> decompressZLib(elt.getData()))
 		        .map(elt -> mapper.map(elt, ImageGetDto.class))
 		        .collect(Collectors.toList());
 		return imagesToReturn;
 		
-
 	}
 
 

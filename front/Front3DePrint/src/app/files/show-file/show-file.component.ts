@@ -55,10 +55,10 @@ export class ShowFileComponent implements OnInit {
         // this.base64Data = this.image.data;
         // this.image = 'data:image/jpeg;base64,' + this.base64Data;
         //  this.thumbnail = this.sanitizer.bypassSecurityTrustUrl(this.image);
-        this.stlfiles = this.thumbnail;
+        // this.stlfiles = this.thumbnail;
 
         debugger;
-        this.stlfiles.slice(0, this.file.value)
+        this.stlfiles.slice(0)
         const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ShowFileComponent);
 
         const viewContainerRef = this.vc;

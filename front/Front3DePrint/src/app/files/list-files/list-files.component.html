@@ -2,12 +2,12 @@
   <div class="card-header">Liste des images chargées</div>
   <ul
     class="list-group list-group-flush"
-    *ngFor="let file of fileInfos | async"
+    *ngFor="let image of images"
   >
     <li class="list-group-item">
 
-      <p>{{ file.name }} 
-      <button (click) = "imageDetail(file.id)" class="btn btn-info" style="margin-left: 10px">Voir</button>
+      <p>{{ image.name }} 
+      <button (click) = "imageDetail(image.id)" class="btn btn-info" style="margin-left: 10px">Voir</button>
       </p>
     </li>
   </ul>

@@ -13,6 +13,7 @@ export class ListFilesComponent implements OnInit {
   selectedFiles: FileList;
 
   fileInfos: Observable<any>;
+  images: any;
   constructor(private uploadService: UploadFileService, private router: Router) { 
 
   }
@@ -21,9 +22,11 @@ export class ListFilesComponent implements OnInit {
 
   }
   ngOnInit() {
-    console.log('in <<<<NGonINIT');
+    console.log('in NGonINIT');
     this.uploadService.getOwnedFiles().subscribe(result => {
-      console.log(result)},
+      console.log(result);
+      this.images =result;
+    },
       error => console.log(error)
       );
   //  / console.log("file info : " + this.fileInfos);

@@ -173,7 +173,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     protected ModelMapper modelMapper() {
 	ModelMapper mapper = new ModelMapper();
 	mapper.getConfiguration().setFieldMatchingEnabled(true).setFieldAccessLevel(AccessLevel.PRIVATE)
-		.setMatchingStrategy(MatchingStrategies.STANDARD);
+		.setMatchingStrategy(MatchingStrategies.LOOSE);
 	return mapper;
     }
 
