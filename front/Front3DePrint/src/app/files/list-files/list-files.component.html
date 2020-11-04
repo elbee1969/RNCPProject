@@ -4,9 +4,17 @@
     class="list-group list-group-flush"
     *ngFor="let image of images"
   >
-    <li class="list-group-item">
+    <li *ngIf="!role" class="list-group-item">
 
       <p>{{ image.name }} 
+
+      <button (click) = "imageDetail(image.id)" class="btn btn-info" style="margin-left: 10px">Voir</button>
+      </p>
+    </li>
+    <li *ngIf="role" class="list-group-item">
+
+      <p>image : {{ image.name }}, proprietaire : {{image.customUserId}}
+
       <button (click) = "imageDetail(image.id)" class="btn btn-info" style="margin-left: 10px">Voir</button>
       </p>
     </li>

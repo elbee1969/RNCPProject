@@ -2,6 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { UploadFileService } from 'src/app/services/upload-file.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
 
 @Component({
   selector: 'app-list-files',
@@ -14,24 +15,42 @@ export class ListFilesComponent implements OnInit {
 
   fileInfos: Observable<any>;
   images: any;
-  constructor(private uploadService: UploadFileService, private router: Router) { 
 
+  user: any;
+  role: boolean;
+  constructor(private token: TokenStorageService, private uploadService: UploadFileService, private router: Router) { 
   }
-  selectedFile(event) {
-    //this.selectedFiles = event.target.files;
 
-  }
-  ngOnInit() {
-    console.log('in NGonINIT');
-    this.uploadService.getOwnedFiles().subscribe(result => {
+selectedFile(event) {
+  //this.selectedFiles = event.target.files;
+  
+}
+ngOnInit() {
+  this.user = this.token.getUser().authorities[0];
+
+  if (this.user === "ROLE_ADMIN"){
+    console.log("admin");
+    this.role = true;
+    this.uploadService.getFiles().subscribe(result => {
       console.log(result);
-      this.images =result;
+      this.images = result;
+      this.images
     },
       error => console.log(error)
-      );
-  //  / console.log("file info : " + this.fileInfos);
+    );
+  } else {
+    console.log("pas admin!");
+    this.uploadService.getOwnedFiles().subscribe(result => {
+      console.log(result);
+      this.images = result;
+    },
+      error => console.log(error)
+    );
+
   }
+} 
+
   imageDetail(id: number) {
     this.router.navigate(['/image/',id]);
   }
-}
+}  

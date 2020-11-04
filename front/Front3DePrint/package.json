@@ -30,6 +30,8 @@
     "ngx-pagination": "^5.0.0",
     "rxjs": "~6.4.0",
     "three": "^0.121.1",
+    "three-orbitcontrols": "^2.110.3",
+    "three-orbitcontrols-ts": "^0.1.2",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
   },
@@ -40,7 +42,7 @@
     "@angular/language-service": "~8.2.9",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
-    "@types/node": "~8.9.4",
+    "@types/node": "^8.9.5",
     "codelyzer": "^5.0.0",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
