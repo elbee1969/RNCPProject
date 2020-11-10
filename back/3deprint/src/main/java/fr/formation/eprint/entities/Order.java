@@ -41,6 +41,9 @@ public class Order extends AbstractEntity {
 
     @Column(name = "date", nullable = false)
     private LocalDate orderDate;
+    
+    @Column(name = "state", length = 1 , nullable = false)
+    private String state;
 
     @OneToMany
     @Column(name = "items", nullable = false)

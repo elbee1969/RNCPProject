@@ -55,5 +55,7 @@ export class ShowFileComponent implements OnInit {
           console.log(error);
         });*/
   }
-
+  acceptPrice(){
+    this.router.navigate(['/user']);
+  }
 }

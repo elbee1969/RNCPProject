@@ -3,13 +3,23 @@
 
     <li class="list-group-item" >
   
-  <stl-model-viewer class="threedee" [stlModels]="thumbnail"></stl-model-viewer>
+      <stl-model-viewer class="threedee" [stlModels]="thumbnail"></stl-model-viewer>
   
-    <stl-model-viewer [meshOptions]="[{position: {x: 2, y: 0, z: 0}}]" [stlModels]="['./assets/xwing.stl']"></stl-model-viewer>
+      <stl-model-viewer [meshOptions]="[{position: {x: 2, y: 0, z: 0}}]" [stlModels]="['./assets/xwing.stl']"></stl-model-viewer>
    
-<button (click)="backToImageslist()" class="btn btn-info" style="margin-left: 10px">Retour aux images</button>
+      <button (click)="backToImageslist()" class="btn btn-info" style="margin-left: 10px">Retour aux images</button>
     </li>
-</div>
+  </div>
 <button class="badge badge-danger mr-2" (click)="deleteFile()">
-    Delete
+    Supprimer l'image
   </button>
+
+  <div>
+    <p>prix de la pièce : </p>
+    <p>Quantité : </p>
+    <p>Prix total : </p>
+    <div *ngIf="ROLE_USER">
+      <button class="badge badge-success mr-2" (click)="acceptPrice()">Accepter l'image</button>
+    </div>
+  </div>
+

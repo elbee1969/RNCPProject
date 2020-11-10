@@ -2,5 +2,27 @@
   <header class="jumbotron">
     <p>{{ content }}</p>
   </header>
+</div>
+<div class="container">
 
+  <div class="card">
+    <div class="card-header">
+      Votre commande
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Nom du modèle 3D 1</h5>
+        <p class="card-text">Prix : ? quantité : ? prix total : ?</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Nom du modèle 3D 2</h5>
+        <p class="card-text">Prix : ? quantité : ? prix total : ?</p>
+      </div>
+    </div>
+  </div>
+  <p>Prix total de la commande : ?</p>
+    <button class="badge badge-success mr-2" (click)="acceptCommande()">Valider la commande</button>
+    <button class="badge badge-danger mr-2" (click)="rejectCommande()">Annuler la commande</button>
 </div>
