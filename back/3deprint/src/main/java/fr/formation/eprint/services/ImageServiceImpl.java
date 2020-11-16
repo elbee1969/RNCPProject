@@ -162,7 +162,7 @@ public class ImageServiceImpl implements ImageService {
 		Long customUserId = SecurityHelper.getUserId();
 		List<Image> images = imageRepository.getAllImageByUserId(customUserId);
 		List<ImageGetDto> imagesToReturn = images.stream()
-		        .map(elt -> mapper.map(elt, ImageGetDto.class))
+		        .map(image -> mapper.map(image, ImageGetDto.class))
 		        .collect(Collectors.toList());
 		return imagesToReturn;
 		

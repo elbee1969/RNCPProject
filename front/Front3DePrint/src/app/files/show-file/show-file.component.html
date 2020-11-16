@@ -1,5 +1,5 @@
 <div class="card">
-  <div class="card-header">image : {{ image.name }} </div>
+  <div class="card-header">image : {{ imageName }} </div>
 
     <li class="list-group-item" >
   
@@ -18,7 +18,7 @@
     <p>prix de la pièce : </p>
     <p>Quantité : </p>
     <p>Prix total : </p>
-    <div *ngIf="ROLE_USER">
+    <div *ngIf="role">
       <button class="badge badge-success mr-2" (click)="acceptPrice()">Accepter l'image</button>
     </div>
   </div>

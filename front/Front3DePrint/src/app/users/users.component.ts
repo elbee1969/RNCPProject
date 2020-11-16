@@ -35,6 +35,7 @@ export class UsersComponent implements OnInit {
     for (let i = 1; i <= this.taille; i++) {
       this.collection.push(this.users);
     }
+    console.log("collection : " + this.collection);
   }
   ngOnInit() {
     this.reloadData();
@@ -51,7 +52,7 @@ reloadData(){
     this.router.navigate(['/users/callback'], { queryParams: { page: newPage } });
 }
   deleteUser(id: number) {
-    this.userService.delete(id)
+    this.userService.delete(this.users.id)
       .subscribe(
         data => {
           console.log(data);

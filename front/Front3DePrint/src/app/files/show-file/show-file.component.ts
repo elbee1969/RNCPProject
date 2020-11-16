@@ -17,20 +17,31 @@ export class ShowFileComponent implements OnInit {
    imageName: any;
   id: any;
   user: any;
+  role: boolean;
+  base64Data: any;
+  thumbnail: any;
+
    
   constructor(private uploadService: UploadFileService,
     private route: ActivatedRoute,
     private token: TokenStorageService, 
+    private sanitizer: DomSanitizer,
     private router: Router,
     ) {}
     
     
     ngOnInit() {
       this.user = this.token.getUser().authorities[0];
+      if (this.user == "ROLE_USER") {
+        this.role = true;
+      }
       this.id = this.route.snapshot.params['id']
       this.uploadService.getCurrentFile(this.id).subscribe(response => {
         this.image = response;
-        this.imageName = this.image.name;
+        this.base64Data = this.image.data;
+        this.image = 'data:image/jpeg;base64,' + this.base64Data;
+        this.thumbnail = this.sanitizer.bypassSecurityTrustUrl(this.image);
+        this.imageName = this.thumbnail.name;
         }) ,
         error => {
           console.log(error);
