@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   account: Object;
   username: any;
   info: any;
+  errorMessage: string;
 
   constructor(private authService: AuthService,
               private tokenStorage: TokenStorageService,
@@ -29,6 +30,7 @@ export class LoginComponent implements OnInit {
                      if (this.authService.currentUserValue) { 
                          this.router.navigate(['/']);
                      }
+              this.errorMessage = "Les identifications sont erronées!";
               }
 
 
@@ -58,8 +60,8 @@ export class LoginComponent implements OnInit {
         this.rediRectPage();
 
       },
-      err => {
-        this.alertService.error(err);
+      error => {
+        this.alertService.error(error);
         this.isLoginFailed = true;
       }
     );
