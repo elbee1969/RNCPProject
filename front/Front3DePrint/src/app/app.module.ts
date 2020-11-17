@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -24,6 +24,7 @@ import { ModalModule } from './modals/modal/modal.module';
 import { UserUpdateComponent } from './user-update/user-update.component';
 import { StlModelViewerModule } from 'angular-stl-model-viewer';
 import { ThreeComponent } from './three/three.component';
+import { UserService } from './services/user.service';
 
 
 
@@ -54,6 +55,7 @@ import { ThreeComponent } from './three/three.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     NgxPaginationModule,
     BrowserAnimationsModule,
@@ -61,7 +63,7 @@ import { ThreeComponent } from './three/three.component';
     StlModelViewerModule
 
   ],
-  providers: [authInterceptorProviders],
+  providers: [UserService,authInterceptorProviders],
   bootstrap: [AppComponent]
  
 })

@@ -1,2 +1,32 @@
-<p>user-update works!</p>
 <button (click)="backToProfil()" class="btn btn-info" style="margin-left: 10px">Retourner à votre profil</button>
+<div class="col-md-6 user-container">
+  <h2 class="text-center">Renseigner votre adresse</h2>
+  <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+  
+    <div>
+      <input type="number" formControlName="id" placeholder="{{id}}" name="id" class="form-control" id="id" readonly="true">
+	</div>
+	
+    <div class="form-group">
+      <label for="num">Numéro de rue:</label>
+      <input type="number" formControlName="num" placeholder="{{addressData.num}}" name="num" class="form-control" id="num">
+    </div>
+
+    <div class="form-group">
+      <label for="street">Rue:</label>
+      <input formControlName="street" placeholder="{{addressData.street}}" name="street" class="form-control" id="street">
+    </div>
+
+    <div class="form-group">
+      <label for="town">Ville:</label>
+      <input formControlName="town" placeholder="{{addressData.town}}" name="town" class="form-control" id="town">
+    </div>
+
+    <div class="form-group">
+      <label for="country">Pays:</label>
+      <input formControlName="country" placeholder="{{addressData.country}}" name="country" class="form-control" id="country">
+    </div>
+
+    <button class="btn btn-success">Update</button>
+  </form>
+</div>

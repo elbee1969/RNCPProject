@@ -14,10 +14,12 @@ import org.springframework.stereotype.Service;
 import fr.formation.eprint.config.CustomUserDetails;
 import fr.formation.eprint.dtos.CustomUserAuthDto;
 import fr.formation.eprint.dtos.CustomUserInfoDto;
+import fr.formation.eprint.dtos.ProfileUserInfosDto;
 import fr.formation.eprint.entities.CustomUser;
 import fr.formation.eprint.exception.AccountNotFoundException;
 import fr.formation.eprint.exception.ResourceNotFoundException;
 import fr.formation.eprint.repositories.CustomUserJpaRepository;
+import fr.formation.eprint.repositories.NewUserJpaRepository;
 
 
 
@@ -26,10 +28,12 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
 	
     @Autowired
     private final CustomUserJpaRepository userRepo;
+    private final NewUserJpaRepository newUserRepo;
 
-    protected CustomUserDetailsServiceImpl(CustomUserJpaRepository userRepo) {
+    protected CustomUserDetailsServiceImpl(CustomUserJpaRepository userRepo,NewUserJpaRepository newUserRepo) {
     	
     	this.userRepo = userRepo;
+    	this.newUserRepo = newUserRepo;
     }
 
 
@@ -65,6 +69,13 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
 	    throw new AccountNotFoundException("Invalid id : " + id);
 	}
     }
+
+
+	@Override
+	public ProfileUserInfosDto getOne(Long id) {
+		// TODO Auto-generated method stub
+		return newUserRepo.getById(id);
+	}
 
     
   }

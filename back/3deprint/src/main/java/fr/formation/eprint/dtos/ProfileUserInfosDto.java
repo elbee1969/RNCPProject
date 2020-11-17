@@ -1,5 +1,7 @@
 package fr.formation.eprint.dtos;
 
+import fr.formation.eprint.entities.Address;
+
 public interface ProfileUserInfosDto {
 
 	 Long getId();
@@ -12,13 +14,5 @@ public interface ProfileUserInfosDto {
 
 	    String getLastname();
 	    
-	    int getNum();
-	    
-	    String getStreet();
-	    
-	    String getTown();
-	    
-	    String getCountry();
-
-		CustomUserInfoDto orElseThrow(Object object);
+	    Address getAddress() ;
 }

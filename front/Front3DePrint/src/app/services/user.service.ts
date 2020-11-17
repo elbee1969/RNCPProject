@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../interface/user';
 import { TokenStorageService } from './token-storage.service';
+import { Address } from '../model/address';
+import { ApiResponse } from '../model/api.response';
 
 const API_PUBLIC_URL = 'http://localhost:9090/api/public/';
 const API_PRIVATE_URL = 'http://localhost:9090/api/private';
@@ -28,7 +30,7 @@ export class UserService {
   }
 
   getAdminBoard(): Observable<any> {
-    return this.http.get(API_PRIVATE_URL + '/admin', { responseType: 'text' });
+    return this.http.get(API_PRIVATE_URL + '/admin');
   }
 
   getAll(): Observable<User>  {
@@ -36,9 +38,13 @@ export class UserService {
     return this.http.get<User>(API_PRIVATE_URL + `/users`);
   }
 
+  getOne(id: number): Observable<User> {
+    return this.http.get<User>(API_PRIVATE_URL + `/details/${id}`);
+  }
+
 
   delete(id: number): Observable<any> {
-    return this.http.delete(API_PRIVATE_URL + `/delete/${id}`);
+    return this.http.delete<any>(API_PRIVATE_URL + `/delete/${id}`);
   }
 
   getProfile() {
@@ -63,4 +69,11 @@ export class UserService {
     }, httpOptions);
   }
   
+  getAddressById(id: number): Observable<any> {
+    return this.http.get<any>(API_PRIVATE_URL + `/address/${id}`);
+  }
+
+  updateAddress(address: Address): Observable<ApiResponse> {
+    return this.http.put<ApiResponse>(API_PRIVATE_URL + `/updateAddress/${address.id}`, { address }, httpOptions);
+  }
 }

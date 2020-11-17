@@ -1,27 +1,29 @@
 <div class="table-container" role="table" aria-label="List of Users">
 	<div class="flex-table header" role="rowgroup">
-		<div class="flex-row" role="columnheader">Id</div>
-		<div class="flex-row" role="columnheader">Username</div>
-		<div class="flex-row" role="columnheader">Fisrtname</div>
-		<div class="flex-row" role="columnheader">Lastname</div>
-		<div class="flex-row" role="columnheader">Email</div>
-		<div class="flex-row" role="columnheader">X</div>
-		<div class="flex-row" role="columnheader">+</div>		
+		<div class="flex-row text-wrap" role="columnheader">Id</div>
+		<div class="flex-row text-wrap" role="columnheader">Username</div>
+		<div class="flex-row text-wrap" role="columnheader">Fisrtname</div>
+		<div class="flex-row text-wrap" role="columnheader">Lastname</div>
+		<div class="flex-row text-wrap" role="columnheader">Email</div>
+		<div class="flex-row text-wrap" role="columnheader">X</div>
+		<div class="flex-row text-wrap" role="columnheader">+</div>		
 	  </div>
 	  
-			<div class="flex-table row" role="rowgroup" *ngFor="let user of users | paginate: config">
-					<div class="flex-row"  role="cell">{{ user.id }}</div>
-					<div class="flex-row"  role="cell">{{ user.username }}</div>
-					<div class="flex-row" role="cell"> {{ user.firstname }}</div>
-					<div class="flex-row" role="cell"> {{ user.lastname }}</div>
-					<div class="flex-row" role="cell"> {{ user.email }}</div>
-					<div class="flex-row"  role="cell"><button (click)="deleteUser(user.id)" class="btn btn-danger">Delete</button></div>
+			<div class="flex-table row text-wrap" role="rowgroup" *ngFor="let user of users | paginate: config">
+					<div class="flex-row text-wrap"  role="cell">{{ user.id }}</div>
+					<div class="flex-row text-wrap"  role="cell">{{ user.username }}</div>
+					<div class="flex-row text-wrap" role="cell"> {{ user.firstname }}</div>
+					<div class="flex-row text-wrap" role="cell"> {{ user.lastname }}</div>
+					<div class="flex-row text-wrap" role="cell"> {{ user.email }}</div>
+					<div class="flex-row text-wrap"  role="cell"><button (click)="deleteUser(user.id)" class="btn btn-danger">Delete</button></div>
+					
 					<!--<lb-modal id="custom-modal-1">
 						<p class="modal-content">Suppression de l'utilisateur {{user.username | async}}</p>
 						<p><input type="text" [(ngModel)]="bodyText" /></p>
 						<button (click)="closeModal('custom-modal-1');"class="btn btn-warning">Cancel</button>
 						<button (click)="deleteUser(user.id)" class="btn btn-danger">Delete</button>
 					</lb-modal>-->
+					
               <div class="flex-row"  role="cell"><button (click)="userDetails(user.id)" class="btn btn-info" style="margin-left: 10px">Details</button></div>
 
 			</div>
