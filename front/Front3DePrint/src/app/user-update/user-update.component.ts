@@ -27,6 +27,7 @@ export class UserUpdateComponent implements OnInit {
       this.router.navigate(['/profile']);
       return;
     }
+    console.log("this.id : " + this.id);
     this.editForm = this.formBuilder.group({
       id: [''],
       num: ['', Validators.required],
@@ -34,10 +35,12 @@ export class UserUpdateComponent implements OnInit {
       town: ['', Validators.required],
       country: ['', Validators.required]
     });
-    this.userService.getAddressById(this.id)
-      .subscribe(adressData => {
-        console.log("address data : " + JSON.stringify(adressData));
-        this.editForm.setValue(adressData.result);
+    this.userService.getAddressById(+this.id)
+      .subscribe(addressData => {
+        console.log("address data : " + JSON.stringify(addressData));
+        console.log("address num Jst : " + JSON.stringify(addressData.num));
+        console.log("address num : " + addressData.num);
+        this.editForm.setValue(addressData.result);
     });
 }
 

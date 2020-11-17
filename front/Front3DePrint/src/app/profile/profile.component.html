@@ -1,3 +1,4 @@
+
 <div class="container-fluid">
   <header class="display-1">
     <h3>
@@ -13,15 +14,14 @@
     <div class="raw">
     <h4>Adresse</h4>
       <div class="raw">
-        <div>num : {{address.num}}</div>
-        <div>rue : {{address.street}}</div>
-        <div>ville : {{address.town}}</div>
-        <div>pays : {{address.country}}</div>
+        <div>num : {{user.address.num}}</div>
+        <div>rue : {{user.address.street}}</div>
+        <div>ville : {{user.address.town}}</div>
+        <div>pays : {{user.address.country}}</div>
       </div> 
     </div> 
 
 </div> 
 
-<div *ngIf="!present">
-  <button (click)="userUpdate(currentUser.userId)" class="btn btn-info" style="margin-left: 10px">Renseigner votre addresse</button>
-</div>
+
+  <button (click)="userUpdate(id)" class="btn btn-info" style="margin-left: 10px">Renseigner ou mettre à jour votre addresse</button>
