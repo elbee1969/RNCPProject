@@ -52,92 +52,93 @@ public class UserAuthDto {
 	// TODO Auto-generated constructor stub
     }
 
-    public String getUsername() {
-	return username;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public void setUsername(String username) {
-	this.username = username;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public String getEmail() {
-	return email;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setEmail(String email) {
-	this.email = email;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public String getPassword() {
-	return password;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setPassword(String password) {
-	this.password = password;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public Set<Role> getRoles() {
-	return roles;
-    }
+	public Set<Role> getRoles() {
+		return roles;
+	}
 
-    public void setRoles(Set<Role> roles) {
-	this.roles = roles;
-    }
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
 
-    public String getFirstname() {
-	return firstname;
-    }
+	public String getFirstname() {
+		return firstname;
+	}
 
-    public void setFirstname(String firstname) {
-	this.firstname = firstname;
-    }
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
 
-    public String getLastname() {
-	return lastname;
-    }
+	public String getLastname() {
+		return lastname;
+	}
 
-    public void setLastname(String lastname) {
-	this.lastname = lastname;
-    }
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
 
-    public boolean isEnabled() {
-	return enabled;
-    }
+	public AddressCreateDto getAddress() {
+		return address;
+	}
 
-    public void setEnabled(boolean enabled) {
-	this.enabled = enabled;
-    }
+	public void setAddress(AddressCreateDto address) {
+		this.address = address;
+	}
 
-    public boolean isAccountNonExpired() {
-	return accountNonExpired;
-    }
+	public boolean isEnabled() {
+		return enabled;
+	}
 
-    public void setAccountNonExpired(boolean accountNonExpired) {
-	this.accountNonExpired = accountNonExpired;
-    }
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
 
-    public boolean isAccountNonLocked() {
-	return accountNonLocked;
-    }
+	public boolean isAccountNonExpired() {
+		return accountNonExpired;
+	}
 
-    public void setAccountNonLocked(boolean accountNonLocked) {
-	this.accountNonLocked = accountNonLocked;
-    }
+	public void setAccountNonExpired(boolean accountNonExpired) {
+		this.accountNonExpired = accountNonExpired;
+	}
 
-    public boolean isCredentialsNonExpired() {
-	return credentialsNonExpired;
-    }
+	public boolean isAccountNonLocked() {
+		return accountNonLocked;
+	}
 
-    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
-	this.credentialsNonExpired = credentialsNonExpired;
-    }
+	public void setAccountNonLocked(boolean accountNonLocked) {
+		this.accountNonLocked = accountNonLocked;
+	}
 
-    public AddressCreateDto getAddress() {
-	return address;
-    }
+	public boolean isCredentialsNonExpired() {
+		return credentialsNonExpired;
+	}
 
-    public void setAddress(AddressCreateDto address) {
-	this.address = address;
-    }
+	public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+		this.credentialsNonExpired = credentialsNonExpired;
+	}
 
+   
 }

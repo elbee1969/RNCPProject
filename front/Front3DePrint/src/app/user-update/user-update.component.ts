@@ -11,9 +11,10 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./user-update.component.css']
 })
 export class UserUpdateComponent implements OnInit {
-  address: Address;
+  address: any;
   editForm: FormGroup;
   id: any;
+  numero: number;
   
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -29,7 +30,6 @@ export class UserUpdateComponent implements OnInit {
     }
     console.log("this.id : " + this.id);
     this.editForm = this.formBuilder.group({
-      id: [''],
       num: ['', Validators.required],
       street: ['', Validators.required],
       town: ['', Validators.required],
@@ -37,14 +37,18 @@ export class UserUpdateComponent implements OnInit {
     });
     this.userService.getAddressById(+this.id)
       .subscribe(addressData => {
+        this.address = addressData;
+        this.numero = addressData.num;
         console.log("address data : " + JSON.stringify(addressData));
         console.log("address num Jst : " + JSON.stringify(addressData.num));
         console.log("address num : " + addressData.num);
+        console.log("form values : " + this.editForm.setValue(this.address.result));
         this.editForm.setValue(addressData.result);
     });
 }
 
   onSubmit() {
+    console.log("this.editForm.value " + JSON.stringify(this.editForm.value));
     this.userService.updateAddress(this.editForm.value)
       .pipe(first())
       .subscribe(

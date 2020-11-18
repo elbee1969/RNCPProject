@@ -73,13 +73,8 @@ export class UserService {
     return this.http.get<any>(API_PRIVATE_URL + `/address/${id}`);
   }
 
-  updateAddress(user): Observable<ApiResponse> {
-    console.log("in update address id : " + user.id);
-    return this.http.put<ApiResponse>(API_PRIVATE_URL + `/updateAddress/${user.id}`, { 
-      num: user.address.num,
-      street: user.address.street,
-      town: user.address.town,
-      country: user.address.country
-    }, httpOptions);
+  updateAddress(address): Observable<ApiResponse> {
+    console.log("in update address id : " + address.id);
+    return this.http.put<ApiResponse>(API_PRIVATE_URL + `/updateAddress/${address.id}`, address, httpOptions);
   }
 }

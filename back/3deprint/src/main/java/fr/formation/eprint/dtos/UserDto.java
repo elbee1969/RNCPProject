@@ -11,7 +11,7 @@ public class UserDto {
 //    private boolean accountNonExpired;
 //    private boolean accountNonLocked;
 //    private boolean credentialsNonExpired;
-//	private Album album;
+    private AddressCreateDto address;
 
     public UserDto() {
 
@@ -22,37 +22,34 @@ public class UserDto {
 	return firstname;
     }
 
-//
-//	public void setFirstname(String firstname) {
-//		this.firstname = firstname;
-//	}
-//
+
     public String getLastname() {
 	return lastname;
     }
 
-//	public void setLastname(String lastname) {
-//		this.lastname = lastname;
-//	}
-//
+
     public String getUsername() {
 	return username;
     }
-//
-//	public void setUsername(String username) {
-//		this.username = username;
-//	}
-//
-//	public UserDto(String username) {
-//		super();
-//		this.username = username;
-//	}
-//
-//	public String getPassword() {
-//		return password;
-//	}
 
-//	public void setPassword(String password) {
-//		this.password = password;
-//	}
+	public AddressCreateDto getAddress() {
+		return address;
+	}
+
+	public void setAddress(AddressCreateDto address) {
+		this.address = address;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
 }

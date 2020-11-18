@@ -248,4 +248,12 @@ public class CustomUser extends AbstractEntity {
 	this.images = images;
     }
 
+	public void setAddress(int num, String street, String town, String country) {
+		// TODO Auto-generated method stub
+		this.setAddress(num, street, town, country);
+	}
+
+
+
+
 }

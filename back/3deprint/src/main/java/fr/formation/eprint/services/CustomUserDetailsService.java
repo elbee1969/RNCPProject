@@ -8,22 +8,13 @@ import fr.formation.eprint.dtos.CustomUserInfoDto;
 import fr.formation.eprint.dtos.ProfileUserInfosDto;
 
 public interface CustomUserDetailsService extends UserDetailsService {
-	
-    CustomUserInfoDto getCurrentUserInfo(Long id);
 
-	
+	CustomUserInfoDto getCurrentUserInfo(Long id);
 
-	   List<CustomUserInfoDto> getAll();
-
-
+	List<CustomUserInfoDto> getAll();
 
 	void deleteOne(Long id);
 
-
-
 	ProfileUserInfosDto getOne(Long id);
 
-    
-    //UserInfoDto getById(Long id);
-    //UserDto create(UserCreateDto dto);
 }

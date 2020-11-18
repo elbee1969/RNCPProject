@@ -3,6 +3,7 @@ package fr.formation.eprint.dtos;
 import javax.validation.constraints.Max;
 
 public class AddressCreateDto {
+	private Long id;
     @Max(4)
     private int num;
     @Max(40)
@@ -17,7 +18,15 @@ public class AddressCreateDto {
 	// TODO Auto-generated constructor stub
     }
 
-    public int getNum() {
+    public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public int getNum() {
 	return num;
     }
 

@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,8 +22,12 @@ import fr.formation.eprint.dtos.AddressCreateDto;
 import fr.formation.eprint.dtos.AddressViewDto;
 import fr.formation.eprint.dtos.CustomUserInfoDto;
 import fr.formation.eprint.dtos.ProfileUserInfosDto;
+import fr.formation.eprint.dtos.UserAuthDto;
+import fr.formation.eprint.dtos.UserCreateDto;
+import fr.formation.eprint.dtos.UserDto;
 import fr.formation.eprint.services.AddressService;
 import fr.formation.eprint.services.CustomUserDetailsService;
+import fr.formation.eprint.services.CustomUserService;
 
 /**
  * @param <CustomUser>
@@ -83,12 +88,14 @@ public class PrivateController<CustomUser> {
 	return "Hello fully authenticated!";
     }
 
-    private CustomUserDetailsService customUserService;
+    private CustomUserDetailsService customUserDetailService;
+    private CustomUserService customUserService;
     private AddressService addressService;
 
-    protected PrivateController(CustomUserDetailsService customUserService, AddressService addressService) {
-	this.customUserService = customUserService;
+    protected PrivateController(CustomUserDetailsService customUserDetailService, CustomUserService customUserService, AddressService addressService) {
+	this.customUserDetailService = customUserDetailService;
 	this.addressService = addressService;
+	this.customUserService = customUserService;
     }
 
     /**
@@ -98,7 +105,7 @@ public class PrivateController<CustomUser> {
     @GetMapping("/users")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<CustomUserInfoDto> getAll() {
-	return customUserService.getAll();
+	return customUserDetailService.getAll();
     }
 
     /**
@@ -108,7 +115,7 @@ public class PrivateController<CustomUser> {
      */
     @DeleteMapping("/delete/{id}")
     public void deleteAccount(@PathVariable("id") Long id) {
-	customUserService.deleteOne(id);
+    	customUserDetailService.deleteOne(id);
     }
     /**
      * 
@@ -117,7 +124,7 @@ public class PrivateController<CustomUser> {
      */
     @GetMapping("/details/{id}") 
 	public ProfileUserInfosDto getOne(@PathVariable Long id) {
-		return customUserService.getOne(id);
+		return customUserDetailService.getOne(id);
 	}
     
     /**
@@ -135,9 +142,9 @@ public class PrivateController<CustomUser> {
      * update one address
      * 
      */
+
     @PutMapping("/updateAddress/{id}")
-    protected void update(@PathVariable("id") Long id,
-	    @Valid @RequestBody AddressCreateDto dto) {
-	addressService.update(id, dto);
+    public UserDto create(@PathVariable("id") Long id, @Valid @RequestBody UserAuthDto dto) {
+	return customUserService.update(id, dto);
     }
 }
