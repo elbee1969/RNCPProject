@@ -51,8 +51,8 @@ export class UserService {
     console.log("in get profile");
     return this.http.get<any>(API_PRIVATE_URL + '/login', {
       headers: new HttpHeaders({
-        'Authorization': 'Bearer ' + this.tokenStorage.getToken()
-
+        'Authorization': 'Bearer ' + this.tokenStorage.getToken(),
+        'Content-Type': 'application/json'
       })
     })
   }
@@ -75,6 +75,6 @@ export class UserService {
 
   updateAddress(address): Observable<ApiResponse> {
     console.log("in update address id : " + address.id);
-    return this.http.put<ApiResponse>(API_PRIVATE_URL + `/updateAddress/${address.id}`, address, httpOptions);
+    return this.http.patch<ApiResponse>(API_PRIVATE_URL + `/update/${address.id}`, address, httpOptions);
   }
 }

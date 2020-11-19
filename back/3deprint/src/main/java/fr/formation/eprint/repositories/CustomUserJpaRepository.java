@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import fr.formation.eprint.dtos.CustomUserAuthDto;
 import fr.formation.eprint.dtos.CustomUserInfoDto;
-import fr.formation.eprint.dtos.ProfileUserInfosDto;
 import fr.formation.eprint.entities.CustomUser;
 
 @Repository

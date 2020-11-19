@@ -86,24 +86,6 @@ public class CustomUserServiceImpl implements CustomUserService {
 				.orElseThrow(() -> new ResourceNotFoundException("with id:" + id));
 	}
 
-	@Override
-	public UserDto update(Long id, @Valid UserAuthDto dto) {
-		// TODO Auto-generated method stub
-		CustomUser user = userJpaRepository.findById(id).get();
-		user.setUsername(dto.getUsername());
-		user.setEmail(dto.getEmail());
-		user.setPassword(dto.getPassword());
-		user.setLastname(dto.getLastname());
-		user.setFirstname(dto.getFirstname());
-		user.setRoles(dto.getRoles());
-		user.setAddress(dto.getAddress().getNum(), dto.getAddress().getStreet(),
-				dto.getAddress().getTown(), dto.getAddress().getCountry());
-		user.setAccountNonExpired(dto.isAccountNonExpired());
-		user.setAccountNonLocked(dto.isAccountNonLocked());
-		user.setCredentialsNonExpired(dto.isCredentialsNonExpired());
-		user.setEnabled(dto.isEnabled());
-		userJpaRepository.save(user);
-		return mapper.map(user, UserDto.class);
-	}
+	
 
 }

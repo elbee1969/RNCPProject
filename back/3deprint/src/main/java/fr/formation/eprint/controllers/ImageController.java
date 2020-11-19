@@ -22,7 +22,6 @@ import fr.formation.eprint.dtos.ImageGetDto;
 import fr.formation.eprint.dtos.ImageViewDto;
 import fr.formation.eprint.entities.Image;
 import fr.formation.eprint.repositories.ImageRepository;
-import fr.formation.eprint.repositories.NewUserJpaRepository;
 import fr.formation.eprint.response.ImageResponse;
 import fr.formation.eprint.services.ImageService;
 
@@ -30,70 +29,93 @@ import fr.formation.eprint.services.ImageService;
 @RequestMapping("/private") // "/api/private/*"
 public class ImageController {
 
-    @Autowired
-    ImageRepository imageRepository;
+	@Autowired
+	ImageRepository imageRepository;
 
-    @Autowired
-    private NewUserJpaRepository userRepository;
+	private final ImageService imageService;
 
-    private final ImageService imageService;
+	protected ImageController(ImageService imageService) {
+		this.imageService = imageService;
+	}
+/**
+ * 
+ * @param file
+ * @throws IOException
+ * load one image in db
+ * 
+ */
+	@PostMapping("/upload")
+	public void uplaodImage(@RequestParam("file") MultipartFile file) throws IOException {
 
-    protected ImageController(ImageService imageService) {
-	this.imageService = imageService;
-    }
+		imageService.store(file);
+	}
 
-    @PostMapping("/upload")
-    public void uplaodImage(@RequestParam("file") MultipartFile file) throws IOException {
-
-	imageService.store(file);
-    }
-
-    @GetMapping("/images") // GET "/api/forum/reponses" pas d'id, retourne toute la collection des réponces (posts)
+	/**
+	 * 
+	 * @return
+	 * get all images
+	 */
+	@GetMapping("/images")
 	public List<ImageViewDto> getAll() {
 		return imageService.getAll();
 	}
-    
-    @GetMapping("/ownedImages") // GET "/api/forum/reponses" pas d'id, retourne toute la collection des réponces (posts)
+
+	/**
+	 * 
+	 * @return
+	 * get all images from a user
+	 */
+	@GetMapping("/ownedImages")
 	public List<ImageGetDto> getAllById() {
 		return imageService.getAllByUserId();
 	}
-    
-    
-    @GetMapping("/files")
-    public ResponseEntity<List<ImageResponse>> getListFiles() {
-	List<ImageResponse> files = imageService.getAllFiles().map(image -> {
-	    String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/files/")
-		    .path(image.getName()).toUriString();
 
-	    return new ImageResponse(image.getName(), fileDownloadUri, image.getType(), image.getData().length,
-		    image.getId());
-	}).collect(Collectors.toList());
+/**
+ * 
+ * @param id
+ * @return one image
+ */
+	public ImageViewDto getImage(@PathVariable Long id) {
+		return imageService.getOne(id);
+	}
+	
+	
+	
+	
+	
+	@GetMapping("/files")
+	public ResponseEntity<List<ImageResponse>> getListFiles() {
+		List<ImageResponse> files = imageService.getAllFiles().map(image -> {
+			String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/files/")
+					.path(image.getName()).toUriString();
 
-	return ResponseEntity.status(HttpStatus.OK).body(files);
-    }
+			return new ImageResponse(image.getName(), fileDownloadUri, image.getType(), image.getData().length,
+					image.getId());
+		}).collect(Collectors.toList());
 
-    @GetMapping("/ownedfiles")
-    public ResponseEntity<List<ImageResponse>> getListOwnedFiles() {
-	List<ImageResponse> files = imageService.getAllFiles().map(image -> {
-	    String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/ownedfiles/")
-		    .path(image.getName()).toUriString();
-	    Long userId = SecurityHelper.getUserId();
-	    return new ImageResponse(image.getName(), fileDownloadUri, image.getType(), image.getData().length, userId);
-	}).collect(Collectors.toList());
+		return ResponseEntity.status(HttpStatus.OK).body(files);
+	}
 
-	return ResponseEntity.status(HttpStatus.OK).body(files);
-    }
+	@GetMapping("/ownedfiles")
+	public ResponseEntity<List<ImageResponse>> getListOwnedFiles() {
+		List<ImageResponse> files = imageService.getAllFiles().map(image -> {
+			String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/ownedfiles/")
+					.path(image.getName()).toUriString();
+			Long userId = SecurityHelper.getUserId();
+			return new ImageResponse(image.getName(), fileDownloadUri, image.getType(), image.getData().length, userId);
+		}).collect(Collectors.toList());
 
-    @GetMapping("/files/{id}")
-    public ResponseEntity<Image> getFile(@PathVariable Long id) {
-	Image image = imageService.getFile(id);
+		return ResponseEntity.status(HttpStatus.OK).body(files);
+	}
 
-	return ResponseEntity.ok()
-		.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + image.getName() + "\"")
-		.body(image);
-    }
- @GetMapping("/image/{id}") // GET "/api/forum/sujet/1" ou 1 correspond à l'id d'un sujet du forum existant en bdd
-public ImageViewDto getImage(@PathVariable Long id) {
-return imageService.getOne(id);
-}
+	@GetMapping("/files/{id}")
+	public ResponseEntity<Image> getFile(@PathVariable Long id) {
+		Image image = imageService.getFile(id);
+
+		return ResponseEntity.ok()
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + image.getName() + "\"")
+				.body(image);
+	}
+
+	
 }

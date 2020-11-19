@@ -24,7 +24,15 @@ public class Address extends AbstractEntity {
 	super();
     }
 
-    public int getNum() {
+    public Address(int num, String street, String town, String country) {
+		super();
+		this.num = num;
+		this.street = street;
+		this.town = town;
+		this.country = country;
+	}
+
+	public int getNum() {
 	return num;
     }
 

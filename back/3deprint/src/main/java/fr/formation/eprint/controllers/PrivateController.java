@@ -3,28 +3,18 @@ package fr.formation.eprint.controllers;
 import java.security.Principal;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.formation.eprint.config.ResourceServerConfig;
 import fr.formation.eprint.config.SecurityHelper;
-import fr.formation.eprint.dtos.AddressCreateDto;
-import fr.formation.eprint.dtos.AddressViewDto;
 import fr.formation.eprint.dtos.CustomUserInfoDto;
 import fr.formation.eprint.dtos.ProfileUserInfosDto;
-import fr.formation.eprint.dtos.UserAuthDto;
-import fr.formation.eprint.dtos.UserCreateDto;
-import fr.formation.eprint.dtos.UserDto;
 import fr.formation.eprint.services.AddressService;
 import fr.formation.eprint.services.CustomUserDetailsService;
 import fr.formation.eprint.services.CustomUserService;
@@ -88,14 +78,10 @@ public class PrivateController<CustomUser> {
 	return "Hello fully authenticated!";
     }
 
-    private CustomUserDetailsService customUserDetailService;
-    private CustomUserService customUserService;
-    private AddressService addressService;
-
+	private CustomUserDetailsService customUserDetailService;
+	
     protected PrivateController(CustomUserDetailsService customUserDetailService, CustomUserService customUserService, AddressService addressService) {
 	this.customUserDetailService = customUserDetailService;
-	this.addressService = addressService;
-	this.customUserService = customUserService;
     }
 
     /**
@@ -127,24 +113,5 @@ public class PrivateController<CustomUser> {
 		return customUserDetailService.getOne(id);
 	}
     
-    /**
-     * get one address
-     */
-    @GetMapping("/address/{id}") 
-	public AddressViewDto getOneAddress(@PathVariable Long id) {
-		return addressService.getOne(id);
-	}
-    
-    /**
-     * 
-     * @param id
-     * @param dto
-     * update one address
-     * 
-     */
-
-    @PutMapping("/updateAddress/{id}")
-    public UserDto create(@PathVariable("id") Long id, @Valid @RequestBody UserAuthDto dto) {
-	return customUserService.update(id, dto);
-    }
+   
 }

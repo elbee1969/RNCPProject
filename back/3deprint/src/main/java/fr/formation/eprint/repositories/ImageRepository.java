@@ -8,10 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import fr.formation.eprint.dtos.ImageDto;
 import fr.formation.eprint.dtos.ImageGetDto;
 import fr.formation.eprint.dtos.ImageViewDto;
-import fr.formation.eprint.entities.CustomUser;
 import fr.formation.eprint.entities.Image;
 
 @Repository

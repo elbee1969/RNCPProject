@@ -30,6 +30,7 @@ export class UserUpdateComponent implements OnInit {
     }
     console.log("this.id : " + this.id);
     this.editForm = this.formBuilder.group({
+      id: [''],
       num: ['', Validators.required],
       street: ['', Validators.required],
       town: ['', Validators.required],

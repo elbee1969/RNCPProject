@@ -22,6 +22,6 @@ public interface CustomUserService {
 
     CustomUserInfoDto getCurrentUserInfo(Long id);
 
-	UserDto update(Long id, @Valid UserAuthDto dto);
+
 
 }

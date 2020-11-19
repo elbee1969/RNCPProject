@@ -31,7 +31,7 @@ export class ProfileComponent implements OnInit {
       data => {
         this.user = data;
 
-        console.log("data user : " + this.user);
+        console.log("data user : " + JSON.stringify(this.user));
         console.log("data addresse : " + this.user.address.num);
         console.log("username : " + this.user.username);
       },

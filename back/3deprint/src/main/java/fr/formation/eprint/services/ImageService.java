@@ -6,10 +6,8 @@ import java.util.stream.Stream;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import fr.formation.eprint.dtos.ImageDto;
 import fr.formation.eprint.dtos.ImageGetDto;
 import fr.formation.eprint.dtos.ImageViewDto;
-import fr.formation.eprint.entities.CustomUser;
 import fr.formation.eprint.entities.Image;
 
 public interface ImageService {
