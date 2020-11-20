@@ -1,26 +1,19 @@
 package fr.formation.eprint.dtos;
 
 import javax.validation.constraints.Max;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.Length;
+public class AddressPatchDto {
 
-
-
-public class AddressCreateDto {
-
-	@NotNull
+    @Max(4)
     private int num;
-	
-    @Length(max = 40)
+    @Max(40)
     private String street;
-    @Length(max = 40)
+    @Max(40)
     private String town;
-    @Length(max = 30)
+    @Max(30)
     private String country;
 
-    public AddressCreateDto() {
+    public AddressPatchDto() {
 	super();
 	// TODO Auto-generated constructor stub
     }

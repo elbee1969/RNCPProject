@@ -10,7 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.formation.eprint.dtos.AddressCreateDto;
+import fr.formation.eprint.dtos.AddressPatchDto;
 import fr.formation.eprint.dtos.AddressViewDto;
+import fr.formation.eprint.dtos.UserAuthDto;
+import fr.formation.eprint.dtos.UserDto;
+import fr.formation.eprint.entities.Address;
 import fr.formation.eprint.services.AddressService;
 import fr.formation.eprint.services.CustomUserService;
 
@@ -44,11 +48,11 @@ public class AddressController {
      * 
      */
 
-//    @PatchMapping("/update/{id}")
-//    public UserDto update(@PathVariable("id") Long id, @Valid @RequestBody UserAuthDto dto) {
-//	return addressService.update(id, dto);
+//    @PatchMapping("/update")
+//    public AddressPatchDto update(@Valid @RequestBody AddressCreateDto dto) {
+//	return addressService.update(dto);
 //    }
-//	
+	
 	
   @PatchMapping("/update/{id}")
   public void update(@PathVariable("id") Long id, @Valid @RequestBody AddressCreateDto dto) {

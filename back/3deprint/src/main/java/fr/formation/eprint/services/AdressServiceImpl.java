@@ -33,18 +33,12 @@ public class AdressServiceImpl implements AddressService {
 		// TODO Auto-generated method stub
 		// findById returns an Optional object!
 		Address address = addressRepository.findById(id).get();
-		populateAndSave(dto, address);
-	}
-
-	private void populateAndSave(@Valid AddressCreateDto dto, Address address) {
-		// TODO Auto-generated method stub
-		address.getId();
-		dto.setNum(10);
+		address.setNum(dto.getNum());
 		address.setStreet(dto.getStreet());
 		address.setTown(dto.getTown());
 		address.setCountry(dto.getCountry());
 		addressRepository.save(address);
-//		mapper.map(dto, Address.class);
+		mapper.map(dto, Address.class);
 	}
 
 	@Override

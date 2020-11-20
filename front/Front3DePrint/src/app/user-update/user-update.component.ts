@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Address } from '../model/address';
-import { first } from "rxjs/operators";
+import { delayWhen, first, map, retryWhen, shareReplay, tap } from "rxjs/operators";
 import { UserService } from '../services/user.service';
+import { HttpXhrBackend } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-update',
@@ -37,23 +38,24 @@ export class UserUpdateComponent implements OnInit {
       country: ['', Validators.required]
     });
     this.userService.getAddressById(+this.id)
-      .subscribe(addressData => {
-        this.address = addressData;
-        this.numero = addressData.num;
-        console.log("address data : " + JSON.stringify(addressData));
-        console.log("address num Jst : " + JSON.stringify(addressData.num));
-        console.log("address num : " + addressData.num);
+      .subscribe(data => {
+        this.address = data;
+        this.numero = data.num;
+        console.log("address data : " + JSON.stringify(data));
+        console.log("address num Jst : " + JSON.stringify(data.num));
+        console.log("address num : " + data.num);
         console.log("form values : " + this.editForm.setValue(this.address.result));
-        this.editForm.setValue(addressData.result);
+        this.editForm.setValue(data.result);
     });
 }
 
   onSubmit() {
     console.log("this.editForm.value " + JSON.stringify(this.editForm.value));
-    this.userService.updateAddress(this.editForm.value)
+    return this.userService.updateAddress(this.editForm.value)
       .pipe(first())
       .subscribe(
         data => {
+          console.log('Address updated successfully.' + JSON.stringify(data));
           if (data.status === 200) {
             console.log('Address updated successfully.');
             this.router.navigate(['/profile']);
@@ -64,6 +66,12 @@ export class UserUpdateComponent implements OnInit {
         error => {
           console.log(error);
         });
+
+      // .subscribe(
+      //   res => console.log('HTTP response', res),
+      //   err => console.log('HTTP Error', err),
+      //   () => console.log('HTTP request completed.')
+      // );
   }
 
   backToProfil() {
