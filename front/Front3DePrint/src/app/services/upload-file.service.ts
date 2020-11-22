@@ -36,6 +36,6 @@ export class UploadFileService {
   }
 
   delete(id){
-    return this.http.delete(`${this.baseUrl}/files/${id}`);
+    return this.http.delete(`${this.baseUrl}/file/${id}`);
   }
 }

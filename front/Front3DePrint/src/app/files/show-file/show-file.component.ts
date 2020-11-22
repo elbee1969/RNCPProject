@@ -6,6 +6,7 @@ import { FormControl } from '@angular/forms';
 import * as THREE from 'three';
 
 import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-show-file',
@@ -20,6 +21,7 @@ export class ShowFileComponent implements OnInit {
   role: boolean;
   base64Data: any;
   thumbnail: any;
+  imagePath: any;
 
    
   constructor(private uploadService: UploadFileService,
@@ -38,15 +40,18 @@ export class ShowFileComponent implements OnInit {
       this.id = this.route.snapshot.params['id']
       this.uploadService.getCurrentFile(this.id).subscribe(response => {
         this.image = response;
+        this.imageName = this.image.name;
+
         this.base64Data = this.image.data;
         this.image = 'data:image/jpeg;base64,' + this.base64Data;
         this.thumbnail = this.sanitizer.bypassSecurityTrustUrl(this.image);
-        this.imageName = this.thumbnail.name;
+        console.log('image name ' + this.imageName);
+        //console.log('image thumbnail ' + this.thumbnail);
         }) ,
         error => {
           console.log(error);
         }
-
+      this.imagePath = "http://localhost:9090/api/private/image/"+this.id;
   }
   backToImageslist() {
     if (this.user === "ROLE_ADMIN") {

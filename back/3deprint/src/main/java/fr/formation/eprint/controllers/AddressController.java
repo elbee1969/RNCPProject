@@ -55,7 +55,7 @@ public class AddressController {
 	
 	
   @PatchMapping("/update/{id}")
-  public void update(@PathVariable("id") Long id, @Valid @RequestBody AddressCreateDto dto) {
+  public void update(@PathVariable("id") Long id, @Valid @RequestBody AddressPatchDto dto) {
 	addressService.update(id, dto);
   }
 	

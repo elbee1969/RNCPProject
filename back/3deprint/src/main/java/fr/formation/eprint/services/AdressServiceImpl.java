@@ -5,31 +5,25 @@ import javax.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import fr.formation.eprint.dtos.AddressCreateDto;
+import fr.formation.eprint.dtos.AddressPatchDto;
 import fr.formation.eprint.dtos.AddressViewDto;
-import fr.formation.eprint.dtos.UserAuthDto;
-import fr.formation.eprint.dtos.UserDto;
 import fr.formation.eprint.entities.Address;
-import fr.formation.eprint.entities.CustomUser;
 import fr.formation.eprint.repositories.AddressRepository;
 import fr.formation.eprint.repositories.CustomUserJpaRepository;
-import fr.formation.eprint.repositories.RoleJpaRepository;
 
 @Service
 public class AdressServiceImpl implements AddressService {
 	
 	private final AddressRepository addressRepository;
-	private final CustomUserJpaRepository userJpaRepository;
 	private ModelMapper mapper;
 	
 	protected AdressServiceImpl(AddressRepository addressRepository, CustomUserJpaRepository userJpaRepository, ModelMapper mapper ) {
 		this.addressRepository = addressRepository;
-		this.userJpaRepository = userJpaRepository;
 		this.mapper = mapper;
 	};
 
 	@Override
-	public void update(Long id, @Valid AddressCreateDto dto) {
+	public void update(Long id, @Valid AddressPatchDto dto) {
 		// TODO Auto-generated method stub
 		// findById returns an Optional object!
 		Address address = addressRepository.findById(id).get();

@@ -1,16 +1,20 @@
 package fr.formation.eprint.dtos;
 
 import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
 
 public class AddressPatchDto {
 
-    @Max(4)
+	@NotNull
     private int num;
-    @Max(40)
+	
+    @Length(max = 40)
     private String street;
-    @Max(40)
+    @Length(max = 40)
     private String town;
-    @Max(30)
+    @Length(max = 30)
     private String country;
 
     public AddressPatchDto() {

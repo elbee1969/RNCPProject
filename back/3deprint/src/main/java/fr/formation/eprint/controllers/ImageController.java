@@ -75,6 +75,7 @@ public class ImageController {
  * @param id
  * @return one image
  */
+	@GetMapping("/image/{id}")
 	public ImageViewDto getImage(@PathVariable Long id) {
 		return imageService.getOne(id);
 	}
@@ -108,7 +109,7 @@ public class ImageController {
 		return ResponseEntity.status(HttpStatus.OK).body(files);
 	}
 
-	@GetMapping("/files/{id}")
+	@GetMapping("/file/{id}")
 	public ResponseEntity<Image> getFile(@PathVariable Long id) {
 		Image image = imageService.getFile(id);
 

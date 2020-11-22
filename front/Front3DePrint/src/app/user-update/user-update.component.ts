@@ -55,13 +55,8 @@ export class UserUpdateComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          console.log('Address updated successfully.' + JSON.stringify(data));
-          if (data.status === 200) {
-            console.log('Address updated successfully.');
-            this.router.navigate(['/profile']);
-          } else {
-            console.log(data.message);
-          }
+          console.log('Address updated successfully');
+          this.router.navigate(['/profile']);
         },
         error => {
           console.log(error);
