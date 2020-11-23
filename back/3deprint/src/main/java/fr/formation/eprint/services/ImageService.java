@@ -35,6 +35,9 @@ public interface ImageService {
 	List<ImageGetDto> getAllByUserId();
 
 
+	void deleteOne(Long id);
+
+
 
 
 

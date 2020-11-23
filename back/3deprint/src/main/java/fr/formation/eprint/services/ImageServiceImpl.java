@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.zip.DataFormatException;
@@ -19,11 +20,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import fr.formation.eprint.config.SecurityHelper;
+import fr.formation.eprint.dtos.CustomUserInfoDto;
+import fr.formation.eprint.dtos.ImageCreateViewDto;
 import fr.formation.eprint.dtos.ImageDto;
 import fr.formation.eprint.dtos.ImageGetDto;
 import fr.formation.eprint.dtos.ImageViewDto;
 import fr.formation.eprint.entities.CustomUser;
 import fr.formation.eprint.entities.Image;
+import fr.formation.eprint.exception.AccountNotFoundException;
 import fr.formation.eprint.repositories.ImageRepository;
 import fr.formation.eprint.repositories.NewUserJpaRepository;
 
@@ -166,6 +170,17 @@ public class ImageServiceImpl implements ImageService {
 		        .collect(Collectors.toList());
 		return imagesToReturn;
 		
+	}
+
+	@Override
+	public void deleteOne(Long id) {
+		// TODO Auto-generated method stub
+		Optional<Image> value = imageRepository.findById(id);
+		if (value.isPresent()) {
+			imageRepository.deleteById(id);
+		} else {
+			throw new AccountNotFoundException("Invalid id : " + id);
+		}
 	}
 
 

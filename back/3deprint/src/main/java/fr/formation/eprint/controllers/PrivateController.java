@@ -103,6 +103,7 @@ public class PrivateController<CustomUser> {
     public void deleteAccount(@PathVariable("id") Long id) {
     	customUserDetailService.deleteOne(id);
     }
+    
     /**
      * 
      * @param id
