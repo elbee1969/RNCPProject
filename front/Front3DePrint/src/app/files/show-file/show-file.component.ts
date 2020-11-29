@@ -48,12 +48,13 @@ export class ShowFileComponent implements OnInit {
         this.image = 'data:image/jpeg;base64,' + this.base64Data;
         this.thumbnail = this.sanitizer.bypassSecurityTrustUrl(this.image);
         console.log('image name ' + this.imageName);
-        //console.log('image thumbnail ' + this.thumbnail);
+        console.log('image thumbnail ' + this.thumbnail.name);
+        this.imagePath = "http://localhost:9090/api/private/image/"+this.imageName;
+        console.log("imgpath " + this.imagePath);
         }) ,
         error => {
           console.log(error);
         }
-      this.imagePath = "http://localhost:9090/api/private/image/"+this.id;
   }
   backToImageslist() {
     if (this.user === "ROLE_ADMIN") {

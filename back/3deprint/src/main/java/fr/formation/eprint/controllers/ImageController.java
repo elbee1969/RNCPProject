@@ -78,7 +78,9 @@ public class ImageController {
  */
 	@GetMapping("/image/{id}")
 	public ImageViewDto getImage(@PathVariable Long id) {
-		return imageService.getOne(id);
+		 String dir = System.getProperty("user.dir") + "\\imagesusers";
+		System.out.println("répertoire : " + dir);
+		return imageService.getOne(id); 
 	}
 	
 	
