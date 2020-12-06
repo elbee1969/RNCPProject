@@ -13,9 +13,8 @@
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">Nom utilisateur X, id</h5>
-        <p class="card-text">Image : nom, Quantité : ?, prix total : ? </p>
-        <p class="card-text">Image : nom, Quantité : ?, prix total : ? </p>
-        <p>Prix final : ? </p>
+        <p class="card-text">Image1 : nom, Quantité : 1</p>
+        <p class="card-text">Image2 : nom, Quantité : 2</p>
         <span>(En cours à valider) </span>
         <button class="badge badge-success mr-2" (click)="validateCommande()">Valider la commande</button>
         <button class="badge badge-danger mr-2" (click)="rejectCommande()">Annuler la commande</button>
@@ -24,9 +23,11 @@
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">Nom utilisateur Y, id</h5>
-        <p class="card-text">Image : nom, Quantité : ?, prix total : ? <button class="badge badge-success mr-2" (click)="showImage()"> Imprimer image</button></p>
-        <p class="card-text">Image : nom, Quantité : ?, prix total : ? <button class="badge badge-success mr-2" (click)="showImage()"> Imprimer image</button></p>
+        <p class="card-text">Image : nom de l'image , Quantité : ?, prix total : ? <button class="badge badge-success mr-2" (click)="showImage()"> Quôter image</button></p>
         <p>Prix final : ? </p>
+        <p> ---- ou ---</p>
+        <p class="card-text">Image : nom de l'image, Quantité : 1, prix total : 30.00 € <button class="badge badge-success mr-2" (click)="showImage()"> Imprimer image</button></p>
+        <p>Prix final : 30.00 € </p>
         <span>(Validé à Effectuer) </span>
         <button class="badge badge-success mr-2" (click)="makeCommande()">Effectuer la commande</button>(impression BDC + envoie mail au client)
         <button class="badge badge-danger mr-2" (click)="rejectCommande()">Annuler</button>        
