@@ -76,6 +76,7 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public ImageViewDto getOne(Long id) {
+    	
 	// TODO Auto-generated method stub
 	return imageRepository.getById(id);
     }
@@ -87,8 +88,11 @@ public class ImageServiceImpl implements ImageService {
 	return null;
     }
 
+    @Override
     public Image getFile(Long id) {
-	return imageRepository.findById(id).get();
+		final Optional<Image> retrievedImage = imageRepository.findById(id);
+		Image img = new Image(decompressZLib(retrievedImage.get().getData()),retrievedImage.get().getName(), retrievedImage.get().getType(),retrievedImage.get().getCustomUser());
+	return img;
     }
 
     public Stream<Image> getAllFiles() {
@@ -128,7 +132,6 @@ public class ImageServiceImpl implements ImageService {
 	Deflater deflater = new Deflater();
 	deflater.setInput(data);
 	deflater.finish();
-
 	ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
 	byte[] buffer = new byte[1024];
 	while (!deflater.finished()) {

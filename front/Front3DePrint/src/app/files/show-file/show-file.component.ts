@@ -23,6 +23,7 @@ export class ShowFileComponent implements OnInit {
   thumbnail: any;
   imagePath: any;
   imageId: any;
+  retrieveImage: string;
 
    
   constructor(private uploadService: UploadFileService,
@@ -39,13 +40,14 @@ export class ShowFileComponent implements OnInit {
         this.role = true;
       }
       this.id = this.route.snapshot.params['id']
-      this.uploadService.getCurrentFile(this.id).subscribe(response => {
+      this.uploadService.showCurrentFile(this.id).subscribe(response => {
         this.image = response;
+
         this.imageName = this.image.name;
         this.imageId = this.image.id
         console.log('image id ' + this.imageId);
         this.base64Data = this.image.data;
-        this.image = 'data:image/jpeg;base64,' + this.base64Data;
+        this.retrieveImage = 'data:image/jpeg;base64,' + this.base64Data;
         this.thumbnail = this.sanitizer.bypassSecurityTrustUrl(this.image);
         console.log('image name ' + this.imageName);
         console.log('image thumbnail ' + this.thumbnail.name);

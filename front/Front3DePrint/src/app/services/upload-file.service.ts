@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { TokenStorageService } from './token-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class UploadFileService {
   private baseUrl = 'http://localhost:9090/api/private';
 
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private tokenStorage: TokenStorageService) { }
 
   upload(file: File): Observable<HttpEvent<any>> {
     console.log("file : " + file);
@@ -33,6 +34,15 @@ export class UploadFileService {
   }
   getCurrentFile(id) {
     return this.http.get(`${this.baseUrl}/image/${id}`);
+  }
+
+  showCurrentFile(id){
+    return this.http.get(`${this.baseUrl}/file/${id}`, {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + this.tokenStorage.getToken(),
+        'Content-Type': 'image/png'
+      })
+    })
   }
 
   delete(id){

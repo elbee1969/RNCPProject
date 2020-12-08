@@ -113,12 +113,9 @@ public class ImageController {
 	}
 
 	@GetMapping("/file/{id}")
-	public ResponseEntity<Image> getFile(@PathVariable Long id) {
-		Image image = imageService.getFile(id);
+	public Image getFile(@PathVariable Long id) {
+		return imageService.getFile(id);
 
-		return ResponseEntity.ok()
-				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + image.getName() + "\"")
-				.body(image);
 	}
 
     @DeleteMapping("/deleteImage/{id}")
