@@ -1,16 +1,18 @@
 package fr.formation.eprint.services;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Stream;
 
+import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
 import fr.formation.eprint.dtos.ImageGetDto;
 import fr.formation.eprint.dtos.ImageViewDto;
 import fr.formation.eprint.entities.Image;
 
-public interface ImageService {
+public interface ImageStorageService {
 
 
     void delete(Long id);
@@ -38,7 +40,15 @@ public interface ImageService {
 	void deleteOne(Long id);
 
 
+	public void init();
 
+	  public void save(MultipartFile file);
+
+	  public Resource load(String filename);
+
+	  public void deleteAll();
+
+	  public Stream<Path> loadAll();
 
 
 

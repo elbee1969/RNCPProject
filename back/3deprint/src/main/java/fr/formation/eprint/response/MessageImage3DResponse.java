@@ -1,10 +1,10 @@
 package fr.formation.eprint.response;
 
 
-public class MessageResponse {
+public class MessageImage3DResponse {
 	private String message;
 
-	public MessageResponse(String message) {
+	public MessageImage3DResponse(String message) {
 	    this.message = message;
 	  }
 

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,17 +15,23 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import fr.formation.eprint.config.SecurityHelper;
 import fr.formation.eprint.dtos.ImageGetDto;
 import fr.formation.eprint.dtos.ImageViewDto;
+import fr.formation.eprint.entities.CustomUser;
 import fr.formation.eprint.entities.Image;
+import fr.formation.eprint.entities.Image3D;
 import fr.formation.eprint.repositories.ImageRepository;
+import fr.formation.eprint.repositories.NewUserJpaRepository;
 import fr.formation.eprint.response.ImageResponse;
-import fr.formation.eprint.services.ImageService;
+import fr.formation.eprint.response.MessageImage3DResponse;
+import fr.formation.eprint.services.ImageStorageService;
 
 @RestController
 @RequestMapping("/private") // "/api/private/*"
@@ -32,11 +39,14 @@ public class ImageController {
 
 	@Autowired
 	ImageRepository imageRepository;
+	
+	@Autowired
+   NewUserJpaRepository userRepository;
 
-	private final ImageService imageService;
+	private final ImageStorageService imageStorageService;
 
-	protected ImageController(ImageService imageService) {
-		this.imageService = imageService;
+	protected ImageController(ImageStorageService imageStorageService) {
+		this.imageStorageService = imageStorageService;
 	}
 /**
  * 
@@ -48,9 +58,10 @@ public class ImageController {
 	@PostMapping("/upload")
 	public void uplaodImage(@RequestParam("file") MultipartFile file) throws IOException {
 
-		imageService.store(file);
+		imageStorageService.store(file);
 	}
 
+	
 	/**
 	 * 
 	 * @return
@@ -58,7 +69,7 @@ public class ImageController {
 	 */
 	@GetMapping("/images")
 	public List<ImageViewDto> getAll() {
-		return imageService.getAll();
+		return imageStorageService.getAll();
 	}
 
 	/**
@@ -68,7 +79,7 @@ public class ImageController {
 	 */
 	@GetMapping("/ownedImages")
 	public List<ImageGetDto> getAllById() {
-		return imageService.getAllByUserId();
+		return imageStorageService.getAllByUserId();
 	}
 
 /**
@@ -80,7 +91,7 @@ public class ImageController {
 	public ImageViewDto getImage(@PathVariable Long id) {
 		 String dir = System.getProperty("user.dir") + "\\imagesusers";
 		System.out.println("répertoire : " + dir);
-		return imageService.getOne(id); 
+		return imageStorageService.getOne(id); 
 	}
 	
 	
@@ -89,7 +100,7 @@ public class ImageController {
 	
 	@GetMapping("/files")
 	public ResponseEntity<List<ImageResponse>> getListFiles() {
-		List<ImageResponse> files = imageService.getAllFiles().map(image -> {
+		List<ImageResponse> files = imageStorageService.getAllFiles().map(image -> {
 			String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/files/")
 					.path(image.getName()).toUriString();
 
@@ -102,7 +113,7 @@ public class ImageController {
 
 	@GetMapping("/ownedfiles")
 	public ResponseEntity<List<ImageResponse>> getListOwnedFiles() {
-		List<ImageResponse> files = imageService.getAllFiles().map(image -> {
+		List<ImageResponse> files = imageStorageService.getAllFiles().map(image -> {
 			String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/ownedfiles/")
 					.path(image.getName()).toUriString();
 			Long userId = SecurityHelper.getUserId();
@@ -114,13 +125,52 @@ public class ImageController {
 
 	@GetMapping("/file/{id}")
 	public Image getFile(@PathVariable Long id) {
-		return imageService.getFile(id);
+		return imageStorageService.getFile(id);
 
 	}
 
     @DeleteMapping("/deleteImage/{id}")
     public void deleteImage(@PathVariable("id") Long id) {
-    	imageService.deleteOne(id);
+    	imageStorageService.deleteOne(id);
     }
-	
+    
+    /*
+     * manage images in directory
+     */
+    	@PostMapping("/upload3d")
+    	  public ResponseEntity<MessageImage3DResponse> uploadFile(@RequestParam("file") MultipartFile file) {
+    	    String message = "";
+    	    try {
+    	    	imageStorageService.save(file);
+
+    	      message = "Uploaded the file successfully: " + file.getOriginalFilename();
+    	      return ResponseEntity.status(HttpStatus.OK).body(new MessageImage3DResponse(message));
+    	    } catch (Exception e) {
+    	      message = "Could not upload the file: " + file.getOriginalFilename() + "!";
+    	      return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new MessageImage3DResponse(message));
+    	    }
+    	  }
+    
+    
+    	@GetMapping("/image3ds")
+    	  public ResponseEntity<List<Image3D>> getListImage3Ds() {
+    	    List<Image3D> image3Ds = imageStorageService.loadAll().map(path -> {
+    	      String filename = path.getFileName().toString();
+    	      String url = MvcUriComponentsBuilder
+    	          .fromMethodName(ImageController.class, "getFile", path.getFileName().toString()).build().toString();
+    	      Long userId = SecurityHelper.getUserId();
+    		    CustomUser customUser = userRepository.getOne(userId);
+    	      return new Image3D(filename, url, customUser);
+    	    }).collect(Collectors.toList());
+
+    	    return ResponseEntity.status(HttpStatus.OK).body(image3Ds);
+    	  }
+
+    	  @GetMapping("/image3ds/{filename:.+}")
+    	  @ResponseBody
+    	  public ResponseEntity<Resource> getFile(@PathVariable String filename) {
+    	    Resource file = imageStorageService.load(filename);
+    	    return ResponseEntity.ok()
+    	        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+    	  }
 }

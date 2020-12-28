@@ -169,13 +169,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    protected ModelMapper modelMapper() {
-	ModelMapper mapper = new ModelMapper();
-	mapper.getConfiguration().setFieldMatchingEnabled(true).setFieldAccessLevel(AccessLevel.PRIVATE)
-		.setMatchingStrategy(MatchingStrategies.LOOSE);
-	return mapper;
-    }
+    
 
     /**
      * Standard enpoint returning a view of the current authenticated user.

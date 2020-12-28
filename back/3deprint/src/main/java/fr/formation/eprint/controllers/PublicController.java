@@ -62,16 +62,16 @@ public class PublicController {
 //
 //    @PostMapping("/upload")
 //
-//    public ResponseEntity<MessageResponse> uploadFile(@RequestParam("file") MultipartFile file) {
+//    public ResponseEntity<MessageImage3DResponse> uploadFile(@RequestParam("file") MultipartFile file) {
 //	String message = "";
 //	try {
 //	    storageService.store(file);
 //
 //	    message = "Uploaded the file successfully: " + file.getOriginalFilename();
-//	    return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(message));
+//	    return ResponseEntity.status(HttpStatus.OK).body(new MessageImage3DResponse(message));
 //	} catch (Exception e) {
 //	    message = "Could not upload the file: " + file.getOriginalFilename() + "!";
-//	    return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new MessageResponse(message));
+//	    return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new MessageImage3DResponse(message));
 //	}
 //    }
 //
