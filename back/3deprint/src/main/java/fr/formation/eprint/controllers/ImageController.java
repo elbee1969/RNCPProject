@@ -55,12 +55,13 @@ public class ImageController {
  * load one image in db
  * 
  */
+	/*
 	@PostMapping("/upload")
 	public void uplaodImage(@RequestParam("file") MultipartFile file) throws IOException {
 
 		imageStorageService.store(file);
 	}
-
+*/
 	
 	/**
 	 * 
@@ -97,7 +98,7 @@ public class ImageController {
 	
 	
 	
-	
+	/*
 	@GetMapping("/files")
 	public ResponseEntity<List<ImageResponse>> getListFiles() {
 		List<ImageResponse> files = imageStorageService.getAllFiles().map(image -> {
@@ -110,7 +111,7 @@ public class ImageController {
 
 		return ResponseEntity.status(HttpStatus.OK).body(files);
 	}
-
+*/
 	@GetMapping("/ownedfiles")
 	public ResponseEntity<List<ImageResponse>> getListOwnedFiles() {
 		List<ImageResponse> files = imageStorageService.getAllFiles().map(image -> {

@@ -1,5 +1,8 @@
 package fr.formation.eprint.services;
 
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -23,6 +26,7 @@ import fr.formation.eprint.dtos.UserDto;
 import fr.formation.eprint.entities.Address;
 import fr.formation.eprint.entities.CustomUser;
 import fr.formation.eprint.entities.Image;
+import fr.formation.eprint.entities.Image3D;
 import fr.formation.eprint.entities.Role;
 import fr.formation.eprint.exception.ResourceNotFoundException;
 import fr.formation.eprint.repositories.CustomUserJpaRepository;
@@ -30,7 +34,8 @@ import fr.formation.eprint.repositories.RoleJpaRepository;
 
 @Service
 public class CustomUserServiceImpl implements CustomUserService {
-
+	
+	private final Path root = Paths.get("uploads");
 	private final PasswordEncoder passwordEncoder;
 	private final CustomUserJpaRepository userJpaRepository;
 	private final RoleJpaRepository roleJpaRepository;
@@ -57,12 +62,27 @@ public class CustomUserServiceImpl implements CustomUserService {
 		Set<Role> role = new HashSet<>();
 		role.add(roleJpaRepository.findByDefaultRole(true));
 
-		List<Image> images = new ArrayList<>();
+		List<Image3D> images = new ArrayList<>();
 		Address address = new Address();
 		CustomUser user = new CustomUser(dto.getUsername(), dto.getEmail(), encodedPassword, dto.getLastname(),
 				dto.getFirstname(), role, address, true, true, true, true);
+		createUserDir(dto.getUsername());
 		CustomUser newUser = userJpaRepository.save(user);
 		return mapper.map(newUser, UserDto.class);
+	}
+
+	/**
+	 * create a personal directory
+	 * @param username
+	 */
+private void createUserDir(String username) {
+
+	File directory=new File(root+"\\"+username);
+    if(directory.exists()){
+        System.out.println("A folder with name '"+username+"' is already exist in the path "+directory);
+    }else{
+ 	   directory.mkdir();
+    }
 	}
 
 //Throws UsernameNotFoundException (Spring contract)
@@ -85,7 +105,5 @@ public class CustomUserServiceImpl implements CustomUserService {
 		return (CustomUserInfoDto) userJpaRepository.getById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("with id:" + id));
 	}
-
-	
 
 }

@@ -13,20 +13,20 @@ public class EprintApplication {
 	 ImageStorageService imageStorageService;
 	
 	public static void main(String[] args) {
+		
 		SpringApplication.run(EprintApplication.class, args);
 		
-		  String dir = System.getProperty("user.dir");
+		  String path = System.getProperty("user.dir");
 
 		  // directory from where the program was launched
-		  System.out.println(dir);
-		  String path = System.getProperty("user.dir");
-	       // File directory=new File(path+"/imagesusers");
+		  System.out.println(path);
 	       File directory=new File(path+"/uploads");
 	       if(directory.exists()){
-	           System.out.println("A folder with name 'imagesusers' is already exist in the path "+path);
+	           System.out.println("A folder with name 'uploads' is already exist in the path "+path);
 	       }else{
 	    	   directory.mkdir();
 	       }
+	       
 	}
 	
 	

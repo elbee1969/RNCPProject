@@ -13,14 +13,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "image")
+@Table(name = "image3d")
 public class Image3D extends AbstractEntity {
 	
 	@Column(name = "name", length = 255, nullable = false)
 	private String name;
 
-	@Column(name = "type", length = 40, nullable = false)
-	private String type;
+	@Column(name = "url", length = 40, nullable = false)
+	private String url;
 
 	
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -30,9 +30,9 @@ public class Image3D extends AbstractEntity {
 	@OneToMany(mappedBy = "image", cascade = CascadeType.ALL)
 	private List<Item> items = new ArrayList<Item>();
 
-	public Image3D(String name, String type, CustomUser customUser) {
+	public Image3D(String name, String url, CustomUser customUser) {
 		this.name = name;
-		this.type = type;
+		this.url = url;
 		this.customUser = customUser;
 	    }
 
@@ -54,12 +54,12 @@ public class Image3D extends AbstractEntity {
 		this.name = name;
 	}
 
-	public String getType() {
-		return type;
+	public String getUrl() {
+		return url;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 
