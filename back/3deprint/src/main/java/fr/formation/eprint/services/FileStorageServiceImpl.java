@@ -65,7 +65,7 @@ public class FileStorageServiceImpl implements FileStorageService {
 			    Path url = Paths.get(root+"\\"+user);
 			    Image3D image = new Image3D( fileName, url.toString(), customUser);
 			    File existFile = new File(url.toString()+"\\"+fileName);
-			    if (!existFile.exists()) {
+			    if (!existFile.exists() && !existFile.isDirectory()) {
 			    	Files.copy(file.getInputStream(), url.resolve(file.getOriginalFilename()));
 			    	fileRepository.save(image);
 			    } else {

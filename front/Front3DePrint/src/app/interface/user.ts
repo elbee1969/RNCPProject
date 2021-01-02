@@ -1,3 +1,6 @@
+import { Address } from "../model/address";
+
+
 export interface User {
     id: number;
     userName: string;
@@ -5,5 +8,6 @@ export interface User {
     password: string;
     lastName: string;
     firstName: string;
+    address: Address;
 
 }

@@ -27,12 +27,8 @@ public class AdressServiceImpl implements AddressService {
 		// TODO Auto-generated method stub
 		// findById returns an Optional object!
 		Address address = addressRepository.findById(id).get();
-		address.setNum(dto.getNum());
-		address.setStreet(dto.getStreet());
-		address.setTown(dto.getTown());
-		address.setCountry(dto.getCountry());
+		mapper.map(dto, address);
 		addressRepository.save(address);
-		mapper.map(dto, Address.class);
 	}
 
 	@Override

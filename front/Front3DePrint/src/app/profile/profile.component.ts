@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from '../model/user';
 import { TokenStorageService } from '../services/token-storage.service';
 import { UserService } from '../services/user.service';
 
@@ -14,7 +15,7 @@ export class ProfileComponent implements OnInit {
   username: any;
   token: string;
   id: number;
-  user: any;
+  user: User;
   address: any;
 
   constructor(private tokenStorageService: TokenStorageService,
@@ -28,12 +29,12 @@ export class ProfileComponent implements OnInit {
     console.log('current user id : ' + JSON.stringify(this.currentUser.userId))
     console.log('getted token : ' + this.tokenStorageService.getToken());
     this.userService.getOne(this.id).subscribe(
-      data => {
-        this.user = data;
+      (user:User) => {
+        this.user = user;
 
         console.log("data user : " + JSON.stringify(this.user));
         console.log("data addresse : " + this.user.address.num);
-        console.log("username : " + this.user.username);
+        console.log("username : " + this.user.userName);
       },
       err => {
         this.user = JSON.parse(err.error).message;
