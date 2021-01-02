@@ -1,5 +1,6 @@
 package fr.formation.eprint.services;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -54,8 +55,8 @@ public class FileStorageServiceImpl implements FileStorageService {
 	  }
 
 	  @Override
-	  public void save(@RequestParam("file") MultipartFile file) {
-	    try {
+	  public void save(@RequestParam("file") MultipartFile file) throws IOException {
+
 			String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 			if (fileName.endsWith(".jpg") || fileName.endsWith(".png") || fileName.endsWith(".stl")) {
 			    Long userId = SecurityHelper.getUserId();
@@ -63,12 +64,16 @@ public class FileStorageServiceImpl implements FileStorageService {
 			    String user = customUser.getUsername();
 			    Path url = Paths.get(root+"\\"+user);
 			    Image3D image = new Image3D( fileName, url.toString(), customUser);
-			    Files.copy(file.getInputStream(), url.resolve(file.getOriginalFilename()));
-			    fileRepository.save(image);
+			    File existFile = new File(url.toString()+"\\"+fileName);
+			    if (!existFile.exists()) {
+			    	Files.copy(file.getInputStream(), url.resolve(file.getOriginalFilename()));
+			    	fileRepository.save(image);
+			    } else {
+			    	throw new IOException("File allready exist in your directory : "+url);
+			    }
+
 			}
-	    } catch (Exception e) {
-	      throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
-	    }
+
 	  }
 
 	  /*

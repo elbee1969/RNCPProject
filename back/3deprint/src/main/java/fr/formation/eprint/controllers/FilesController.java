@@ -1,5 +1,6 @@
 package fr.formation.eprint.controllers;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,17 +38,14 @@ public class FilesController {
   private NewUserJpaRepository userRepository;
 
   @PostMapping("/upload")
-  public ResponseEntity<MessageImage3DResponse> uploadFile(@RequestParam("file") MultipartFile file) {
+  public ResponseEntity<MessageImage3DResponse> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
     String message = "";
-    try {
+
       storageService.save(file);
 
       message = "Uploaded the file successfully: " + file.getOriginalFilename();
       return ResponseEntity.status(HttpStatus.OK).body(new MessageImage3DResponse(message));
-    } catch (Exception e) {
-      message = "Could not upload the file: " + file.getOriginalFilename() + "!";
-      return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new MessageImage3DResponse(message));
-    }
+   
   }
 
   @GetMapping("/files")
