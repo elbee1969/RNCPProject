@@ -2,11 +2,7 @@
 <div class="col-md-6 user-container">
   <h2 class="text-center">Renseigner votre adresse</h2>
   <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
-  
-    <div>
-      <input type="hidden" formControlName="id" placeholder="{{id}}" name="id" class="form-control" id="id" [(ngModel)]="id" readonly="true">
-	</div>
-	
+  	
     <div class="form-group">
       <label for="num">Numéro de rue:</label>
       <input type="number" formControlName="num" placeholder="{{address.num}}" [(ngModel)]="address.num" name="num" class="form-control" id="num">

@@ -12,9 +12,9 @@ import { HttpXhrBackend } from '@angular/common/http';
   styleUrls: ['./user-update.component.css']
 })
 export class UserUpdateComponent implements OnInit {
-  address: any;
+  address: Address;
   editForm: FormGroup;
-  id: any;
+  id: number;
   numero: number;
   
   constructor(private router: Router,
@@ -31,30 +31,27 @@ export class UserUpdateComponent implements OnInit {
     }
     console.log("this.id : " + this.id);
     this.editForm = this.formBuilder.group({
-      id: [''],
       num: ['', Validators.required],
       street: ['', Validators.required],
       town: ['', Validators.required],
       country: ['', Validators.required]
     });
-    this.userService.getAddressById(+this.id)
+    this.userService.getAddressById(this.id)
       .subscribe(data => {
         this.address = data;
         this.numero = data.num;
         console.log("address data : " + JSON.stringify(data));
         console.log("address num Jst : " + JSON.stringify(data.num));
         console.log("address num : " + data.num);
-        console.log("form values : " + this.editForm.setValue(this.address.result));
         this.editForm.setValue(data.result);
     });
 }
 
   onSubmit() {
     console.log("this.editForm.value " + JSON.stringify(this.editForm.value));
-    return this.userService.updateAddress(this.editForm.value)
-      .pipe(first())
+    return this.userService.updateAddress(this.editForm.value, this.id)
       .subscribe(
-        data => {
+        () => {
           console.log('Address updated successfully');
           this.router.navigate(['/profile']);
         },

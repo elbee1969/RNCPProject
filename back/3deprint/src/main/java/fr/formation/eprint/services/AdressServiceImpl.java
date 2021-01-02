@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import fr.formation.eprint.dtos.AddressPatchDto;
 import fr.formation.eprint.dtos.AddressViewDto;
 import fr.formation.eprint.entities.Address;
+import fr.formation.eprint.exception.ResourceNotFoundException;
 import fr.formation.eprint.repositories.AddressRepository;
 import fr.formation.eprint.repositories.CustomUserJpaRepository;
 
@@ -24,9 +25,8 @@ public class AdressServiceImpl implements AddressService {
 
 	@Override
 	public void update(Long id, @Valid AddressPatchDto dto) {
-		// TODO Auto-generated method stub
 		// findById returns an Optional object!
-		Address address = addressRepository.findById(id).get();
+		Address address = addressRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
 		mapper.map(dto, address);
 		addressRepository.save(address);
 	}

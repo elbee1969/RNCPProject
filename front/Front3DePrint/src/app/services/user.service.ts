@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { User } from '../interface/user';
+
 import { TokenStorageService } from './token-storage.service';
 import { Address } from '../model/address';
 import { ApiResponse } from '../model/api.response';
+import { User } from '../model/user';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 const API_PUBLIC_URL = 'http://localhost:9090/api/public/';
 const API_PRIVATE_URL = 'http://localhost:9090/api/private';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json',  })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json'  })
 };
 
 
@@ -73,9 +75,9 @@ export class UserService {
     return this.http.get<any>(API_PRIVATE_URL + `/address/${id}`);
   }
 
-  updateAddress(address: Address): Observable<ApiResponse> {
+  updateAddress(address: any, id: number ): Observable<ApiResponse> {
     console.log("in update address id : " + address.id);
     console.log("in update address : " + JSON.stringify(address));
-    return this.http.patch<ApiResponse>(API_PRIVATE_URL + `/update/${address.id}`, address, httpOptions);
+    return this.http.patch<ApiResponse>(API_PRIVATE_URL + `/update/${id}`, address, httpOptions);
   }
 }
