@@ -22,6 +22,7 @@ import fr.formation.eprint.config.SecurityHelper;
 import fr.formation.eprint.entities.CustomUser;
 import fr.formation.eprint.entities.Image;
 import fr.formation.eprint.entities.Image3D;
+import fr.formation.eprint.exception.ResourceNotFoundException;
 import fr.formation.eprint.repositories.FileRepository;
 import fr.formation.eprint.repositories.ImageRepository;
 import fr.formation.eprint.repositories.NewUserJpaRepository;
@@ -58,10 +59,11 @@ public class FileStorageServiceImpl implements FileStorageService {
 			String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 			if (fileName.endsWith(".jpg") || fileName.endsWith(".png") || fileName.endsWith(".stl")) {
 			    Long userId = SecurityHelper.getUserId();
-			    CustomUser customUser = userRepository.getOne(userId);
-			    String url = root+"\\"+customUser.getUsername();
-			    Image3D image = new Image3D( fileName, url, customUser);
-			    Files.copy(file.getInputStream(), this.root.resolve(file.getOriginalFilename()));
+			    CustomUser customUser = userRepository.findById(userId).orElseThrow(ResourceNotFoundException::new);
+			    String user = customUser.getUsername();
+			    Path url = Paths.get(root+"\\"+user);
+			    Image3D image = new Image3D( fileName, url.toString(), customUser);
+			    Files.copy(file.getInputStream(), url.resolve(file.getOriginalFilename()));
 			    fileRepository.save(image);
 			}
 	    } catch (Exception e) {
