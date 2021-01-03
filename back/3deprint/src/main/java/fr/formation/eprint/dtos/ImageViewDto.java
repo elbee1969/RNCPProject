@@ -8,7 +8,7 @@ public interface ImageViewDto {
 
     String getType();
 
-    byte[] getData();
+    String getUrl();
 
     Long getCustomUserId();
 

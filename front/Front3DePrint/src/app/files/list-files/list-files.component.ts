@@ -41,7 +41,7 @@ ngOnInit() {
   } else {
     console.log("pas admin!");
     this.uploadService.getOwnedFiles().subscribe(result => {
-      console.log(result);
+      console.log("result "+JSON.stringify(result));
       this.images = result;
     },
       error => console.log(error)

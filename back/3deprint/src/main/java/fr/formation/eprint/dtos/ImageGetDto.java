@@ -5,6 +5,9 @@ import fr.formation.eprint.entities.CustomUser;
 public class ImageGetDto {
 	private Long id;
     private String name;
+    private String type;
+    private String url;
+    private Long userId;
 //    private String type;
 //    private byte[] data;
 //    private CustomUser customUser;
@@ -33,6 +36,36 @@ public class ImageGetDto {
     public void setName(String name) {
 	this.name = name;
     }
+
+
+	public String getType() {
+		return type;
+	}
+
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+
+	public String getUrl() {
+		return url;
+	}
+
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+
+	public Long getUserId() {
+		return userId;
+	}
+
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
 
  
 //    public String getType() {

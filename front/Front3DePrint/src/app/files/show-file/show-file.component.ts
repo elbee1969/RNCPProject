@@ -24,6 +24,8 @@ export class ShowFileComponent implements OnInit {
   imagePath: any;
   imageId: any;
   retrieveImage: string;
+  userName: any;
+  path: any;
 
    
   constructor(private uploadService: UploadFileService,
@@ -36,23 +38,23 @@ export class ShowFileComponent implements OnInit {
     
     ngOnInit() {
       this.user = this.token.getUser().authorities[0];
+      this.userName = this.token.getUser().user_name;
       if (this.user == "ROLE_USER") {
         this.role = true;
       }
       this.id = this.route.snapshot.params['id']
+      console.log("id : "+this.id);
+      console.log("username : "+this.userName);
       this.uploadService.showCurrentFile(this.id).subscribe(response => {
         this.image = response;
-
+        console.log("this image : " + JSON.stringify(this.image));
         this.imageName = this.image.name;
+        console.log('image name : ' + this.imageName);
         this.imageId = this.image.id
         console.log('image id ' + this.imageId);
-        this.base64Data = this.image.data;
-        this.retrieveImage = 'data:image/jpeg;base64,' + this.base64Data;
-        this.thumbnail = this.sanitizer.bypassSecurityTrustUrl(this.image);
-        console.log('image name ' + this.imageName);
-        console.log('image thumbnail ' + this.thumbnail.name);
-        this.imagePath = "http://localhost:9090/api/private/image/"+this.imageName;
-        console.log("imgpath " + this.imagePath);
+
+        this.path = "./assets/uploads/"+this.userName+"/";
+        console.log("path : "+ this.path);
         }) ,
         error => {
           console.log(error);

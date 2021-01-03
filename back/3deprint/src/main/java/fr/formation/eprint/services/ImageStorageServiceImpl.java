@@ -1,6 +1,7 @@
 package fr.formation.eprint.services;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -35,11 +36,14 @@ import fr.formation.eprint.dtos.ImageViewDto;
 import fr.formation.eprint.entities.CustomUser;
 import fr.formation.eprint.entities.Image;
 import fr.formation.eprint.exception.AccountNotFoundException;
+import fr.formation.eprint.exception.ResourceNotFoundException;
 import fr.formation.eprint.repositories.ImageRepository;
 import fr.formation.eprint.repositories.NewUserJpaRepository;
 
 @Service
 public class ImageStorageServiceImpl implements ImageStorageService {
+	
+	private final Path roots = Paths.get("H:\\RNCPProject\\front\\Front3DePrint\\src\\assets\\uploads");
 
     private ImageRepository imageRepository;
     private NewUserJpaRepository userRepository;
@@ -57,17 +61,6 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 
     }
 
-    @Override
-    public List<ImageViewDto> findAll() {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-//    @Override
-//    public Image store(MultipartFile file) {
-//	// TODO Auto-generated method stub
-//	return null;
-//    }
 
     @Override
     public List<ImageViewDto> getAll() {
@@ -75,11 +68,6 @@ public class ImageStorageServiceImpl implements ImageStorageService {
     	return imageRepository.getAllProjectedBy();
     }
 
-//    @Override
-//    public Object getAllFiles() {
-//	// TODO Auto-generated method stub
-//	return null;
-//    }
 
     @Override
     public ImageViewDto getOne(Long id) {
@@ -98,7 +86,7 @@ public class ImageStorageServiceImpl implements ImageStorageService {
     @Override
     public Image getFile(Long id) {
 		final Optional<Image> retrievedImage = imageRepository.findById(id);
-		Image img = new Image(decompressZLib(retrievedImage.get().getData()),retrievedImage.get().getName(), retrievedImage.get().getType(),retrievedImage.get().getCustomUser());
+		Image img = new Image(decompressZLib(retrievedImage.get().getData()),retrievedImage.get().getName(), retrievedImage.get().getType(), retrievedImage.get().getUrl(),retrievedImage.get().getCustomUser());
 	return img;
     }
 
@@ -110,29 +98,25 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 
     @Override
     public Image store(@RequestParam("file") MultipartFile file) throws IOException {
-	// TODO Auto-generated method stub
 	String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-	if (fileName.endsWith(".jpg") || fileName.endsWith(".png") || fileName.endsWith(".stl")) {
+	
+	if (fileName.endsWith(".3mf") || fileName.endsWith(".obj") || fileName.endsWith(".oltp") || fileName.endsWith(".stl")) {
 	    Long userId = SecurityHelper.getUserId();
-	    CustomUser customUser = userRepository.getOne(userId);
-	    Image image = new Image(compressZLib(file.getBytes()), fileName, file.getContentType(), customUser);
-	    return imageRepository.save(image);
+	    CustomUser customUser = userRepository.findById(userId).orElseThrow(ResourceNotFoundException::new);
+	    String user = customUser.getUsername();
+	    Path url = Paths.get(roots+"\\"+user);
+	    Image image = new Image(compressZLib(file.getBytes()), fileName, file.getContentType(), url.toString(), customUser);
+	    File existFile = new File(url.toString()+"\\"+fileName);
+	    if (!existFile.exists() && !existFile.isDirectory()) {
+	    	Files.copy(file.getInputStream(), url.resolve(file.getOriginalFilename()));
+	    	imageRepository.save(image);
+	    } else {
+	    	throw new IOException("File allready exist in your directory : "+url);
+	    }
 	}
 	return (Image) ResponseEntity.status(HttpStatus.OK);
     }
 
-//    @Override
-//    public BodyBuilder uplaodImage(MultipartFile file) throws IOException {
-//	// TODO Auto-generated method stub
-//	System.out.println("Original Image Byte Size - " + file.getBytes().length);
-//	String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-//	Long userId = SecurityHelper.getUserId();
-//	CustomUser customUser = userRepository.getOne(userId);
-//	Image image = new Image(compressZLib(file.getBytes()), fileName, file.getContentType(), customUser);
-//
-//	imageRepository.save(image);
-//	return ResponseEntity.status(HttpStatus.OK);
-//    }
 
     // compress the image bytes before storing it in the database
     public static byte[] compressZLib(byte[] data) {
@@ -185,12 +169,10 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 	@Override
 	public void deleteOne(Long id) {
 		// TODO Auto-generated method stub
-		Optional<Image> value = imageRepository.findById(id);
-		if (value.isPresent()) {
+		// Image value = imageRepository.findById(id);
+
 			imageRepository.deleteById(id);
-		} else {
-			throw new AccountNotFoundException("Invalid id : " + id);
-		}
+		
 	}
 
 	/*
@@ -246,4 +228,6 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 	      throw new RuntimeException("Could not load the files!");
 	    }
 	  }
+
+
 }

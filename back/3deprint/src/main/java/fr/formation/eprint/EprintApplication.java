@@ -1,6 +1,10 @@
 package fr.formation.eprint;
 
 import java.io.File;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+
 import javax.annotation.Resource;
 
 import org.springframework.boot.SpringApplication;
@@ -16,11 +20,16 @@ public class EprintApplication {
 		
 		SpringApplication.run(EprintApplication.class, args);
 		
-		  String path = System.getProperty("user.dir");
+		FileSystem fs = FileSystems.getDefault();
+		
+		Path path = fs.getPath("H:\\RNCPProject\\front\\Front3DePrint\\src\\assets");
+		
+		  //String path = System.getProperty("user.dir");
 
 		  // directory from where the program was launched
 		  System.out.println(path);
-	       File directory=new File(path+"/uploads");
+		  // File directory=new File(path+"H:/RNCPProject/front/Front3DePrint/src/assets/uploas");
+	        File directory=new File(path+"/uploads");
 	       if(directory.exists()){
 	           System.out.println("A folder with name 'uploads' is already exist in the path "+path);
 	       }else{

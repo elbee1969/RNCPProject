@@ -23,6 +23,9 @@ public class Image extends AbstractEntity {
 
     @Column(name = "type", length = 40, nullable = false)
     private String type;
+    
+    @Column(name = "url", length = 255, nullable = false)
+	private String url;
 
     @Lob
     @Basic(fetch = FetchType.LAZY)
@@ -36,9 +39,10 @@ public class Image extends AbstractEntity {
     @OneToMany(mappedBy = "image", cascade = CascadeType.ALL)
     private List<Item> items = new ArrayList<Item>();
 
-    public Image(byte[] data, String name, String type, CustomUser customUser) {
+    public Image(byte[] data, String name, String type, String url, CustomUser customUser) {
 	this.name = name;
 	this.type = type;
+	this.url = url;
 	this.data = data;
 	this.customUser = customUser;
     }
@@ -69,7 +73,23 @@ public class Image extends AbstractEntity {
 	this.type = type;
     }
 
-    public byte[] getData() {
+    public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public List<Item> getItems() {
+		return items;
+	}
+
+	public void setItems(List<Item> items) {
+		this.items = items;
+	}
+
+	public byte[] getData() {
 	return data;
     }
 

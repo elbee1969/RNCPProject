@@ -31,6 +31,7 @@ import fr.formation.eprint.repositories.ImageRepository;
 import fr.formation.eprint.repositories.NewUserJpaRepository;
 import fr.formation.eprint.response.ImageResponse;
 import fr.formation.eprint.response.MessageImage3DResponse;
+import fr.formation.eprint.response.Response;
 import fr.formation.eprint.services.ImageStorageService;
 
 @RestController
@@ -62,7 +63,16 @@ public class ImageController {
 		imageStorageService.store(file);
 	}
 */
-	
+	@PostMapping("/upload")
+	  public ResponseEntity<MessageImage3DResponse> uploadImage(@RequestParam("file") MultipartFile file) throws IOException {
+	    String message = "";
+
+	    imageStorageService.store(file);
+
+	      message = "Uploaded the file successfully: " + file.getOriginalFilename();
+	      return ResponseEntity.status(HttpStatus.OK).body(new MessageImage3DResponse(message));
+	   
+	  }
 	/**
 	 * 
 	 * @return
@@ -90,12 +100,10 @@ public class ImageController {
  */
 	@GetMapping("/image/{id}")
 	public ImageViewDto getImage(@PathVariable Long id) {
-		 String dir = System.getProperty("user.dir") + "\\imagesusers";
+		 String dir = System.getProperty("user.dir") + "\\uploads";
 		System.out.println("répertoire : " + dir);
 		return imageStorageService.getOne(id); 
 	}
-	
-	
 	
 	
 	/*
@@ -112,23 +120,20 @@ public class ImageController {
 		return ResponseEntity.status(HttpStatus.OK).body(files);
 	}
 */
+	/*
 	@GetMapping("/ownedfiles")
-	public ResponseEntity<List<ImageResponse>> getListOwnedFiles() {
-		List<ImageResponse> files = imageStorageService.getAllFiles().map(image -> {
-			String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/ownedfiles/")
-					.path(image.getName()).toUriString();
+	public ResponseEntity<List<ImageGetDto>> getListOwnedFiles() {
+		List<ImageGetDto> files = imageStorageService.getAllFiles().map(image -> {
 			Long userId = SecurityHelper.getUserId();
-			return new ImageResponse(image.getName(), fileDownloadUri, image.getType(), image.getData().length, userId);
+			String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/uploads/")
+					.path(image.getName()).toUriString();
+			return new ImageGetDto(image.getId(), image.getName(), image.getType(), fileDownloadUri, userId);
 		}).collect(Collectors.toList());
 
 		return ResponseEntity.status(HttpStatus.OK).body(files);
 	}
+*/
 
-	@GetMapping("/file/{id}")
-	public Image getFile(@PathVariable Long id) {
-		return imageStorageService.getFile(id);
-
-	}
 
     @DeleteMapping("/deleteImage/{id}")
     public void deleteImage(@PathVariable("id") Long id) {

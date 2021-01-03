@@ -99,6 +99,7 @@ public class PrivateController<CustomUser> {
      * @param id
      * delete one user
      */
+    @PreAuthorize("hasRole('ADMIN')") // == @Secured("ROLE_ADMIN")
     @DeleteMapping("/delete/{id}")
     public void deleteAccount(@PathVariable("id") Long id) {
     	customUserDetailService.deleteOne(id);

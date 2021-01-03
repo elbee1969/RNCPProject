@@ -37,7 +37,7 @@ public class FilesController {
   @Autowired
   private NewUserJpaRepository userRepository;
 
-  @PostMapping("/upload")
+  @PostMapping("/uploadtruc")
   public ResponseEntity<MessageImage3DResponse> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
     String message = "";
 

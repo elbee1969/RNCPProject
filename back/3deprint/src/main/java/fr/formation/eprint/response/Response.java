@@ -5,12 +5,14 @@ public class Response {
     private String fileDownloadUri;
     private String fileType;
     private long size;
+    private Long userId;
 
-    public Response(String fileName, String fileDownloadUri, String fileType, long size) {
+    public Response(String fileName, String fileDownloadUri, String fileType, long size, Long userId) {
         this.fileName = fileName;
         this.fileDownloadUri = fileDownloadUri;
         this.fileType = fileType;
         this.size = size;
+    	this.userId = userId;
     }
 
 	public String getFileName() {
@@ -43,6 +45,14 @@ public class Response {
 
 	public void setSize(long size) {
 		this.size = size;
+	}
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
  
 }

@@ -35,7 +35,7 @@ import fr.formation.eprint.repositories.RoleJpaRepository;
 @Service
 public class CustomUserServiceImpl implements CustomUserService {
 	
-	private final Path root = Paths.get("uploads");
+	private final Path root = Paths.get("H:\\RNCPProject\\front\\Front3DePrint\\src\\assets\\uploads");
 	private final PasswordEncoder passwordEncoder;
 	private final CustomUserJpaRepository userJpaRepository;
 	private final RoleJpaRepository roleJpaRepository;

@@ -14,44 +14,32 @@ import fr.formation.eprint.entities.Image;
 
 public interface ImageStorageService {
 
+	void delete(Long id);
 
-    void delete(Long id);
+	Stream<Image> getAllFiles();
 
+	ImageViewDto getOne(Long id);
 
-    List<ImageViewDto> findAll();
+	Image getAllImage();
 
-    Stream<Image> getAllFiles();
+	Image getFile(Long id);
 
-    ImageViewDto getOne(Long id);
-
-    Image getAllImage();
-
-    Image getFile(Long id);
-
-    Image store(MultipartFile file) throws IOException;
-
+	Image store(MultipartFile file) throws IOException;
 
 	List<ImageViewDto> getAll();
 
-
 	List<ImageGetDto> getAllByUserId();
-
 
 	void deleteOne(Long id);
 
-
 	public void init();
 
-	  public void save(MultipartFile file);
+	public void save(MultipartFile file);
 
-	  public Resource load(String filename);
+	public Resource load(String filename);
 
-	  public void deleteAll();
+	public void deleteAll();
 
-	  public Stream<Path> loadAll();
-
-
-
-
+	public Stream<Path> loadAll();
 
 }

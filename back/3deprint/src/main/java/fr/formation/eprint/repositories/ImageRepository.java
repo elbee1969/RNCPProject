@@ -14,6 +14,7 @@ import fr.formation.eprint.entities.Image;
 
 @Repository
 public interface ImageRepository extends JpaRepository<Image, Long> {
+	
     Optional<Image> findByname(String name);
 
 //    @Query(value = "SELECT i.id FROM image i INNER JOIN custom_user u ON i.custom_user_id = u.id WHERE custom_user_id = :customUserId", nativeQuery = true)
@@ -21,8 +22,8 @@ public interface ImageRepository extends JpaRepository<Image, Long> {
     @Query("SELECT i FROM Image i INNER JOIN CustomUser u ON i.customUser.id = u.id WHERE i.customUser.id = :customUserId")
     public List<Image> getAllImageByUserId(@Param("customUserId") Long customUserId);
 
-    Optional<Image> findById(Long id);
-
+    Image getOne(Long id);
+    
     List<Image> findAll();
 
     ImageGetDto save(ImageGetDto img);
@@ -30,6 +31,8 @@ public interface ImageRepository extends JpaRepository<Image, Long> {
     ImageViewDto getById(Long id);
 
 	List<ImageViewDto> getAllProjectedBy();
+	
+	void deleteById(long id);
 
 
 

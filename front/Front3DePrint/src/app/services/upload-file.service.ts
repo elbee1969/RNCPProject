@@ -15,7 +15,7 @@ export class UploadFileService {
   constructor(private http: HttpClient, private router: Router, private tokenStorage: TokenStorageService) { }
 
   upload(file: File): Observable<HttpEvent<any>> {
-    console.log("file : " + file);
+    console.log("file : " + JSON.stringify(file));
     const formData: FormData = new FormData();
     formData.append('file', file);
 
@@ -36,11 +36,11 @@ export class UploadFileService {
     return this.http.get(`${this.baseUrl}/image/${id}`);
   }
 
-  showCurrentFile(id){
-    return this.http.get(`${this.baseUrl}/file/${id}`, {
+  showCurrentFile(id: number){
+    return this.http.get(`${this.baseUrl}/image/${id}`, {
       headers: new HttpHeaders({
         'Authorization': 'Bearer ' + this.tokenStorage.getToken(),
-        'Content-Type': 'image/png'
+        'Content-Type': 'application/vnd.ms-pki.stl'
       })
     })
   }

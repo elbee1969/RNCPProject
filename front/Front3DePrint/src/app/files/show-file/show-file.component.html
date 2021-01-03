@@ -2,10 +2,9 @@
   <div class="card-header">image : {{ imageName }} </div>
 
     <li class="list-group-item" >
-    <img [src]="image">
-      <stl-model-viewer class="threedee" [stlModels]="['retrieveImage']"></stl-model-viewer>
-  
-      <stl-model-viewer [meshOptions]="[{position: {x: 2, y: 0, z: 0}}]" [stlModels]="['./assets/xwing.stl']"></stl-model-viewer>
+
+
+      <stl-model-viewer [meshOptions]="[{position: {x: 0, y: 0, z: 0}}]" class="threedee" [stlModels]="['./assets/uploads/anne/OneLeg_PLA.stl']"></stl-model-viewer>
    
       <button (click)="backToImageslist()" class="btn btn-info" style="margin-left: 10px">Retour aux images</button>
     </li>
