@@ -30,7 +30,7 @@ public interface ImageStorageService {
 
 	List<ImageGetDto> getAllByUserId();
 
-	void deleteOne(Long id);
+	void deleteOne(Long id) throws IOException;
 
 	public void init();
 

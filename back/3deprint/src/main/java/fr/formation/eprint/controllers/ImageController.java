@@ -136,7 +136,7 @@ public class ImageController {
 
 
     @DeleteMapping("/deleteImage/{id}")
-    public void deleteImage(@PathVariable("id") Long id) {
+    public void deleteImage(@PathVariable("id") Long id) throws IOException {
     	imageStorageService.deleteOne(id);
     }
     

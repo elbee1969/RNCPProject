@@ -53,7 +53,7 @@ export class ShowFileComponent implements OnInit {
         this.imageId = this.image.id
         console.log('image id ' + this.imageId);
 
-        this.path = "./assets/uploads/"+this.userName+"/";
+        this.path = ("'./assets/uploads/" + this.userName + "/"+this.imageName+"'");
         console.log("path : "+ this.path);
         }) ,
         error => {

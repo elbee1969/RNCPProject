@@ -22,7 +22,7 @@ public interface ImageRepository extends JpaRepository<Image, Long> {
     @Query("SELECT i FROM Image i INNER JOIN CustomUser u ON i.customUser.id = u.id WHERE i.customUser.id = :customUserId")
     public List<Image> getAllImageByUserId(@Param("customUserId") Long customUserId);
 
-    Image getOne(Long id);
+    Optional<Image> findById(Long id);
     
     List<Image> findAll();
 

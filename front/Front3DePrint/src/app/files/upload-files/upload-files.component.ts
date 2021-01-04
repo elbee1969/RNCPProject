@@ -51,15 +51,15 @@ export class UploadFilesComponent implements OnInit {
         } else if (event instanceof HttpResponse) {
           this.message = event.body.message;
           this.fileInfos = this.uploadService.getOwnedFiles();
-          this.router.navigate['upload']
+          this.router.navigate['files']
         }
       },
       err => {
-        this.progress = 0;
         this.message = 'Could not upload the file! : ' + err;
         this.currentFile = undefined;
+        this.progress = 0;
       },
-         this.router.navigate['upload']
+         this.router.navigate['files']
       );
 
     this.selectedFiles = undefined;

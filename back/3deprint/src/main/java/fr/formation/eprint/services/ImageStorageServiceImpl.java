@@ -100,7 +100,7 @@ public class ImageStorageServiceImpl implements ImageStorageService {
     public Image store(@RequestParam("file") MultipartFile file) throws IOException {
 	String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 	
-	if (fileName.endsWith(".3mf") || fileName.endsWith(".obj") || fileName.endsWith(".oltp") || fileName.endsWith(".stl")) {
+	if (fileName.endsWith(".3mf") || fileName.endsWith(".3MF") || fileName.endsWith(".obj") || fileName.endsWith(".OBJ") || fileName.endsWith(".oltp") || fileName.endsWith(".OLTP") || fileName.endsWith(".stl") || fileName.endsWith(".STL")) {
 	    Long userId = SecurityHelper.getUserId();
 	    CustomUser customUser = userRepository.findById(userId).orElseThrow(ResourceNotFoundException::new);
 	    String user = customUser.getUsername();
@@ -167,10 +167,19 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 	}
 
 	@Override
-	public void deleteOne(Long id) {
+	public void deleteOne(Long id) throws IOException{
 		// TODO Auto-generated method stub
 		// Image value = imageRepository.findById(id);
+	    Long userId = SecurityHelper.getUserId();
+	    CustomUser customUser = userRepository.findById(userId).orElseThrow(ResourceNotFoundException::new);
+	    String userName = customUser.getUsername();
 
+			Optional<Image> image = imageRepository.findById(id);
+			String imageName = image.get().getName();
+			System.out.println("nom image : "+imageName);
+			//Files.(Paths.get("H:\\RNCPProject\\front\\Front3DePrint\\src\\assets\\uploads\\"+userName+"\\"+imageName));
+			Path fileToDeletePath = Paths.get("H:\\RNCPProject\\front\\Front3DePrint\\src\\assets\\uploads\\"+userName+"\\"+imageName);
+			Files.delete(fileToDeletePath);
 			imageRepository.deleteById(id);
 		
 	}
