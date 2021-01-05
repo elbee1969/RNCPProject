@@ -100,7 +100,7 @@ public class ImageStorageServiceImpl implements ImageStorageService {
     public Image store(@RequestParam("file") MultipartFile file) throws IOException {
 	String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 	
-	if (fileName.endsWith(".3mf") || fileName.endsWith(".3MF") || fileName.endsWith(".obj") || fileName.endsWith(".OBJ") || fileName.endsWith(".oltp") || fileName.endsWith(".OLTP") || fileName.endsWith(".stl") || fileName.endsWith(".STL")) {
+	if (fileName.endsWith(".3mf") || fileName.endsWith(".3MF") || fileName.endsWith(".oltp") || fileName.endsWith(".OLTP") || fileName.endsWith(".stl") || fileName.endsWith(".STL")) {
 	    Long userId = SecurityHelper.getUserId();
 	    CustomUser customUser = userRepository.findById(userId).orElseThrow(ResourceNotFoundException::new);
 	    String user = customUser.getUsername();
