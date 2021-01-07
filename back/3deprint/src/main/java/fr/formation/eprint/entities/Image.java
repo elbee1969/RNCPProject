@@ -7,6 +7,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
@@ -26,6 +28,13 @@ public class Image extends AbstractEntity {
     
     @Column(name = "url", length = 255, nullable = false)
 	private String url;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "ENUM('I','C','V','A')", length = 1, nullable = false)
+    private Status status;
+    
+    @Column(name = "number", length = 3)
+    private int number;
 
     @Lob
     @Basic(fetch = FetchType.LAZY)
@@ -39,10 +48,12 @@ public class Image extends AbstractEntity {
     @OneToMany(mappedBy = "image", cascade = CascadeType.ALL)
     private List<Item> items = new ArrayList<Item>();
 
-    public Image(byte[] data, String name, String type, String url, CustomUser customUser) {
+    public Image(byte[] data, String name, String type, String url, Status status, int number, CustomUser customUser) {
 	this.name = name;
 	this.type = type;
 	this.url = url;
+	this.status = status;
+	this.number = number;
 	this.data = data;
 	this.customUser = customUser;
     }
@@ -79,6 +90,22 @@ public class Image extends AbstractEntity {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public Status setStatus(Status status) {
+		return status;
+	}
+
+	public int getNumber() {
+		return number;
+	}
+
+	public int setNumber(int number) {
+		return number;
 	}
 
 	public List<Item> getItems() {
