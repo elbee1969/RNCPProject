@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import org.springframework.core.io.Resource;
+import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.web.multipart.MultipartFile;
 
 import fr.formation.eprint.dtos.ImageGetDto;
@@ -24,7 +25,7 @@ public interface ImageStorageService {
 
 	Image getFile(Long id);
 
-	Image store(MultipartFile file) throws IOException;
+	BodyBuilder store(MultipartFile file) throws IOException;
 
 	List<ImageViewDto> getAll();
 

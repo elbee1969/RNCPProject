@@ -10,6 +10,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 
 const API_PUBLIC_URL = 'http://localhost:9090/api/public/';
 const API_PRIVATE_URL = 'http://localhost:9090/api/private';
+const API_ADDRESS_URL = 'http://localhost:9090/api/address';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json'  })
@@ -72,12 +73,12 @@ export class UserService {
   }
   
   getAddressById(id: number): Observable<any> {
-    return this.http.get<any>(API_PRIVATE_URL + `/address/${id}`);
+    return this.http.get<any>(API_ADDRESS_URL + `/address/${id}`);
   }
 
   updateAddress(address: any, id: number ): Observable<ApiResponse> {
     console.log("in update address id : " + address.id);
     console.log("in update address : " + JSON.stringify(address));
-    return this.http.patch<ApiResponse>(API_PRIVATE_URL + `/update/${id}`, address, httpOptions);
+    return this.http.patch<ApiResponse>(API_ADDRESS_URL + `/update/${id}`, address, httpOptions);
   }
 }

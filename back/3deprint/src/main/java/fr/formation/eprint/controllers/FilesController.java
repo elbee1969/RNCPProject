@@ -28,7 +28,7 @@ import fr.formation.eprint.response.MessageImage3DResponse;
 import fr.formation.eprint.services.FileStorageService;
 
 @RestController
-@RequestMapping("/private") // "/api/private/*"
+@RequestMapping("/file") // "/api/private/*"
 public class FilesController {
 
   @Autowired

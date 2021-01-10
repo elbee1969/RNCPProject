@@ -9,6 +9,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,7 +36,8 @@ import fr.formation.eprint.response.Response;
 import fr.formation.eprint.services.ImageStorageService;
 
 @RestController
-@RequestMapping("/private") // "/api/private/*"
+@PreAuthorize("hasRole('USER') or hasRole('ADMIN')") // == must be USER or ADMIN
+@RequestMapping("/image") // "/api/private/*"
 public class ImageController {
 
 	@Autowired
@@ -63,6 +65,7 @@ public class ImageController {
 		imageStorageService.store(file);
 	}
 */
+
 	@PostMapping("/upload")
 	  public ResponseEntity<MessageImage3DResponse> uploadImage(@RequestParam("file") MultipartFile file) throws IOException {
 	    String message = "";

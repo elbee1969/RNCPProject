@@ -25,7 +25,9 @@ export class UploadFilesComponent implements OnInit {
 
   constructor(private uploadService: UploadFileService, private router: Router, private domSanitizer: DomSanitizer) { 
   }
-
+  ngOnInit() {
+    this.fileInfos = this.uploadService.getOwnedFiles();
+  }
   public selectFile(event) {
     this.selectedFiles = event.target.files;
 
@@ -51,22 +53,21 @@ export class UploadFilesComponent implements OnInit {
         } else if (event instanceof HttpResponse) {
           this.message = event.body.message;
           this.fileInfos = this.uploadService.getOwnedFiles();
-          this.router.navigate['files']
         }
+        this.router.navigate['upload']
       },
       err => {
-        this.message = 'Could not upload the file! : ' + err;
+        console.log(JSON.stringify(err));
+        this.message = 'Impossible à charger : ' + err.error.message;
         this.currentFile = undefined;
         this.progress = 0;
       },
-         this.router.navigate['files']
+         this.router.navigate['upload']
       );
 
     this.selectedFiles = undefined;
   }
 
-  ngOnInit() {
-    this.fileInfos = this.uploadService.getOwnedFiles();
-  }
+
 
 }

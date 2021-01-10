@@ -21,6 +21,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.util.StringUtils;
@@ -96,7 +97,7 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 	}
 
 	@Override
-	public Image store(@RequestParam("file") MultipartFile file) throws IOException {
+	public BodyBuilder store(@RequestParam("file") MultipartFile file) throws IOException {
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
 		if (fileName.endsWith(".3mf") || fileName.endsWith(".3MF") || fileName.endsWith(".oltp")
@@ -113,10 +114,10 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 				Files.copy(file.getInputStream(), url.resolve(file.getOriginalFilename()));
 				imageRepository.save(image);
 			} else {
-				throw new IOException("File allready exist in your directory : " + url);
+				throw new IOException("Cette image existe déjà !");
 			}
 		}
-		return (Image) ResponseEntity.status(HttpStatus.OK);
+		return ResponseEntity.status(HttpStatus.OK);
 	}
 
 	// compress the image bytes before storing it in the database

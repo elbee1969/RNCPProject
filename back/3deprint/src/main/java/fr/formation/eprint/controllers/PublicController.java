@@ -23,64 +23,37 @@ import fr.formation.eprint.services.CustomUserService;
 @RequestMapping("/public") // "/api/public/*"
 public class PublicController {
 
-    /**
-     * Accessible for anyone even anonymous.
-     *
-     * @return "Hello anyone!"
-     */
-    @GetMapping("/all")
-    public String hello() {
-	return "Bonjour visiteur!";
-    }
+	/**
+	 * Accessible for anyone even anonymous.
+	 *
+	 * @return "Hello anyone!"
+	 */
+	@GetMapping("/all")
+	public String hello() {
+		return "Bonjour visiteur!";
+	}
 
-    @GetMapping("/login")
-    public String user() {
-	Long id = SecurityHelper.getUserId();
-	String name = SecurityHelper.getUsername();
-	return "Hello " + name + " ! your id is : " + id;
-	// public ResponseEntity<UserInfoDto> get(final UserInfoDto user) {
-	// return ResponseEntity.ok(user);
-    }
+	@GetMapping("/login")
+	public String user() {
+		Long id = SecurityHelper.getUserId();
+		String name = SecurityHelper.getUsername();
+		return "Hello " + name + " ! your id is : " + id;
 
-    /**
-     * 
-     * 
-     * create a new user
-     * 
-     * 
-     */
-    @Autowired
-    private CustomUserService userService;
+	}
 
-    @PostMapping("/register")
-    public UserDto create(@Valid @RequestBody UserCreateDto dto) {
-	return userService.create(dto);
-    }
+	/**
+	 * 
+	 * 
+	 * create a new user
+	 * 
+	 * 
+	 */
+	@Autowired
+	private CustomUserService userService;
 
-//    @Autowired
-//    private ImageStorageService storageService;
-//
-//    @PostMapping("/upload")
-//
-//    public ResponseEntity<MessageImage3DResponse> uploadFile(@RequestParam("file") MultipartFile file) {
-//	String message = "";
-//	try {
-//	    storageService.store(file);
-//
-//	    message = "Uploaded the file successfully: " + file.getOriginalFilename();
-//	    return ResponseEntity.status(HttpStatus.OK).body(new MessageImage3DResponse(message));
-//	} catch (Exception e) {
-//	    message = "Could not upload the file: " + file.getOriginalFilename() + "!";
-//	    return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new MessageImage3DResponse(message));
-//	}
-//    }
-//
-//    @GetMapping("/files/{id}")
-//    public ResponseEntity<Image> getFile(@PathVariable Long id) {
-//	Image image = storageService.getFile(id);
-//
-//	return ResponseEntity.ok()
-//		.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + image.getName() + "\"")
-//		.body(image);
-//    }
+	@PostMapping("/register")
+	public UserDto create(@Valid @RequestBody UserCreateDto dto) {
+		return userService.create(dto);
+	}
+
 }

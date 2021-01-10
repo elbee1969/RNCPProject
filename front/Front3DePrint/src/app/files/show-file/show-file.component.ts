@@ -63,7 +63,7 @@ export class ShowFileComponent implements OnInit {
   backToImageslist() {
     if (this.user === "ROLE_ADMIN") {
     this.router.navigate(['/files']);
-    } else {
+    } else if (this.user === "ROLE_USER") {
       this.router.navigate(['/upload']);  
     }
   }

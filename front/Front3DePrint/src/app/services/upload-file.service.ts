@@ -9,7 +9,7 @@ import { TokenStorageService } from './token-storage.service';
 })
 export class UploadFileService {
 
-  private baseUrl = 'http://localhost:9090/api/private';
+  private baseUrl = 'http://localhost:9090/api/image';
 
 
   constructor(private http: HttpClient, private router: Router, private tokenStorage: TokenStorageService) { }

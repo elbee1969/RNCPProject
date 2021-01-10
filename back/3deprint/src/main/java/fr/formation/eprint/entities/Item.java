@@ -2,6 +2,8 @@ package fr.formation.eprint.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -30,7 +32,9 @@ public class Item  extends AbstractEntity {
     @JoinColumn(name = "image_id", nullable = false)
     private Image image;
 
-    
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "ENUM('I','C','V','A')", length = 1, nullable = false)
+    private Status status;
     
 	public Item() {
 		super();
@@ -40,6 +44,17 @@ public class Item  extends AbstractEntity {
 	public Item(Long id) {
 		super(id);
 		// TODO Auto-generated constructor stub
+	}
+
+	public Item(String name, int quantity, float weight, float price, double totalPrice, Image image, Status status) {
+		super();
+		this.name = name;
+		this.quantity = quantity;
+		this.weight = weight;
+		this.price = price;
+		this.totalPrice = totalPrice;
+		this.image = image;
+		this.status = status;
 	}
 
 	public String getName() {
@@ -88,6 +103,14 @@ public class Item  extends AbstractEntity {
 
 	public void setImage(Image image) {
 		this.image = image;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
 	}
     
 //    @ManyToOne(fetch = FetchType.LAZY)
