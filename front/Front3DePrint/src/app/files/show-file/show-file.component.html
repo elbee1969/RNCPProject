@@ -10,7 +10,7 @@
     <button class="badge badge-success mr-2 d-inline p-2" (click)="acceptPrice()">Accepter l'image</button>
   </div>
   <div *ngIf="!role">
-    <button class="badge badge-success mr-2" (click)="acceptPrice()">ouvrir l'image</button>
+  
     <div>
       <p>Saisir les données :</p>
       <div>
@@ -19,5 +19,6 @@
         <p>Prix total : </p>
       </div>  
     </div>
+    <button class="badge badge-success mr-2" (click)="toQuote()">Enregistrer pour devis</button>
   </div>
 

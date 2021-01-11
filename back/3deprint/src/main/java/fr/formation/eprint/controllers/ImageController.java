@@ -1,8 +1,11 @@
 package fr.formation.eprint.controllers;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -12,8 +15,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,7 +29,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import fr.formation.eprint.config.SecurityHelper;
 import fr.formation.eprint.dtos.ImageGetDto;
+import fr.formation.eprint.dtos.ImagePatchDto;
 import fr.formation.eprint.dtos.ImageViewDto;
+import fr.formation.eprint.dtos.AddressPatchDto;
+import fr.formation.eprint.dtos.ImageAdminGetDto;
 import fr.formation.eprint.entities.CustomUser;
 import fr.formation.eprint.entities.Image;
 import fr.formation.eprint.entities.Image3D;
@@ -51,20 +59,7 @@ public class ImageController {
 	protected ImageController(ImageStorageService imageStorageService) {
 		this.imageStorageService = imageStorageService;
 	}
-/**
- * 
- * @param file
- * @throws IOException
- * load one image in db
- * 
- */
-	/*
-	@PostMapping("/upload")
-	public void uplaodImage(@RequestParam("file") MultipartFile file) throws IOException {
 
-		imageStorageService.store(file);
-	}
-*/
 
 	@PostMapping("/upload")
 	  public ResponseEntity<MessageImage3DResponse> uploadImage(@RequestParam("file") MultipartFile file) throws IOException {
@@ -76,14 +71,15 @@ public class ImageController {
 	      return ResponseEntity.status(HttpStatus.OK).body(new MessageImage3DResponse(message));
 	   
 	  }
+	
 	/**
 	 * 
 	 * @return
-	 * get all images
+	 * get all images by admin with C status
 	 */
 	@GetMapping("/images")
-	public List<ImageViewDto> getAll() {
-		return imageStorageService.getAll();
+	public List<ImageAdminGetDto> getAll() {
+		return imageStorageService.getAllByUser();
 	}
 
 	/**
@@ -109,33 +105,10 @@ public class ImageController {
 	}
 	
 	
-	/*
-	@GetMapping("/files")
-	public ResponseEntity<List<ImageResponse>> getListFiles() {
-		List<ImageResponse> files = imageStorageService.getAllFiles().map(image -> {
-			String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/files/")
-					.path(image.getName()).toUriString();
-
-			return new ImageResponse(image.getName(), fileDownloadUri, image.getType(), image.getData().length,
-					image.getId());
-		}).collect(Collectors.toList());
-
-		return ResponseEntity.status(HttpStatus.OK).body(files);
+	@PatchMapping("/update/{id}")
+	public void update(@PathVariable("id") Long id, @Valid @RequestBody ImagePatchDto dto) {
+		imageStorageService.update(id, dto);
 	}
-*/
-	/*
-	@GetMapping("/ownedfiles")
-	public ResponseEntity<List<ImageGetDto>> getListOwnedFiles() {
-		List<ImageGetDto> files = imageStorageService.getAllFiles().map(image -> {
-			Long userId = SecurityHelper.getUserId();
-			String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/uploads/")
-					.path(image.getName()).toUriString();
-			return new ImageGetDto(image.getId(), image.getName(), image.getType(), fileDownloadUri, userId);
-		}).collect(Collectors.toList());
-
-		return ResponseEntity.status(HttpStatus.OK).body(files);
-	}
-*/
 
 
     @DeleteMapping("/deleteImage/{id}")

@@ -1,5 +1,6 @@
 package fr.formation.eprint.repositories;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import fr.formation.eprint.dtos.ImageAdminGetDto;
 import fr.formation.eprint.dtos.ImageGetDto;
 import fr.formation.eprint.dtos.ImageViewDto;
 import fr.formation.eprint.entities.Image;
@@ -26,11 +28,12 @@ public interface ImageRepository extends JpaRepository<Image, Long> {
     
     List<Image> findAll();
 
-    ImageGetDto save(ImageGetDto img);
+    ImageViewDto save(ImageViewDto img);
 
     ImageViewDto getById(Long id);
 
-	List<ImageViewDto> getAllProjectedBy();
+    @Query("select i from Image i where i.status = 'C' order by i.ownerName ASC")
+	public List<Image> getAllImage();
 	
 	void deleteById(long id);
 

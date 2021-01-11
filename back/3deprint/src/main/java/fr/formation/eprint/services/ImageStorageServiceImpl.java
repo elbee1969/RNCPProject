@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -15,6 +16,8 @@ import java.util.stream.Stream;
 import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
+
+import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.core.io.Resource;
@@ -30,9 +33,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import fr.formation.eprint.config.SecurityHelper;
 import fr.formation.eprint.dtos.CustomUserInfoDto;
+import fr.formation.eprint.dtos.ImageAdminGetDto;
 import fr.formation.eprint.dtos.ImageCreateViewDto;
 import fr.formation.eprint.dtos.ImageDto;
 import fr.formation.eprint.dtos.ImageGetDto;
+import fr.formation.eprint.dtos.ImagePatchDto;
 import fr.formation.eprint.dtos.ImageViewDto;
 import fr.formation.eprint.entities.CustomUser;
 import fr.formation.eprint.entities.Image;
@@ -60,20 +65,20 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 
 	@Override
 	public void delete(Long id) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public List<ImageViewDto> getAll() {
-		// TODO Auto-generated method stub
-		return imageRepository.getAllProjectedBy();
+	public List<ImageAdminGetDto> getAllByUser() {
+		List<Image> images = imageRepository.getAllImage();
+		List<ImageAdminGetDto> imagesToReturn = images.stream().map(image -> mapper.map(image, ImageAdminGetDto.class))
+				.collect(Collectors.toList());
+		return imagesToReturn;
 	}
 
 	@Override
 	public ImageViewDto getOne(Long id) {
 
-		// TODO Auto-generated method stub
 		return imageRepository.getById(id);
 	}
 
@@ -87,7 +92,9 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 	public Image getFile(Long id) {
 		final Optional<Image> retrievedImage = imageRepository.findById(id);
 		Image img = new Image(decompressZLib(retrievedImage.get().getData()), retrievedImage.get().getName(),
-				retrievedImage.get().getType(), retrievedImage.get().getUrl(),retrievedImage.get().getStatus(), retrievedImage.get().getNumber(), retrievedImage.get().getCustomUser());
+				retrievedImage.get().getOwnerName(), retrievedImage.get().getType(), retrievedImage.get().getUrl(),
+				retrievedImage.get().getStatus(), retrievedImage.get().getQuantity(),
+				retrievedImage.get().getCustomUser());
 		return img;
 	}
 
@@ -96,19 +103,21 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 		return imageRepository.findAll().stream();
 	}
 
+	/**
+	 * save image in DB and in user directory
+	 */
 	@Override
 	public BodyBuilder store(@RequestParam("file") MultipartFile file) throws IOException {
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
-		if (fileName.endsWith(".3mf") || fileName.endsWith(".3MF") || fileName.endsWith(".oltp")
-				|| fileName.endsWith(".OLTP") || fileName.endsWith(".stl") || fileName.endsWith(".STL")) {
+		if (fileName.endsWith(".stl") || fileName.endsWith(".STL")) {
 			Long userId = SecurityHelper.getUserId();
 			CustomUser customUser = userRepository.findById(userId).orElseThrow(ResourceNotFoundException::new);
 			String user = customUser.getUsername();
 			Path url = Paths.get(roots + "\\" + user);
 			Image image0 = new Image();
-			Image image = new Image(compressZLib(file.getBytes()), fileName, file.getContentType(), url.toString(),
-					image0.setStatus(Status.I), image0.setNumber(1),customUser);
+			Image image = new Image(compressZLib(file.getBytes()), fileName, user, file.getContentType(),
+					url.toString(), image0.setStatus(Status.I), image0.setQuantity(1), customUser);
 			File existFile = new File(url.toString() + "\\" + fileName);
 			if (!existFile.exists() && !existFile.isDirectory()) {
 				Files.copy(file.getInputStream(), url.resolve(file.getOriginalFilename()));
@@ -120,7 +129,12 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 		return ResponseEntity.status(HttpStatus.OK);
 	}
 
-	// compress the image bytes before storing it in the database
+
+	/**
+	 * compress the image bytes before storing it in the database
+	 * @param data
+	 * @return
+	 */
 	public static byte[] compressZLib(byte[] data) {
 		Deflater deflater = new Deflater();
 		deflater.setInput(data);
@@ -140,7 +154,10 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 		return outputStream.toByteArray();
 	}
 
-	// uncompress the image bytes before returning it to the angular application
+	
+	/**
+	 * uncompress the image bytes before returning it to the angular application
+	 */
 	public static byte[] decompressZLib(byte[] data) {
 		Inflater inflater = new Inflater();
 		inflater.setInput(data);
@@ -157,16 +174,29 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 		return outputStream.toByteArray();
 	}
 
+	/**
+	 * return a list of images owned by user
+	 */
 	public List<ImageGetDto> getAllByUserId() {
-
 		Long customUserId = SecurityHelper.getUserId();
 		List<Image> images = imageRepository.getAllImageByUserId(customUserId);
 		List<ImageGetDto> imagesToReturn = images.stream().map(image -> mapper.map(image, ImageGetDto.class))
 				.collect(Collectors.toList());
 		return imagesToReturn;
-
 	}
 
+	/**
+	 * Update image status from I to C
+	 */
+	@Override
+	public void update(Long id, @Valid ImagePatchDto dto) {
+
+	}
+	
+	
+	/**
+	 * Delete image from DB and user directory
+	 */
 	@Override
 	public void deleteOne(Long id) throws IOException {
 		// TODO Auto-generated method stub
@@ -239,5 +269,7 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 			throw new RuntimeException("Could not load the files!");
 		}
 	}
+
+	
 
 }

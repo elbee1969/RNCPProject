@@ -81,7 +81,7 @@ export class ShowFileComponent implements OnInit {
         });
     }  
   }
-  acceptPrice(){
-    this.router.navigate(['/user']);
+  toQuote(){
+    this.router.navigate(['/files']);
   }
 }

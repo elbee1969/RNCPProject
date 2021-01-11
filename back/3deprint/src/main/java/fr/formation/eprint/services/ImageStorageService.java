@@ -2,14 +2,19 @@ package fr.formation.eprint.services;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
+
+import javax.validation.Valid;
 
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.web.multipart.MultipartFile;
 
+import fr.formation.eprint.dtos.ImageAdminGetDto;
 import fr.formation.eprint.dtos.ImageGetDto;
+import fr.formation.eprint.dtos.ImagePatchDto;
 import fr.formation.eprint.dtos.ImageViewDto;
 import fr.formation.eprint.entities.Image;
 
@@ -27,7 +32,7 @@ public interface ImageStorageService {
 
 	BodyBuilder store(MultipartFile file) throws IOException;
 
-	List<ImageViewDto> getAll();
+	List<ImageAdminGetDto> getAllByUser();
 
 	List<ImageGetDto> getAllByUserId();
 
@@ -42,5 +47,7 @@ public interface ImageStorageService {
 	public void deleteAll();
 
 	public Stream<Path> loadAll();
+
+	void update(Long id, @Valid ImagePatchDto dto);
 
 }

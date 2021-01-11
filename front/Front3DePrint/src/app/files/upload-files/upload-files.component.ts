@@ -4,6 +4,7 @@ import { UploadFileService } from 'src/app/services/upload-file.service';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
 
 @Component({
   selector: 'app-Upload-files',
@@ -22,11 +23,23 @@ export class UploadFilesComponent implements OnInit {
   fileInfos: Observable<any>;
   base64Data: any;
   convertedImage: any;
+  user: any;
+  role: boolean;
 
-  constructor(private uploadService: UploadFileService, private router: Router, private domSanitizer: DomSanitizer) { 
+  constructor(private uploadService: UploadFileService, 
+              private router: Router,
+              private domSanitizer: DomSanitizer,
+              private token: TokenStorageService,) { 
   }
   ngOnInit() {
     this.fileInfos = this.uploadService.getOwnedFiles();
+    this.user = this.token.getUser().authorities[0];
+     if (this.user == "ROLE_USER") {
+      this.role = true;
+    }
+
+
+    
   }
   public selectFile(event) {
     this.selectedFiles = event.target.files;
@@ -53,16 +66,24 @@ export class UploadFilesComponent implements OnInit {
         } else if (event instanceof HttpResponse) {
           this.message = event.body.message;
           this.fileInfos = this.uploadService.getOwnedFiles();
+          if (this.role) {
+            this.router.navigate(['/upload']);
+          } else {
+            this.router.navigate(['/files']);
+          }
         }
-        this.router.navigate['upload']
+       
       },
       err => {
         console.log(JSON.stringify(err));
         this.message = 'Impossible à charger : ' + err.error.message;
         this.currentFile = undefined;
         this.progress = 0;
+        if (this.role) {
+          this.router.navigate(['/upload']);
+        }
       },
-         this.router.navigate['upload']
+
       );
 
     this.selectedFiles = undefined;

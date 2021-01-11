@@ -22,6 +22,9 @@ public class Image extends AbstractEntity {
 
     @Column(name = "name", length = 255, nullable = false)
     private String name;
+    
+    @Column(name="ownerName", length= 40, nullable = false)
+    private String ownerName;
 
     @Column(name = "type", length = 40, nullable = false)
     private String type;
@@ -33,8 +36,8 @@ public class Image extends AbstractEntity {
     @Column(columnDefinition = "ENUM('I','C','V','A')", length = 1, nullable = false)
     private Status status;
     
-    @Column(name = "number", length = 3)
-    private int number;
+    @Column(name = "quantity", length = 3)
+    private int quantity;
 
     @Lob
     @Basic(fetch = FetchType.LAZY)
@@ -48,12 +51,13 @@ public class Image extends AbstractEntity {
     @OneToMany(mappedBy = "image", cascade = CascadeType.ALL)
     private List<Item> items = new ArrayList<Item>();
 
-    public Image(byte[] data, String name, String type, String url, Status status, int number, CustomUser customUser) {
+    public Image(byte[] data, String name, String ownerName, String type, String url, Status status, int number, CustomUser customUser) {
 	this.name = name;
+	this.ownerName = ownerName;
 	this.type = type;
 	this.url = url;
 	this.status = status;
-	this.number = number;
+	this.quantity = number;
 	this.data = data;
 	this.customUser = customUser;
     }
@@ -76,7 +80,15 @@ public class Image extends AbstractEntity {
 	this.name = name;
     }
 
-    public String getType() {
+    public String getOwnerName() {
+		return ownerName;
+	}
+
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
+	}
+
+	public String getType() {
 	return type;
     }
 
@@ -100,11 +112,11 @@ public class Image extends AbstractEntity {
 		return status;
 	}
 
-	public int getNumber() {
-		return number;
+	public int getQuantity() {
+		return quantity;
 	}
 
-	public int setNumber(int number) {
+	public int setQuantity(int number) {
 		return number;
 	}
 

@@ -32,8 +32,8 @@ ngOnInit() {
     console.log("admin");
     this.role = true;
     this.uploadService.getFiles().subscribe(result => {
-      console.log(result);
       this.images = result;
+      console.log("result : "+JSON.stringify(result));
       this.images
     },
       error => console.log(error)

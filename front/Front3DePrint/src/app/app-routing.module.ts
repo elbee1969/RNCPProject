@@ -29,7 +29,7 @@ const routes: Routes = [
   { path: 'upload', component: UploadFilesComponent},
   { path: 'upload/callback', component: UploadFilesComponent },
   { path: 'files', component: ListFilesComponent },
-  { path: 'files/callback', component: ListFilesComponent },
+  { path: 'upload/files', component: ListFilesComponent },
   { path: 'image/:id', component: ShowFileComponent },
   { path: 'files/:id/callback', component: ShowFileComponent },
   { path: 'admin', component: BoardAdminComponent  },
