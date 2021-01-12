@@ -10,7 +10,7 @@ public interface AddressRepository extends JpaRepository<Address, Long> {
 
 	AddressViewDto getById(Long id);
 
-	AddressPatchDto save(Class<AddressPatchDto> class1);
+	AddressPatchDto save(AddressPatchDto address);
 
 
 }

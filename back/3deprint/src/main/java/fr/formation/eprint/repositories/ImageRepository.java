@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import fr.formation.eprint.dtos.ImageAdminGetDto;
 import fr.formation.eprint.dtos.ImageGetDto;
+import fr.formation.eprint.dtos.ImagePatchDto;
 import fr.formation.eprint.dtos.ImageViewDto;
 import fr.formation.eprint.entities.Image;
 
@@ -28,8 +29,12 @@ public interface ImageRepository extends JpaRepository<Image, Long> {
     
     List<Image> findAll();
 
-    ImageViewDto save(ImageViewDto img);
+    ImageViewDto save(ImageViewDto image);
+    
+    ImagePatchDto save(ImagePatchDto image);
 
+    //Image getOneById(Long id);
+    
     ImageViewDto getById(Long id);
 
     @Query("select i from Image i where i.status = 'C' order by i.ownerName ASC")

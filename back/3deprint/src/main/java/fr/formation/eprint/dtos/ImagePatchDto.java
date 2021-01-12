@@ -1,21 +1,32 @@
 package fr.formation.eprint.dtos;
 
+import fr.formation.eprint.entities.Status;
+
 public class ImagePatchDto {
 
-	private String status;
+	private Status status;
+	private int quantity;
 
+	// private byte[] data;
+	// private CustomUser customUser;
 	public ImagePatchDto() {
-		super();
-		// TODO Auto-generated constructor stub
+
 	}
 
-	public String getStatus() {
+	public Status getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
-	
-	
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
 }

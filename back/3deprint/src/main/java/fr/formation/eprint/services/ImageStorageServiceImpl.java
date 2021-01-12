@@ -26,6 +26,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -82,6 +83,19 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 		return imageRepository.getById(id);
 	}
 
+	/**
+	 * Update image status from I to C
+	 * @return 
+	 */
+	//@Transactional
+	@Override
+	public void update(Long id, @Valid ImagePatchDto dto) {
+
+		Image image = imageRepository.findById(id).get();
+		mapper.map(dto, image);
+		imageRepository.save(image);
+	}
+
 	@Override
 	public Image getAllImage() {
 		// TODO Auto-generated method stub
@@ -129,9 +143,9 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 		return ResponseEntity.status(HttpStatus.OK);
 	}
 
-
 	/**
 	 * compress the image bytes before storing it in the database
+	 * 
 	 * @param data
 	 * @return
 	 */
@@ -154,7 +168,6 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 		return outputStream.toByteArray();
 	}
 
-	
 	/**
 	 * uncompress the image bytes before returning it to the angular application
 	 */
@@ -185,15 +198,6 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 		return imagesToReturn;
 	}
 
-	/**
-	 * Update image status from I to C
-	 */
-	@Override
-	public void update(Long id, @Valid ImagePatchDto dto) {
-
-	}
-	
-	
 	/**
 	 * Delete image from DB and user directory
 	 */
@@ -269,7 +273,5 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 			throw new RuntimeException("Could not load the files!");
 		}
 	}
-
-	
 
 }
