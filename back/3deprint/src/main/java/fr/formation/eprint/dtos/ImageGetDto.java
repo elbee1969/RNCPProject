@@ -7,6 +7,8 @@ public class ImageGetDto {
 	private String name;
 	private String type;
 	private String url;
+	private String status;
+	private int quantity;
 	private Long userId;
 //    private String type;
 //    private byte[] data;
@@ -45,6 +47,22 @@ public class ImageGetDto {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
 	public Long getUserId() {

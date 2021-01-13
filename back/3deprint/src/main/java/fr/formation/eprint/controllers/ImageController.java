@@ -36,6 +36,7 @@ import fr.formation.eprint.dtos.ImageAdminGetDto;
 import fr.formation.eprint.entities.CustomUser;
 import fr.formation.eprint.entities.Image;
 import fr.formation.eprint.entities.Image3D;
+import fr.formation.eprint.entities.Status;
 import fr.formation.eprint.repositories.ImageRepository;
 import fr.formation.eprint.repositories.NewUserJpaRepository;
 import fr.formation.eprint.response.ImageResponse;
@@ -87,11 +88,19 @@ public class ImageController {
 	 * @return
 	 * get all images from a user
 	 */
-	@GetMapping("/ownedImages")
+	@GetMapping("/ownedimages")
 	public List<ImageGetDto> getAllById() {
-		return imageStorageService.getAllByUserId();
+		return imageStorageService.getAllByUserId(Status.I);
 	}
-
+	/**
+	 * 
+	 * @return
+	 * get all images from a user
+	 */
+	@GetMapping("/choosedimages")
+	public List<ImageGetDto> getAllByIdByStatusC() {
+		return imageStorageService.getAllByUserId(Status.C);
+	}
 /**
  * 
  * @param id

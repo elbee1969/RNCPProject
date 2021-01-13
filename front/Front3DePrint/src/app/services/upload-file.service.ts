@@ -4,6 +4,10 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { TokenStorageService } from './token-storage.service';
 
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
+
 @Injectable({
   providedIn: 'root'
 })
@@ -26,17 +30,24 @@ export class UploadFileService {
      return this.http.request(req);
   }
 
-  getFiles(): Observable<any> {
+  getImages(): Observable<any> {
     return this.http.get(`${this.baseUrl}/images`);
   }
-  getOwnedFiles(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/ownedImages`);
+  getOwnedImages(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/ownedimages`);
+  }
+  getChoosedImages(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/choosedimages`);
   }
   getCurrentFile(id) {
     return this.http.get(`${this.baseUrl}/image/${id}`);
   }
-
-  showCurrentFile(id: number){
+  updateImage(image: any, id: number): Observable<any> {
+    console.log("in update image id : " + id);
+    console.log("in update image : " + JSON.stringify(image));
+    return this.http.patch<any>(`${this.baseUrl}/update/${id}`, image, httpOptions);
+  }
+  showCurrentImage(id: number){
     return this.http.get(`${this.baseUrl}/image/${id}`, {
       headers: new HttpHeaders({
         'Authorization': 'Bearer ' + this.tokenStorage.getToken(),

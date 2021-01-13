@@ -1,23 +1,44 @@
-<div class="card">
-  <div class="card-header">Liste des images chargées</div>
-  <ul
-    class="list-group list-group-flush"
-    *ngFor="let image of images"
-  >
-    <li *ngIf="!role" class="list-group-item">
 
-      <p>{{ image.name }} 
+<div class="row">
+  <div class="col-sm-6"><div class="card">
+    <div class="card-header">Liste des images chargées</div>
+      <ul class="list-group list-group-flush" *ngFor="let image of imageIs">
+        <li *ngIf="!role" class="list-group-item">
 
-      <button (click) = "imageDetail(image.id)" class="btn btn-info" style="margin-left: 10px">Voir et valider pour impression</button>
-      </p>
-    </li>
-    <li *ngIf="role" class="list-group-item">
+          <p>{{ image.name }} 
 
-      <p>image : {{ image.name }}, proprietaire : {{image.ownerName}}, quantité à imprimer : {{image.quantity}}
+          <button (click) = "imageDetail(image.id)" class="btn btn-info" style="margin-left: 10px">Voir et valider pour impression</button>
+          </p>
+        </li>
+        <li *ngIf="role" class="list-group-item">
 
-      <button (click) = "imageDetail(image.id)" class="btn btn-info" style="margin-left: 10px">ouvrir</button>
-      </p>
-    </li>
-  </ul>
+          <p>image : {{ image.name }}, proprietaire : {{image.ownerName}}, quantité à imprimer : {{image.quantity}}
+
+          <button (click) = "imageDetail(image.id)" class="btn btn-info" style="margin-left: 10px">ouvrir</button>
+          </p>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-sm-6"><div class="card">
+    <div class="card">
+      <div class="card-header">Vous avez  {{ imageCs.length}} objet(s) à imprimer</div>
+
+      <ul class="list-group list-group-flush" *ngFor="let image of imageCs">
+        <li *ngIf="!role" class="list-group-item">
+          <p>{{ image.name }} 
+          quantité à imprimer : {{ image.quantity}}
+          <button (click) = "annulChoise(image.id)" class="btn btn-info" style="margin-left: 10px">Annuler</button>
+          </p>
+        </li>
+        <li *ngIf="role" class="list-group-item">
+
+          <p>image : {{ image.name }}, proprietaire : {{image.ownerName}}, quantité à imprimer : {{image.quantity}}
+
+          <button (click) = "imageDetail(image.id)" class="btn btn-info" style="margin-left: 10px">ouvrir</button>
+          </p>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>
-<router-outlet></router-outlet>

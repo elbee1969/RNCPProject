@@ -14,29 +14,32 @@ import fr.formation.eprint.services.ImageStorageService;
 @SpringBootApplication
 public class EprintApplication {
 	@Resource
-	 ImageStorageService imageStorageService;
-	
-	public static void main(String[] args) {
-		
-		SpringApplication.run(EprintApplication.class, args);
-		
-		FileSystem fs = FileSystems.getDefault();
-		
-		Path path = fs.getPath("H:\\RNCPProject\\front\\Front3DePrint\\src\\assets");
-		
-		  //String path = System.getProperty("user.dir");
+	ImageStorageService imageStorageService;
 
-		  // directory from where the program was launched
-		  System.out.println(path);
-		  // File directory=new File(path+"H:/RNCPProject/front/Front3DePrint/src/assets/uploas");
-	        File directory=new File(path+"/uploads");
-	       if(directory.exists()){
-	           System.out.println("A folder with name 'uploads' is already exist in the path "+path);
-	       }else{
-	    	   directory.mkdir();
-	       }
-	       
+	public static void main(String[] args) {
+
+		SpringApplication.run(EprintApplication.class, args);
+		/**
+		 * DECLARATION OF DEFAULT FILESYSTEM
+		 */
+		FileSystem fs = FileSystems.getDefault();
+
+		/**
+		 * declaration of the root directory
+		 */
+		Path path = fs.getPath("H:\\RNCPProject\\front\\Front3DePrint\\src\\assets");
+
+		/**
+		 * create directory first time
+		 */
+		System.out.println(path);
+		File directory = new File(path + "/uploads");
+		if (directory.exists()) {
+			System.out.println("A folder with name 'uploads' is already exist in the path " + path);
+		} else {
+			directory.mkdir();
+		}
+
 	}
-	
-	
+
 }

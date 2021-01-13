@@ -1,7 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { UploadFileService } from 'src/app/services/upload-file.service';
 import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 
 @Component({
@@ -15,10 +15,18 @@ export class ListFilesComponent implements OnInit {
 
   fileInfos: Observable<any>;
   images: any;
-
+  imageIs: any;
+  imageCs: any;
   user: any;
   role: boolean;
-  constructor(private token: TokenStorageService, private uploadService: UploadFileService, private router: Router) { 
+  quantity: number;
+  resetValue: any;
+  id: any;
+  
+  constructor(private token: TokenStorageService,
+              private uploadService: UploadFileService,
+              private route: ActivatedRoute,
+              private router: Router) { 
   }
 
 selectedFile(event) {
@@ -26,29 +34,52 @@ selectedFile(event) {
   
 }
 ngOnInit() {
+  this.id = this.route.snapshot.params['id'];
   this.user = this.token.getUser().authorities[0];
 
   if (this.user === "ROLE_ADMIN"){
     console.log("admin");
     this.role = true;
-    this.uploadService.getFiles().subscribe(result => {
+    this.uploadService.getImages().subscribe(result => {
       this.images = result;
       console.log("result : "+JSON.stringify(result));
-      this.images
     },
       error => console.log(error)
     );
   } else {
     console.log("pas admin!");
-    this.uploadService.getOwnedFiles().subscribe(result => {
+    this.uploadService.getOwnedImages().subscribe(result => {
       console.log("result "+JSON.stringify(result));
-      this.images = result;
+      this.imageIs = result;
     },
       error => console.log(error)
     );
 
+
+    this.uploadService.getChoosedImages().subscribe(result => {
+      console.log("result " + JSON.stringify(result));
+      this.imageCs = result;
+    },
+      error => console.log(error)
+    );
+
+
   }
 } 
+
+  annulChoise(id: number) {
+    this.resetValue = JSON.stringify({status: "C", quantity: 1});
+    console.log("reset : " +this.resetValue);
+    return this.uploadService.updateImage(this.resetValue.value, id)
+      .subscribe(
+        () => {
+          console.log('Image updated successfully');
+          this.router.navigate(['/upload']);
+        },
+        error => {
+          console.log(error);
+        });
+  }
 
   imageDetail(id: number) {
     this.router.navigate(['/image/',id]);

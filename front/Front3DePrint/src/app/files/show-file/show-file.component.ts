@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewContainerRef, ViewChild, ComponentFactory
 import { UploadFileService } from 'src/app/services/upload-file.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import * as THREE from 'three';
 
@@ -26,6 +27,8 @@ export class ShowFileComponent implements OnInit {
   retrieveImage: string;
   userName: any;
   path: any;
+  editForm: any;
+
 
    
   constructor(private uploadService: UploadFileService,
@@ -33,19 +36,26 @@ export class ShowFileComponent implements OnInit {
     private token: TokenStorageService, 
     private sanitizer: DomSanitizer,
     private router: Router,
+    private formBuilder: FormBuilder
     ) {}
     
     
     ngOnInit() {
+      this.id = this.route.snapshot.params['id'];
+      console.log("id in init: " + this.id);
       this.user = this.token.getUser().authorities[0];
       this.userName = this.token.getUser().user_name;
       if (this.user == "ROLE_USER") {
         this.role = true;
+        this.editForm = this.formBuilder.group({
+          status: ['C'],
+          quantity: ['', Validators.required]
+        });
       }
-      this.id = this.route.snapshot.params['id']
+ 
       console.log("id : "+this.id);
       console.log("username : "+this.userName);
-      this.uploadService.showCurrentFile(this.id).subscribe(response => {
+      this.uploadService.showCurrentImage(this.id).subscribe(response => {
         this.image = response;
         console.log("this image : " + JSON.stringify(this.image));
         this.imageName = this.image.name;
@@ -60,6 +70,26 @@ export class ShowFileComponent implements OnInit {
           console.log(error);
         }
   }
+
+  onSubmit() {
+    console.log("this.editForm.value " + JSON.stringify(this.editForm.value));
+    return this.uploadService.updateImage(this.editForm.value, this.id)
+      .subscribe(
+        () => {
+          console.log('Image updated successfully');
+          this.router.navigate(['/upload']);
+        },
+        error => {
+          console.log(error);
+        });
+
+    // .subscribe(
+    //   res => console.log('HTTP response', res),
+    //   err => console.log('HTTP Error', err),
+    //   () => console.log('HTTP request completed.')
+    // );
+  }
+
   backToImageslist() {
     if (this.user === "ROLE_ADMIN") {
     this.router.navigate(['/files']);

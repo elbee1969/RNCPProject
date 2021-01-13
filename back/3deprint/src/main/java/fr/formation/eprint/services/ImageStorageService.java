@@ -17,6 +17,7 @@ import fr.formation.eprint.dtos.ImageGetDto;
 import fr.formation.eprint.dtos.ImagePatchDto;
 import fr.formation.eprint.dtos.ImageViewDto;
 import fr.formation.eprint.entities.Image;
+import fr.formation.eprint.entities.Status;
 
 public interface ImageStorageService {
 
@@ -34,7 +35,7 @@ public interface ImageStorageService {
 
 	List<ImageAdminGetDto> getAllByUser();
 
-	List<ImageGetDto> getAllByUserId();
+	List<ImageGetDto> getAllByUserId(Status status);
 
 	void deleteOne(Long id) throws IOException;
 

@@ -84,7 +84,7 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 	}
 
 	/**
-	 * Update image status from I to C
+	 * Update image status
 	 * @return 
 	 */
 	//@Transactional
@@ -190,9 +190,9 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 	/**
 	 * return a list of images owned by user
 	 */
-	public List<ImageGetDto> getAllByUserId() {
+	public List<ImageGetDto> getAllByUserId(Status status) {
 		Long customUserId = SecurityHelper.getUserId();
-		List<Image> images = imageRepository.getAllImageByUserId(customUserId);
+		List<Image> images = imageRepository.getAllImageByUserId(customUserId, status);
 		List<ImageGetDto> imagesToReturn = images.stream().map(image -> mapper.map(image, ImageGetDto.class))
 				.collect(Collectors.toList());
 		return imagesToReturn;

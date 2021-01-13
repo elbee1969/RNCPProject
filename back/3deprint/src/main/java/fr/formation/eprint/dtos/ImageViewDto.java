@@ -9,6 +9,10 @@ public interface ImageViewDto {
     String getType();
 
     String getUrl();
+    
+    String getStatus();
+    
+    int getQuantity();
 
     Long getCustomUserId();
 
