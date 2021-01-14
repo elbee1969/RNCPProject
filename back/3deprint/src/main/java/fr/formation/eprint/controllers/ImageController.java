@@ -76,7 +76,7 @@ public class ImageController {
 	/**
 	 * 
 	 * @return
-	 * get all images by admin with C status
+	 * get all images to be printed by admin with "Validated" status (V)
 	 */
 	@GetMapping("/images")
 	public List<ImageAdminGetDto> getAll() {
@@ -86,16 +86,16 @@ public class ImageController {
 	/**
 	 * 
 	 * @return
-	 * get all images from a user
+	 * get all images from a user with "choosen" status ("C")
 	 */
 	@GetMapping("/ownedimages")
-	public List<ImageGetDto> getAllById() {
+	public List<ImageGetDto> getAllByIdByStatusI() {
 		return imageStorageService.getAllByUserId(Status.I);
 	}
 	/**
 	 * 
 	 * @return
-	 * get all images from a user
+	 * get all images selected to be printed from a user
 	 */
 	@GetMapping("/choosedimages")
 	public List<ImageGetDto> getAllByIdByStatusC() {

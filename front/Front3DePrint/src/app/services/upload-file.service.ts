@@ -42,7 +42,7 @@ export class UploadFileService {
   getCurrentFile(id) {
     return this.http.get(`${this.baseUrl}/image/${id}`);
   }
-  updateImage(image: any, id: number): Observable<any> {
+  updateImage(image: typeof Image, id: number): Observable<any> {
     console.log("in update image id : " + id);
     console.log("in update image : " + JSON.stringify(image));
     return this.http.patch<any>(`${this.baseUrl}/update/${id}`, image, httpOptions);

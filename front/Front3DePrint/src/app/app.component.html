@@ -1,31 +1,31 @@
 <div id="app">
-  <nav class="navbar navbar-expand navbar-light" style="background-color: #e3f2fd;">
-    <a href="#" class="navbar-brand"><img
+  <nav class="navbar navbar-expand navbar-light" style="background-color: #e3f2fd;" routerLinkActive="active">
+    <a href="/home" class="navbar-brand"><img
 		id="profile-img"
 		src="../assets/images/logo-3deprint.png"
 		class="profile-img-card img-fluid"
 		/></a>
     <ul class="navbar-nav mr-auto" routerLinkActive="active">
       <li class="nav-item">
-        <a href="/home" class="nav-link" routerLink="home">Home </a>
+        <a href="/home" class="nav-link"  *ngIf="isLoggedIn && showUserBoard" routerLink="home"><i class="fa fa-home fa-2x"></i></a>
       </li>
       <li class="nav-item" *ngIf="showAdminBoard">
-        <a href="/admin" class="nav-link" routerLink="admin">Admin Board</a>
+        <a href="/admin" class="nav-link" routerLink="admin"><i class="fa fa-eye fa-2x"></i></a>
       </li>
       <li class="nav-item">
-        <a href="/user" class="nav-link" *ngIf="isLoggedIn && showUserBoard" routerLink="user" routerLinkActive="active">User Board</a>
+        <a href="/user" class="nav-link" *ngIf="isLoggedIn && showUserBoard" routerLink="user" routerLinkActive="active"><i class="fa fa-eye fa-2x"></i></a>
       </li>
       <li class="nav-item">
-        <a href="/profile" class="nav-link" *ngIf="isLoggedIn && showUserBoard" routerLink="profile" routerLinkActive="active">Profil of {{ username }}</a>
+        <a href="/profile" class="nav-link" *ngIf="isLoggedIn && showUserBoard" routerLink="profile" routerLinkActive="active"><i class="fa fa-id-card-o fa-2x"></i> {{ username }}</a>
       </li>
        <li class="nav-item">
-        <a href="/users" class="nav-link" *ngIf="isLoggedIn && showAdminBoard" routerLink="users">Users</a>
+        <a href="/users" class="nav-link" *ngIf="isLoggedIn && showAdminBoard" routerLink="users"><i class="fa fa-user fa-2x"></i></a>
       </li>
       <li class="nav-item">
-        <a href="/upload" class="nav-link" *ngIf="isLoggedIn && showUserBoard" routerLink="upload">Charger image</a>
+        <a href="/upload" class="nav-link" *ngIf="isLoggedIn && showUserBoard" routerLink="upload"><i class="fa fa-file-image-o fa-2x"></i></a>
       </li>
        <li class="nav-item">
-        <a href="/files" class="nav-link" *ngIf="isLoggedIn && showAdminBoard" routerLink="files">Images</a>
+        <a href="/files" class="nav-link" *ngIf="isLoggedIn && showAdminBoard" routerLink="files"><i class="fa fa-file-image-o fa-2x"></i></a>
       </li>
     </ul>
 

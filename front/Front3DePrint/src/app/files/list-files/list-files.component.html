@@ -1,14 +1,15 @@
 
 <div class="row">
   <div class="col-sm-6"><div class="card">
-    <div class="card-header">Liste des images chargées</div>
-      <ul class="list-group list-group-flush" *ngFor="let image of imageIs">
+    <div [hidden]="role" class="card-header">Liste des images chargées</div>
+        <div [hidden]="!role" class="card-header">Liste des images à imprimer</div>
+      <ul  [hidden]="role" class="list-group list-group-flush" *ngFor="let image of imageIs">
         <li *ngIf="!role" class="list-group-item">
 
           <p>{{ image.name }} 
 
-          <button (click) = "imageDetail(image.id)" class="btn btn-info" style="margin-left: 10px">Voir et valider pour impression</button>
           </p>
+          <button (click) = "imageDetail(image.id)" class="btn btn-info float-right" style="margin-left: 10px">Voir et valider pour impression</button>
         </li>
         <li *ngIf="role" class="list-group-item">
 
@@ -18,9 +19,25 @@
           </p>
         </li>
       </ul>
+      <ul  [hidden]="!role" class="list-group list-group-flush" *ngFor="let image of images">
+        <li *ngIf="!role" class="list-group-item">
+
+          <p>{{ image.name }} 
+
+          </p>
+          <button (click) = "imageDetail(image.id)" class="btn btn-info float-right" style="margin-left: 10px">Voir et valider pour impression</button>
+        </li>
+        <li *ngIf="role" class="list-group-item">
+
+          <p>Proprietaire : {{image.ownerName}}, image : {{ image.name }}, quantité à imprimer : {{image.quantity}}
+
+          <button (click) = "imageDetail(image.id)" class="btn btn-info float-right" style="margin-left: 10px">ouvrir</button>
+          </p>
+        </li>
+      </ul>
     </div>
   </div>
-  <div class="col-sm-6"><div class="card">
+  <div [hidden]="role" class="col-sm-6"><div class="card">
     <div class="card">
       <div class="card-header">Vous avez  {{ imageCs.length}} objet(s) à imprimer</div>
 
@@ -28,8 +45,8 @@
         <li *ngIf="!role" class="list-group-item">
           <p>{{ image.name }} 
           quantité à imprimer : {{ image.quantity}}
-          <button (click) = "annulChoise(image.id)" class="btn btn-info" style="margin-left: 10px">Annuler</button>
           </p>
+          <button (click) = "annulChoise(image.id)" class="btn btn-info float-right" style="margin-left: 10px">Annuler</button>
         </li>
         <li *ngIf="role" class="list-group-item">
 
@@ -40,5 +57,6 @@
         </li>
       </ul>
     </div>
+    <button (click) = "validation()" class="btn btn-success float-right" style="margin-left: 10px">Optenir un devis (réponse sous 24 h dans votre espace privé : <i class="fa fa-eye">)</i></button>
   </div>
 </div>

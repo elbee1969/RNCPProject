@@ -38,7 +38,7 @@ public interface ImageRepository extends JpaRepository<Image, Long> {
     
     ImageViewDto getById(Long id);
 
-    @Query("select i from Image i where i.status = 'C' order by i.ownerName ASC")
+    @Query("select i from Image i where i.status = 'V' order by i.ownerName ASC")
 	public List<Image> getAllImage();
 	
 	void deleteById(long id);

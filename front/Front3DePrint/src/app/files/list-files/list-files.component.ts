@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
 
+
 @Component({
   selector: 'app-list-files',
   templateUrl: './list-files.component.html',
@@ -14,9 +15,12 @@ export class ListFilesComponent implements OnInit {
   selectedFiles: FileList;
 
   fileInfos: Observable<any>;
+  image: any;
+  status: number;
   images: any;
   imageIs: any;
   imageCs: any;
+ 
   user: any;
   role: boolean;
   quantity: number;
@@ -34,6 +38,8 @@ selectedFile(event) {
   
 }
 ngOnInit() {
+
+
   this.id = this.route.snapshot.params['id'];
   this.user = this.token.getUser().authorities[0];
 
@@ -43,7 +49,7 @@ ngOnInit() {
     this.uploadService.getImages().subscribe(result => {
       this.images = result;
       console.log("result : "+JSON.stringify(result));
-    },
+       },
       error => console.log(error)
     );
   } else {
@@ -68,13 +74,13 @@ ngOnInit() {
 } 
 
   annulChoise(id: number) {
-    this.resetValue = JSON.stringify({status: "C", quantity: 1});
-    console.log("reset : " +this.resetValue);
-    return this.uploadService.updateImage(this.resetValue.value, id)
+    this.image  = JSON.stringify({ status: "I", quantity: 1 });
+    console.log("reset : " +this.image);
+    return this.uploadService.updateImage(this.image, id)
       .subscribe(
         () => {
           console.log('Image updated successfully');
-          this.router.navigate(['/upload']);
+          this.router.navigate(['/files']);
         },
         error => {
           console.log(error);

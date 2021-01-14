@@ -104,14 +104,11 @@ export class ShowFileComponent implements OnInit {
       .subscribe(
         response => {
           console.log(response);
-          this.router.navigate(['/upload']);
+          //this.router.navigate(['/upload']);
         },
         error => {
           console.log(error);
         });
     }  
-  }
-  toQuote(){
-    this.router.navigate(['/files']);
   }
 }
