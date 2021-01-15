@@ -45,16 +45,14 @@ public class PrivateController<CustomUser> {
 //    }
 
     @GetMapping("/user")
-    public String[] user(Principal user) {
-	Long id = SecurityHelper.getUserId();
-	String str = String.valueOf(id);
-	String name = SecurityHelper.getUsername();
-	String[] tab;
-	tab = new String[2];
-	tab[0] = str;
-	tab[1] = name;
+    public Principal user(Principal user) {
+		/*
+		 * Long id = SecurityHelper.getUserId(); String str = String.valueOf(id); String
+		 * name = SecurityHelper.getUsername(); String[] tab; tab = new String[2];
+		 * tab[0] = str; tab[1] = name;
+		 */
 
-	return tab;
+	return user;
     }
 
     /**

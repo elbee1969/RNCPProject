@@ -15,4 +15,5 @@ public interface ProfileUserInfosDto {
 	    String getLastname();
 	    
 	    Address getAddress() ;
+	    
 }

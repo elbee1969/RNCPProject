@@ -8,60 +8,72 @@ import javax.persistence.Table;
 @Table(name = "address")
 public class Address extends AbstractEntity {
 
-    @Column(name = "num", length = 4)
-    private int num;
+	@Column(name = "num", length = 4)
+	private int num;
 
-    @Column(name = "street", length = 40)
-    private String street;
+	@Column(name = "street", length = 40)
+	private String street;
 
-    @Column(name = "town", length = 40)
-    private String town;
+	@Column(name = "town", length = 40)
+	private String town;
 
-    @Column(name = "country", length = 30)
-    private String country;
+	@Column(name = "postal", length = 5)
+	private String postal;
 
-    public Address() {
-	super();
-    }
+	@Column(name = "country", length = 30)
+	private String country;
 
-    public Address(int num, String street, String town, String country) {
+	public Address() {
+		super();
+	}
+
+	public Address(int num, String street, String town,String postal, String country) {
 		super();
 		this.num = num;
 		this.street = street;
 		this.town = town;
+		this.postal = postal;
 		this.country = country;
 	}
 
 	public int getNum() {
-	return num;
-    }
+		return num;
+	}
 
-    public void setNum(int num) {
-	this.num = num;
-    }
+	public void setNum(int num) {
+		this.num = num;
+	}
 
-    public String getStreet() {
-	return street;
-    }
+	public String getStreet() {
+		return street;
+	}
 
-    public void setStreet(String street) {
-	this.street = street;
-    }
+	public void setStreet(String street) {
+		this.street = street;
+	}
 
-    public String getTown() {
-	return town;
-    }
+	public String getTown() {
+		return town;
+	}
 
-    public void setTown(String town) {
-	this.town = town;
-    }
+	public void setTown(String town) {
+		this.town = town;
+	}
 
-    public String getCountry() {
-	return country;
-    }
+	public String getPostal() {
+		return postal;
+	}
 
-    public void setCountry(String country) {
-	this.country = country;
-    }
+	public void setPostal(String postal) {
+		this.postal = postal;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
 
 }

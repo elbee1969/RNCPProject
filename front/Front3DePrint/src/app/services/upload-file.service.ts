@@ -47,6 +47,10 @@ export class UploadFileService {
     console.log("in update image : " + JSON.stringify(image));
     return this.http.patch<any>(`${this.baseUrl}/update/${id}`, image, httpOptions);
   }
+  updateImageV(image: typeof Image, id: number): Observable<any> {
+
+    return this.http.patch<any>(`${this.baseUrl}/updatevalidated/${id}`, image, httpOptions);
+  }
   showCurrentImage(id: number){
     return this.http.get(`${this.baseUrl}/image/${id}`, {
       headers: new HttpHeaders({

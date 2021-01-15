@@ -39,6 +39,7 @@ import fr.formation.eprint.dtos.ImageCreateViewDto;
 import fr.formation.eprint.dtos.ImageDto;
 import fr.formation.eprint.dtos.ImageGetDto;
 import fr.formation.eprint.dtos.ImagePatchDto;
+import fr.formation.eprint.dtos.ImageValidatedDto;
 import fr.formation.eprint.dtos.ImageViewDto;
 import fr.formation.eprint.entities.CustomUser;
 import fr.formation.eprint.entities.Image;
@@ -84,7 +85,7 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 	}
 
 	/**
-	 * Update image status
+	 * Update image status and quantity
 	 * @return 
 	 */
 	//@Transactional
@@ -96,6 +97,18 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 		imageRepository.save(image);
 	}
 
+	/**
+	 * Update image status
+	 * @return 
+	 */
+	//@Transactional
+	@Override
+	public void updateV(Long id, @Valid ImageValidatedDto dto) {
+		Image image = imageRepository.findById(id).get();
+		mapper.map(dto, image);
+		imageRepository.save(image);
+	}
+	
 	@Override
 	public Image getAllImage() {
 		// TODO Auto-generated method stub

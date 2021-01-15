@@ -10,4 +10,6 @@ public interface AddressViewDto {
 	String getTown();
 
 	String getCountry();
+
+	String getPostal();
 }

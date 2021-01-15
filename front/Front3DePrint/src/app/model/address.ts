@@ -3,5 +3,6 @@ export class Address {
     num: number;
     street: string;
     town: string;
+    postal: string;
     country: string;
 }

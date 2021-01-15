@@ -34,6 +34,7 @@ export class UserUpdateComponent implements OnInit {
       num: ['', Validators.required],
       street: ['', Validators.required],
       town: ['', Validators.required],
+      postal: ['', Validators.required],
       country: ['', Validators.required]
     });
     this.userService.getAddressById(this.id)

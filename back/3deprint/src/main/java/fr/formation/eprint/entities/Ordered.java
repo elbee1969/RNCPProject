@@ -7,11 +7,12 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "item")
-public class Item  extends AbstractEntity {
+public class Ordered  extends AbstractEntity {
 	
 	@Column(name = "name", length = 255, nullable = false)
     private String name;
@@ -28,7 +29,7 @@ public class Item  extends AbstractEntity {
     @Column(name = "totalPrice", columnDefinition = "DECIMAL(7, 2) UNSIGNED", nullable = false)
     private double totalPrice;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "image_id", nullable = false)
     private Image image;
 
@@ -36,17 +37,17 @@ public class Item  extends AbstractEntity {
     @Column(columnDefinition = "ENUM('I','C','V','A')", length = 1, nullable = false)
     private Status status;
     
-	public Item() {
+	public Ordered() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Item(Long id) {
+	public Ordered(Long id) {
 		super(id);
 		// TODO Auto-generated constructor stub
 	}
 
-	public Item(String name, int quantity, float weight, float price, double totalPrice, Image image, Status status) {
+	public Ordered(String name, int quantity, float weight, float price, double totalPrice, Image image, Status status) {
 		super();
 		this.name = name;
 		this.quantity = quantity;
@@ -115,5 +116,5 @@ public class Item  extends AbstractEntity {
     
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "order_id")
-//    private Order order;
+//    private Bill order;
 }

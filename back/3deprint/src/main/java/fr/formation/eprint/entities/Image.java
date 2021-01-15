@@ -48,9 +48,6 @@ public class Image extends AbstractEntity {
     @JoinColumn(name = "customUser_id")
     private CustomUser customUser;
     
-    @OneToMany(mappedBy = "image", cascade = CascadeType.ALL)
-    private List<Item> items = new ArrayList<Item>();
-
     public Image(byte[] data, String name, String ownerName, String type, String url, Status status, int number, CustomUser customUser) {
 	this.name = name;
 	this.ownerName = ownerName;
@@ -120,14 +117,7 @@ public class Image extends AbstractEntity {
 		return number;
 	}
 
-	public List<Item> getItems() {
-		return items;
-	}
-
-	public void setItems(List<Item> items) {
-		this.items = items;
-	}
-
+	
 	public byte[] getData() {
 	return data;
     }

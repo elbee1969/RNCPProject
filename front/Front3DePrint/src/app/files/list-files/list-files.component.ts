@@ -90,4 +90,21 @@ ngOnInit() {
   imageDetail(id: number) {
     this.router.navigate(['/image/',id]);
   }
+
+  validation(id: number) {
+
+    this.image = JSON.stringify({ status: "V"});
+
+    return this.uploadService.updateImageV(this.image, id)
+      .subscribe(
+        () => {
+          console.log('Image updated successfully');
+          this.router.navigate(['/files']);
+        },
+        error => {
+          console.log(error);
+        });
+  }
+
+
 }  

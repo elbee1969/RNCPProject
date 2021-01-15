@@ -26,7 +26,6 @@ import fr.formation.eprint.dtos.UserDto;
 import fr.formation.eprint.entities.Address;
 import fr.formation.eprint.entities.CustomUser;
 import fr.formation.eprint.entities.Image;
-import fr.formation.eprint.entities.Image3D;
 import fr.formation.eprint.entities.Role;
 import fr.formation.eprint.exception.ResourceNotFoundException;
 import fr.formation.eprint.repositories.CustomUserJpaRepository;
@@ -62,7 +61,7 @@ public class CustomUserServiceImpl implements CustomUserService {
 		Set<Role> role = new HashSet<>();
 		role.add(roleJpaRepository.findByDefaultRole(true));
 
-		List<Image3D> images = new ArrayList<>();
+		List<Image> images = new ArrayList<>();
 		Address address = new Address();
 		CustomUser user = new CustomUser(dto.getUsername(), dto.getEmail(), encodedPassword, dto.getLastname(),
 				dto.getFirstname(), role, address, true, true, true, true);

@@ -12,13 +12,12 @@
 </div>
 <div>
 <label class="btn btn-default">
-  <input type="file" (change)="selectFile($event)" />
+  <input type="file" accept=".stl, .STL" (change)="selectFile($event)" />
   </label>
 </div>
 <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">
-  Upload
+  <i class="fa fa-download" aria-hidden="true"></i>
 </button>
 
 <div class="alert alert-light" role="alert">{{ message }}</div>
-
 <app-list-files></app-list-files>

@@ -30,12 +30,12 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import fr.formation.eprint.config.SecurityHelper;
 import fr.formation.eprint.dtos.ImageGetDto;
 import fr.formation.eprint.dtos.ImagePatchDto;
+import fr.formation.eprint.dtos.ImageValidatedDto;
 import fr.formation.eprint.dtos.ImageViewDto;
 import fr.formation.eprint.dtos.AddressPatchDto;
 import fr.formation.eprint.dtos.ImageAdminGetDto;
 import fr.formation.eprint.entities.CustomUser;
 import fr.formation.eprint.entities.Image;
-import fr.formation.eprint.entities.Image3D;
 import fr.formation.eprint.entities.Status;
 import fr.formation.eprint.repositories.ImageRepository;
 import fr.formation.eprint.repositories.NewUserJpaRepository;
@@ -51,9 +51,9 @@ public class ImageController {
 
 	@Autowired
 	ImageRepository imageRepository;
-	
+
 	@Autowired
-   NewUserJpaRepository userRepository;
+	NewUserJpaRepository userRepository;
 
 	private final ImageStorageService imageStorageService;
 
@@ -61,22 +61,21 @@ public class ImageController {
 		this.imageStorageService = imageStorageService;
 	}
 
-
 	@PostMapping("/upload")
-	  public ResponseEntity<MessageImage3DResponse> uploadImage(@RequestParam("file") MultipartFile file) throws IOException {
-	    String message = "";
+	public ResponseEntity<MessageImage3DResponse> uploadImage(@RequestParam("file") MultipartFile file)
+			throws IOException {
+		String message = "";
 
-	    imageStorageService.store(file);
+		imageStorageService.store(file);
 
-	      message = "Uploaded the file successfully: " + file.getOriginalFilename();
-	      return ResponseEntity.status(HttpStatus.OK).body(new MessageImage3DResponse(message));
-	   
-	  }
-	
+		message = "Uploaded the file successfully: " + file.getOriginalFilename();
+		return ResponseEntity.status(HttpStatus.OK).body(new MessageImage3DResponse(message));
+
+	}
+
 	/**
 	 * 
-	 * @return
-	 * get all images to be printed by admin with "Validated" status (V)
+	 * @return get all images of all users to be printed by admin with "Validated" status (V)
 	 */
 	@GetMapping("/images")
 	public List<ImageAdminGetDto> getAll() {
@@ -85,83 +84,64 @@ public class ImageController {
 
 	/**
 	 * 
-	 * @return
-	 * get all images from a user with "choosen" status ("C")
+	 * @return get all images from a user with "choosen" status ("C")
 	 */
 	@GetMapping("/ownedimages")
 	public List<ImageGetDto> getAllByIdByStatusI() {
 		return imageStorageService.getAllByUserId(Status.I);
 	}
+
 	/**
 	 * 
-	 * @return
-	 * get all images selected to be printed from a user
+	 * @return get all images selected to be printed from a user
 	 */
 	@GetMapping("/choosedimages")
 	public List<ImageGetDto> getAllByIdByStatusC() {
 		return imageStorageService.getAllByUserId(Status.C);
 	}
-/**
- * 
- * @param id
- * @return one image
- */
+
+	/**
+	 * 
+	 * @param id
+	 * @return one image
+	 */
 	@GetMapping("/image/{id}")
 	public ImageViewDto getImage(@PathVariable Long id) {
-		 String dir = System.getProperty("user.dir") + "\\uploads";
+		String dir = System.getProperty("user.dir") + "\\uploads";
 		System.out.println("répertoire : " + dir);
-		return imageStorageService.getOne(id); 
+		return imageStorageService.getOne(id);
 	}
-	
-	
+
 	@PatchMapping("/update/{id}")
 	public void update(@PathVariable("id") Long id, @Valid @RequestBody ImagePatchDto dto) {
 		imageStorageService.update(id, dto);
 	}
+	
+	@PatchMapping("/updatevalidated/{id}")
+	public void update(@PathVariable("id") Long id, @Valid @RequestBody ImageValidatedDto dto) {
+		imageStorageService.updateV(id, dto);
+	}
 
+	@DeleteMapping("/deleteImage/{id}")
+	public void deleteImage(@PathVariable("id") Long id) throws IOException {
+		imageStorageService.deleteOne(id);
+	}
 
-    @DeleteMapping("/deleteImage/{id}")
-    public void deleteImage(@PathVariable("id") Long id) throws IOException {
-    	imageStorageService.deleteOne(id);
-    }
-    
-    /*
-     * manage images in directory
-     */
-    	@PostMapping("/upload3d")
-    	  public ResponseEntity<MessageImage3DResponse> uploadFile(@RequestParam("file") MultipartFile file) {
-    	    String message = "";
-    	    try {
-    	    	imageStorageService.save(file);
+	/*
+	 * manage images in directory
+	 */
+	@PostMapping("/upload3d")
+	public ResponseEntity<MessageImage3DResponse> uploadFile(@RequestParam("file") MultipartFile file) {
+		String message = "";
+		try {
+			imageStorageService.save(file);
 
-    	      message = "Uploaded the file successfully: " + file.getOriginalFilename();
-    	      return ResponseEntity.status(HttpStatus.OK).body(new MessageImage3DResponse(message));
-    	    } catch (Exception e) {
-    	      message = "Could not upload the file: " + file.getOriginalFilename() + "!";
-    	      return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new MessageImage3DResponse(message));
-    	    }
-    	  }
-    
-    
-    	@GetMapping("/image3ds")
-    	  public ResponseEntity<List<Image3D>> getListImage3Ds() {
-    	    List<Image3D> image3Ds = imageStorageService.loadAll().map(path -> {
-    	      String filename = path.getFileName().toString();
-    	      String url = MvcUriComponentsBuilder
-    	          .fromMethodName(ImageController.class, "getFile", path.getFileName().toString()).build().toString();
-    	      Long userId = SecurityHelper.getUserId();
-    		    CustomUser customUser = userRepository.getOne(userId);
-    	      return new Image3D(filename, url, customUser);
-    	    }).collect(Collectors.toList());
+			message = "Uploaded the file successfully: " + file.getOriginalFilename();
+			return ResponseEntity.status(HttpStatus.OK).body(new MessageImage3DResponse(message));
+		} catch (Exception e) {
+			message = "Could not upload the file: " + file.getOriginalFilename() + "!";
+			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new MessageImage3DResponse(message));
+		}
+	}
 
-    	    return ResponseEntity.status(HttpStatus.OK).body(image3Ds);
-    	  }
-
-    	  @GetMapping("/image3ds/{filename:.+}")
-    	  @ResponseBody
-    	  public ResponseEntity<Resource> getFile(@PathVariable String filename) {
-    	    Resource file = imageStorageService.load(filename);
-    	    return ResponseEntity.ok()
-    	        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
-    	  }
 }

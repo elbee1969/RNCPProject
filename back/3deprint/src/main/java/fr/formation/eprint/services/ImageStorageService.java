@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import fr.formation.eprint.dtos.ImageAdminGetDto;
 import fr.formation.eprint.dtos.ImageGetDto;
 import fr.formation.eprint.dtos.ImagePatchDto;
+import fr.formation.eprint.dtos.ImageValidatedDto;
 import fr.formation.eprint.dtos.ImageViewDto;
 import fr.formation.eprint.entities.Image;
 import fr.formation.eprint.entities.Status;
@@ -50,5 +51,6 @@ public interface ImageStorageService {
 	public Stream<Path> loadAll();
 
 	void update(Long id, @Valid ImagePatchDto dto);
-
+	
+	void updateV(Long id, @Valid ImageValidatedDto dto);
 }
