@@ -43,6 +43,7 @@ import fr.formation.eprint.dtos.ImageValidatedDto;
 import fr.formation.eprint.dtos.ImageViewDto;
 import fr.formation.eprint.entities.CustomUser;
 import fr.formation.eprint.entities.Image;
+import fr.formation.eprint.entities.Order;
 import fr.formation.eprint.entities.Status;
 import fr.formation.eprint.exception.AccountNotFoundException;
 import fr.formation.eprint.exception.ResourceNotFoundException;
@@ -86,6 +87,8 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 
 	/**
 	 * Update image status and quantity
+	 * status I to C or C to I
+	 * quantity 1 to X or X to 1 
 	 * @return 
 	 */
 	//@Transactional
@@ -98,13 +101,15 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 	}
 
 	/**
-	 * Update image status
+	 * Update image status to V
+	 * Create Order
 	 * @return 
 	 */
 	//@Transactional
 	@Override
 	public void updateV(Long id, @Valid ImageValidatedDto dto) {
 		Image image = imageRepository.findById(id).get();
+		Order order = new Order();
 		mapper.map(dto, image);
 		imageRepository.save(image);
 	}

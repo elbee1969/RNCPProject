@@ -6,7 +6,7 @@ import java.util.UUID;
 
 import fr.formation.eprint.entities.Address;
 import fr.formation.eprint.entities.CustomUser;
-import fr.formation.eprint.entities.Ordered;
+import fr.formation.eprint.entities.Order;
 
 public class OrderCreateDto {
 
@@ -20,7 +20,7 @@ public class OrderCreateDto {
 
 	private String state;
 
-	private List<Ordered> ordereds;
+	private List<Order> orders;
 
 	private double totalPrice;
 
@@ -30,14 +30,14 @@ public class OrderCreateDto {
 	}
 
 	public OrderCreateDto(CustomUser customUser, Address address, UUID orderRef, LocalDate orderDate, String state,
-			List<Ordered> ordereds, double totalPrice) {
+			List<Order> orders, double totalPrice) {
 		super();
 		this.customUser = customUser;
 		this.address = address;
 		this.orderRef = orderRef;
 		this.orderDate = orderDate;
 		this.state = state;
-		this.ordereds = ordereds;
+		this.orders = orders;
 		this.totalPrice = totalPrice;
 	}
 
@@ -81,12 +81,12 @@ public class OrderCreateDto {
 		this.state = state;
 	}
 
-	public List<Ordered> getItems() {
-		return ordereds;
+	public List<Order> getItems() {
+		return orders;
 	}
 
-	public void setItems(List<Ordered> ordereds) {
-		this.ordereds = ordereds;
+	public void setItems(List<Order> orders) {
+		this.orders = orders;
 	}
 
 	public double getTotalPrice() {

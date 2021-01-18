@@ -111,17 +111,29 @@ public class ImageController {
 		System.out.println("répertoire : " + dir);
 		return imageStorageService.getOne(id);
 	}
-
+/**
+ * update image status from status I to C or C to I
+ * @param id
+ * @param dto
+ */
 	@PatchMapping("/update/{id}")
 	public void update(@PathVariable("id") Long id, @Valid @RequestBody ImagePatchDto dto) {
 		imageStorageService.update(id, dto);
 	}
-	
+	/***
+	 * update image status from status C to V and create an ordered
+	 * @param id
+	 * @param dto
+	 */
 	@PatchMapping("/updatevalidated/{id}")
 	public void update(@PathVariable("id") Long id, @Valid @RequestBody ImageValidatedDto dto) {
 		imageStorageService.updateV(id, dto);
 	}
-
+/**
+ * delete image from DB and directory
+ * @param id
+ * @throws IOException
+ */
 	@DeleteMapping("/deleteImage/{id}")
 	public void deleteImage(@PathVariable("id") Long id) throws IOException {
 		imageStorageService.deleteOne(id);

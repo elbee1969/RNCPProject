@@ -14,28 +14,27 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.ForeignKey;
 
 @Entity
-@Table(name = "orders", uniqueConstraints = {
-		@UniqueConstraint(name = "orders_reference_UNIQUE", columnNames = { "orderRef" }) }, indexes = {
-				@Index(name = "orders_customer_id_IDX", columnList = "customer_id")})
+@Table(name = "bills", uniqueConstraints = {
+		@UniqueConstraint(name = "bills_reference_UNIQUE", columnNames = { "billRef" }) }, indexes = {
+				@Index(name = "bills_customer_id_IDX", columnList = "customer_id")})
 public class Bill extends AbstractEntity {
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "customer_id", foreignKey = @ForeignKey(name = "orders_customer_id_FK"), nullable = false)
 	private CustomUser customUser;
 
-	@Column(name = "orderRef", columnDefinition = "CHAR(36)", nullable = false)
-	private UUID orderRef;
+	@Column(name = "billRef", columnDefinition = "CHAR(36)", nullable = false)
+	private UUID billRef;
 
 	@Column(name = "date", nullable = false)
 	private LocalDate orderDate;
 
 	@OneToMany
-	@Column(name = "ordereds", nullable = false)
-	private List<Ordered> ordereds;
+	@Column(name = "orders", nullable = false)
+	private List<Order> orders;
 
 	@Column(name = "totalPrice", columnDefinition = "DECIMAL(10, 2) UNSIGNED", nullable = false)
 	private double totalPrice;
@@ -48,13 +47,13 @@ public class Bill extends AbstractEntity {
 		// Default no-arg constructor for libs
 	}
 
-	public Bill(CustomUser customUser, UUID orderRef, LocalDate orderDate, List<Ordered> ordereds, double totalPrice,
+	public Bill(CustomUser customUser, UUID billRef, LocalDate orderDate, List<Order> orders, double totalPrice,
 			Status status) {
 		super();
 		this.customUser = customUser;
-		this.orderRef = orderRef;
+		this.billRef = billRef;
 		this.orderDate = orderDate;
-		this.ordereds = ordereds;
+		this.orders = orders;
 		this.totalPrice = totalPrice;
 		this.status = status;
 	}
@@ -67,12 +66,12 @@ public class Bill extends AbstractEntity {
 		this.customUser = customUser;
 	}
 
-	public UUID getOrderRef() {
-		return orderRef;
+	public UUID getBillRef() {
+		return billRef;
 	}
 
-	public void setOrderRef(UUID orderRef) {
-		this.orderRef = orderRef;
+	public void setBillRef(UUID billRef) {
+		this.billRef = billRef;
 	}
 
 	public LocalDate getOrderDate() {
@@ -83,12 +82,12 @@ public class Bill extends AbstractEntity {
 		this.orderDate = orderDate;
 	}
 
-	public List<Ordered> getItems() {
-		return ordereds;
+	public List<Order> getItems() {
+		return orders;
 	}
 
-	public void setItems(List<Ordered> ordereds) {
-		this.ordereds = ordereds;
+	public void setItems(List<Order> orders) {
+		this.orders = orders;
 	}
 
 	public double getTotalPrice() {
