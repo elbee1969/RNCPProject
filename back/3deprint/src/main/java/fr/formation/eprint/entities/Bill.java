@@ -19,11 +19,11 @@ import javax.persistence.ForeignKey;
 @Entity
 @Table(name = "bills", uniqueConstraints = {
 		@UniqueConstraint(name = "bills_reference_UNIQUE", columnNames = { "billRef" }) }, indexes = {
-				@Index(name = "bills_customer_id_IDX", columnList = "customer_id")})
+				@Index(name = "bills_customUser_id_IDX", columnList = "customUser_id")})
 public class Bill extends AbstractEntity {
 
 	@ManyToOne
-	@JoinColumn(name = "customer_id", foreignKey = @ForeignKey(name = "orders_customer_id_FK"), nullable = false)
+	@JoinColumn(name = "customUser_id", foreignKey = @ForeignKey(name = "Bills_customUser_id_FK"), nullable = false)
 	private CustomUser customUser;
 
 	@Column(name = "billRef", columnDefinition = "CHAR(36)", nullable = false)

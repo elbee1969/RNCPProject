@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -13,20 +14,13 @@ import javax.persistence.Index;
 import javax.persistence.ForeignKey;
 
 @Entity
-@Table(name = "orders",
-uniqueConstraints = { @UniqueConstraint(
-		name = "items_bill_id_UNIQUE",
-		columnNames = { "bill_id" }) },
-indexes = {
-		@Index(name = "items_bill_id_IDX",
-			columnList = "bill_id") })
+@Table(name = "orders")
 
 public class Order  extends AbstractEntity {
 	
-	@ManyToOne
-    @JoinColumn(foreignKey = @ForeignKey(name = "items_bill_id_FK"),
-	    nullable = false)
-    private Bill bill;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "image_id", nullable = false)
+	private Image image;
 	
 	@Column(name = "name", length = 255, nullable = false)
     private String name;
@@ -43,9 +37,6 @@ public class Order  extends AbstractEntity {
     @Column(name = "totalPrice", columnDefinition = "DECIMAL(7, 2) UNSIGNED")
     private double totalPrice;
 
-    @OneToOne
-    @JoinColumn(name = "image_id", nullable = false)
-    private Image image;
 
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "ENUM('I','C','V','A')", length = 1, nullable = false)
@@ -110,6 +101,7 @@ public class Order  extends AbstractEntity {
 
 	public void setTotalPrice(double totalPrice) {
 		this.totalPrice = totalPrice;
+		totalPrice = quantity * price + (price/2);
 	}
 
 	public Image getImage() {

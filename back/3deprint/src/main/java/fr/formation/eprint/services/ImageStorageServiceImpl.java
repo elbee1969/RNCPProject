@@ -123,7 +123,7 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 	@Override
 	public Image getFile(Long id) {
 		final Optional<Image> retrievedImage = imageRepository.findById(id);
-		Image img = new Image(decompressZLib(retrievedImage.get().getData()), retrievedImage.get().getName(),
+		Image img = new Image(retrievedImage.get().getName(),
 				retrievedImage.get().getOwnerName(), retrievedImage.get().getType(), retrievedImage.get().getUrl(),
 				retrievedImage.get().getStatus(), retrievedImage.get().getQuantity(),
 				retrievedImage.get().getCustomUser());
@@ -148,7 +148,7 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 			String user = customUser.getUsername();
 			Path url = Paths.get(roots + "\\" + user);
 			Image image0 = new Image();
-			Image image = new Image(compressZLib(file.getBytes()), fileName, user, file.getContentType(),
+			Image image = new Image(fileName, user, file.getContentType(),
 					url.toString(), image0.setStatus(Status.I), image0.setQuantity(1), customUser);
 			File existFile = new File(url.toString() + "\\" + fileName);
 			if (!existFile.exists() && !existFile.isDirectory()) {

@@ -39,23 +39,18 @@ public class Image extends AbstractEntity {
     @Column(name = "quantity", length = 3)
     private int quantity;
 
-    @Lob
-    @Basic(fetch = FetchType.LAZY)
-    @Column(name = "data", nullable = false)
-    private byte[] data;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customUser_id")
     private CustomUser customUser;
     
-    public Image(byte[] data, String name, String ownerName, String type, String url, Status status, int number, CustomUser customUser) {
+    public Image(String name, String ownerName, String type, String url, Status status, int number, CustomUser customUser) {
 	this.name = name;
 	this.ownerName = ownerName;
 	this.type = type;
 	this.url = url;
 	this.status = status;
 	this.quantity = number;
-	this.data = data;
 	this.customUser = customUser;
     }
 
@@ -116,15 +111,6 @@ public class Image extends AbstractEntity {
 	public int setQuantity(int number) {
 		return number;
 	}
-
-	
-	public byte[] getData() {
-	return data;
-    }
-
-    public void setData(byte[] data) {
-	this.data = data;
-    }
 
     public CustomUser getCustomUser() {
 	return customUser;
