@@ -1,5 +1,7 @@
 package fr.formation.eprint.dtos;
 
+import java.util.Date;
+
 import fr.formation.eprint.entities.CustomUser;
 
 public class ImageAdminGetDto {
@@ -10,6 +12,7 @@ public class ImageAdminGetDto {
 	private String url;
 	private String status;
 	private int quantity;
+	private Date date;
 	private Long userId;
 
 	public ImageAdminGetDto() {
@@ -71,6 +74,14 @@ public class ImageAdminGetDto {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public Long getUserId() {

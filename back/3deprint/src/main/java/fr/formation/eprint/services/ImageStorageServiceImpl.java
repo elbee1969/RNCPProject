@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -102,14 +103,12 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 
 	/**
 	 * Update image status to V
-	 * Create Order
 	 * @return 
 	 */
 	//@Transactional
 	@Override
 	public void updateV(Long id, @Valid ImageValidatedDto dto) {
 		Image image = imageRepository.findById(id).get();
-		Order order = new Order();
 		mapper.map(dto, image);
 		imageRepository.save(image);
 	}
@@ -125,7 +124,7 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 		final Optional<Image> retrievedImage = imageRepository.findById(id);
 		Image img = new Image(retrievedImage.get().getName(),
 				retrievedImage.get().getOwnerName(), retrievedImage.get().getType(), retrievedImage.get().getUrl(),
-				retrievedImage.get().getStatus(), retrievedImage.get().getQuantity(),
+				retrievedImage.get().getStatus(), retrievedImage.get().getQuantity(),retrievedImage.get().getDate(),
 				retrievedImage.get().getCustomUser());
 		return img;
 	}
@@ -149,7 +148,7 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 			Path url = Paths.get(roots + "\\" + user);
 			Image image0 = new Image();
 			Image image = new Image(fileName, user, file.getContentType(),
-					url.toString(), image0.setStatus(Status.I), image0.setQuantity(1), customUser);
+					url.toString(), image0.setStatus(Status.I), image0.setQuantity(1),image0.getDate(), customUser);
 			File existFile = new File(url.toString() + "\\" + fileName);
 			if (!existFile.exists() && !existFile.isDirectory()) {
 				Files.copy(file.getInputStream(), url.resolve(file.getOriginalFilename()));

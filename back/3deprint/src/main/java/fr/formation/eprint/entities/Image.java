@@ -1,6 +1,7 @@
 package fr.formation.eprint.entities;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -14,7 +15,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "image")
@@ -39,21 +43,29 @@ public class Image extends AbstractEntity {
     @Column(name = "quantity", length = 3)
     private int quantity;
 
+    @Temporal(TemporalType.DATE)
+	@Column(name = "date")
+	private Date date;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customUser_id")
     private CustomUser customUser;
     
-    public Image(String name, String ownerName, String type, String url, Status status, int number, CustomUser customUser) {
+    public Image(String name, String ownerName, String type, String url, Status status, int quantity,Date date, CustomUser customUser) {
 	this.name = name;
 	this.ownerName = ownerName;
 	this.type = type;
 	this.url = url;
 	this.status = status;
-	this.quantity = number;
+	this.quantity = quantity;
+	this.date = date;
 	this.customUser = customUser;
     }
 
+    @PrePersist // before database's insertion
+	public void prePresist() {
+		date = new Date();
+	}
     public Image() {
 	super();
 	// TODO Auto-generated constructor stub
@@ -112,7 +124,15 @@ public class Image extends AbstractEntity {
 		return number;
 	}
 
-    public CustomUser getCustomUser() {
+    public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public CustomUser getCustomUser() {
 	return customUser;
     }
 

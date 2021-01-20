@@ -13,7 +13,7 @@
         </li>
         <li *ngIf="role" class="list-group-item">
 
-          <p>image : {{ image.name }}, proprietaire : {{image.ownerName}}, <span>Quantité à imprimer</span> : {{image.quantity}}
+          <p>image : {{ image.name }}, proprietaire : {{image.ownerName}}, <span>Quantité à imprimer</span> : {{image.quantity}}, date : {{ image.date}}
 
           <button (click) = "imageDetail(image.id)" class="btn btn-info" style="margin-left: 10px">ouvrir</button>
           </p>
@@ -29,7 +29,7 @@
         </li>
         <li *ngIf="role" class="list-group-item">
 
-          <p>Proprietaire : {{image.ownerName}}, image : {{ image.name }}, <span>Quantité à imprimer</span> : {{image.quantity}}
+          <p>Proprietaire : {{image.ownerName}}, image : {{ image.name }}, <span>Quantité à imprimer</span> : {{image.quantity}}, date : {{ image.date}}
 
           <button (click) = "imageDetail(image.id)" class="btn btn-info float-right" style="margin-left: 10px">ouvrir</button>
           </p>
