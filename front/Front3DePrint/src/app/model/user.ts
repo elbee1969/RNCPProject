@@ -5,8 +5,8 @@ export class User {
     username: string;
     email: string;
     password: string;
-    lastName: string;
-    firstName: string;
+    lastname: string;
+    firstname: string;
     address: Address;
 
 }

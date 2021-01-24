@@ -10,7 +10,7 @@
         <a href="/home" class="nav-link"  *ngIf="isLoggedIn && showUserBoard" routerLink="home"><i class="fa fa-home fa-2x"></i> Site</a>
       </li>
       <li class="nav-item" *ngIf="showAdminBoard">
-        <a href="/admin" class="nav-link" routerLink="admin"><i class="fa fa-eye fa-2x"></i></a>
+        <a href="/admin" class="nav-link" routerLink="admin"><i class="fa fa-eye fa-2x"></i> Gestion des commandes</a>
       </li>
       <li class="nav-item">
         <a href="/user" class="nav-link" *ngIf="isLoggedIn && showUserBoard" routerLink="user" routerLinkActive="active"><i class="fa fa-eye fa-2x"></i> Espace privé</a>
@@ -19,13 +19,13 @@
         <a href="/profile" class="nav-link" *ngIf="isLoggedIn && showUserBoard" routerLink="profile" routerLinkActive="active"><i class="fa fa-id-card-o fa-2x"></i> Profil</a>
       </li>
        <li class="nav-item">
-        <a href="/users" class="nav-link" *ngIf="isLoggedIn && showAdminBoard" routerLink="users"><i class="fa fa-user fa-2x"></i></a>
+        <a href="/users" class="nav-link" *ngIf="isLoggedIn && showAdminBoard" routerLink="users"><i class="fa fa-user fa-2x"></i> Utilisateurs</a>
       </li>
       <li class="nav-item">
         <a href="/upload" class="nav-link" *ngIf="isLoggedIn && showUserBoard" routerLink="upload"><i class="fa fa-file-image-o fa-2x"></i> Images</a>
       </li>
        <li class="nav-item">
-        <a href="/files" class="nav-link" *ngIf="isLoggedIn && showAdminBoard" routerLink="files"><i class="fa fa-file-image-o fa-2x"></i></a>
+        <a href="/adminfiles" class="nav-link" *ngIf="isLoggedIn && showAdminBoard" routerLink="adminfiles"><i class="fa fa-file-image-o fa-2x"></i> Images</a>
       </li>
     </ul>
 

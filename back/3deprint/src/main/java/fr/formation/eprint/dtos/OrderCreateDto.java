@@ -4,89 +4,94 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import fr.formation.eprint.entities.Address;
 import fr.formation.eprint.entities.CustomUser;
+import fr.formation.eprint.entities.Image;
 import fr.formation.eprint.entities.Order;
+import fr.formation.eprint.entities.Status;
 
 public class OrderCreateDto {
 
-	private CustomUser customUser;
+private Image image;
+	
+    private String name;
+	
+    private int quantity;
+	
+    private float weight;
+    
+    private float price;
+    
+    private double totalPrice;
 
-	private Address address;
-
-	private UUID orderRef;
-
-	private LocalDate orderDate;
-
-	private String state;
-
-	private List<Order> orders;
-
-	private double totalPrice;
+    private String timeToPrint;
+    
+    private Status status;
+    
+    private long customUserId;
 
 	public OrderCreateDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public OrderCreateDto(CustomUser customUser, Address address, UUID orderRef, LocalDate orderDate, String state,
-			List<Order> orders, double totalPrice) {
+	public OrderCreateDto(String name, int quantity, float weight, float price, double totalPrice, Image image, Status status,  CustomUser customUser) {
 		super();
-		this.customUser = customUser;
-		this.address = address;
-		this.orderRef = orderRef;
-		this.orderDate = orderDate;
-		this.state = state;
-		this.orders = orders;
+		this.name = name;
+		this.quantity = quantity;
+		this.weight = weight;
+		this.price = price;
 		this.totalPrice = totalPrice;
+		this.image = image;
+		this.status = status;
+		this.customUserId = customUserId;
 	}
 
-	public CustomUser getCustomUser() {
-		return customUser;
+	public Image getImage() {
+		return image;
 	}
 
-	public void setCustomUser(CustomUser customUser) {
-		this.customUser = customUser;
+	public void setImage(Image image) {
+		this.image = image;
 	}
 
-	public Address getAddress() {
-		return address;
+	public String getName() {
+		return name;
 	}
 
-	public void setAddress(Address address) {
-		this.address = address;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public UUID getOrderRef() {
-		return orderRef;
+	public int getQuantity() {
+		return quantity;
 	}
 
-	public void setOrderRef(UUID orderRef) {
-		this.orderRef = orderRef;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
-	public LocalDate getOrderDate() {
-		return orderDate;
+	public float getWeight() {
+		return weight;
 	}
 
-	public void setOrderDate(LocalDate orderDate) {
-		this.orderDate = orderDate;
+	public void setWeight(float weight) {
+		this.weight = weight;
 	}
 
-	public String getState() {
-		return state;
+	public float getPrice() {
+		return price;
 	}
 
-	public void setState(String state) {
-		this.state = state;
-	}
-
-	public List<Order> getItems() {
-		return orders;
-	}
-
-	public void setItems(List<Order> orders) {
-		this.orders = orders;
+	public void setPrice(float price) {
+		this.price = price;
 	}
 
 	public double getTotalPrice() {
@@ -97,5 +102,32 @@ public class OrderCreateDto {
 		this.totalPrice = totalPrice;
 	}
 
+	public String getTimeToPrint() {
+		return timeToPrint;
+	}
+
+	public void setTimeToPrint(String timeToPrint) {
+		this.timeToPrint = timeToPrint;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	public long getCustomUserId() {
+		return customUserId;
+	}
+
+	public void setCustomUserId(long customUserId) {
+		this.customUserId = customUserId;
+	}
+
+	
+
+	
 	
 }

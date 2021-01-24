@@ -1,0 +1,31 @@
+<div class="col-10 p-0 fond">
+	<div class="card-header">Nom de l'image : {{ imageName }}</div>
+	<div class="card-header">Nom du client : {{ userName }}</div>
+	<div class="card-header">Id du client : {{ idClient }}</div>
+	<div class="card-header">Quantité à imprimer : {{ quantity }}</div>
+	<form [formGroup]="editForm" (ngSubmit)="onSubmit()">       
+	</form>
+	<input class="mr-1 col-2" placeholder="heure(s)" [(ngModel)]="heure" id="heure">
+	<input class="mr-1 col-2" placeholder="minute(s)" [(ngModel)]="minute" id="minute">
+	<input class="mr-1 col-2" placeholder="seconde(s)" [(ngModel)]="seconde" id="seconde">
+	<button class="btn btn-dark ml-2 col-4" (click)="calculate($event)">Calcul total du temps d'impression</button>
+	<p class="time col-10">Données de temps total d'impression calculées : {{ obj["h"] }} {{ obj["m"] }} {{ obj["s"] }}</p>
+	<div class="form-group">
+		<form class="col-8" [formGroup]="inputForm" (ngSubmit)="onSubmit()">
+			<label for="weight">Poids (grammes) :</label>
+			<div class="form-group card-header">	
+				<input type="number" formControlName="weight" name="weight" class="form-control" id="weight">
+			</div>
+			<div class="form-group card-header">
+				<label for="price">Prix (€) :</label>
+				<input type="number" formControlName="price" name="price" class="form-control" id="price">
+			</div>
+			<div class="form-group card-header">
+				<label for="timeToPrint">Temps d'impression total :</label>
+				<input type="text" formControlName="timeToPrint" name="timeToPrint" class="form-control" id="timeToPrint">
+			</div>
+			<button class="btn btn-success float-right ml-2 mt-3">Ok</button>
+			<button (click) = "back()" class="btn btn-info float-right mt-3" style="margin-left: 10px"> <i class="fa fa-undo"> </i></button>
+		</form>
+	</div>
+</div>

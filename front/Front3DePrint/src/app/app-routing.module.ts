@@ -14,6 +14,8 @@ import { UsersComponent } from './users/users.component';
 import { DetailsComponent } from './details/details.component';
 import { UserUpdateComponent } from './user-update/user-update.component';
 import { ThreeComponent } from './three/three.component';
+import { AdminListFilesComponent } from './files/admin-list-files/admin-list-files.component';
+import { PrintImageComponent } from './files/print-image/print-image.component';
 
 
 const routes: Routes = [
@@ -29,8 +31,10 @@ const routes: Routes = [
   { path: 'upload', component: UploadFilesComponent},
   { path: 'upload/upload', component: UploadFilesComponent },
   { path: 'files', component: ListFilesComponent },
+  { path: 'adminfiles', component: AdminListFilesComponent },
   { path: 'upload/files', component: ListFilesComponent },
   { path: 'image/:id', component: ShowFileComponent },
+  { path: 'print/:id', component: PrintImageComponent },
   { path: 'files/:id/callback', component: ShowFileComponent },
   { path: 'admin', component: BoardAdminComponent  },
   { path: 'three/:id', component: ThreeComponent },

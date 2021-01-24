@@ -45,14 +45,12 @@ export class ShowFileComponent implements OnInit {
       console.log("id in init: " + this.id);
       this.user = this.token.getUser().authorities[0];
       this.userName = this.token.getUser().user_name;
-      if (this.user == "ROLE_USER") {
-        this.role = true;
+
         this.editForm = this.formBuilder.group({
           status: ['C'],
           quantity: ['', Validators.required]
         });
-      }
- 
+       
       console.log("id : "+this.id);
       console.log("username : "+this.userName);
       this.uploadService.showCurrentImage(this.id).subscribe(response => {
@@ -82,21 +80,12 @@ export class ShowFileComponent implements OnInit {
         error => {
           console.log(error);
         });
-
-    // .subscribe(
-    //   res => console.log('HTTP response', res),
-    //   err => console.log('HTTP Error', err),
-    //   () => console.log('HTTP request completed.')
-    // );
   }
 
   backToImageslist() {
-    if (this.user === "ROLE_ADMIN") {
-    this.router.navigate(['/files']);
-    } else if (this.user === "ROLE_USER") {
       this.router.navigate(['/upload']);  
-    }
   }
+
   deleteFile(imageId: number) {
     const val = confirm('action irreversible !');
     if (val) {
@@ -104,7 +93,7 @@ export class ShowFileComponent implements OnInit {
       .subscribe(
         response => {
           console.log(response);
-          //this.router.navigate(['/upload']);
+          this.router.navigate(['/upload']);
         },
         error => {
           console.log(error);

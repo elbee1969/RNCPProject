@@ -25,11 +25,9 @@ import { UserUpdateComponent } from './user-update/user-update.component';
 import { StlModelViewerModule } from 'angular-stl-model-viewer';
 import { ThreeComponent } from './three/three.component';
 import { UserService } from './services/user.service';
-
-
-
-
-
+import { AdminListFilesComponent } from './files/admin-list-files/admin-list-files.component';
+import { PrintImageComponent } from './files/print-image/print-image.component';
+import { OrderService } from './services/order-service';
 
 
 @NgModule({
@@ -47,7 +45,9 @@ import { UserService } from './services/user.service';
     UsersComponent,
     DetailsComponent,
     UserUpdateComponent,
-    ThreeComponent
+    ThreeComponent,
+    AdminListFilesComponent,
+    PrintImageComponent
   
 
   ],

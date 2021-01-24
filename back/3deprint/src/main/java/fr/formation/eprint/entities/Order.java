@@ -37,10 +37,16 @@ public class Order  extends AbstractEntity {
     @Column(name = "totalPrice", columnDefinition = "DECIMAL(7, 2) UNSIGNED")
     private double totalPrice;
 
-
+    @Column(name = "timeToPrint", length = 20, nullable = false)
+    private String timeToPrint;
+    
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "ENUM('I','C','V','A')", length = 1, nullable = false)
     private Status status;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customUser_id")
+    private CustomUser customUser;
     
 	public Order() {
 		super();
@@ -52,7 +58,7 @@ public class Order  extends AbstractEntity {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Order(String name, int quantity, float weight, float price, double totalPrice, Image image, Status status) {
+	public Order(String name, int quantity, float weight, float price, double totalPrice, Image image, Status status,  CustomUser customUser) {
 		super();
 		this.name = name;
 		this.quantity = quantity;
@@ -61,6 +67,7 @@ public class Order  extends AbstractEntity {
 		this.totalPrice = totalPrice;
 		this.image = image;
 		this.status = status;
+		this.customUser = customUser;
 	}
 
 	public String getName() {
@@ -118,6 +125,14 @@ public class Order  extends AbstractEntity {
 
 	public void setStatus(Status status) {
 		this.status = status;
+	}
+
+	public CustomUser getCustomUser() {
+		return customUser;
+	}
+
+	public void setCustomUser(CustomUser customUser) {
+		this.customUser = customUser;
 	}
     
 //    @ManyToOne(fetch = FetchType.LAZY)

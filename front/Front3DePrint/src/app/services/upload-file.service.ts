@@ -16,7 +16,10 @@ export class UploadFileService {
   private baseUrl = 'http://localhost:9090/api/image';
 
 
-  constructor(private http: HttpClient, private router: Router, private tokenStorage: TokenStorageService) { }
+  constructor(private http: HttpClient,
+              private router: Router,
+              private tokenStorage: TokenStorageService)
+               { };
 
   upload(file: File): Observable<HttpEvent<any>> {
     console.log("file : " + JSON.stringify(file));

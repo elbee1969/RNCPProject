@@ -20,7 +20,7 @@ export class UserUpdateComponent implements OnInit {
   constructor(private router: Router,
               private route: ActivatedRoute,
               private userService: UserService,
-              private formBuilder: FormBuilder,) { }
+              private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];

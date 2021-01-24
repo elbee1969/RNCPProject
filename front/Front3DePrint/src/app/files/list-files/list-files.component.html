@@ -1,60 +1,27 @@
 
 <div class="row">
   <div class="col-sm-6"><div class="card">
-    <div [hidden]="role" class="card-header">Liste des images chargées</div>
-        <div [hidden]="!role" class="card-header">Liste des images à imprimer</div>
-      <ul  [hidden]="role" class="list-group list-group-flush" *ngFor="let image of imageIs">
-        <li *ngIf="!role" class="list-group-item">
-
-          <p>{{ image.name }} 
-
-          </p>
+    <div class="card-header">Liste des images chargées</div>
+      <ul  class="list-group list-group-flush" *ngFor="let image of imageIs">
+        <li class="list-group-item">
+          <p>{{ image.name }} </p>
           <button (click) = "imageDetail(image.id)" class="btn btn-info float-right" style="margin-left: 10px">Voir et valider pour impression</button>
         </li>
-        <li *ngIf="role" class="list-group-item">
-
-          <p>image : {{ image.name }}, proprietaire : {{image.ownerName}}, <span>Quantité à imprimer</span> : {{image.quantity}}, date : {{ image.date}}
-
-          <button (click) = "imageDetail(image.id)" class="btn btn-info" style="margin-left: 10px">ouvrir</button>
-          </p>
-        </li>
       </ul>
-      <ul  [hidden]="!role" class="list-group list-group-flush" *ngFor="let image of images">
-        <li *ngIf="!role" class="list-group-item">
-
-          <p>{{ image.name }} 
-
-          </p>
-          <button (click) = "imageDetail(image.id)" class="btn btn-info float-right" style="margin-left: 10px">Voir et valider pour impression</button>
-        </li>
-        <li *ngIf="role" class="list-group-item">
-
-          <p>Proprietaire : {{image.ownerName}}, image : {{ image.name }}, <span>Quantité à imprimer</span> : {{image.quantity}}, date : {{ image.date}}
-
-          <button (click) = "imageDetail(image.id)" class="btn btn-info float-right" style="margin-left: 10px">ouvrir</button>
-          </p>
-        </li>
-      </ul>
+      
     </div>
   </div>
-  <div [hidden]="role" class="col-sm-6"><div class="card">
+  <div class="col-sm-6"><div class="card">
     <div class="card">
       <div class="card-header">Vous avez  {{ imageCs.length}} objet(s) à imprimer</div>
 
       <ul class="list-group list-group-flush" *ngFor="let image of imageCs">
-        <li *ngIf="!role" class="list-group-item">
+        <li class="list-group-item">
           <p>{{ image.name }},  
           <span>Quantité à imprimer</span> : <span>{{ image.quantity}}</span>
           </p>
           <button (click) = "validation(image.id)" class="btn btn-success float-right" style="margin-left: 10px"><i class="fa fa-check"></i></button>
           <button (click) = "annulChoise(image.id)" class="btn btn-info float-right" style="margin-left: 10px"><i class="fa fa-undo"></i></button>
-          </li>
-        <li *ngIf="role" class="list-group-item">
-
-          <p>image : {{ image.name }}, proprietaire : {{image.ownerName}}, <span>Quantité à imprimer</span> : {{image.quantity}}
-
-          <button (click) = "imageDetail(image.id)" class="btn btn-info" style="margin-left: 10px">ouvrir</button>
-          </p>
         </li>
       </ul>
     </div>

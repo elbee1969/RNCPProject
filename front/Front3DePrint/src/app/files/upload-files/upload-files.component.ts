@@ -28,15 +28,11 @@ export class UploadFilesComponent implements OnInit {
 
   constructor(private uploadService: UploadFileService, 
               private router: Router,
-              private domSanitizer: DomSanitizer,
-              private token: TokenStorageService,) { 
+              private domSanitizer: DomSanitizer)
+ { 
   }
   ngOnInit() {
     this.fileInfos = this.uploadService.getOwnedImages();
-    this.user = this.token.getUser().authorities[0];
-     if (this.user == "ROLE_USER") {
-      this.role = true;
-    }
 
 
     
@@ -64,14 +60,11 @@ export class UploadFilesComponent implements OnInit {
         if (event.type === HttpEventType.UploadProgress) {
           this.progress = Math.round(100 * event.loaded / event.total);
         } else if (event instanceof HttpResponse) {
-          this.message = event.body.message;
-          //this.fileInfos = this.uploadService.getOwnedImages();
-          if (this.role) {
-            this.router.navigate(['/upload']);
-          } else {
-            this.router.navigate(['/files']);
-          }
+         // this.message = event.body.message;
+
         }
+        //this.router.navigate(['/upload']);
+        this.fileInfos = this.uploadService.getOwnedImages();
        
       },
       err => {
@@ -79,9 +72,7 @@ export class UploadFilesComponent implements OnInit {
         this.message = 'Impossible à charger : ' + err.error.message;
         this.currentFile = undefined;
         this.progress = 0;
-        if (this.role) {
           this.router.navigate(['/upload']);
-        }
       },
 
       );
