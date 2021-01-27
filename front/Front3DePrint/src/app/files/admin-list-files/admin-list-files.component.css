@@ -1,0 +1,9 @@
+.owner {
+    font-weight: bold;
+    position: relative;
+    margin: 1px;
+    padding: 0.5em 0.5em 0.5em 2em;
+    background: lightgrey;
+}
+
+.owner::first-line {}
