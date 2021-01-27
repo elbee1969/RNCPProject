@@ -19,6 +19,7 @@ import { PrintImageComponent } from './files/print-image/print-image.component';
 
 
 const routes: Routes = [
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent},
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
@@ -37,8 +38,7 @@ const routes: Routes = [
   { path: 'print/:id', component: PrintImageComponent },
   { path: 'files/:id/callback', component: ShowFileComponent },
   { path: 'admin', component: BoardAdminComponent  },
-  { path: 'three/:id', component: ThreeComponent },
-  { path: '', redirectTo: 'home', pathMatch: 'full' }
+  { path: 'three/:id', component: ThreeComponent }
 ];
 
 @NgModule({

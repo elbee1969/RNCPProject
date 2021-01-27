@@ -37,7 +37,7 @@ public class Order  extends AbstractEntity {
     @Column(name = "totalPrice", columnDefinition = "DECIMAL(7, 2) UNSIGNED")
     private double totalPrice;
 
-    @Column(name = "timeToPrint", length = 20, nullable = false)
+    @Column(name = "timeToPrint", length = 40, nullable = false)
     private String timeToPrint;
     
     @Enumerated(EnumType.STRING)

@@ -14,7 +14,7 @@ import { OrderService } from 'src/app/services/order-service';
 })
 export class PrintImageComponent implements OnInit {
   image: any;
-  id: number;
+  imageId: number;
   imageName: string;
   editForm: any;
   customUserId: number;
@@ -37,15 +37,15 @@ export class PrintImageComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.id = this.route.snapshot.params['id'];
-    if (!this.id) {
+    this.imageId = this.route.snapshot.params['id'];
+    if (!this.imageId) {
       console.log("Invalid action.")
       this.router.navigate(['/adminfiles']);
       return;
     }
-    console.log("id : " + this.id)
+    console.log("id : " + this.imageId)
     
-    this.uploadService.showCurrentImage(this.id).subscribe(result => {
+    this.uploadService.showCurrentImage(this.imageId).subscribe(result => {
     this.image = result;
     this.imageName = this.image.name;
       this.customUserId = this.image.customUserId;
@@ -59,6 +59,7 @@ export class PrintImageComponent implements OnInit {
       console.log("user : " + JSON.stringify(this.user));
       this.userName = this.user.username;
       console.log("username : " + this.userName);
+        
     })
     
     });
@@ -67,12 +68,13 @@ export class PrintImageComponent implements OnInit {
     });
     this.inputForm = this.formBuilder.group({
       customUserId: [],
-      imageId: [this.id],
+      imageId: [],
       name: [],
       quantity: [],
       weight: ['', Validators.required],
       timeToPrint: ['', Validators.required],
-      price: ['', Validators.required]
+      price: ['', Validators.required],
+      status: ['I']
     });
   }
 
@@ -80,7 +82,7 @@ export class PrintImageComponent implements OnInit {
     console.log("this.editForm.value " + JSON.stringify(this.editForm.value));
     console.log("this input form : " + JSON.stringify(this.inputForm.value));
     
-    return this.uploadService.updateImageV(this.editForm.value, this.id)
+    return this.uploadService.updateImageV(this.editForm.value, this.imageId)
       .subscribe(
         () => {
           console.log('Image updated successfully');
@@ -135,9 +137,12 @@ export class PrintImageComponent implements OnInit {
       "m": minutes + " minute(s)",
       "s": seconds + "seconde(s)"
     };
-    this.time = JSON.stringify(this.obj['h']) + " " + JSON.stringify(this.obj['m']) + " " + JSON.stringify(this.obj['s']);
+    console.log("time : " + this.time);
     console.log("OBJ : " + this.obj["h"] + this.obj["m"] + this.obj["s"]);
-    return this.obj;
+    this.time = JSON.stringify(this.obj['h']) + " " + JSON.stringify(this.obj['m']) + " " + JSON.stringify(this.obj['s']);
+    this.time = this.time.replace(/"/g, "");
+
+    console.log("time : " + this.time);
   }
 
 }

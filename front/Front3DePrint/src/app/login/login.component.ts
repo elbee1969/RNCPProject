@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit {
   rediRectPage() {
     if (this.roles.includes('ROLE_USER')) {
 
-    this.router.navigate(['/user']);
+    this.router.navigate(['/home']);
     } else {
     this.router.navigate(['/admin']);
     }

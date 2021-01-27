@@ -7,6 +7,6 @@ import fr.formation.eprint.entities.Order;
 
 public interface OrderService {
 
-	Order create(@Valid OrderCreateDto dto);
+	void create(@Valid OrderCreateDto dto);
 
 }

@@ -19,7 +19,7 @@ import fr.formation.eprint.entities.Status;
 
 public class OrderCreateDto {
 
-private Image image;
+private Long imageId;
 	
     private String name;
 	
@@ -42,24 +42,24 @@ private Image image;
 		// TODO Auto-generated constructor stub
 	}
 
-	public OrderCreateDto(String name, int quantity, float weight, float price, double totalPrice, Image image, Status status,  CustomUser customUser) {
+	public OrderCreateDto(String name, int quantity, float weight, float price, double totalPrice, Long imageId, Status status,  Long customUserId) {
 		super();
 		this.name = name;
 		this.quantity = quantity;
 		this.weight = weight;
 		this.price = price;
 		this.totalPrice = totalPrice;
-		this.image = image;
+		this.imageId = imageId;
 		this.status = status;
 		this.customUserId = customUserId;
 	}
 
-	public Image getImage() {
-		return image;
+	public Long getImageId() {
+		return imageId;
 	}
 
-	public void setImage(Image image) {
-		this.image = image;
+	public void setImageId(Long image) {
+		this.imageId = image;
 	}
 
 	public String getName() {

@@ -1,5 +1,5 @@
 <div class="card">
-  <div class="card-header">Nom de image : {{ imageName }}</div>
+  <div *ngIf="imageName"class="card-header">Nom de image : {{ imageName }}</div>
   <button class="badge badge-danger mr-2 d-inline p-2" (click)="deleteFile(imageId)">Supprimer l'image (définitivement)  </button>
     <li class="list-group-item" >
       <stl-model-viewer [meshOptions]="[{position: {x: 0, y: 0, z: 0},scale: {x: 0.01,y: 0.01,z: 0.01}}]"  style="height: 40vh" [stlModels]="['./assets/uploads/'+ userName +'/'+ image.name ]"></stl-model-viewer>

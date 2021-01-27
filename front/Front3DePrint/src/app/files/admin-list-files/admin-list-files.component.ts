@@ -16,6 +16,7 @@ export class AdminListFilesComponent implements OnInit {
   image: any;
   status: number;
   images: Image;
+ 
   role: boolean;
   quantity: number;
   resetValue: any;
@@ -30,7 +31,7 @@ export class AdminListFilesComponent implements OnInit {
 
   }
   ngOnInit() {
-
+    
 
     this.id = this.route.snapshot.params['id'];
     this.uploadService.getImages().subscribe(result => {

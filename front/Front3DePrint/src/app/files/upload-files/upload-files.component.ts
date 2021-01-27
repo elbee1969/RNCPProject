@@ -63,7 +63,7 @@ export class UploadFilesComponent implements OnInit {
          // this.message = event.body.message;
 
         }
-        //this.router.navigate(['/upload']);
+        this.router.navigate(['/upload']);
         this.fileInfos = this.uploadService.getOwnedImages();
        
       },

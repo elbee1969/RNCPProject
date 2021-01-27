@@ -22,7 +22,7 @@ public class OrderController {
 	private OrderService orderService;
 	
 	@PostMapping
-	public Order createOrder(@Valid @RequestBody OrderCreateDto dto) {
-		return orderService.create(dto);
+	public void createOrder(@Valid @RequestBody OrderCreateDto dto) {
+		orderService.create(dto);
 	}
 }
