@@ -3,6 +3,7 @@
   <div class="col-sm-10"><div class="card">
 
     <div class="card-header">Liste des images à imprimer</div>
+    <p *ngIf="images.length === 0">Aucune image à imprimer</p>
       <ul class="list-group list-group-flush" *ngFor="let image of images;let i=index">
         <li class="list-group-item">
           <p class="owner" *ngIf="i>0 && images[i-1].ownerName==image.ownerName?'':image.ownerName"> Client(id : {{image.userId}}) : 

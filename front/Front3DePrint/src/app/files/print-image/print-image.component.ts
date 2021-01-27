@@ -17,7 +17,7 @@ export class PrintImageComponent implements OnInit {
   id: number;
   imageName: string;
   editForm: any;
-  idClient: number;
+  customUserId: number;
   user: User;
   userName: any;
   quantity: number;
@@ -26,6 +26,7 @@ export class PrintImageComponent implements OnInit {
   minute: number;
   seconde: number;
   obj: any = {};
+  time: any;
   
   constructor(private route: ActivatedRoute,
               private orderService: OrderService,
@@ -47,27 +48,31 @@ export class PrintImageComponent implements OnInit {
     this.uploadService.showCurrentImage(this.id).subscribe(result => {
     this.image = result;
     this.imageName = this.image.name;
-    this.idClient = this.image.customUserId;
+      this.customUserId = this.image.customUserId;
     this.quantity = this.image.quantity;
-    console.log ("client id : " + this.idClient );
+      console.log("imageName : " + this.imageName);
+      console.log("quantity : " + this.quantity);
     console.log ("image : " + JSON.stringify(this.image));
-    this.userService.getOne(this.idClient).subscribe(result => {
+    
+      this.userService.getOne(this.customUserId).subscribe(result => {
       this.user = result;
       console.log("user : " + JSON.stringify(this.user));
       this.userName = this.user.username;
+      console.log("username : " + this.userName);
     })
+    
     });
     this.editForm = this.formBuilder.group({
       status: ['A']
     });
     this.inputForm = this.formBuilder.group({
-      customUserId: [this.idClient],
+      customUserId: [],
       imageId: [this.id],
-      name: [this.imageName],
-      quantity: [this.quantity],
+      name: [],
+      quantity: [],
       weight: ['', Validators.required],
-      price: ['', Validators.required],
-      timeToPrint: ['', Validators.required]
+      timeToPrint: ['', Validators.required],
+      price: ['', Validators.required]
     });
   }
 
@@ -130,6 +135,7 @@ export class PrintImageComponent implements OnInit {
       "m": minutes + " minute(s)",
       "s": seconds + "seconde(s)"
     };
+    this.time = JSON.stringify(this.obj['h']) + " " + JSON.stringify(this.obj['m']) + " " + JSON.stringify(this.obj['s']);
     console.log("OBJ : " + this.obj["h"] + this.obj["m"] + this.obj["s"]);
     return this.obj;
   }
