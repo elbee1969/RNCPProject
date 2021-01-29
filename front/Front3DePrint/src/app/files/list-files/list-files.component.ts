@@ -73,14 +73,12 @@ ngOnInit() {
   }
 
   validation(id: number) {
-
     this.image = JSON.stringify({ status: "V"});
-
     return this.uploadService.updateImageV(this.image, id)
       .subscribe(
         () => {
           console.log('Image updated successfully');
-          this.router.navigate(['/files']);
+          this.router.navigate(['/upload']);
         },
         error => {
           console.log(error);

@@ -4,7 +4,7 @@
 	<input class="mr-1 col-2" placeholder="heure(s)" [(ngModel)]="heure" id="heure" required>
 	<input class="mr-1 col-2" placeholder="minute(s)" [(ngModel)]="minute" id="minute" required>
 	<input class="mr-1 col-2" placeholder="seconde(s)" [(ngModel)]="seconde" id="seconde" required>
-	<button class="btn btn-dark ml-2 col-4" (click)="calculate($event)">Calcul total du temps d'impression</button>
+	<button class="btn btn-dark ml-2 col-4" (click)="calculate($event)">Calcul du temps total d'impression</button>
 
 	<div class="form-group">
 		<form [formGroup]="inputForm" (ngSubmit)="onSubmit()">
