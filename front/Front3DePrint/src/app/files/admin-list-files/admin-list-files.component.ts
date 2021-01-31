@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { UploadFileService } from 'src/app/services/upload-file.service';
 import { Image } from 'src/app/model/Image';
+import { OrderService } from 'src/app/services/order-service';
+import { Order } from 'src/app/model/Order';
 @Component({
   selector: 'app-admin-list-files',
   templateUrl: './admin-list-files.component.html',
@@ -21,8 +23,10 @@ export class AdminListFilesComponent implements OnInit {
   quantity: number;
   resetValue: any;
   id: any;
+  orders: Order;
 
   constructor(private uploadService: UploadFileService,
+              private orderService: OrderService,
               private route: ActivatedRoute,
               private router: Router) {
   }
@@ -40,7 +44,17 @@ export class AdminListFilesComponent implements OnInit {
     },
       error => console.log(error)
     );
-      
+     
+    this.orderService.listOrder().subscribe(data => {
+      this.orders = data;
+      console.log("orders : " + JSON.stringify(data));
+
+    },
+      error => console.log(error)
+    );
+
+
+
   }
 
   printImage(id: number) {

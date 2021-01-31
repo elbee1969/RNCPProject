@@ -7,67 +7,71 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-import javax.persistence.Index;
-import javax.persistence.ForeignKey;
 
 @Entity
 @Table(name = "orders")
 
-public class Order  extends AbstractEntity {
-	
+public class Order extends AbstractEntity {
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "image_id", nullable = false)
 	private Image image;
-	
+
 	@Column(name = "name", length = 255, nullable = false)
-    private String name;
-	
+	private String name;
+
 	@Column(name = "quantity", length = 3, nullable = false)
-    private int quantity;
-	
-    @Column(name = "weight",columnDefinition = "DECIMAL(7, 3) UNSIGNED")
-    private float weight;
-    
-    @Column(name = "price",columnDefinition = "DECIMAL(7, 2) UNSIGNED")
-    private float price;
-    
-    @Column(name = "totalPrice", columnDefinition = "DECIMAL(7, 2) UNSIGNED")
-    private double totalPrice;
+	private int quantity;
 
-    @Column(name = "timeToPrint", length = 40, nullable = false)
-    private String timeToPrint;
-    
-    @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "ENUM('I','C','V','A')", length = 1, nullable = false)
-    private Status status;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customUser_id")
-    private CustomUser customUser;
-    
+	@Column(name = "weight", columnDefinition = "DECIMAL(7, 3) UNSIGNED")
+	private float weight;
+
+	@Column(name = "price", columnDefinition = "DECIMAL(7, 2) UNSIGNED")
+	private float price;
+
+	@Column(name = "totalPrice", columnDefinition = "DECIMAL(7, 2) UNSIGNED")
+	private double totalPrice;
+
+	@Column(name = "totalWeight", columnDefinition = "DECIMAL(7, 2) UNSIGNED")
+	private double totalWeight;
+
+	@Column(name = "timeToPrint", length = 40, nullable = false)
+	private String timeToPrint;
+
+	@Enumerated(EnumType.STRING)
+	@Column(columnDefinition = "ENUM('I','C','V','A')", length = 1, nullable = false)
+	private Status status;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "customUser_id")
+	private CustomUser customUser;
+
 	public Order() {
-		super();
-		// TODO Auto-generated constructor stub
+
 	}
 
-	public Order(Long id) {
-		super(id);
-		// TODO Auto-generated constructor stub
-	}
-
-	public Order(String name, int quantity, float weight, float price, double totalPrice, Image image, Status status,  CustomUser customUser) {
+	public Order(Image image, String name, int quantity, float weight, float price, double totalPrice,
+			double totalWeight, String timeToPrint, Status status, CustomUser customUser) {
 		super();
+		this.image = image;
 		this.name = name;
 		this.quantity = quantity;
 		this.weight = weight;
 		this.price = price;
 		this.totalPrice = totalPrice;
-		this.image = image;
+		this.totalWeight = totalWeight;
+		this.timeToPrint = timeToPrint;
 		this.status = status;
 		this.customUser = customUser;
+	}
+
+	public Image getImage() {
+		return image;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
 	}
 
 	public String getName() {
@@ -108,15 +112,22 @@ public class Order  extends AbstractEntity {
 
 	public void setTotalPrice(double totalPrice) {
 		this.totalPrice = totalPrice;
-		totalPrice = quantity * price + (price/2);
 	}
 
-	public Image getImage() {
-		return image;
+	public double getTotalWeight() {
+		return totalWeight;
 	}
 
-	public void setImage(Image image) {
-		this.image = image;
+	public void setTotalWeight(double totalWeight) {
+		this.totalWeight = totalWeight;
+	}
+
+	public String getTimeToPrint() {
+		return timeToPrint;
+	}
+
+	public void setTimeToPrint(String timeToPrint) {
+		this.timeToPrint = timeToPrint;
 	}
 
 	public Status getStatus() {
@@ -134,8 +145,5 @@ public class Order  extends AbstractEntity {
 	public void setCustomUser(CustomUser customUser) {
 		this.customUser = customUser;
 	}
-    
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "order_id")
-//    private Bill order;
+
 }

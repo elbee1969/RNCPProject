@@ -53,10 +53,10 @@ import { OrderService } from './services/order-service';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
     NgxPaginationModule,
     BrowserAnimationsModule,
     ModalModule,

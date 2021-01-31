@@ -1,10 +1,14 @@
 package fr.formation.eprint.services;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import fr.formation.eprint.dtos.OrderAdminViewDto;
 import fr.formation.eprint.dtos.OrderCreateDto;
 import fr.formation.eprint.entities.CustomUser;
 import fr.formation.eprint.entities.Image;
@@ -40,11 +44,21 @@ public class OrderServiceImpl implements OrderService {
 		mapper.map(dto, order);
 		float p = dto.getPrice();
 		int q = dto.getQuantity();
+		float w = dto.getWeight();
 		Double totalPrice = (double) (q * p + p/2);
+		Double totalWeight = (double) (q* w);
 		order.setImage(image);
 		order.setCustomUser(user);
 		order.setTotalPrice(totalPrice);
+		order.setTotalWeight(totalWeight);
 		orderRepository.save(order);
+	}
+
+
+	@Override
+	public List<OrderAdminViewDto> getAll() {
+		return orderRepository.findAllOrders(Sort.by("customUser.id"));
+		
 	}
 
 }

@@ -19,4 +19,9 @@ export class OrderService {
   createOrder(order: Order): Observable<ApiResponse> {
     return this.http.post<ApiResponse>(API_ORDER_URL, order, httpOptions);
   }
+
+  listOrder(): Observable<Order> {
+    return this.http.get<Order>(API_ORDER_URL + '/vieworders');
+
+  }
 }
