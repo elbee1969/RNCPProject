@@ -6,6 +6,6 @@ import fr.formation.eprint.dtos.BillCreateDto;
 
 public interface BillService {
 
-	void create(@Valid BillCreateDto dto);
+	public void create(Long id, @Valid BillCreateDto dto);
 
 }

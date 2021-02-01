@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,10 +19,10 @@ import fr.formation.eprint.services.BillService;
 @RequestMapping("/bill") // "/api/private/*"
 public class BillController {
 	@Autowired
-	private BillService billSrevice;
+	private BillService billService;
 	
-	@PostMapping
-	public void createBill(@Valid @RequestBody BillCreateDto dto) {
-		billSrevice.create(dto);
+	@PostMapping("/create/{id}")
+	public void createBill(@PathVariable("id") Long id, @Valid @RequestBody BillCreateDto dto) {
+		billService.create(id,dto);
 	}
 }

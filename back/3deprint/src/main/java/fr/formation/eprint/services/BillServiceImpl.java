@@ -29,7 +29,7 @@ public class BillServiceImpl implements BillService {
 	}
 	
 	@Override
-	public void create(@Valid BillCreateDto dto) {
+	public void create(Long id, @Valid BillCreateDto dto) {
 		
 
 		Bill bill = new Bill();
