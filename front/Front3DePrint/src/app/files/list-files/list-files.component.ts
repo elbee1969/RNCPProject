@@ -61,7 +61,8 @@ ngOnInit() {
       .subscribe(
         () => {
           console.log('Image updated successfully');
-          this.router.navigate(['/files']);
+          // this.router.navigate(['/upload']);
+          this.ngOnInit();
         },
         error => {
           console.log(error);
@@ -78,7 +79,8 @@ ngOnInit() {
       .subscribe(
         () => {
           console.log('Image updated successfully');
-          this.router.navigate(['/upload']);
+          //this.router.navigate(['/upload']);
+          this.ngOnInit();
         },
         error => {
           console.log(error);

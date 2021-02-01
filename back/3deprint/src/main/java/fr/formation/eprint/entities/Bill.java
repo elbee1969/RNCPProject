@@ -36,25 +36,29 @@ public class Bill extends AbstractEntity {
 	@Column(name = "orders", nullable = false)
 	private List<Order> orders;
 
-	@Column(name = "totalPrice", columnDefinition = "DECIMAL(10, 2) UNSIGNED", nullable = false)
-	private double totalPrice;
+	@Column(name = "totalPriceHT", columnDefinition = "DECIMAL(10, 2) UNSIGNED", nullable = false)
+	private double totalPriceHT;
+	
+	@Column(name = "totalPriceTTC", columnDefinition = "DECIMAL(10, 2) UNSIGNED", nullable = false)
+	private double totalPriceTTC;
 
 	@Enumerated(EnumType.STRING)
 	@Column(columnDefinition = "ENUM('I','C','V','A')", length = 1, nullable = false)
 	private Status status;
 
-	protected Bill() {
+	public Bill() {
 		// Default no-arg constructor for libs
 	}
 
-	public Bill(CustomUser customUser, UUID billRef, LocalDate orderDate, List<Order> orders, double totalPrice,
+	public Bill(CustomUser customUser, UUID billRef, LocalDate orderDate, List<Order> orders,  double totalPriceHT,double totalPriceTTC,
 			Status status) {
 		super();
 		this.customUser = customUser;
 		this.billRef = billRef;
 		this.orderDate = orderDate;
 		this.orders = orders;
-		this.totalPrice = totalPrice;
+		this.totalPriceHT = totalPriceHT;
+		this.totalPriceTTC = totalPriceTTC;
 		this.status = status;
 	}
 
@@ -90,12 +94,20 @@ public class Bill extends AbstractEntity {
 		this.orders = orders;
 	}
 
-	public double getTotalPrice() {
-		return totalPrice;
+	public double getTotalPriceHT() {
+		return totalPriceHT;
 	}
 
-	public void setTotalPrice(double totalPrice) {
-		this.totalPrice = totalPrice;
+	public void setTotalPriceHT(double totalPriceHT) {
+		this.totalPriceHT = totalPriceHT;
+	}
+
+	public double getTotalPriceTTC() {
+		return totalPriceTTC;
+	}
+
+	public void setTotalPriceTTC(double totalPriceTTC) {
+		this.totalPriceTTC = totalPriceTTC;
 	}
 
 	public Status getStatus() {

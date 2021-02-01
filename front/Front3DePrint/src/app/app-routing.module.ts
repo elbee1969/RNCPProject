@@ -28,16 +28,12 @@ const routes: Routes = [
   { path: 'users', component: UsersComponent },
   { path: 'update/:id', component: UserUpdateComponent },
   { path: 'details/:id', component: DetailsComponent },
-  { path: 'users/callback', component: UsersComponent },
   { path: 'upload', component: UploadFilesComponent},
-  { path: 'upload/upload', component: UploadFilesComponent },
   { path: 'files', component: ListFilesComponent },
   { path: 'adminfiles', component: AdminListFilesComponent },
-  { path: 'upload/files', component: ListFilesComponent },
   { path: 'image/:id', component: ShowFileComponent },
   { path: 'print/:id', component: PrintImageComponent },
-  { path: 'files/:id/callback', component: ShowFileComponent },
-  { path: 'admin', component: BoardAdminComponent  },
+   { path: 'admin', component: BoardAdminComponent  },
   { path: 'three/:id', component: ThreeComponent }
 ];
 

@@ -33,10 +33,10 @@ export class AppComponent {
       this.roles = this.tokenStorageService.getUser().authorities;
       if (this.roles.includes('ROLE_USER')) {
         this.showUserBoard = this.roles.includes('ROLE_USER');
-        this.router.navigate(['/user']);
+        // this.router.navigate(['/user']);
       } else {
         this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-        this.router.navigate(['/admin']);
+        // this.router.navigate(['/admin']);
       }
     }
     // this.showUserBoard = this.roles.includes('ROLE_USER');
@@ -46,7 +46,8 @@ export class AppComponent {
   
   logout() {
     this.tokenStorageService.signOut();
-    window.location.reload();
+    // window.location.reload();
+    this.router.navigate(['/home']);
   }
         
 }

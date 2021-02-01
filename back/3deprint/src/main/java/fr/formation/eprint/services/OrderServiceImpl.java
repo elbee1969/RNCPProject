@@ -19,13 +19,12 @@ import fr.formation.eprint.repositories.OrderRepository;
 
 @Service
 public class OrderServiceImpl implements OrderService {
-	
-	private  final OrderRepository orderRepository;
+
+	private final OrderRepository orderRepository;
 	private final ImageRepository imageRepository;
 	private final CustomUserJpaRepository customUserRepository;
 	private ModelMapper mapper;
-	
-	
+
 	public OrderServiceImpl(OrderRepository orderRepository, ImageRepository imageRepository,
 			CustomUserJpaRepository customUserRepository, ModelMapper mapper) {
 		this.orderRepository = orderRepository;
@@ -33,8 +32,6 @@ public class OrderServiceImpl implements OrderService {
 		this.customUserRepository = customUserRepository;
 		this.mapper = mapper;
 	}
-
-
 
 	@Override
 	public void create(@Valid OrderCreateDto dto) {
@@ -45,8 +42,8 @@ public class OrderServiceImpl implements OrderService {
 		float p = dto.getPrice();
 		int q = dto.getQuantity();
 		float w = dto.getWeight();
-		Double totalPrice = (double) (q * p + p/2);
-		Double totalWeight = (double) (q* w);
+		Double totalPrice = (double) (q * p + p / 2);
+		Double totalWeight = (double) (q * w);
 		order.setImage(image);
 		order.setCustomUser(user);
 		order.setTotalPrice(totalPrice);
@@ -54,11 +51,10 @@ public class OrderServiceImpl implements OrderService {
 		orderRepository.save(order);
 	}
 
-
 	@Override
 	public List<OrderAdminViewDto> getAll() {
 		return orderRepository.findAllOrders(Sort.by("customUser.id"));
-		
+
 	}
 
 }

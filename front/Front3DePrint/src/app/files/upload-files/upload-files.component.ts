@@ -33,10 +33,8 @@ export class UploadFilesComponent implements OnInit {
   }
   ngOnInit() {
     this.fileInfos = this.uploadService.getOwnedImages();
-
-
-    
   }
+
   public selectFile(event) {
     this.selectedFiles = event.target.files;
 
@@ -63,8 +61,8 @@ export class UploadFilesComponent implements OnInit {
          this.message = event.body.message;
 
         }
-        //this.router.navigate(['/upload']);
-        window.location.reload();
+        this.router.navigate(['/upload']);
+        //window.location.reload();
         //this.fileInfos = this.uploadService.getOwnedImages();
        
       },
