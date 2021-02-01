@@ -1,48 +1,33 @@
 package fr.formation.eprint.dtos;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.UUID;
-
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
-import fr.formation.eprint.entities.Address;
-import fr.formation.eprint.entities.CustomUser;
-import fr.formation.eprint.entities.Image;
-import fr.formation.eprint.entities.Order;
 import fr.formation.eprint.entities.Status;
 
 public class OrderCreateDto {
 
-private Long imageId;
-	
-    private String name;
-	
-    private int quantity;
-	
-    private float weight;
-    
-    private float price;
-    
-    private double totalPrice;
+	private Long imageId;
 
-    private String timeToPrint;
-    
-    private Status status;
-    
-    private long customUserId;
+	private String name;
+
+	private int quantity;
+
+	private float weight;
+
+	private float price;
+
+	private double totalPrice;
+
+	private String timeToPrint;
+
+	private Status status;
+
+	private long customUserId;
 
 	public OrderCreateDto() {
-		super();
-		// TODO Auto-generated constructor stub
+
 	}
 
-	public OrderCreateDto(String name, int quantity, float weight, float price, double totalPrice, Long imageId, Status status,  Long customUserId) {
+	public OrderCreateDto(String name, int quantity, float weight, float price, double totalPrice, Long imageId,
+			Status status, Long customUserId) {
 		super();
 		this.name = name;
 		this.quantity = quantity;
@@ -126,8 +111,4 @@ private Long imageId;
 		this.customUserId = customUserId;
 	}
 
-	
-
-	
-	
 }
