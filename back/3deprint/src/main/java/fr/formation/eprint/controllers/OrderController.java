@@ -7,13 +7,16 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.formation.eprint.dtos.OrderAdminViewDto;
+import fr.formation.eprint.dtos.OrderBillDto;
 import fr.formation.eprint.dtos.OrderCreateDto;
+import fr.formation.eprint.entities.Status;
 import fr.formation.eprint.services.OrderService;
 
 @RestController
@@ -31,6 +34,11 @@ public class OrderController {
 	@GetMapping("/vieworders")
 	public List<OrderAdminViewDto> getAll() {
 		return orderService.getAll();
+	}
+	
+	@GetMapping("/vieworder/{id}/{status}")
+	public List<OrderBillDto> getAllById(@PathVariable("id") Long id, @PathVariable("status") Status status) {
+		return orderService.getAllByIdAndStatus(id, status);
 	}
 	
 }

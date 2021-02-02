@@ -18,7 +18,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 	List<OrderAdminViewDto> findAllOrders(Sort sort);
 
 	@Query("SELECT o from Order o WHERE o.customUser.id = :customUserId AND o.status = :status")
-	List<OrderBillDto> getAllOrderByUserId(@Param("customUserId") Long customUserId, @Param("status") Status status);
+	List<OrderBillDto> getAllOrderByUserIdAndStatus(@Param("customUserId") Long customUserId, @Param("status") Status status);
 
 
 }

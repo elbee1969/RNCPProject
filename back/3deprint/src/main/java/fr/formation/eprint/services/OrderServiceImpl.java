@@ -9,10 +9,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import fr.formation.eprint.dtos.OrderAdminViewDto;
+import fr.formation.eprint.dtos.OrderBillDto;
 import fr.formation.eprint.dtos.OrderCreateDto;
 import fr.formation.eprint.entities.CustomUser;
 import fr.formation.eprint.entities.Image;
 import fr.formation.eprint.entities.Order;
+import fr.formation.eprint.entities.Status;
 import fr.formation.eprint.repositories.CustomUserJpaRepository;
 import fr.formation.eprint.repositories.ImageRepository;
 import fr.formation.eprint.repositories.OrderRepository;
@@ -56,5 +58,12 @@ public class OrderServiceImpl implements OrderService {
 		return orderRepository.findAllOrders(Sort.by("customUser.id"));
 
 	}
+
+	@Override
+	public List<OrderBillDto> getAllByIdAndStatus(Long id, Status status) {
+		return orderRepository.getAllOrderByUserIdAndStatus(id, status);
+	}
+
+
 
 }
