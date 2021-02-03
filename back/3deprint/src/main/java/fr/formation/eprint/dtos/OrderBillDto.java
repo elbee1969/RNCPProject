@@ -3,6 +3,8 @@ package fr.formation.eprint.dtos;
 import fr.formation.eprint.entities.Status;
 
 public class OrderBillDto {
+	
+	private Long id;
 
 	private Long imageId;
 
@@ -15,36 +17,47 @@ public class OrderBillDto {
 	private float price;
 
 	private double totalPrice;
+	
+	private double totaWeight;
 
 	private String timeToPrint;
 
 	private Status status;
 
-	private long customUserId;
+	private Long customUserId;
 
 	public OrderBillDto() {
 
 	}
 
-	public OrderBillDto(String name, int quantity, float weight, float price, double totalPrice, Long imageId,
-			Status status, Long customUserId) {
-		super();
+	public OrderBillDto(Long imageId, String name, int quantity, float weight, float price, double totalPrice,
+			double totaWeight, String timeToPrint, Status status, Long customUserId) {
+		this.imageId = imageId;
 		this.name = name;
 		this.quantity = quantity;
 		this.weight = weight;
 		this.price = price;
 		this.totalPrice = totalPrice;
-		this.imageId = imageId;
+		this.totaWeight = totaWeight;
+		this.timeToPrint = timeToPrint;
 		this.status = status;
 		this.customUserId = customUserId;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Long getImageId() {
 		return imageId;
 	}
 
-	public void setImageId(Long image) {
-		this.imageId = image;
+	public void setImageId(Long imageId) {
+		this.imageId = imageId;
 	}
 
 	public String getName() {
@@ -87,6 +100,14 @@ public class OrderBillDto {
 		this.totalPrice = totalPrice;
 	}
 
+	public double getTotaWeight() {
+		return totaWeight;
+	}
+
+	public void setTotaWeight(double totaWeight) {
+		this.totaWeight = totaWeight;
+	}
+
 	public String getTimeToPrint() {
 		return timeToPrint;
 	}
@@ -103,12 +124,13 @@ public class OrderBillDto {
 		this.status = status;
 	}
 
-	public long getCustomUserId() {
+	public Long getCustomUserId() {
 		return customUserId;
 	}
 
-	public void setCustomUserId(long customUserId) {
+	public void setCustomUserId(Long customUserId) {
 		this.customUserId = customUserId;
 	}
 
+	
 }

@@ -4,22 +4,23 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.ForeignKey;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.ForeignKey;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "bills", uniqueConstraints = {
 		@UniqueConstraint(name = "bills_reference_UNIQUE", columnNames = { "billRef" }) }, indexes = {
-				@Index(name = "bills_customUser_id_IDX", columnList = "customUser_id")})
+				@Index(name = "bills_customUser_id_IDX", columnList = "customUser_id") })
 public class Bill extends AbstractEntity {
 
 	@ManyToOne
@@ -32,13 +33,12 @@ public class Bill extends AbstractEntity {
 	@Column(name = "date", nullable = false)
 	private LocalDate orderDate;
 
-	@OneToMany
-	@Column(name = "orders", nullable = false)
+	@OneToMany(cascade = CascadeType.ALL, targetEntity = Order.class, mappedBy = "bill")
 	private List<Order> orders;
 
 	@Column(name = "totalPriceHT", columnDefinition = "DECIMAL(10, 2) UNSIGNED", nullable = false)
 	private double totalPriceHT;
-	
+
 	@Column(name = "totalPriceTTC", columnDefinition = "DECIMAL(10, 2) UNSIGNED", nullable = false)
 	private double totalPriceTTC;
 
@@ -50,8 +50,8 @@ public class Bill extends AbstractEntity {
 		// Default no-arg constructor for libs
 	}
 
-	public Bill(CustomUser customUser, UUID billRef, LocalDate orderDate, List<Order> orders,  double totalPriceHT,double totalPriceTTC,
-			Status status) {
+	public Bill(CustomUser customUser, UUID billRef, LocalDate orderDate, List<Order> orders, double totalPriceHT,
+			double totalPriceTTC, Status status) {
 		super();
 		this.customUser = customUser;
 		this.billRef = billRef;

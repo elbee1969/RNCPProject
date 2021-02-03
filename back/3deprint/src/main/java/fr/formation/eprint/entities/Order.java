@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 
 public class Order extends AbstractEntity {
 
@@ -44,8 +44,12 @@ public class Order extends AbstractEntity {
 	private Status status;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "customUser_id")
+	@JoinColumn(name = "customUser_id", nullable = false)
 	private CustomUser customUser;
+
+	@ManyToOne
+	@JoinColumn(name = "idBill")
+	private Bill bill;
 
 	public Order() {
 
@@ -53,7 +57,6 @@ public class Order extends AbstractEntity {
 
 	public Order(Image image, String name, int quantity, float weight, float price, double totalPrice,
 			double totalWeight, String timeToPrint, Status status, CustomUser customUser) {
-		super();
 		this.image = image;
 		this.name = name;
 		this.quantity = quantity;
