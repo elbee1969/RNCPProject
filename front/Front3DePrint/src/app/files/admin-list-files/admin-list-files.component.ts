@@ -8,6 +8,7 @@ import { Order } from 'src/app/model/Order';
 import { FormBuilder } from '@angular/forms';
 import { ThrowStmt } from '@angular/compiler';
 import { JsonpClientBackend } from '@angular/common/http';
+import { BillServiceService } from 'src/app/services/bill-service.service';
 @Component({
   selector: 'app-admin-list-files',
   templateUrl: './admin-list-files.component.html',
@@ -32,6 +33,7 @@ export class AdminListFilesComponent implements OnInit {
 
   constructor(private uploadService: UploadFileService,
               private orderService: OrderService,
+              private billService: BillServiceService,
               private route: ActivatedRoute,
               private formBuilder: FormBuilder,
               private router: Router) {
@@ -94,7 +96,7 @@ export class AdminListFilesComponent implements OnInit {
         console.log('result : ' + JSON.stringify(result));
         this.createBill();
 
-        //this.reloadPage();
+        this.reloadPage();
       },
       error => {
         console.log(error);
@@ -131,6 +133,8 @@ createBill(){
 console.log("bill to create");
   console.log('client id : ' + this.clientId);
   console.log(' order status : ' + this.status);
+
+  
 }
 
 reloadPage() {

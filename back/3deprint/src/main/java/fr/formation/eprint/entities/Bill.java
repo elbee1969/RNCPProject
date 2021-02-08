@@ -1,21 +1,22 @@
 package fr.formation.eprint.entities;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "bills", uniqueConstraints = {
@@ -27,15 +28,17 @@ public class Bill extends AbstractEntity {
 	@JoinColumn(name = "customUser_id", foreignKey = @ForeignKey(name = "Bills_customUser_id_FK"), nullable = false)
 	private CustomUser customUser;
 
-	@Column(name = "billRef", columnDefinition = "CHAR(36)", nullable = false)
-	private UUID billRef;
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "billRef", strategy = "uuid2")
+	@Column(nullable = false)
+	private String billRef;
 
 	@Column(name = "date", nullable = false)
 	private LocalDate orderDate;
 
 	@OneToMany
 	@Column(name = "orders", nullable = false)
-	private List<Order> orders = new ArrayList<>();
+	private List<Order> orders;
 
 	@Column(name = "totalPriceHT", columnDefinition = "DECIMAL(10, 2) UNSIGNED", nullable = false)
 	private double totalPriceHT;
@@ -51,9 +54,8 @@ public class Bill extends AbstractEntity {
 		// Default no-arg constructor for libs
 	}
 
-	public Bill(CustomUser customUser, UUID billRef, LocalDate orderDate, List<Order> orders, double totalPriceHT,
+	public Bill(CustomUser customUser, String billRef, LocalDate orderDate, List<Order> orders, double totalPriceHT,
 			double totalPriceTTC, Status status) {
-		super();
 		this.customUser = customUser;
 		this.billRef = billRef;
 		this.orderDate = orderDate;
@@ -71,11 +73,11 @@ public class Bill extends AbstractEntity {
 		this.customUser = customUser;
 	}
 
-	public UUID getBillRef() {
+	public String getBillRef() {
 		return billRef;
 	}
 
-	public void setBillRef(UUID billRef) {
+	public void setBillRef(String billRef) {
 		this.billRef = billRef;
 	}
 
