@@ -20,7 +20,7 @@
   </div>
    <div class="col-6"><div class="card">
       <div class="card-header">Liste des bons de commande à valider</div>
-      <p class="none" *ngIf="!orders">Aucune commande à valider</p>
+      <p class="none" *ngIf="isEmptyObject(orders)">Aucune commande à valider</p>
       <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
         <ul class="list-group list-group-flush" *ngFor="let order of orders;let i=index">
           <li class="list-group-item">

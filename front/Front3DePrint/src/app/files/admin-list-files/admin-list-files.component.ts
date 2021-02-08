@@ -80,32 +80,25 @@ export class AdminListFilesComponent implements OnInit {
         }
         console.log(" keys by record : " + nb);
         for (let i = 0 ; i < nb; i++){       
-          return this.orderService.updateOrder(this.editForm.value, result[i].id)
+          this.orderService.updateOrder(this.editForm.value, result[i].id)
           .subscribe(
             () => {
-              console.log('order' + result[i].id + ' updated successfully');
-              //this.create();
-              //this.router.navigate(['/adminfiles']);
-              //return
+              console.log('order ' + result[i].id + ' updated successfully');
+              return;
             },
             error => {
               console.log(error);
             });
         }
-        /*
-
-        for (let i = 0; i < this.taille; i++){
-        }
-        */
         console.log('get order successfully');
         console.log('result : ' + JSON.stringify(result));
-        //this.create();
-        this.router.navigate(['/adminfiles']);
+        this.createBill();
+
+        //this.reloadPage();
       },
       error => {
         console.log(error);
       });
-      
     console.log ("id clientinit : " + this.clientId);
     console.log("status : " + this.status);
   }
@@ -134,4 +127,17 @@ validateOrder(id: number, status: string) {
   this.status = status;
 }
 
+createBill(){
+console.log("bill to create");
+  console.log('client id : ' + this.clientId);
+  console.log(' order status : ' + this.status);
+}
+
+reloadPage() {
+  window.location.reload();
+  };
+
+  isEmptyObject(obj) {
+    return (obj && (Object.keys(obj).length === 0));
+  }
 }
