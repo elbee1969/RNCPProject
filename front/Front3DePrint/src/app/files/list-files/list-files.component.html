@@ -2,6 +2,7 @@
 <div class="row">
   <div class="col-sm-6"><div class="card">
     <div class="card-header">Liste des images chargées</div>
+        <p class="none" *ngIf="isEmptyObject(imageIs)">Aucune image chargée</p>
       <ul  class="list-group list-group-flush" *ngFor="let image of imageIs">
         <li class="list-group-item">
           <p>{{ image.name }} </p>

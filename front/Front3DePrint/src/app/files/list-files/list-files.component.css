@@ -6,3 +6,7 @@ p span {
 p span:nth-child(2n) {
     color: red;
 }
+
+.none {
+    text-align: center;
+}

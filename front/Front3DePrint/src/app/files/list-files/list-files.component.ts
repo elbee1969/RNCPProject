@@ -86,6 +86,8 @@ ngOnInit() {
           console.log(error);
         });
   }
-
+  isEmptyObject(obj) {
+    return (obj && (Object.keys(obj).length === 0));
+  }
 
 }  

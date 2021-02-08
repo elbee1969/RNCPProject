@@ -92,11 +92,12 @@ export class AdminListFilesComponent implements OnInit {
               console.log(error);
             });
         }
+        console.log("cpt : " + nb);
         console.log('get order successfully');
         console.log('result : ' + JSON.stringify(result));
         this.createBill();
 
-        this.reloadPage();
+
       },
       error => {
         console.log(error);
@@ -133,7 +134,7 @@ createBill(){
 console.log("bill to create");
   console.log('client id : ' + this.clientId);
   console.log(' order status : ' + this.status);
-
+  this.reloadPage();
   
 }
 
