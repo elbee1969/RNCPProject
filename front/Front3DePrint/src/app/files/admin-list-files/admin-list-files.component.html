@@ -19,20 +19,23 @@
     </div>
   </div>
    <div class="col-6"><div class="card">
-       <div class="card-header">Liste des bons de commande à valider</div>
-       <p class="none" *ngIf="!orders">Aucune commande à valider</p>
-      <ul class="list-group list-group-flush" *ngFor="let order of orders;let i=index">
-        <li class="list-group-item">
-          <p class="order" *ngIf="i>0 && orders[i-1].customUser.id==order.customUser.id?'':order.customUser.id"> commande du client : 
-          {{ order.customUser.id}}
-          <button (click) = "validateOrder(order.id)" class="btn btn-info float-right" style="margin-left: 10px">valider commande</button>
-          </p>
-          <p> Nom de l'image : {{i>0 && orders[i-1].name==order.name?'':order.name}}</p>
-          <p>Quantité à imprimer : {{order.quantity}}</p>
-          <p>temps total d'impression : {{ order.timeToPrint}}</p>
-          <p>Poids total : {{ order.totalWeight }} gs</p>
-          <p>Prix total : {{ order.totalPrice }} €</p>
-        </li>
-      </ul>
+      <div class="card-header">Liste des bons de commande à valider</div>
+      <p class="none" *ngIf="!orders">Aucune commande à valider</p>
+      <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+        <ul class="list-group list-group-flush" *ngFor="let order of orders;let i=index">
+          <li class="list-group-item">
+            <p class="order" *ngIf="i>0 && orders[i-1].customUser.id==order.customUser.id?'':order.customUser.id"> commande du client : 
+            {{ order.customUser.id}}
+            <button (click) = "validateOrder(order.customUser.id, order.status)" class="btn btn-info float-right" style="margin-left: 10px">valider commande</button>
+            </p>
+            <p> Nom de l'image : {{i>0 && orders[i-1].name==order.name?'':order.name}}</p>
+            <p>Quantité à imprimer : {{order.quantity}}</p>
+            <p>temps total d'impression : {{ order.timeToPrint}}</p>
+            <p>Poids total : {{ order.totalWeight }} gs</p>
+            <p>Prix total : {{ order.totalPrice }} €</p>
+            <p>, {{ order.id }}, {{order.status}}</p>
+          </li>
+        </ul>
+      </form>
    </div>
 </div>

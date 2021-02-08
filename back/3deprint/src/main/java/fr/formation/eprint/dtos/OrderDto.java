@@ -2,8 +2,8 @@ package fr.formation.eprint.dtos;
 
 import fr.formation.eprint.entities.Status;
 
-public class OrderBillDto {
-	
+public class OrderDto {
+
 	private Long id;
 
 	private Long imageId;
@@ -17,7 +17,7 @@ public class OrderBillDto {
 	private float price;
 
 	private double totalPrice;
-	
+
 	private double totaWeight;
 
 	private String timeToPrint;
@@ -26,12 +26,14 @@ public class OrderBillDto {
 
 	private Long customUserId;
 
-	public OrderBillDto() {
+	public OrderDto() {
 
 	}
 
-	public OrderBillDto(Long imageId, String name, int quantity, float weight, float price, double totalPrice,
+	public OrderDto(Long id, Long imageId, String name, int quantity, float weight, float price, double totalPrice,
 			double totaWeight, String timeToPrint, Status status, Long customUserId) {
+
+		this.id = id;
 		this.imageId = imageId;
 		this.name = name;
 		this.quantity = quantity;
@@ -132,5 +134,4 @@ public class OrderBillDto {
 		this.customUserId = customUserId;
 	}
 
-	
 }

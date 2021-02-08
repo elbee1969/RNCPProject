@@ -1,19 +1,12 @@
 package fr.formation.eprint.dtos;
 
-import java.util.Date;
-
-import javax.persistence.PrePersist;
-
 import fr.formation.eprint.entities.Status;
 
 public class ImagePatchDto {
 
 	private Status status;
 	private int quantity;
-//	private Date date;
 
-	// private byte[] data;
-	// private CustomUser customUser;
 	public ImagePatchDto() {
 
 	}

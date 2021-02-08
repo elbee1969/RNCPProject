@@ -1,10 +1,10 @@
 package fr.formation.eprint.entities;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -33,8 +33,9 @@ public class Bill extends AbstractEntity {
 	@Column(name = "date", nullable = false)
 	private LocalDate orderDate;
 
-	@OneToMany(cascade = CascadeType.ALL, targetEntity = Order.class, mappedBy = "bill")
-	private List<Order> orders;
+	@OneToMany
+	@Column(name = "orders", nullable = false)
+	private List<Order> orders = new ArrayList<>();
 
 	@Column(name = "totalPriceHT", columnDefinition = "DECIMAL(10, 2) UNSIGNED", nullable = false)
 	private double totalPriceHT;
@@ -86,11 +87,11 @@ public class Bill extends AbstractEntity {
 		this.orderDate = orderDate;
 	}
 
-	public List<Order> getItems() {
+	public List<Order> getOrders() {
 		return orders;
 	}
 
-	public void setItems(List<Order> orders) {
+	public void setOrders(List<Order> orders) {
 		this.orders = orders;
 	}
 

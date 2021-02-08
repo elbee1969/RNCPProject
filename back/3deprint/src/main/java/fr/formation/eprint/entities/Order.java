@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 public class Order extends AbstractEntity {
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "image_id", nullable = false)
 	private Image image;
 
@@ -46,10 +46,6 @@ public class Order extends AbstractEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "customUser_id", nullable = false)
 	private CustomUser customUser;
-
-	@ManyToOne
-	@JoinColumn(name = "idBill")
-	private Bill bill;
 
 	public Order() {
 

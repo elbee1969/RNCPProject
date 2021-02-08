@@ -48,21 +48,23 @@ export class PrintImageComponent implements OnInit {
     this.uploadService.showCurrentImage(this.imageId).subscribe(result => {
     this.image = result;
     this.imageName = this.image.name;
-      this.customUserId = this.image.customUserId;
+    this.customUserId = this.image.customUserId;
     this.quantity = this.image.quantity;
       console.log("imageName : " + this.imageName);
       console.log("quantity : " + this.quantity);
-    console.log ("image : " + JSON.stringify(this.image));
+      console.log ("image : " + JSON.stringify(this.image));
     
       this.userService.getOne(this.customUserId).subscribe(result => {
       this.user = result;
       console.log("user : " + JSON.stringify(this.user));
       this.userName = this.user.username;
-      console.log("username : " + this.userName);
-        
-    })
+      console.log("username : " + this.userName);  
+    },
+        error => console.log(error)
+    );
     
     });
+    
     this.editForm = this.formBuilder.group({
       status: ['A']
     });

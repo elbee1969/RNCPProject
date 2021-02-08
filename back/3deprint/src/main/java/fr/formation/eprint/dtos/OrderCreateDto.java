@@ -26,15 +26,14 @@ public class OrderCreateDto {
 
 	}
 
-	public OrderCreateDto(String name, int quantity, float weight, float price, double totalPrice, Long imageId,
+	public OrderCreateDto(Long imageId, String name, int quantity, float weight, float price, double totalPrice,
 			Status status, Long customUserId) {
-		super();
+		this.imageId = imageId;
 		this.name = name;
 		this.quantity = quantity;
 		this.weight = weight;
 		this.price = price;
 		this.totalPrice = totalPrice;
-		this.imageId = imageId;
 		this.status = status;
 		this.customUserId = customUserId;
 	}

@@ -14,6 +14,10 @@ const httpOptions = {
 })
 export class OrderService {
 
+  updateOrder(order: Order, id: number) {
+    return this.http.patch<any>(API_ORDER_URL + `/updatevalidated/${id}`, order, httpOptions);
+  }
+
   constructor(private http: HttpClient) { }
 
   createOrder(order: Order): Observable<ApiResponse> {
@@ -23,5 +27,13 @@ export class OrderService {
   listOrder(): Observable<Order> {
     return this.http.get<Order>(API_ORDER_URL + '/vieworders');
 
+  }
+
+  getOrders(id: number, status: string): Observable<Order> {
+    return this.http.get<Order>(API_ORDER_URL + `/vieworders/${id}/${status}`);  
+  }
+
+  getOrder(id: number): Observable<Order> {
+    return this.http.get<Order>(API_ORDER_URL + `/vieworder/${id}`);
   }
 }
