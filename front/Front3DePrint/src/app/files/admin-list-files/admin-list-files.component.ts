@@ -30,6 +30,7 @@ export class AdminListFilesComponent implements OnInit {
   orders: Order;
   taille: any;
   data: Order;
+  dataB: import("h:/RNCPProject/front/Front3DePrint/src/app/model/api.response").ApiResponse;
 
   constructor(private uploadService: UploadFileService,
               private orderService: OrderService,
@@ -95,7 +96,7 @@ export class AdminListFilesComponent implements OnInit {
         console.log("cpt : " + nb);
         console.log('get order successfully');
         console.log('result : ' + JSON.stringify(result));
-        this.createBill();
+        this.createBill(this.clientId, this.status);
 
 
       },
@@ -130,10 +131,17 @@ validateOrder(id: number, status: string) {
   this.status = status;
 }
 
-createBill(){
+  createBill(id, status){
 console.log("bill to create");
   console.log('client id : ' + this.clientId);
   console.log(' order status : ' + this.status);
+  this.billService.createBill(id, status).subscribe(result => {
+    this.dataB = result;
+    console.log("result " + JSON.stringify(result));
+    console.log('bill created');
+  },
+    error => console.log(error)
+  );
   this.reloadPage();
   
 }

@@ -1,18 +1,16 @@
 package fr.formation.eprint.dtos;
 
 import java.time.LocalDate;
-import java.util.List;
 
-import fr.formation.eprint.entities.CustomUser;
-import fr.formation.eprint.entities.Order;
+import fr.formation.eprint.entities.Status;
 
-public class BillCreateDto {
+public class BillDto {
 
-	private CustomUser customUser;
+	private Long id;
+
+	private Long customUserId;
 
 	private LocalDate billDate;
-
-	private List<Order> orders;
 
 	private double totalPriceHT;
 
@@ -22,28 +20,39 @@ public class BillCreateDto {
 
 	private int totalItem;
 
-	public BillCreateDto() {
+	private Status status;
+
+	public BillDto() {
 
 	}
 
-	public BillCreateDto(CustomUser customUser, LocalDate billDate, List<Order> orders, double totalPriceHT,
-			double totalPriceTTC, double totalWeight, int totalItem) {
+	public BillDto(Long id, Long customUserId, LocalDate billDate, double totalPriceHT, double totalPriceTTC,
+			double totalWeight, int totalItem, Status status) {
 		super();
-		this.customUser = customUser;
+		this.id = id;
+		this.customUserId = customUserId;
 		this.billDate = billDate;
-		this.orders = orders;
 		this.totalPriceHT = totalPriceHT;
 		this.totalPriceTTC = totalPriceTTC;
 		this.totalWeight = totalWeight;
 		this.totalItem = totalItem;
+		this.status = status;
 	}
 
-	public CustomUser getCustomUser() {
-		return customUser;
+	public Long getId() {
+		return id;
 	}
 
-	public void setCustomUser(CustomUser customUser) {
-		this.customUser = customUser;
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Long getCustomUserId() {
+		return customUserId;
+	}
+
+	public void setCustomUserId(Long customUserId) {
+		this.customUserId = customUserId;
 	}
 
 	public LocalDate getBillDate() {
@@ -52,14 +61,6 @@ public class BillCreateDto {
 
 	public void setBillDate(LocalDate billDate) {
 		this.billDate = billDate;
-	}
-
-	public List<Order> getOrders() {
-		return orders;
-	}
-
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
 	}
 
 	public double getTotalPriceHT() {
@@ -92,6 +93,14 @@ public class BillCreateDto {
 
 	public void setTotalItem(int totalItem) {
 		this.totalItem = totalItem;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 
 }

@@ -7,12 +7,12 @@ import javax.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import fr.formation.eprint.dtos.OrderAdminViewDto;
 import fr.formation.eprint.dtos.OrderCreateDto;
 import fr.formation.eprint.dtos.OrderDto;
 import fr.formation.eprint.dtos.OrderPatchDto;
+import fr.formation.eprint.dtos.OrderViewItemDto;
 import fr.formation.eprint.entities.CustomUser;
 import fr.formation.eprint.entities.Image;
 import fr.formation.eprint.entities.Order;
@@ -62,7 +62,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<OrderDto> getAllByIdAndStatus(@PathVariable("id") Long id, @PathVariable("status") Status status) {
+	public List<OrderDto> getAllByIdAndStatus(Long id, Status status) {
 		return orderRepository.getAllOrderByUserIdAndStatus(id, status);
 	}
 
@@ -78,6 +78,12 @@ public class OrderServiceImpl implements OrderService {
 	public OrderAdminViewDto getOne(Long id) {
 		// TODO Auto-generated method stub
 		return orderRepository.getById(id);
+	}
+
+	@Override
+	public List<OrderViewItemDto> getAllById(Long id) {
+		// TODO Auto-generated method stub
+		return orderRepository.getByBillId(id);
 	}
 
 }

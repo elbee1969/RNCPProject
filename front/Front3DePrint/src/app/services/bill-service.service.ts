@@ -7,7 +7,7 @@ import { Order } from '../model/Order';
 
 
 
-const API_ORDER_URL = 'http://localhost:9090/api/bill';
+const API_BILL_URL = 'http://localhost:9090/api/bills';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -20,7 +20,16 @@ export class BillServiceService {
   constructor(private http: HttpClient) { }
 
 
-  createOrder(bill: Bill, id: number, status: string): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(API_ORDER_URL + `/${id}/${status}`, bill, httpOptions);
+  createBill(id: number, status: string): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(API_BILL_URL + `/${id}/${status}`);
+  }
+
+  getBill(id: number, status: string): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(API_BILL_URL + `/bill/${id}/${status}`);
+  }
+
+  listBills(): Observable<Bill> {
+    return this.http.get<Bill>(API_BILL_URL + '/viewbills');
+
   }
 }

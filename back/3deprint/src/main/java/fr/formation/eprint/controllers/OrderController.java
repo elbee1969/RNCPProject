@@ -18,12 +18,13 @@ import fr.formation.eprint.dtos.OrderAdminViewDto;
 import fr.formation.eprint.dtos.OrderCreateDto;
 import fr.formation.eprint.dtos.OrderDto;
 import fr.formation.eprint.dtos.OrderPatchDto;
+import fr.formation.eprint.dtos.OrderViewItemDto;
 import fr.formation.eprint.entities.Status;
 import fr.formation.eprint.services.OrderService;
 
 @RestController
 @PreAuthorize("hasRole('ADMIN')") // == must be ADMIN
-@RequestMapping("/order") // "/api/private/*"
+@RequestMapping("/orders") // "/api/private/*"
 public class OrderController {
 
 	@Autowired
@@ -60,9 +61,19 @@ public class OrderController {
 		return orderService.getAllByIdAndStatus(id, status);
 	}
 
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@GetMapping("/vieworder/{id}")
 	public OrderAdminViewDto getOrder(@PathVariable("id") Long id) {
 		return orderService.getOne(id);
+	}
+
+	@GetMapping("/viewitemsorder/{id}")
+	public List<OrderViewItemDto> getItem(@PathVariable("id") Long id) {
+		return orderService.getAllById(id);
 	}
 
 	/**

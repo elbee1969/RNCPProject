@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { ApiResponse } from '../model/api.response';
 import { Order } from '../model/Order';
 
-const API_ORDER_URL = 'http://localhost:9090/api/order';
+const API_ORDER_URL = 'http://localhost:9090/api/orders';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -35,5 +35,9 @@ export class OrderService {
 
   getOrder(id: number): Observable<Order> {
     return this.http.get<Order>(API_ORDER_URL + `/vieworder/${id}`);
+  }
+
+  getItemOrder(id: number): Observable<Order> {
+    return this.http.get<Order>(API_ORDER_URL + `/viewitemsorder/${id}`);
   }
 }

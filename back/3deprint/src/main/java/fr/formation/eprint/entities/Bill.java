@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ForeignKey;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -16,11 +15,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import org.hibernate.annotations.GenericGenerator;
-
 @Entity
 @Table(name = "bills", uniqueConstraints = {
-		@UniqueConstraint(name = "bills_reference_UNIQUE", columnNames = { "billRef" }) }, indexes = {
+		@UniqueConstraint(name = "bills_reference_UNIQUE", columnNames = { "id" }) }, indexes = {
 				@Index(name = "bills_customUser_id_IDX", columnList = "customUser_id") })
 public class Bill extends AbstractEntity {
 
@@ -28,13 +25,8 @@ public class Bill extends AbstractEntity {
 	@JoinColumn(name = "customUser_id", foreignKey = @ForeignKey(name = "Bills_customUser_id_FK"), nullable = false)
 	private CustomUser customUser;
 
-	@GeneratedValue(generator = "uuid")
-	@GenericGenerator(name = "billRef", strategy = "uuid2")
-	@Column(nullable = false)
-	private String billRef;
-
 	@Column(name = "date", nullable = false)
-	private LocalDate orderDate;
+	private LocalDate billDate;
 
 	@OneToMany
 	@Column(name = "orders", nullable = false)
@@ -46,23 +38,31 @@ public class Bill extends AbstractEntity {
 	@Column(name = "totalPriceTTC", columnDefinition = "DECIMAL(10, 2) UNSIGNED", nullable = false)
 	private double totalPriceTTC;
 
+	@Column(name = "totalWeight", columnDefinition = "DECIMAL(10, 2) UNSIGNED", nullable = false)
+	private double totalWeight;
+
+	@Column(name = "totalItem", nullable = false)
+	private int totalItem;
+
 	@Enumerated(EnumType.STRING)
 	@Column(columnDefinition = "ENUM('I','C','V','A')", length = 1, nullable = false)
 	private Status status;
 
-	public Bill() {
-		// Default no-arg constructor for libs
-	}
+	public Bill(CustomUser customUser, LocalDate billDate, List<Order> orders, double totalPriceHT,
+			double totalPriceTTC, double totalWeight, int totalItem, Status status) {
 
-	public Bill(CustomUser customUser, String billRef, LocalDate orderDate, List<Order> orders, double totalPriceHT,
-			double totalPriceTTC, Status status) {
 		this.customUser = customUser;
-		this.billRef = billRef;
-		this.orderDate = orderDate;
+		this.billDate = billDate;
 		this.orders = orders;
 		this.totalPriceHT = totalPriceHT;
 		this.totalPriceTTC = totalPriceTTC;
+		this.totalWeight = totalWeight;
+		this.totalItem = totalItem;
 		this.status = status;
+	}
+
+	public Bill() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public CustomUser getCustomUser() {
@@ -73,20 +73,12 @@ public class Bill extends AbstractEntity {
 		this.customUser = customUser;
 	}
 
-	public String getBillRef() {
-		return billRef;
+	public LocalDate getBillDate() {
+		return billDate;
 	}
 
-	public void setBillRef(String billRef) {
-		this.billRef = billRef;
-	}
-
-	public LocalDate getOrderDate() {
-		return orderDate;
-	}
-
-	public void setOrderDate(LocalDate orderDate) {
-		this.orderDate = orderDate;
+	public void setBillDate(LocalDate billDate) {
+		this.billDate = billDate;
 	}
 
 	public List<Order> getOrders() {
@@ -111,6 +103,22 @@ public class Bill extends AbstractEntity {
 
 	public void setTotalPriceTTC(double totalPriceTTC) {
 		this.totalPriceTTC = totalPriceTTC;
+	}
+
+	public double getTotalWeight() {
+		return totalWeight;
+	}
+
+	public void setTotalWeight(double totalWeight) {
+		this.totalWeight = totalWeight;
+	}
+
+	public int getTotalItem() {
+		return totalItem;
+	}
+
+	public void setTotalItem(int totalItem) {
+		this.totalItem = totalItem;
 	}
 
 	public Status getStatus() {

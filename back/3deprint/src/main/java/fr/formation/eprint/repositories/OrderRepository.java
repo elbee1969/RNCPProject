@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 import fr.formation.eprint.dtos.OrderAdminViewDto;
 import fr.formation.eprint.dtos.OrderDto;
+import fr.formation.eprint.dtos.OrderViewItemDto;
 import fr.formation.eprint.entities.Order;
 import fr.formation.eprint.entities.Status;
 
@@ -24,5 +25,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
 	OrderAdminViewDto getById(Long id);
 
-	// Image, String, int, float, float, double, double, String, Status, CustomUser
+	@Query(value = "SELECT o.name, o.price, o.quantity FROM orders AS o INNER JOIN bills_orders AS j on (j.orders_id = o.id and j.bill_id = :id)", nativeQuery = true)
+	List<OrderViewItemDto> getByBillId(@Param("id") Long id);
+
 }

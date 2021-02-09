@@ -8,6 +8,7 @@ import fr.formation.eprint.dtos.OrderAdminViewDto;
 import fr.formation.eprint.dtos.OrderCreateDto;
 import fr.formation.eprint.dtos.OrderDto;
 import fr.formation.eprint.dtos.OrderPatchDto;
+import fr.formation.eprint.dtos.OrderViewItemDto;
 import fr.formation.eprint.entities.Status;
 
 public interface OrderService {
@@ -21,5 +22,7 @@ public interface OrderService {
 	void update(Long id, @Valid OrderPatchDto dto);
 
 	OrderAdminViewDto getOne(Long id);
+
+	List<OrderViewItemDto> getAllById(Long id);
 
 }
