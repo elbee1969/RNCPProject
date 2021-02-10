@@ -18,7 +18,7 @@ public class OrderDto {
 
 	private double totalPrice;
 
-	private double totaWeight;
+	private double totalWeight;
 
 	private String timeToPrint;
 
@@ -31,7 +31,7 @@ public class OrderDto {
 	}
 
 	public OrderDto(Long id, Long imageId, String name, int quantity, float weight, float price, double totalPrice,
-			double totaWeight, String timeToPrint, Status status, Long customUserId) {
+			double totalWeight, String timeToPrint, Status status, Long customUserId) {
 
 		this.id = id;
 		this.imageId = imageId;
@@ -40,7 +40,7 @@ public class OrderDto {
 		this.weight = weight;
 		this.price = price;
 		this.totalPrice = totalPrice;
-		this.totaWeight = totaWeight;
+		this.totalWeight = totalWeight;
 		this.timeToPrint = timeToPrint;
 		this.status = status;
 		this.customUserId = customUserId;
@@ -102,12 +102,12 @@ public class OrderDto {
 		this.totalPrice = totalPrice;
 	}
 
-	public double getTotaWeight() {
-		return totaWeight;
+	public double getTotalWeight() {
+		return totalWeight;
 	}
 
-	public void setTotaWeight(double totaWeight) {
-		this.totaWeight = totaWeight;
+	public void setTotalWeight(double totalWeight) {
+		this.totalWeight = totalWeight;
 	}
 
 	public String getTimeToPrint() {

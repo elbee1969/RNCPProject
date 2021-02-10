@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BillServiceService } from '../services/bill-service.service';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -9,7 +10,9 @@ import { UserService } from '../services/user.service';
 export class BoardAdminComponent implements OnInit {
   content: string;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService,
+              private billService: BillServiceService
+            ) { }
 
   ngOnInit() {
     this.userService.getAdminBoard().subscribe(
@@ -20,6 +23,12 @@ export class BoardAdminComponent implements OnInit {
       err => {
         this.content = err.error.message;
       }
-    );
+    )
   }
+
+
+
+
+
+  
 }

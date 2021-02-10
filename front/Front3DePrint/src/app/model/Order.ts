@@ -7,6 +7,7 @@ export class Order {
     quantity: number;
     weight: number;
     price: number;
+    totalWeight: number;
     totalPrice: number;
     timeToPrint: string;
     status: Status;

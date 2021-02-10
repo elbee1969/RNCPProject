@@ -6,7 +6,7 @@ public interface BillAdminViewDto {
 
 	Long getId();
 
-	Long getCustomUserId();
+	CustomUserIdNameDto getCustomUser();
 
 	LocalDate getBillDate();
 

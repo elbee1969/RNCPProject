@@ -25,4 +25,6 @@ public interface OrderService {
 
 	List<OrderViewItemDto> getAllById(Long id);
 
+	void deleteOne(Long id);
+
 }

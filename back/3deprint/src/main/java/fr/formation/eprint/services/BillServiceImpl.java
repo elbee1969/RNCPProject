@@ -51,9 +51,14 @@ public class BillServiceImpl implements BillService {
 
 		List<OrderDto> orders = orderService.getAllByIdAndStatus(userId, status);
 		nbItem = orders.size();
+
+		if (nbItem == 0) {
+			nbItem = 1;
+		}
+
 		for (i = 0; i < nbItem; i++) {
 			HT = +orders.get(i).getTotalPrice();
-			Weight = +orders.get(i).getTotaWeight();
+			Weight = +orders.get(i).getTotalWeight();
 		}
 		TTC = HT * TVA;
 		Bill bill = new Bill();
@@ -76,6 +81,7 @@ public class BillServiceImpl implements BillService {
 
 	@Override
 	public List<BillAdminViewDto> getAll() {
+
 		return billRepo.findAllBills(Sort.by("customUser.id"));
 	}
 

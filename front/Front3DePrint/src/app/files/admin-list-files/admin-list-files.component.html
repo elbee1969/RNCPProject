@@ -19,14 +19,14 @@
     </div>
   </div>
    <div class="col-6"><div class="card">
-      <div class="card-header">Liste des bons de commande à valider</div>
-      <p class="none" *ngIf="isEmptyObject(orders)">Aucune commande à valider</p>
+      <div class="card-header">Liste des devis à envoyer</div>
+      <p class="none" *ngIf="isEmptyObject(orders)">Aucun devis</p>
       <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
         <ul class="list-group list-group-flush" *ngFor="let order of orders;let i=index">
           <li class="list-group-item">
-            <p class="order" *ngIf="i>0 && orders[i-1].customUser.id==order.customUser.id?'':order.customUser.id"> commande du client : 
+            <p class="order" *ngIf="i>0 && orders[i-1].customUser.id==order.customUser.id?'':order.customUser.id"> Devis du client : 
             {{ order.customUser.id}}
-            <button (click) = "validateOrder(order.customUser.id, order.status)" class="btn btn-info float-right" style="margin-left: 10px">valider commande</button>
+            <button (click) = "validateOrder(order.customUser.id, order.status)" class="btn btn-info float-right" style="margin-left: 10px">Envoyer</button>
             </p>
             <p> Nom de l'image : {{i>0 && orders[i-1].name==order.name?'':order.name}}</p>
             <p>Quantité à imprimer : {{order.quantity}}</p>

@@ -16,6 +16,8 @@ public class OrderCreateDto {
 
 	private double totalPrice;
 
+	private double totalWeight;
+
 	private String timeToPrint;
 
 	private Status status;
@@ -27,13 +29,15 @@ public class OrderCreateDto {
 	}
 
 	public OrderCreateDto(Long imageId, String name, int quantity, float weight, float price, double totalPrice,
-			Status status, Long customUserId) {
+			double totalWeight, String timeToPrint, Status status, long customUserId) {
 		this.imageId = imageId;
 		this.name = name;
 		this.quantity = quantity;
 		this.weight = weight;
 		this.price = price;
 		this.totalPrice = totalPrice;
+		this.totalWeight = totalWeight;
+		this.timeToPrint = timeToPrint;
 		this.status = status;
 		this.customUserId = customUserId;
 	}
@@ -42,8 +46,8 @@ public class OrderCreateDto {
 		return imageId;
 	}
 
-	public void setImageId(Long image) {
-		this.imageId = image;
+	public void setImageId(Long imageId) {
+		this.imageId = imageId;
 	}
 
 	public String getName() {
@@ -84,6 +88,14 @@ public class OrderCreateDto {
 
 	public void setTotalPrice(double totalPrice) {
 		this.totalPrice = totalPrice;
+	}
+
+	public double getTotalWeight() {
+		return totalWeight;
+	}
+
+	public void setTotalWeight(double totalWeight) {
+		this.totalWeight = totalWeight;
 	}
 
 	public String getTimeToPrint() {

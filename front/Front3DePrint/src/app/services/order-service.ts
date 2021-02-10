@@ -25,7 +25,7 @@ export class OrderService {
   }
 
   listOrder(): Observable<Order> {
-    return this.http.get<Order>(API_ORDER_URL + '/vieworders');
+    return this.http.get<Order>(API_ORDER_URL + '/viewordersI');
 
   }
 
@@ -39,5 +39,9 @@ export class OrderService {
 
   getItemOrder(id: number): Observable<Order> {
     return this.http.get<Order>(API_ORDER_URL + `/viewitemsorder/${id}`);
+  }
+
+  deleteOrder(id) {
+    return this.http.delete(API_ORDER_URL + `/deleteorder/${id}`);
   }
 }

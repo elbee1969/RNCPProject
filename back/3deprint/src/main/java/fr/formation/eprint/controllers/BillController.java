@@ -22,7 +22,7 @@ public class BillController {
 	@Autowired
 	private BillService billService;
 
-	@GetMapping("/{id}/{status}")
+	@GetMapping("/create/{id}/{status}")
 	public void createBill(@PathVariable("id") Long id, @PathVariable("status") Status status) {
 		billService.create(id, status);
 	}

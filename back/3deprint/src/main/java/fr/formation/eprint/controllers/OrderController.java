@@ -1,11 +1,13 @@
 package fr.formation.eprint.controllers;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,7 +46,7 @@ public class OrderController {
 	 * 
 	 * @return
 	 */
-	@GetMapping("/vieworders")
+	@GetMapping("/viewordersI")
 	public List<OrderAdminViewDto> getAll() {
 		return orderService.getAll();
 	}
@@ -56,6 +58,7 @@ public class OrderController {
 	 * @param status
 	 * @return
 	 */
+	@PreAuthorize("hasRole('USER')") // == @Secured("ROLE_USER")
 	@GetMapping("/vieworders/{id}/{status}")
 	public List<OrderDto> getAllById(@PathVariable("id") Long id, @PathVariable("status") Status status) {
 		return orderService.getAllByIdAndStatus(id, status);
@@ -71,6 +74,11 @@ public class OrderController {
 		return orderService.getOne(id);
 	}
 
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@GetMapping("/viewitemsorder/{id}")
 	public List<OrderViewItemDto> getItem(@PathVariable("id") Long id) {
 		return orderService.getAllById(id);
@@ -85,4 +93,16 @@ public class OrderController {
 	public void update(@PathVariable("id") Long id, @Valid @RequestBody OrderPatchDto dto) {
 		orderService.update(id, dto);
 	}
+
+	/**
+	 * 
+	 * @param id
+	 * @throws IOException
+	 */
+	@PreAuthorize("hasRole('USER')") // == @Secured("ROLE_USER")
+	@DeleteMapping("/deleteorder/{id}")
+	public void deleteImage(@PathVariable("id") Long id) throws IOException {
+		orderService.deleteOne(id);
+	}
+
 }

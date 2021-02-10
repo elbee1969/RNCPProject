@@ -19,5 +19,5 @@ public interface BillRepository extends JpaRepository<Bill, Long> {
 	List<BillDto> getAllBillByUserIdAndStatus(@Param("customUserId") Long customUserId, @Param("status") Status status);
 
 	@Query(value = "SELECT b FROM Bill b WHERE b.status ='I'")
-	List<BillAdminViewDto> findAllBills(Sort by);
+	List<BillAdminViewDto> findAllBills(Sort sort);
 }

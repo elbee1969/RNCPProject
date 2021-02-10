@@ -44,9 +44,10 @@ public class OrderServiceImpl implements OrderService {
 		Order order = new Order();
 		mapper.map(dto, order);
 		float p = dto.getPrice();
+		p = p + (p / 2);
 		int q = dto.getQuantity();
 		float w = dto.getWeight();
-		Double totalPrice = (double) (q * p + p / 2);
+		Double totalPrice = (double) (q * p);
 		Double totalWeight = (double) (q * w);
 		order.setImage(image);
 		order.setCustomUser(user);
@@ -82,8 +83,13 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public List<OrderViewItemDto> getAllById(Long id) {
-		// TODO Auto-generated method stub
 		return orderRepository.getByBillId(id);
+	}
+
+	@Override
+	public void deleteOne(Long id) {
+		orderRepository.deleteById(id);
+
 	}
 
 }
