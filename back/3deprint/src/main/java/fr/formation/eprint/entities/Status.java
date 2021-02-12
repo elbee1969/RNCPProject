@@ -4,7 +4,7 @@ public enum Status {
 	I, // Initial
 	C, // Choosed
 	V, // Validated
-	A; // Archieved
-	
-	
+	A, // Archieved
+	O; // Over
+
 }

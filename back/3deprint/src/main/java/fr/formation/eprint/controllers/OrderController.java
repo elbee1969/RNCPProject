@@ -47,8 +47,19 @@ public class OrderController {
 	 * @return
 	 */
 	@GetMapping("/viewordersI")
-	public List<OrderAdminViewDto> getAll() {
-		return orderService.getAll();
+	public List<OrderAdminViewDto> getAllOrderI() {
+		return orderService.getAllI();
+	}
+
+	/**
+	 * 
+	 * get all orders with status = A
+	 * 
+	 * @return
+	 */
+	@GetMapping("/viewordersA")
+	public List<OrderAdminViewDto> getAllOrderA() {
+		return orderService.getAllA();
 	}
 
 	/**
@@ -61,7 +72,7 @@ public class OrderController {
 	@PreAuthorize("hasAnyRole('USER','ADMIN')") // == @Secured("ROLE_USER & "ROLE ADMIN")
 	@GetMapping("/vieworders/{id}/{status}")
 	public List<OrderDto> getAllById(@PathVariable("id") Long id, @PathVariable("status") Status status) {
-		return orderService.getAllByIdAndStatus(id, status);
+		return orderService.getAllByUserIdAndStatus(id, status);
 	}
 
 	/**

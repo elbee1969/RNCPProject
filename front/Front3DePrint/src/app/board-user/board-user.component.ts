@@ -104,14 +104,25 @@ export class BoardUserComponent implements OnInit {
   }
 
 
-  createBill() {
+  validateOrder(orderId) {
+
+    this.order = JSON.stringify({ status: "A" });
+    this.orderService.updateOrder(this.order, orderId)
+      .subscribe(
+        () => {
+          console.log('order ' + orderId + ' updated successfully');
+          return;
+        },
+        error => {
+          console.log(error);
+        });
+    /*
     //this.orderStatus = JSON.stringify({ status: "V" });
     this.billService.createBill(this.id,'V').subscribe(result => {
       this.dataB = result;
       console.log("result " + JSON.stringify(result));
       console.log('bill created');
-
-      return this.orderService.getOrders(this.id, "V")
+      return this.orderService.getOrders(this.id, "A")
         .subscribe(
           (result) => {
             //this.data = JSON.stringify(result);
@@ -129,15 +140,7 @@ export class BoardUserComponent implements OnInit {
 
             for (let i = 0; i < nb; i++) {
               this.order = JSON.stringify({ status: "A" });
-              this.orderService.updateOrder(this.order, result[i].id)
-                .subscribe(
-                  () => {
-                    console.log('order ' + result[i].id + ' updated successfully');
-                    return;
-                  },
-                  error => {
-                    console.log(error);
-                  });
+              
             }
             console.log("cpt : " + nb);
             console.log('get order successfully');
@@ -146,10 +149,11 @@ export class BoardUserComponent implements OnInit {
           error => {
             console.log(error);
           });
-    },
-      error => console.log(error)
-    );
-    this.reloadPage();
+        },
+        error => console.log(error)
+        );
+        */
+        this.reloadPage();
 
   }
 
@@ -158,6 +162,7 @@ export class BoardUserComponent implements OnInit {
   }
   reloadPage() {
     //this.router.navigate['/user'];
-    window.location.reload();
+    // window.location.reload();
+    this.ngOnInit();
   };
 }

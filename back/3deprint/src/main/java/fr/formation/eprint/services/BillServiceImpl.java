@@ -49,7 +49,7 @@ public class BillServiceImpl implements BillService {
 		double TVA = 1.2;
 		int i, nbItem = 0;
 
-		List<OrderDto> orders = orderService.getAllByIdAndStatus(userId, status);
+		List<OrderDto> orders = orderService.getAllByUserIdAndStatus(userId, status);
 		nbItem = orders.size();
 		System.out.println("nbr order" + nbItem);
 		for (i = 0; i < nbItem; i++) {

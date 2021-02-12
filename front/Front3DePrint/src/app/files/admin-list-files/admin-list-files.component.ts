@@ -53,7 +53,7 @@ export class AdminListFilesComponent implements OnInit {
       error => console.log(error)
     );
      
-    this.orderService.listOrder().subscribe(data => {
+    this.orderService.listOrdersI().subscribe(data => {
       this.orders = data;
       console.log("orders : " + JSON.stringify(data));
     },
@@ -98,7 +98,6 @@ export class AdminListFilesComponent implements OnInit {
         console.log("cpt : " + nb);
         console.log('get order successfully');
         console.log('result : ' + JSON.stringify(result));
-        //this.createBill(this.clientId, this.status);
 
         this.reloadPage();
       },
@@ -113,19 +112,7 @@ export class AdminListFilesComponent implements OnInit {
     this.router.navigate(['/print/', id]);
   }
 
-  validation(id: number) {
-    this.image = JSON.stringify({ status: "V" });
-    return this.uploadService.updateImageV(this.image, id)
-      .subscribe(
-        () => {
-          console.log('Image updated successfully');
-          this.reloadPage();
-        },
-        error => {
-          console.log(error);
-        });
-  }
-
+ 
 validateOrder(id: number, status: string) {
   console.log ("id client : " + id);
   console.log("status order : " + status);

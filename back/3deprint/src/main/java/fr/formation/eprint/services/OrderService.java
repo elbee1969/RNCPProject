@@ -15,9 +15,11 @@ public interface OrderService {
 
 	void create(@Valid OrderCreateDto dto);
 
-	List<OrderAdminViewDto> getAll();
+	List<OrderAdminViewDto> getAllI();
 
-	List<OrderDto> getAllByIdAndStatus(Long id, Status status);
+	List<OrderAdminViewDto> getAllA();
+
+	List<OrderDto> getAllByUserIdAndStatus(Long id, Status status);
 
 	void update(Long id, @Valid OrderPatchDto dto);
 

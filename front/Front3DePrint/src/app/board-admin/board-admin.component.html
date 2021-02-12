@@ -1,5 +1,31 @@
 
-<div class="container">
+<div class="container row">
+
+<div class="col-6">
+  <h3 class="text-center">Devis</h3>
+  <div class="card-header">Liste de vos devis à valider et envoyer</div>
+    <p class="none" *ngIf="isEmptyObject(orders)">Aucun devis</p>
+   <ul class="list-group list-group-flush" *ngFor="let order of orders;let i=index">
+      <li class="list-group-item">
+        <p class="owner" *ngIf="i>0 && orders[i-1].customUser.id==order.customUser.id?'':order.customUser.id"> Devis du client : 
+        {{ order.customUser.id}}
+        </p>
+        <p>{{ order.customUser.id}}</p>
+        <p> Impression : {{i>0 && orders[i-1].name==order.name?'':order.name}}</p>
+        <p>Quantité à imprimer : {{order.quantity}}</p>
+        <p>temps total d'impression : {{ order.timeToPrint}}</p>
+        <p>Poids total : {{ order.totalWeight }} gs</p>
+        <p>Prix total : {{ order.totalPrice }} €</p>
+        <div class="order" *ngIf="i>0 && orders[i-1].customUser.id==order.customUser.id; then button else nothing"> Devis du client : 
+        {{ order.customUser.id}}</div>
+        <ng-template #button>
+        <button (click) = "validateOrder(order.customUser.id, order.status)" class="btn btn-info float-right" style="margin-left: 10px">Générer facture</button>
+        <p class="eol" ><br/></p>
+        </ng-template>
+       
+      </li>
+      </ul>
+   </div>
 
   <div class="card">
     <div class="card-header">
@@ -19,6 +45,6 @@
       </ul>
 
  
-    <p>{{ content }}</p>
+  </div>
 
 </div>

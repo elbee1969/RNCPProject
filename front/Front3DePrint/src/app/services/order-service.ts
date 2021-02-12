@@ -24,8 +24,13 @@ export class OrderService {
     return this.http.post<Order>(API_ORDER_URL, order, httpOptions);
   }
 
-  listOrder(): Observable<Order> {
+  listOrdersI(): Observable<Order> {
     return this.http.get<Order>(API_ORDER_URL + '/viewordersI');
+
+  }
+
+  listOrdersA(): Observable<Order> {
+    return this.http.get<Order>(API_ORDER_URL + '/viewordersA');
 
   }
 

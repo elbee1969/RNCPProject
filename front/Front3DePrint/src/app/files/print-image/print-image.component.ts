@@ -102,8 +102,8 @@ export class PrintImageComponent implements OnInit {
       .subscribe(
         () => {
           console.log('Order created successfully');
-          //this.router.navigate(['/adminfiles']);
-          window.location.reload();
+          this.router.navigate(['/adminfiles']);
+          //window.location.reload();
         },
         error => {
           console.log(error);

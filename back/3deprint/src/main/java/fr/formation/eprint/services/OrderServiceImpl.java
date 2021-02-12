@@ -57,13 +57,17 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<OrderAdminViewDto> getAll() {
-		return orderRepository.findAllOrders(Sort.by("customUser.id"));
-
+	public List<OrderAdminViewDto> getAllI() {
+		return orderRepository.findAllOrdersI(Sort.by("customUser.id"));
 	}
 
 	@Override
-	public List<OrderDto> getAllByIdAndStatus(Long id, Status status) {
+	public List<OrderAdminViewDto> getAllA() {
+		return orderRepository.findAllOrdersA(Sort.by("customUser.id"));
+	}
+
+	@Override
+	public List<OrderDto> getAllByUserIdAndStatus(Long id, Status status) {
 		return orderRepository.getAllOrderByUserIdAndStatus(id, status);
 	}
 

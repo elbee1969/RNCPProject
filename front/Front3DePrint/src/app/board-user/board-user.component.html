@@ -13,13 +13,11 @@
         <p>temps total d'impression : {{ order.timeToPrint}}</p>
         <p>Poids total : {{ order.totalWeight }} grs</p>
         <p>Prix total : {{ order.totalPrice }} €</p>
+        <button (click) = "validateOrder(order.id)" class="btn btn-success float-right" style="margin-left: 10px">Accepter</button>
         <button (click) = "annulOrder(order.id, order.imageId)" class="btn btn-danger float-right" style="margin-left: 10px">Annuller</button>
       </li>
     </ul>
-    <div *ngIf="!isEmptyObject(orders)">
-    <button (click) = "createBill()" class="btn btn-success float-right" style="margin-left: 10px">Valider le devis</button>
-    </div>
-  </div>
+   </div>
   <div class="col-6">
   <h3 class="text-center">Commandes</h3>
     <div class="card-header">

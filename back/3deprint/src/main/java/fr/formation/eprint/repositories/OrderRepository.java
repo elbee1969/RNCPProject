@@ -16,7 +16,10 @@ import fr.formation.eprint.entities.Status;
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
 	@Query(value = "SELECT o FROM Order o WHERE o.status ='I'")
-	List<OrderAdminViewDto> findAllOrders(Sort sort);
+	List<OrderAdminViewDto> findAllOrdersI(Sort sort);
+
+	@Query(value = "SELECT o FROM Order o WHERE o.status ='A'")
+	List<OrderAdminViewDto> findAllOrdersA(Sort sort);
 
 	@Query("SELECT new fr.formation.eprint.dtos.OrderDto(o.id, o.image.id, o.name, o.quantity, o.weight, o.price, o.totalPrice, o.totalWeight, o.timeToPrint, o.status, o.customUser.id)"
 			+ "  FROM Order o WHERE o.customUser.id = :customUserId AND o.status = :status")
