@@ -51,11 +51,7 @@ public class BillServiceImpl implements BillService {
 
 		List<OrderDto> orders = orderService.getAllByIdAndStatus(userId, status);
 		nbItem = orders.size();
-
-		if (nbItem == 0) {
-			nbItem = 1;
-		}
-
+		System.out.println("nbr order" + nbItem);
 		for (i = 0; i < nbItem; i++) {
 			HT = +orders.get(i).getTotalPrice();
 			Weight = +orders.get(i).getTotalWeight();
@@ -70,7 +66,7 @@ public class BillServiceImpl implements BillService {
 		bill.setOrders(newOrders);
 		bill.setTotalItem(nbItem);
 		bill.setCustomUser(customUserRepo.getOne(userId));
-		bill.setStatus(status);
+		bill.setStatus(status.I);
 		billRepo.save(bill);
 
 	}
@@ -82,7 +78,7 @@ public class BillServiceImpl implements BillService {
 	@Override
 	public List<BillAdminViewDto> getAll() {
 
-		return billRepo.findAllBills(Sort.by("customUser.id"));
+		return billRepo.findAllBills(Sort.by("id"));
 	}
 
 }

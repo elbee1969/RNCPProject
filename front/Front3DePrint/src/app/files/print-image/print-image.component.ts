@@ -89,7 +89,7 @@ export class PrintImageComponent implements OnInit {
         () => {
           console.log('Image updated successfully');
           this.create();
-          this.router.navigate(['/adminfiles']);
+          this.back();
         },
         error => {
           console.log(error);
@@ -102,7 +102,8 @@ export class PrintImageComponent implements OnInit {
       .subscribe(
         () => {
           console.log('Order created successfully');
-          this.router.navigate(['/adminfiles']);
+          //this.router.navigate(['/adminfiles']);
+          window.location.reload();
         },
         error => {
           console.log(error);

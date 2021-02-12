@@ -61,7 +61,7 @@ export class AdminListFilesComponent implements OnInit {
     );
 
     this.editForm = this.formBuilder.group({
-      status: ['C']
+      status: ['V']
     });
 
   }
@@ -74,6 +74,7 @@ export class AdminListFilesComponent implements OnInit {
       (result) => {
         //this.data = JSON.stringify(result);
         this.data = result;
+        // get the number of orders
         let nb = 0;
         for (let i in result) {
           nb++;
@@ -82,6 +83,7 @@ export class AdminListFilesComponent implements OnInit {
           console.log("status value : " + result[i].status);
         }
         console.log(" keys by record : " + nb);
+        // modify orders status from C to V
         for (let i = 0 ; i < nb; i++){       
           this.orderService.updateOrder(this.editForm.value, result[i].id)
           .subscribe(
@@ -98,7 +100,7 @@ export class AdminListFilesComponent implements OnInit {
         console.log('result : ' + JSON.stringify(result));
         //this.createBill(this.clientId, this.status);
 
-
+        this.reloadPage();
       },
       error => {
         console.log(error);
@@ -117,7 +119,7 @@ export class AdminListFilesComponent implements OnInit {
       .subscribe(
         () => {
           console.log('Image updated successfully');
-          this.router.navigate(['/files']);
+          this.reloadPage();
         },
         error => {
           console.log(error);
@@ -131,23 +133,10 @@ validateOrder(id: number, status: string) {
   this.status = status;
 }
 
-  createBill(id, status){
-  console.log("bill to create");
-  console.log('client id : ' + this.clientId);
-  console.log(' order status : ' + this.status);
-  this.billService.createBill(id, status).subscribe(result => {
-    this.dataB = result;
-    console.log("result " + JSON.stringify(result));
-    console.log('bill created');
-  },
-    error => console.log(error)
-  );
-  this.reloadPage();
-  
-}
 
 reloadPage() {
   window.location.reload();
+  //this.router.navigate(['/adminfiles']);
   };
 
   isEmptyObject(obj) {

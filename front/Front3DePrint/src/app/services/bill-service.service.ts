@@ -20,12 +20,12 @@ export class BillServiceService {
   constructor(private http: HttpClient) { }
 
 
-  createBill(id: number, status: string): Observable<ApiResponse> {
-    return this.http.get<ApiResponse>(API_BILL_URL + `/${id}/${status}`);
+  createBill(id: number, status: string): Observable<Bill> {
+    return this.http.get<Bill>(API_BILL_URL + `/create/${id}/${status}`);
   }
 
-  getBill(id: number, status: string): Observable<ApiResponse> {
-    return this.http.get<ApiResponse>(API_BILL_URL + `/bill/${id}/${status}`);
+  getBill(id: number, status: string): Observable<Bill> {
+    return this.http.get<Bill>(API_BILL_URL + `/bill/${id}/${status}`);
   }
 
   listBills(): Observable<Bill> {

@@ -6,6 +6,12 @@ public interface CustomUserIdNameDto {
 
 	String getUsername();
 
+	String getFirstname();
+
+	String getLastname();
+
+	String getEmail();
+
 	AddressViewDto getAddress();
 
 }

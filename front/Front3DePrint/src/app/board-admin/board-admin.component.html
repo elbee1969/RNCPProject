@@ -3,57 +3,22 @@
 
   <div class="card">
     <div class="card-header">
-      Liste des commandes par utilisateur
-          <INPUT type="radio" name="tri" value="all" checked> toutes
-          <INPUT type="radio" name="tri" value="inProgress"> en cours
-          <INPUT type="radio" name="tri" value="validate"> validée
-          <INPUT type="radio" name="tri" value="done"> Effectuée
-          <INPUT type="radio" name="tri" value="archivate"> Archivée
+     Liste des factures à valider
     </div>
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Nom utilisateur X, id</h5>
-        <p class="card-text">Image1 : nom, Quantité : 1</p>
-        <p class="card-text">Image2 : nom, Quantité : 2</p>
-        <span>(En cours à valider) </span>
-        <button class="badge badge-success mr-2" (click)="validateCommande()">Valider la commande</button>
-        <button class="badge badge-danger mr-2" (click)="rejectCommande()">Annuler la commande</button>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Nom utilisateur Y, id</h5>
-        <p class="card-text">Image : nom de l'image , Quantité : ?, prix total : ? <button class="badge badge-success mr-2" (click)="showImage()"> Quôter image</button></p>
-        <p>Prix final : ? </p>
-        <p> ---- ou ---</p>
-        <p class="card-text">Image : nom de l'image, Quantité : 1, prix total : 30.00 € <button class="badge badge-success mr-2" (click)="showImage()"> Imprimer image</button></p>
-        <p>Prix final : 30.00 € </p>
-        <span>(Validé à Effectuer) </span>
-        <button class="badge badge-success mr-2" (click)="makeCommande()">Effectuer la commande</button>(impression BDC + envoie mail au client)
-        <button class="badge badge-danger mr-2" (click)="rejectCommande()">Annuler</button>        
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Nom utilisateur Z, id</h5>
-        <p class="card-text">Image : nom, Quantité : ?, prix total : ?, date : ? </p>
-        <p>Prix final : ? </p>
-        <span>(Effectué à archiver) </span>
-        <button class="badge badge-danger mr-2" (click)="archiveCommande()">Archiver</button>  
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Nom utilisateur A, id</h5>
-        <p class="card-text">Image : nom, Quantité : ?, prix total : ?, date : ?</p>
-        <p>Prix final : ? </p>
-        <p><span>Archivé</span></p>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="container">
-  <header class="jumbotron">
+      <p class="none" *ngIf="isEmptyObject(bills)">Aucun devis</p>
+
+      <ul class="card list-group list-group-flush" *ngFor="let bill of bills">
+          <li class="card-body list-group-item">
+            <h5 class="card-title">Facture N° {{ bill.id }}</h5>
+            <p class="card-text">Nom : {{ bill.customUser.firstname }} {{ bill.customUser.lastname }} / Email : {{bill.customUser.email}}</p>
+            <p class="card-text">Addresse : {{ bill.customUser.address.num }}, {{ bill.customUser.address.street }} - {{ bill.customUser.address.town }} {{ bill.customUser.address.postal }}</p>
+            <span>(En cours à valider) </span>
+            <button class="badge badge-success mr-2" (click)="validateCommande()">Valider la commande</button>
+            <button class="badge badge-danger mr-2" (click)="rejectCommande()">Annuler la commande</button>
+          </li>
+      </ul>
+
+ 
     <p>{{ content }}</p>
-  </header>
+
 </div>

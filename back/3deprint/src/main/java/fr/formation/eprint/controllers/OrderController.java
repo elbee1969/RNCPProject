@@ -58,7 +58,7 @@ public class OrderController {
 	 * @param status
 	 * @return
 	 */
-	@PreAuthorize("hasRole('USER')") // == @Secured("ROLE_USER")
+	@PreAuthorize("hasAnyRole('USER','ADMIN')") // == @Secured("ROLE_USER & "ROLE ADMIN")
 	@GetMapping("/vieworders/{id}/{status}")
 	public List<OrderDto> getAllById(@PathVariable("id") Long id, @PathVariable("status") Status status) {
 		return orderService.getAllByIdAndStatus(id, status);
@@ -89,6 +89,7 @@ public class OrderController {
 	 * @param id
 	 * @param dto
 	 */
+	@PreAuthorize("hasAnyRole('USER','ADMIN')") // == @Secured("ROLE_USER & "ROLE ADMIN")
 	@PatchMapping("/updatevalidated/{id}")
 	public void update(@PathVariable("id") Long id, @Valid @RequestBody OrderPatchDto dto) {
 		orderService.update(id, dto);

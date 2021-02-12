@@ -10,6 +10,9 @@ import { AnonymousSubject } from 'rxjs/internal/Subject';
 import { UploadFileService } from '../services/upload-file.service';
 import { Router } from '@angular/router';
 import { Image } from '../model/Image';
+import { BillServiceService } from '../services/bill-service.service';
+import { Bill } from '../model/Bill';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-board-user',
@@ -30,11 +33,16 @@ export class BoardUserComponent implements OnInit {
   currentUser: any;
   imageId: any;
   image: any;
+  data: Order;
+  dataB: Bill;
+  order: any;
+  orderStatus: string;
+  
 
   constructor(private userService: UserService,
               private tokenStorageService: TokenStorageService,
-              private formBuilder: FormBuilder,
               private orderService: OrderService,
+              private billService: BillServiceService,
               private router: Router,
               private imageService: UploadFileService) {
 
@@ -49,7 +57,7 @@ export class BoardUserComponent implements OnInit {
         this.id = JSON.parse(this.currentUser.userId);
         console.log('current user id : ' + this.id);
         //affiche tous les orders de l'utilisateur au status C
-        this.orderService.getOrders(this.id, "C").subscribe(data => {
+        this.orderService.getOrders(this.id, "V").subscribe(data => {
           this.orders = data;
           console.log("orders : " + JSON.stringify(data));
         },
@@ -95,12 +103,61 @@ export class BoardUserComponent implements OnInit {
          this.router.navigate(['/user']);
   }
 
-  createBill(){
-    console.log("create bill");
+
+  createBill() {
+    //this.orderStatus = JSON.stringify({ status: "V" });
+    this.billService.createBill(this.id,'V').subscribe(result => {
+      this.dataB = result;
+      console.log("result " + JSON.stringify(result));
+      console.log('bill created');
+
+      return this.orderService.getOrders(this.id, "V")
+        .subscribe(
+          (result) => {
+            //this.data = JSON.stringify(result);
+            this.data = result;
+            // get the number of orders
+            let nb = 0;
+            for (let i in result) {
+              nb++;
+              console.log("key nbr :" + i);
+              console.log("id value : " + result[i].id);
+              console.log("status value : " + result[i].status);
+            }
+            console.log(" keys by record : " + nb);
+            // modify order status from V to A
+
+            for (let i = 0; i < nb; i++) {
+              this.order = JSON.stringify({ status: "A" });
+              this.orderService.updateOrder(this.order, result[i].id)
+                .subscribe(
+                  () => {
+                    console.log('order ' + result[i].id + ' updated successfully');
+                    return;
+                  },
+                  error => {
+                    console.log(error);
+                  });
+            }
+            console.log("cpt : " + nb);
+            console.log('get order successfully');
+            console.log('result : ' + JSON.stringify(result));
+          },
+          error => {
+            console.log(error);
+          });
+    },
+      error => console.log(error)
+    );
+    this.reloadPage();
+
   }
 
   isEmptyObject(obj) {
     return (obj && (Object.keys(obj).length === 0));
   }
-
+  reloadPage() {
+    //this.router.navigate['/user'];
+    window.location.reload();
+  };
 }
