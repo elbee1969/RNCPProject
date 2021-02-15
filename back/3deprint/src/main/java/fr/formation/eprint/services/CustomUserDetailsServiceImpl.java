@@ -2,9 +2,11 @@ package fr.formation.eprint.services;
 
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import fr.formation.eprint.config.CustomUserDetails;
 import fr.formation.eprint.dtos.CustomUserAuthDto;
@@ -14,18 +16,21 @@ import fr.formation.eprint.exception.AccountNotFoundException;
 import fr.formation.eprint.exception.ResourceNotFoundException;
 import fr.formation.eprint.repositories.CustomUserJpaRepository;
 import fr.formation.eprint.repositories.NewUserJpaRepository;
+import fr.formation.eprint.repositories.OrderRepository;
 
 @Service
 public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
 
 	private final CustomUserJpaRepository userRepo;
 	private final NewUserJpaRepository newUserRepo;
+	private final OrderRepository orderRepo;
 
-	protected CustomUserDetailsServiceImpl(CustomUserJpaRepository userRepo, NewUserJpaRepository newUserRepo) {
+	protected CustomUserDetailsServiceImpl(CustomUserJpaRepository userRepo, NewUserJpaRepository newUserRepo,
+			OrderRepository orderRepo) {
 
 		this.userRepo = userRepo;
 		this.newUserRepo = newUserRepo;
-
+		this.orderRepo = orderRepo;
 	}
 
 	// Throws UsernameNotFoundException (Spring contract)
@@ -47,11 +52,14 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
 		return userRepo.getAllProjectedBy();
 	}
 
+	@Transactional
 	@Override
 	public void deleteOne(Long id) {
 		Optional<CustomUserInfoDto> value = userRepo.getById(id);
 		if (value.isPresent()) {
+			orderRepo.deleteOrderByUserId(id);
 			userRepo.deleteById(id);
+
 		} else {
 			throw new AccountNotFoundException("Invalid id : " + id);
 		}

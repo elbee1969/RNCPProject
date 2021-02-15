@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -30,5 +31,13 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
 	@Query(value = "SELECT o.name, o.price, o.quantity FROM orders AS o INNER JOIN bills_orders AS j on (j.orders_id = o.id and j.bill_id = :id)", nativeQuery = true)
 	List<OrderViewItemDto> getByBillId(@Param("id") Long id);
+
+	@Modifying
+	@Query("DELETE From Order o WHERE o.customUser.id = :id")
+	void deleteOrderByUserId(@Param("id") Long id);
+
+	@Modifying
+	@Query(value = "UPDATE orders o INNER JOIN bills_orders b ON o.id = b.orders_id SET o.status = 'O' WHERE b.bill_id = :billId", nativeQuery = true)
+	void updateOrderStatusOver(Long billId);
 
 }

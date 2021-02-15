@@ -33,8 +33,6 @@ export class BoardUserComponent implements OnInit {
   currentUser: any;
   imageId: any;
   image: any;
-  data: Order;
-  dataB: Bill;
   order: any;
   orderStatus: string;
   
@@ -42,7 +40,6 @@ export class BoardUserComponent implements OnInit {
   constructor(private userService: UserService,
               private tokenStorageService: TokenStorageService,
               private orderService: OrderService,
-              private billService: BillServiceService,
               private router: Router,
               private imageService: UploadFileService) {
 
@@ -111,58 +108,21 @@ export class BoardUserComponent implements OnInit {
       .subscribe(
         () => {
           console.log('order ' + orderId + ' updated successfully');
-          return;
+          //return;
         },
         error => {
           console.log(error);
         });
-    /*
-    //this.orderStatus = JSON.stringify({ status: "V" });
-    this.billService.createBill(this.id,'V').subscribe(result => {
-      this.dataB = result;
-      console.log("result " + JSON.stringify(result));
-      console.log('bill created');
-      return this.orderService.getOrders(this.id, "A")
-        .subscribe(
-          (result) => {
-            //this.data = JSON.stringify(result);
-            this.data = result;
-            // get the number of orders
-            let nb = 0;
-            for (let i in result) {
-              nb++;
-              console.log("key nbr :" + i);
-              console.log("id value : " + result[i].id);
-              console.log("status value : " + result[i].status);
-            }
-            console.log(" keys by record : " + nb);
-            // modify order status from V to A
-
-            for (let i = 0; i < nb; i++) {
-              this.order = JSON.stringify({ status: "A" });
-              
-            }
-            console.log("cpt : " + nb);
-            console.log('get order successfully');
-            console.log('result : ' + JSON.stringify(result));
-          },
-          error => {
-            console.log(error);
-          });
-        },
-        error => console.log(error)
-        );
-        */
-        this.reloadPage();
-
+   
+    this.ngOnInit();
   }
 
   isEmptyObject(obj) {
     return (obj && (Object.keys(obj).length === 0));
   }
   reloadPage() {
-    //this.router.navigate['/user'];
-    // window.location.reload();
     this.ngOnInit();
+    this.router.navigate['/user'];
+    // window.location.reload();
   };
 }

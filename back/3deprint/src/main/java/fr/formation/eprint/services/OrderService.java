@@ -29,4 +29,6 @@ public interface OrderService {
 
 	void deleteOne(Long id);
 
+	void updateOrderStatusOver(Long billId);
+
 }

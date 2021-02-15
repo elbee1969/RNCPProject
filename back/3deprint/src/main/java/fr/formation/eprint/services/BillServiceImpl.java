@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -41,6 +43,7 @@ public class BillServiceImpl implements BillService {
 		return billRepo.getAllBillByUserIdAndStatus(id, status);
 	}
 
+	@Transactional
 	@Override
 	public void create(Long userId, Status status) {
 		double HT = 0;
@@ -53,8 +56,8 @@ public class BillServiceImpl implements BillService {
 		nbItem = orders.size();
 		System.out.println("nbr order" + nbItem);
 		for (i = 0; i < nbItem; i++) {
-			HT = +orders.get(i).getTotalPrice();
-			Weight = +orders.get(i).getTotalWeight();
+			HT += orders.get(i).getTotalPrice();
+			Weight += orders.get(i).getTotalWeight();
 		}
 		TTC = HT * TVA;
 		Bill bill = new Bill();
@@ -66,8 +69,11 @@ public class BillServiceImpl implements BillService {
 		bill.setOrders(newOrders);
 		bill.setTotalItem(nbItem);
 		bill.setCustomUser(customUserRepo.getOne(userId));
-		bill.setStatus(status.I);
+		bill.setStatus(Status.I);
 		billRepo.save(bill);
+		Long billId = bill.getId();
+		Status toto = bill.getStatus();
+		orderService.updateOrderStatusOver(billId);
 
 	}
 
