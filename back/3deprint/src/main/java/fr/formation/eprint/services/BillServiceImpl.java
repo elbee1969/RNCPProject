@@ -2,7 +2,6 @@ package fr.formation.eprint.services;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -14,7 +13,6 @@ import fr.formation.eprint.dtos.BillAdminViewDto;
 import fr.formation.eprint.dtos.BillDto;
 import fr.formation.eprint.dtos.OrderDto;
 import fr.formation.eprint.entities.Bill;
-import fr.formation.eprint.entities.Order;
 import fr.formation.eprint.entities.Status;
 import fr.formation.eprint.repositories.BillRepository;
 import fr.formation.eprint.repositories.CustomUserJpaRepository;
@@ -61,12 +59,11 @@ public class BillServiceImpl implements BillService {
 		}
 		TTC = HT * TVA;
 		Bill bill = new Bill();
-		List<Order> newOrders = convertList(orders, Order.class);
+// 		List<Order> newOrders = convertList(orders, Order.class);
 		bill.setBillDate(LocalDate.now());
 		bill.setTotalPriceHT(HT);
 		bill.setTotalPriceTTC(TTC);
 		bill.setTotalWeight(Weight);
-		bill.setOrders(newOrders);
 		bill.setTotalItem(nbItem);
 		bill.setCustomUser(customUserRepo.getOne(userId));
 		bill.setStatus(Status.I);
@@ -75,10 +72,6 @@ public class BillServiceImpl implements BillService {
 		Status toto = bill.getStatus();
 		orderService.updateOrderStatusOver(billId);
 
-	}
-
-	private <S, D> List<D> convertList(List<S> source, Class<D> destination) {
-		return source.stream().map(elt -> mapper.map(elt, destination)).collect(Collectors.toList());
 	}
 
 	@Override

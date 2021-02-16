@@ -1,22 +1,15 @@
 package fr.formation.eprint.services;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import java.util.zip.DataFormatException;
-import java.util.zip.Deflater;
-import java.util.zip.Inflater;
 
 import javax.validation.Valid;
 
@@ -27,26 +20,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import fr.formation.eprint.config.SecurityHelper;
-import fr.formation.eprint.dtos.CustomUserInfoDto;
 import fr.formation.eprint.dtos.ImageAdminGetDto;
-import fr.formation.eprint.dtos.ImageCreateViewDto;
-import fr.formation.eprint.dtos.ImageDto;
 import fr.formation.eprint.dtos.ImageGetDto;
-import fr.formation.eprint.dtos.ImagePatchDto;
-import fr.formation.eprint.dtos.ImageValidatedDto;
+import fr.formation.eprint.dtos.ImagePatchStatusDto;
+import fr.formation.eprint.dtos.ImagePatchstatusAndQuantityDto;
 import fr.formation.eprint.dtos.ImageViewDto;
 import fr.formation.eprint.entities.CustomUser;
 import fr.formation.eprint.entities.Image;
-import fr.formation.eprint.entities.Order;
 import fr.formation.eprint.entities.Status;
-import fr.formation.eprint.exception.AccountNotFoundException;
 import fr.formation.eprint.exception.ResourceNotFoundException;
 import fr.formation.eprint.repositories.ImageRepository;
 import fr.formation.eprint.repositories.NewUserJpaRepository;
@@ -73,7 +60,7 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 	}
 
 	@Override
-	public List<ImageAdminGetDto> getAllByUser() {
+	public List<ImageAdminGetDto> getAllByUserAndStatus(Status status) {
 		List<Image> images = imageRepository.getAllImage();
 		List<ImageAdminGetDto> imagesToReturn = images.stream().map(image -> mapper.map(image, ImageAdminGetDto.class))
 				.collect(Collectors.toList());
@@ -87,14 +74,14 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 	}
 
 	/**
-	 * Update image status and quantity
-	 * status I to C or C to I
-	 * quantity 1 to X or X to 1 
-	 * @return 
+	 * Update image status and quantity status I to C or C to I quantity 1 to X or X
+	 * to 1
+	 * 
+	 * @return
 	 */
-	//@Transactional
+	// @Transactional
 	@Override
-	public void update(Long id, @Valid ImagePatchDto dto) {
+	public void update(Long id, @Valid ImagePatchstatusAndQuantityDto dto) {
 
 		Image image = imageRepository.findById(id).get();
 		mapper.map(dto, image);
@@ -103,16 +90,17 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 
 	/**
 	 * Update image status to V
-	 * @return 
+	 * 
+	 * @return
 	 */
-	//@Transactional
+	// @Transactional
 	@Override
-	public void updateV(Long id, @Valid ImageValidatedDto dto) {
+	public void updateS(Long id, @Valid ImagePatchStatusDto dto) {
 		Image image = imageRepository.findById(id).get();
 		mapper.map(dto, image);
 		imageRepository.save(image);
 	}
-	
+
 	@Override
 	public Image getAllImage() {
 		// TODO Auto-generated method stub
@@ -122,13 +110,14 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 	@Override
 	public Image getFile(Long id) {
 		final Optional<Image> retrievedImage = imageRepository.findById(id);
-		Image img = new Image(retrievedImage.get().getName(),
-				retrievedImage.get().getOwnerName(), retrievedImage.get().getType(), retrievedImage.get().getUrl(),
-				retrievedImage.get().getStatus(), retrievedImage.get().getQuantity(),retrievedImage.get().getDate(),
+		Image img = new Image(retrievedImage.get().getName(), retrievedImage.get().getOwnerName(),
+				retrievedImage.get().getType(), retrievedImage.get().getUrl(), retrievedImage.get().getStatus(),
+				retrievedImage.get().getQuantity(), retrievedImage.get().getDate(),
 				retrievedImage.get().getCustomUser());
 		return img;
 	}
 
+	@Override
 	public Stream<Image> getAllFiles() {
 
 		return imageRepository.findAll().stream();
@@ -147,8 +136,8 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 			String user = customUser.getUsername();
 			Path url = Paths.get(roots + "\\" + user);
 			Image image0 = new Image();
-			Image image = new Image(fileName, user, file.getContentType(),
-					url.toString(), image0.setStatus(Status.I), image0.setQuantity(1),image0.getDate(), customUser);
+			Image image = new Image(fileName, user, file.getContentType(), url.toString(), image0.setStatus(Status.I),
+					image0.setQuantity(1), image0.getDate(), customUser);
 			File existFile = new File(url.toString() + "\\" + fileName);
 			if (!existFile.exists() && !existFile.isDirectory()) {
 				Files.copy(file.getInputStream(), url.resolve(file.getOriginalFilename()));
@@ -161,52 +150,9 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 	}
 
 	/**
-	 * compress the image bytes before storing it in the database
-	 * 
-	 * @param data
-	 * @return
-	 */
-	public static byte[] compressZLib(byte[] data) {
-		Deflater deflater = new Deflater();
-		deflater.setInput(data);
-		deflater.finish();
-		ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
-		byte[] buffer = new byte[1024];
-		while (!deflater.finished()) {
-			int count = deflater.deflate(buffer);
-			outputStream.write(buffer, 0, count);
-		}
-		try {
-			outputStream.close();
-		} catch (IOException e) {
-		}
-		System.out.println("Compressed Image Byte Size - " + outputStream.toByteArray().length);
-
-		return outputStream.toByteArray();
-	}
-
-	/**
-	 * uncompress the image bytes before returning it to the angular application
-	 */
-	public static byte[] decompressZLib(byte[] data) {
-		Inflater inflater = new Inflater();
-		inflater.setInput(data);
-		ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
-		byte[] buffer = new byte[1024];
-		try {
-			while (!inflater.finished()) {
-				int count = inflater.inflate(buffer);
-				outputStream.write(buffer, 0, count);
-			}
-			outputStream.close();
-		} catch (IOException | DataFormatException ioe) {
-		}
-		return outputStream.toByteArray();
-	}
-
-	/**
 	 * return a list of images owned by user
 	 */
+	@Override
 	public List<ImageGetDto> getAllByUserId(Status status) {
 		Long customUserId = SecurityHelper.getUserId();
 		List<Image> images = imageRepository.getAllImageByUserId(customUserId, status);

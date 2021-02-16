@@ -42,24 +42,14 @@ public class OrderController {
 	}
 
 	/**
-	 * get all orders with status = I
+	 * 
+	 * get all orders with a specific status
 	 * 
 	 * @return
 	 */
-	@GetMapping("/viewordersI")
-	public List<OrderAdminViewDto> getAllOrderI() {
-		return orderService.getAllI();
-	}
-
-	/**
-	 * 
-	 * get all orders with status = A
-	 * 
-	 * @return
-	 */
-	@GetMapping("/viewordersA")
-	public List<OrderAdminViewDto> getAllOrderA() {
-		return orderService.getAllA();
+	@GetMapping("/vieworders/{status}")
+	public List<OrderAdminViewDto> getAllOrder(@PathVariable("status") Status status) {
+		return orderService.getAll(status);
 	}
 
 	/**
@@ -76,6 +66,7 @@ public class OrderController {
 	}
 
 	/**
+	 * get order by is ID
 	 * 
 	 * @param id
 	 * @return
@@ -104,6 +95,17 @@ public class OrderController {
 	@PatchMapping("/updatevalidated/{id}")
 	public void update(@PathVariable("id") Long id, @Valid @RequestBody OrderPatchDto dto) {
 		orderService.update(id, dto);
+	}
+
+	/**
+	 * 
+	 * @param id
+	 * @param dto
+	 */
+	@PreAuthorize("hasAnyRole('USER','ADMIN')") // == @Secured("ROLE_USER & "ROLE ADMIN")
+	@PatchMapping("/updateorder/{id}")
+	public void updateOrder(@PathVariable("id") Long id, @Valid @RequestBody OrderPatchDto dto) {
+		orderService.updateOrder(id, dto);
 	}
 
 	/**

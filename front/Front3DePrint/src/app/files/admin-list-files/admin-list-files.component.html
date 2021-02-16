@@ -21,7 +21,6 @@
    <div class="col-6"><div class="card">
       <div class="card-header">Liste des devis à envoyer</div>
       <p class="none" *ngIf="isEmptyObject(orders)">Aucun devis</p>
-      <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
         <ul class="list-group list-group-flush" *ngFor="let order of orders;let i=index">
           <li class="list-group-item">
             <p class="order" *ngIf="i>0 && orders[i-1].customUser.id==order.customUser.id?'':order.customUser.id"> Devis du client : 
@@ -35,6 +34,5 @@
             <p>Prix total : {{ order.totalPrice }} €</p>
           </li>
         </ul>
-      </form>
    </div>
 </div>

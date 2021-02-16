@@ -2,7 +2,6 @@ package fr.formation.eprint.services;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -14,8 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import fr.formation.eprint.dtos.ImageAdminGetDto;
 import fr.formation.eprint.dtos.ImageGetDto;
-import fr.formation.eprint.dtos.ImagePatchDto;
-import fr.formation.eprint.dtos.ImageValidatedDto;
+import fr.formation.eprint.dtos.ImagePatchStatusDto;
+import fr.formation.eprint.dtos.ImagePatchstatusAndQuantityDto;
 import fr.formation.eprint.dtos.ImageViewDto;
 import fr.formation.eprint.entities.Image;
 import fr.formation.eprint.entities.Status;
@@ -34,7 +33,7 @@ public interface ImageStorageService {
 
 	BodyBuilder store(MultipartFile file) throws IOException;
 
-	List<ImageAdminGetDto> getAllByUser();
+	List<ImageAdminGetDto> getAllByUserAndStatus(Status status);
 
 	List<ImageGetDto> getAllByUserId(Status status);
 
@@ -50,7 +49,7 @@ public interface ImageStorageService {
 
 	public Stream<Path> loadAll();
 
-	void update(Long id, @Valid ImagePatchDto dto);
-	
-	void updateV(Long id, @Valid ImageValidatedDto dto);
+	void update(Long id, @Valid ImagePatchstatusAndQuantityDto dto);
+
+	void updateS(Long id, @Valid ImagePatchStatusDto dto);
 }

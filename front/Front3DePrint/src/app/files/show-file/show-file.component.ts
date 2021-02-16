@@ -71,7 +71,7 @@ export class ShowFileComponent implements OnInit {
 
   onSubmit() {
     console.log("this.editForm.value " + JSON.stringify(this.editForm.value));
-    return this.uploadService.updateImage(this.editForm.value, this.id)
+    return this.uploadService.updateImageStatusAndQuantity(this.editForm.value, this.id)
       .subscribe(
         () => {
           console.log('Image updated successfully');

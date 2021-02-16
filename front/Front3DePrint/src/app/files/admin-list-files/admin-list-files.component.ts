@@ -29,8 +29,9 @@ export class AdminListFilesComponent implements OnInit {
   id: any;
   orders: Order;
   taille: any;
-  data: Order;
+  data: any;
   dataB: any;
+  order: any;
 
   constructor(private uploadService: UploadFileService,
               private orderService: OrderService,
@@ -46,33 +47,29 @@ export class AdminListFilesComponent implements OnInit {
   ngOnInit() {
     
     this.id = this.route.snapshot.params['id'];
-    this.uploadService.getImages().subscribe(result => {
+    this.uploadService.getImages("V").subscribe(result => {
       this.images = result;
       console.log("result : " + JSON.stringify(result));
     },
       error => console.log(error)
     );
      
-    this.orderService.listOrdersI().subscribe(data => {
+    this.orderService.listOrders("I").subscribe(data => {
       this.orders = data;
       console.log("orders : " + JSON.stringify(data));
     },
       error => console.log(error)
     );
 
-    this.editForm = this.formBuilder.group({
-      status: ['V']
-    });
-
   }
 
 
-  onSubmit(){
+  validateOrder(id, status){
   
-    return this.orderService.getOrders(this.clientId, this.status)
+    return this.orderService.getOrders(id, status)
     .subscribe(
       (result) => {
-        //this.data = JSON.stringify(result);
+        this.data = JSON.stringify(result);
         this.data = result;
         // get the number of orders
         let nb = 0;
@@ -81,11 +78,15 @@ export class AdminListFilesComponent implements OnInit {
           console.log("key nbr :" + i);
           console.log("id value : " + result[i].id);
           console.log("status value : " + result[i].status);
+          console.log("userid value : " + result[i].customUserId);        
         }
         console.log(" keys by record : " + nb);
-        // modify orders status from C to V
+        
+        // modify orders status from I to C
+        
+            this.order = JSON.stringify({ status: "C" });
         for (let i = 0 ; i < nb; i++){       
-          this.orderService.updateOrder(this.editForm.value, result[i].id)
+          this.orderService.updateOrder(this.order, result[i].id)
           .subscribe(
             () => {
               console.log('order ' + result[i].id + ' updated successfully');
@@ -98,8 +99,9 @@ export class AdminListFilesComponent implements OnInit {
         console.log("cpt : " + nb);
         console.log('get order successfully');
         console.log('result : ' + JSON.stringify(result));
-
+        this.ngOnInit();
         this.reloadPage();
+        
       },
       error => {
         console.log(error);
@@ -113,14 +115,6 @@ export class AdminListFilesComponent implements OnInit {
   }
 
  
-validateOrder(id: number, status: string) {
-  console.log ("id client : " + id);
-  console.log("status order : " + status);
-  this.clientId = id;
-  this.status = status;
-}
-
-
 reloadPage() {
   window.location.reload();
   //this.router.navigate(['/adminfiles']);

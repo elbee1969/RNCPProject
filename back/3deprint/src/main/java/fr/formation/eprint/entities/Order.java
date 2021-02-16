@@ -1,12 +1,14 @@
 package fr.formation.eprint.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -14,8 +16,8 @@ import javax.persistence.Table;
 
 public class Order extends AbstractEntity {
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "image_id", nullable = false)
+	@OneToOne(cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "image_id", nullable = false, referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_image_id_order_id"))
 	private Image image;
 
 	@Column(name = "name", length = 255, nullable = false)
@@ -40,10 +42,10 @@ public class Order extends AbstractEntity {
 	private String timeToPrint;
 
 	@Enumerated(EnumType.STRING)
-	@Column(columnDefinition = "ENUM('I','C','V','A')", length = 1, nullable = false)
+	@Column(columnDefinition = "ENUM('I','C','V','A','O')", length = 1, nullable = false)
 	private Status status;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(optional = false)
 	@JoinColumn(name = "customUser_id", nullable = false)
 	private CustomUser customUser;
 

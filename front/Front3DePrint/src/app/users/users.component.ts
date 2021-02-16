@@ -48,7 +48,7 @@ reloadData(){
       });
   }
   pageChange(newPage: number) {
-    this.router.navigate(['/users/callback'], { queryParams: { page: newPage } });
+    this.router.navigate(['/users'], { queryParams: { page: newPage } });
 }
   deleteUser(id: number) {
     const val = confirm('action irreversible !');

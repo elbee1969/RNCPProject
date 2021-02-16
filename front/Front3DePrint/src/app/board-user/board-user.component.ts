@@ -54,7 +54,7 @@ export class BoardUserComponent implements OnInit {
         this.id = JSON.parse(this.currentUser.userId);
         console.log('current user id : ' + this.id);
         //affiche tous les orders de l'utilisateur au status C
-        this.orderService.getOrders(this.id, "V").subscribe(data => {
+        this.orderService.getOrders(this.id, "I").subscribe(data => {
           this.orders = data;
           console.log("orders : " + JSON.stringify(data));
         },
@@ -78,7 +78,7 @@ export class BoardUserComponent implements OnInit {
           console.log(response);
           this.image  = JSON.stringify({ status: "I", quantity: 1 });
           console.log("reset : " +this.image);
-          return this.imageService.updateImage(this.image, imageId)
+          return this.imageService.updateImageStatusAndQuantity(this.image, imageId)
           .subscribe(
             () => {
               console.log('Image updated successfully');
@@ -103,7 +103,7 @@ export class BoardUserComponent implements OnInit {
 
   validateOrder(orderId) {
 
-    this.order = JSON.stringify({ status: "A" });
+    this.order = JSON.stringify({ status: "C" });
     this.orderService.updateOrder(this.order, orderId)
       .subscribe(
         () => {

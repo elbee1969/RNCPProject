@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiResponse } from '../model/api.response';
 import { Order } from '../model/Order';
+import { Status } from '../model/status';
 
 const API_ORDER_URL = 'http://localhost:9090/api/orders';
 const httpOptions = {
@@ -15,7 +16,7 @@ const httpOptions = {
 export class OrderService {
 
   updateOrder(order: Order, id: number) {
-    return this.http.patch<Order>(API_ORDER_URL + `/updatevalidated/${id}`, order, httpOptions);
+    return this.http.patch<Order>(API_ORDER_URL + `/updateorder/${id}`, order, httpOptions);
   }
 
   constructor(private http: HttpClient) { }
@@ -24,8 +25,8 @@ export class OrderService {
     return this.http.post<Order>(API_ORDER_URL, order, httpOptions);
   }
 
-  listOrdersI(): Observable<Order> {
-    return this.http.get<Order>(API_ORDER_URL + '/viewordersI');
+  listOrders(status: String): Observable<Order> {
+    return this.http.get<Order>(API_ORDER_URL + `/vieworders/${status}`);
 
   }
 

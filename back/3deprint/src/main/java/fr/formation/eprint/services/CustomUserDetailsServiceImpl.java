@@ -15,6 +15,7 @@ import fr.formation.eprint.dtos.ProfileUserInfosDto;
 import fr.formation.eprint.exception.AccountNotFoundException;
 import fr.formation.eprint.exception.ResourceNotFoundException;
 import fr.formation.eprint.repositories.CustomUserJpaRepository;
+import fr.formation.eprint.repositories.ImageRepository;
 import fr.formation.eprint.repositories.NewUserJpaRepository;
 import fr.formation.eprint.repositories.OrderRepository;
 
@@ -24,13 +25,15 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
 	private final CustomUserJpaRepository userRepo;
 	private final NewUserJpaRepository newUserRepo;
 	private final OrderRepository orderRepo;
+	private final ImageRepository imageRepo;
 
 	protected CustomUserDetailsServiceImpl(CustomUserJpaRepository userRepo, NewUserJpaRepository newUserRepo,
-			OrderRepository orderRepo) {
+			OrderRepository orderRepo, ImageRepository imageRepo) {
 
 		this.userRepo = userRepo;
 		this.newUserRepo = newUserRepo;
 		this.orderRepo = orderRepo;
+		this.imageRepo = imageRepo;
 	}
 
 	// Throws UsernameNotFoundException (Spring contract)
@@ -57,7 +60,8 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
 	public void deleteOne(Long id) {
 		Optional<CustomUserInfoDto> value = userRepo.getById(id);
 		if (value.isPresent()) {
-			orderRepo.deleteOrderByUserId(id);
+			// orderRepo.deleteOrderByUserId(id);
+			imageRepo.deletImagesByUserId(id);
 			userRepo.deleteById(id);
 
 		} else {
@@ -67,7 +71,6 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
 
 	@Override
 	public ProfileUserInfosDto getOne(Long id) {
-		// TODO Auto-generated method stub
 		return newUserRepo.getById(id);
 	}
 

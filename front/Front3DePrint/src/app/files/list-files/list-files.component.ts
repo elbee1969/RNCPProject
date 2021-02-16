@@ -57,7 +57,7 @@ ngOnInit() {
   annulChoise(id: number) {
     this.image  = JSON.stringify({ status: "I", quantity: 1 });
     console.log("reset : " +this.image);
-    return this.uploadService.updateImage(this.image, id)
+    return this.uploadService.updateImageStatusAndQuantity(this.image, id)
       .subscribe(
         () => {
           console.log('Image updated successfully');
@@ -75,7 +75,7 @@ ngOnInit() {
 
   validation(id: number) {
     this.image = JSON.stringify({ status: "V"});
-    return this.uploadService.updateImageV(this.image, id)
+    return this.uploadService.updateImageStatus(this.image, id)
       .subscribe(
         () => {
           console.log('Image updated successfully');

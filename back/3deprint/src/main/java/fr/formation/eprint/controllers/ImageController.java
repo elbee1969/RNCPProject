@@ -1,15 +1,11 @@
 package fr.formation.eprint.controllers;
 
 import java.io.IOException;
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,27 +17,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import fr.formation.eprint.config.SecurityHelper;
-import fr.formation.eprint.dtos.ImageGetDto;
-import fr.formation.eprint.dtos.ImagePatchDto;
-import fr.formation.eprint.dtos.ImageValidatedDto;
-import fr.formation.eprint.dtos.ImageViewDto;
-import fr.formation.eprint.dtos.AddressPatchDto;
 import fr.formation.eprint.dtos.ImageAdminGetDto;
-import fr.formation.eprint.entities.CustomUser;
-import fr.formation.eprint.entities.Image;
+import fr.formation.eprint.dtos.ImageGetDto;
+import fr.formation.eprint.dtos.ImagePatchStatusDto;
+import fr.formation.eprint.dtos.ImagePatchstatusAndQuantityDto;
+import fr.formation.eprint.dtos.ImageViewDto;
 import fr.formation.eprint.entities.Status;
 import fr.formation.eprint.repositories.ImageRepository;
 import fr.formation.eprint.repositories.NewUserJpaRepository;
-import fr.formation.eprint.response.ImageResponse;
 import fr.formation.eprint.response.MessageImage3DResponse;
-import fr.formation.eprint.response.Response;
 import fr.formation.eprint.services.ImageStorageService;
 
 @RestController
@@ -75,11 +62,12 @@ public class ImageController {
 
 	/**
 	 * 
-	 * @return get all images of all users to be printed by admin with "Validated" status (V)
+	 * @return get all images of all users to be printed by admin with "Validated"
+	 *         status (V)
 	 */
-	@GetMapping("/images")
-	public List<ImageAdminGetDto> getAll() {
-		return imageStorageService.getAllByUser();
+	@GetMapping("/images/{status}")
+	public List<ImageAdminGetDto> getAll(Status status) {
+		return imageStorageService.getAllByUserAndStatus(status);
 	}
 
 	/**
@@ -111,29 +99,36 @@ public class ImageController {
 		System.out.println("répertoire : " + dir);
 		return imageStorageService.getOne(id);
 	}
-/**
- * update image status from status I to C or C to I
- * @param id
- * @param dto
- */
-	@PatchMapping("/update/{id}")
-	public void update(@PathVariable("id") Long id, @Valid @RequestBody ImagePatchDto dto) {
-		imageStorageService.update(id, dto);
-	}
-	/***
-	 * update image status from status C to V and create an ordered
+
+	/**
+	 * update image status from status I to C or C to I
+	 * 
 	 * @param id
 	 * @param dto
 	 */
-	@PatchMapping("/updatevalidated/{id}")
-	public void update(@PathVariable("id") Long id, @Valid @RequestBody ImageValidatedDto dto) {
-		imageStorageService.updateV(id, dto);
+	@PatchMapping("/updatestatusandquantity/{id}")
+	public void updatestatusandquantity(@PathVariable("id") Long id,
+			@Valid @RequestBody ImagePatchstatusAndQuantityDto dto) {
+		imageStorageService.update(id, dto);
 	}
-/**
- * delete image from DB and directory
- * @param id
- * @throws IOException
- */
+
+	/***
+	 * update image status from status C to V and create an ordered
+	 * 
+	 * @param id
+	 * @param dto
+	 */
+	@PatchMapping("/updatestatus/{id}")
+	public void update(@PathVariable("id") Long id, @Valid @RequestBody ImagePatchStatusDto dto) {
+		imageStorageService.updateS(id, dto);
+	}
+
+	/**
+	 * delete image from DB and directory
+	 * 
+	 * @param id
+	 * @throws IOException
+	 */
 	@DeleteMapping("/deleteImage/{id}")
 	public void deleteImage(@PathVariable("id") Long id) throws IOException {
 		imageStorageService.deleteOne(id);

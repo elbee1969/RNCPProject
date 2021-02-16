@@ -7,7 +7,10 @@ public class OrderPatchDto {
 	private Status status;
 
 	public OrderPatchDto() {
+	}
 
+	public OrderPatchDto(Status status) {
+		this.status = status;
 	}
 
 	public Status getStatus() {

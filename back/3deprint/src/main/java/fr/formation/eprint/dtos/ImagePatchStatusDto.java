@@ -2,13 +2,13 @@ package fr.formation.eprint.dtos;
 
 import fr.formation.eprint.entities.Status;
 
-public class ImageValidatedDto {
+public class ImagePatchStatusDto {
 
 	private Status status;
 
 
 
-	public ImageValidatedDto() {
+	public ImagePatchStatusDto() {
 
 	}
 

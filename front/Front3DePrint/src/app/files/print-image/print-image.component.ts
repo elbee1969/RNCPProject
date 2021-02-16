@@ -66,7 +66,7 @@ export class PrintImageComponent implements OnInit {
     });
     
     this.editForm = this.formBuilder.group({
-      status: ['A']
+      status: ['O']
     });
     this.inputForm = this.formBuilder.group({
       customUserId: [],
@@ -84,7 +84,7 @@ export class PrintImageComponent implements OnInit {
     console.log("this.editForm.value " + JSON.stringify(this.editForm.value));
     console.log("this input form : " + JSON.stringify(this.inputForm.value));
     
-    return this.uploadService.updateImageV(this.editForm.value, this.imageId)
+    return this.uploadService.updateImageStatus(this.editForm.value, this.imageId)
       .subscribe(
         () => {
           console.log('Image updated successfully');

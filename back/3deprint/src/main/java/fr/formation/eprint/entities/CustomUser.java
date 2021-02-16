@@ -65,8 +65,11 @@ public class CustomUser extends AbstractEntity {
 	@Column(name = "credentialsNonExpired", length = 1, nullable = false)
 	private boolean credentialsNonExpired;
 
-	@OneToMany(mappedBy = "customUser", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customUser", cascade = CascadeType.REFRESH)
 	private List<Image> images = new ArrayList<Image>();
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customUser", cascade = CascadeType.REFRESH)
+	private List<Order> orders = new ArrayList<Order>();
 
 	public CustomUser(String username, @Email String email, String password, String firstname, String lastname,
 			Set<Role> roles, Address address, boolean enabled, boolean accountNonExpired, boolean accountNonLocked,

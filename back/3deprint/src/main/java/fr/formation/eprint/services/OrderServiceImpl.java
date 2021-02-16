@@ -2,6 +2,7 @@ package fr.formation.eprint.services;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
@@ -17,6 +18,7 @@ import fr.formation.eprint.entities.CustomUser;
 import fr.formation.eprint.entities.Image;
 import fr.formation.eprint.entities.Order;
 import fr.formation.eprint.entities.Status;
+import fr.formation.eprint.exception.ResourceNotFoundException;
 import fr.formation.eprint.repositories.CustomUserJpaRepository;
 import fr.formation.eprint.repositories.ImageRepository;
 import fr.formation.eprint.repositories.OrderRepository;
@@ -57,13 +59,8 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<OrderAdminViewDto> getAllI() {
-		return orderRepository.findAllOrdersI(Sort.by("customUser.id"));
-	}
-
-	@Override
-	public List<OrderAdminViewDto> getAllA() {
-		return orderRepository.findAllOrdersA(Sort.by("customUser.id"));
+	public List<OrderAdminViewDto> getAll(Status status) {
+		return orderRepository.findAllOrders(Sort.by("customUser.id"), status);
 	}
 
 	@Override
@@ -96,9 +93,19 @@ public class OrderServiceImpl implements OrderService {
 
 	}
 
+	@Transactional
 	@Override
 	public void updateOrderStatusOver(Long billId) {
 		orderRepository.updateOrderStatusOver(billId);
+
+	}
+
+	@Transactional
+	@Override
+	public void updateOrder(Long id, @Valid OrderPatchDto dto) {
+		Order order = orderRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
+		mapper.map(dto, order);
+		orderRepository.save(order);
 
 	}
 

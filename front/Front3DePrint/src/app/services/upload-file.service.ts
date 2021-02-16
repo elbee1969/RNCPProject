@@ -33,8 +33,8 @@ export class UploadFileService {
      return this.http.request(req);
   }
 
-  getImages(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/images`);
+  getImages(status): Observable<any> {
+    return this.http.get(`${this.baseUrl}/images/${status}`);
   }
   getOwnedImages(): Observable<any> {
     return this.http.get(`${this.baseUrl}/ownedimages`);
@@ -45,14 +45,14 @@ export class UploadFileService {
   getCurrentFile(id) {
     return this.http.get(`${this.baseUrl}/image/${id}`);
   }
-  updateImage(image: typeof Image, id: number): Observable<any> {
+  updateImageStatusAndQuantity(image: typeof Image, id: number): Observable<any> {
     console.log("in update image id : " + id);
     console.log("in update image : " + JSON.stringify(image));
-    return this.http.patch<any>(`${this.baseUrl}/update/${id}`, image, httpOptions);
+    return this.http.patch<any>(`${this.baseUrl}/updatestatusandquantity/${id}`, image, httpOptions);
   }
-  updateImageV(image: typeof Image, id: number): Observable<any> {
+  updateImageStatus(image: typeof Image, id: number): Observable<any> {
 
-    return this.http.patch<any>(`${this.baseUrl}/updatevalidated/${id}`, image, httpOptions);
+    return this.http.patch<any>(`${this.baseUrl}/updatestatus/${id}`, image, httpOptions);
   }
   showCurrentImage(id: number){
     return this.http.get(`${this.baseUrl}/image/${id}`, {
