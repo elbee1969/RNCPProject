@@ -90,7 +90,6 @@ export class AdminListFilesComponent implements OnInit {
           .subscribe(
             () => {
               console.log('order ' + result[i].id + ' updated successfully');
-              return;
             },
             error => {
               console.log(error);

@@ -66,7 +66,7 @@ public class ImageController {
 	 *         status (V)
 	 */
 	@GetMapping("/images/{status}")
-	public List<ImageAdminGetDto> getAll(Status status) {
+	public List<ImageAdminGetDto> getAll(@PathVariable("status") Status status) {
 		return imageStorageService.getAllByUserAndStatus(status);
 	}
 

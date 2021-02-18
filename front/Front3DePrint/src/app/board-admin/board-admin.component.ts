@@ -37,7 +37,7 @@ export class BoardAdminComponent implements OnInit {
         this.content = err.error.message;
       }
     )
-    this.orderService.listOrdersA().subscribe(data => {
+    this.orderService.listOrders("V").subscribe(data => {
       this.orders = data;
       console.log("ordersA : " + JSON.stringify(data));
     },

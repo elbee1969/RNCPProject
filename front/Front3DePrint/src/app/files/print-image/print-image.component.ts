@@ -66,7 +66,7 @@ export class PrintImageComponent implements OnInit {
     });
     
     this.editForm = this.formBuilder.group({
-      status: ['O']
+      status: ['A']
     });
     this.inputForm = this.formBuilder.group({
       customUserId: [],
@@ -89,20 +89,20 @@ export class PrintImageComponent implements OnInit {
         () => {
           console.log('Image updated successfully');
           this.create();
-          this.back();
         },
         error => {
           console.log(error);
         });
-
-    
   }
+  
   create(){
     return this.orderService.createOrder(this.inputForm.value)
       .subscribe(
         () => {
           console.log('Order created successfully');
-          this.router.navigate(['/adminfiles']);
+          this.ngOnInit();
+         
+          this.back();
           //window.location.reload();
         },
         error => {
@@ -110,7 +110,8 @@ export class PrintImageComponent implements OnInit {
         });
   }
 
-  back(){
+  back() {
+    
     this.router.navigate(['/adminfiles']);
   }
 

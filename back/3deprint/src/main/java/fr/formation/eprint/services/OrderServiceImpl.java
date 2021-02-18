@@ -100,7 +100,6 @@ public class OrderServiceImpl implements OrderService {
 
 	}
 
-	@Transactional
 	@Override
 	public void updateOrder(Long id, @Valid OrderPatchDto dto) {
 		Order order = orderRepository.findById(id).orElseThrow(ResourceNotFoundException::new);

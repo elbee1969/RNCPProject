@@ -10,7 +10,6 @@ import org.springframework.data.repository.query.Param;
 
 import fr.formation.eprint.dtos.OrderAdminViewDto;
 import fr.formation.eprint.dtos.OrderDto;
-import fr.formation.eprint.dtos.OrderPatchDto;
 import fr.formation.eprint.dtos.OrderViewItemDto;
 import fr.formation.eprint.entities.Order;
 import fr.formation.eprint.entities.Status;
@@ -42,6 +41,5 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 	@Query(value = "update orders o set o.status where o.customUser.id = :id", nativeQuery = true)
 	void updateOrder(@Param("id") Long id);
 
-	OrderPatchDto save(OrderPatchDto order);
-
+	// OrderPatchDto save(OrderPatchDto order);
 }

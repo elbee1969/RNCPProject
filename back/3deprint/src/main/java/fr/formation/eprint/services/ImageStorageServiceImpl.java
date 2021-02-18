@@ -61,7 +61,7 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 
 	@Override
 	public List<ImageAdminGetDto> getAllByUserAndStatus(Status status) {
-		List<Image> images = imageRepository.getAllImage();
+		List<Image> images = imageRepository.getAllImages(status);
 		List<ImageAdminGetDto> imagesToReturn = images.stream().map(image -> mapper.map(image, ImageAdminGetDto.class))
 				.collect(Collectors.toList());
 		return imagesToReturn;
@@ -79,6 +79,7 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 	 * 
 	 * @return
 	 */
+
 	// @Transactional
 	@Override
 	public void update(Long id, @Valid ImagePatchstatusAndQuantityDto dto) {
@@ -89,7 +90,7 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 	}
 
 	/**
-	 * Update image status to V
+	 * Update image status
 	 * 
 	 * @return
 	 */

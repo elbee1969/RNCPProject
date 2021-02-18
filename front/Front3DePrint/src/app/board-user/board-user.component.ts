@@ -34,11 +34,12 @@ export class BoardUserComponent implements OnInit {
   imageId: any;
   image: any;
   order: any;
-  orderStatus: string;
-  
+  orderStatus: any;
+  imageStatus: any;
 
   constructor(private userService: UserService,
-              private tokenStorageService: TokenStorageService,
+    private tokenStorageService: TokenStorageService,
+              private uploadService: UploadFileService,
               private orderService: OrderService,
               private router: Router,
               private imageService: UploadFileService) {
@@ -54,7 +55,7 @@ export class BoardUserComponent implements OnInit {
         this.id = JSON.parse(this.currentUser.userId);
         console.log('current user id : ' + this.id);
         //affiche tous les orders de l'utilisateur au status C
-        this.orderService.getOrders(this.id, "I").subscribe(data => {
+        this.orderService.getOrders(this.id, "C").subscribe(data => {
           this.orders = data;
           console.log("orders : " + JSON.stringify(data));
         },
@@ -101,14 +102,22 @@ export class BoardUserComponent implements OnInit {
   }
 
 
-  validateOrder(orderId) {
+  validateOrder(orderId, imageId) {
 
-    this.order = JSON.stringify({ status: "C" });
-    this.orderService.updateOrder(this.order, orderId)
+    this.orderStatus = JSON.stringify({ status: "V" });
+    this.orderService.updateOrder(this.orderStatus, orderId)
       .subscribe(
         () => {
           console.log('order ' + orderId + ' updated successfully');
-          //return;
+              this.imageStatus = JSON.stringify({ status: "O" });
+              return this.uploadService.updateImageStatus(this.imageStatus, imageId)
+              .subscribe(
+                () => {
+                  console.log('Image updated successfully');
+                },
+                error => {
+                  console.log(error);
+                });
         },
         error => {
           console.log(error);

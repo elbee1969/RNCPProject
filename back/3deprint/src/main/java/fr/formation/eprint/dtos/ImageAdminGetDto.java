@@ -2,8 +2,6 @@ package fr.formation.eprint.dtos;
 
 import java.util.Date;
 
-import fr.formation.eprint.entities.CustomUser;
-
 public class ImageAdminGetDto {
 	private Long id;
 	private String name;
@@ -16,8 +14,20 @@ public class ImageAdminGetDto {
 	private Long userId;
 
 	public ImageAdminGetDto() {
-		super();
-		// TODO Auto-generated constructor stub
+
+	}
+
+	public ImageAdminGetDto(Long id, String name, String ownerName, String type, String url, String status,
+			int quantity, Date date, Long userId) {
+		this.id = id;
+		this.name = name;
+		this.ownerName = ownerName;
+		this.type = type;
+		this.url = url;
+		this.status = status;
+		this.quantity = quantity;
+		this.date = date;
+		this.userId = userId;
 	}
 
 	public Long getId() {

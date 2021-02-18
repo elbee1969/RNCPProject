@@ -1,7 +1,5 @@
 package fr.formation.eprint.dtos;
 
-import fr.formation.eprint.entities.Status;
-
 public class OrderCreateDto {
 
 	private Long imageId;
@@ -20,7 +18,7 @@ public class OrderCreateDto {
 
 	private String timeToPrint;
 
-	private Status status;
+	private String status;
 
 	private long customUserId;
 
@@ -29,7 +27,7 @@ public class OrderCreateDto {
 	}
 
 	public OrderCreateDto(Long imageId, String name, int quantity, float weight, float price, double totalPrice,
-			double totalWeight, String timeToPrint, Status status, long customUserId) {
+			double totalWeight, String timeToPrint, String status, long customUserId) {
 		this.imageId = imageId;
 		this.name = name;
 		this.quantity = quantity;
@@ -106,11 +104,11 @@ public class OrderCreateDto {
 		this.timeToPrint = timeToPrint;
 	}
 
-	public Status getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(Status status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 

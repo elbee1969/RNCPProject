@@ -10,6 +10,6 @@ export class Order {
     totalWeight: number;
     totalPrice: number;
     timeToPrint: string;
-    status: Status;
+    orderStatus: Status;
     customUserId: number;
 }
