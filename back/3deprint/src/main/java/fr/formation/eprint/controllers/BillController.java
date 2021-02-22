@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.formation.eprint.dtos.BillAdminViewDto;
-import fr.formation.eprint.dtos.BillDto;
 import fr.formation.eprint.entities.Status;
 import fr.formation.eprint.services.BillService;
 
@@ -35,7 +34,7 @@ public class BillController {
 
 	@PreAuthorize("hasAnyRole('USER','ADMIN')") // == @Secured("ROLE_USER & "ROLE ADMIN")
 	@GetMapping("/bill/{id}/{status}")
-	public List<BillDto> getAllById(@PathVariable("id") Long id, @PathVariable("status") Status status) {
+	public List<BillAdminViewDto> getAllById(@PathVariable("id") Long id, @PathVariable("status") Status status) {
 		return billService.getAllByIdAndStatus(id, status);
 	}
 

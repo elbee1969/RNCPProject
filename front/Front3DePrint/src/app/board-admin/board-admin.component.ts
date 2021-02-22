@@ -32,15 +32,15 @@ export class BoardAdminComponent implements OnInit {
       data => {
         this.content = JSON.stringify(data);
         console.log("thiscontent" + this.content);
-
+        
         
       },
       err => {
         this.content = err.error.message;
       }
       )
+      
       this.billList();
-   
 
     this.orderService.listOrders("V").subscribe(data => {
       this.orders = data;

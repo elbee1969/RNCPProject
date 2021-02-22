@@ -74,7 +74,6 @@ public class CustomUser extends AbstractEntity {
 	public CustomUser(String username, @Email String email, String password, String firstname, String lastname,
 			Set<Role> roles, Address address, boolean enabled, boolean accountNonExpired, boolean accountNonLocked,
 			boolean credentialsNonExpired) {
-		super();
 		this.username = username;
 		this.email = email;
 		this.password = password;

@@ -9,7 +9,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import fr.formation.eprint.dtos.BillAdminViewDto;
-import fr.formation.eprint.dtos.BillDto;
 import fr.formation.eprint.dtos.OrderDto;
 import fr.formation.eprint.entities.Bill;
 import fr.formation.eprint.entities.Status;
@@ -36,7 +35,7 @@ public class BillServiceImpl implements BillService {
 	 * public void toto() { List<OrderAdminViewDto> dtos = orderService.getAll(); }
 	 */
 	@Override
-	public List<BillDto> getAllByIdAndStatus(Long id, Status status) {
+	public List<BillAdminViewDto> getAllByIdAndStatus(Long id, Status status) {
 		return billRepo.getAllBillByUserIdAndStatus(id, status);
 	}
 
@@ -76,7 +75,8 @@ public class BillServiceImpl implements BillService {
 
 	@Override
 	public List<BillAdminViewDto> getAll(Status status) {
-		return billRepo.findAllBills(status);
+		List<BillAdminViewDto> lists = billRepo.findAllBills(status);
+		return lists;
 	}
 
 }

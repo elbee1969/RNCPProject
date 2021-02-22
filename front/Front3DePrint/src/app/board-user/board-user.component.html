@@ -25,11 +25,19 @@
 
     <ul class="card list-group list-group-flush" *ngFor="let bill of bills">
       <li class="card-body list-group-item">
-        <h5 class="card-title">Facture N° {{ bill.id }}</h5>
-        <p class="card-text">date : {{ bill.billDate }}</p>
-        <p class="card-text">nb articles : {{ bill.totalItem }}</p>
-        <p class="card-text">Prix HT : {{ bill.totalPriceHT }}</p>
-        <p class="card-text">Prix TTC : {{ bill.totalPriceTTC }}</p>
+        <h5 class="card-title">Facture du {{ bill.billDate }} N° {{ bill.id }} </h5>
+        <p class="card-text">Adresse : {{ bill.num }}, {{ bill.street }}, {{ bill.postal }} {{ bill.town }}, {{ bill.country }} </p>
+        <p [hidden]="bill.totalItem > 1" class="card-text">{{ bill.totalItem }} article </p>
+        <p [hidden]="bill.totalItem == 1" class="card-text">{{ bill.totalItem }} articles </p>
+        <p class="card-text">Prix HT : {{ bill.totalPriceHT }} € + TVA 20% = <span>Prix TTC : {{ bill.totalPriceTTC }} €</span></p>
+<!--         <p class="card-text">Nom : {{ bill.customUser.firstname }} {{ bill.customUser.lastname }} / Email :
+          {{bill.customUser.email}}</p>
+        <p class="card-text">Addresse : {{ bill.customUser.address.num }}, {{ bill.customUser.address.street }} -
+          {{ bill.customUser.address.town }} {{ bill.customUser.address.postal }}</p>
+        <span>(En cours à valider) </span>
+        <button class="badge badge-success mr-2" (click)="validateCommande()">Valider la commande</button>
+        <button class="badge badge-danger mr-2" (click)="rejectCommande()">Annuler la commande</button>
+        -->
       </li>
     </ul>
 

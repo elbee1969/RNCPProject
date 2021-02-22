@@ -1,10 +1,22 @@
 package fr.formation.eprint.dtos;
 
-public interface CustomUserAllInfoDto {
+public class CustomUserAllInfoDto {
 
-	Long getId();
+	Long id;
 
-	// String getFirstname();
+	public CustomUserAllInfoDto(Long id) {
+		this.id = id;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	// AddressViewDto getAddress();
 
 	/*
 	 * String getFirstname();
