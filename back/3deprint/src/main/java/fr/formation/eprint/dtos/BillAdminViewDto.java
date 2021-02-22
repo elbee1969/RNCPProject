@@ -6,15 +6,15 @@ public interface BillAdminViewDto {
 
 	Long getId();
 
-	CustomUserIdNameDto getCustomUser();
+	CustomUserAllInfoDto getCustomUser();
 
 	LocalDate getBillDate();
 
-	double getTotalPriceHT();
+	Double getTotalPriceHT();
 
-	double getTotalPriceTTC();
+	Double getTotalPriceTTC();
 
-	double getTotalWeight();
+	Double getTotalWeight();
 
 	int getTotalItem();
 

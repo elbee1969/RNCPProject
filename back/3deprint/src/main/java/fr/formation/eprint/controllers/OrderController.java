@@ -20,7 +20,6 @@ import fr.formation.eprint.dtos.OrderAdminViewDto;
 import fr.formation.eprint.dtos.OrderCreateDto;
 import fr.formation.eprint.dtos.OrderDto;
 import fr.formation.eprint.dtos.OrderPatchDto;
-import fr.formation.eprint.dtos.OrderViewItemDto;
 import fr.formation.eprint.entities.Status;
 import fr.formation.eprint.services.OrderService;
 
@@ -81,10 +80,11 @@ public class OrderController {
 	 * @param id
 	 * @return
 	 */
-	@GetMapping("/viewitemsorder/{id}")
-	public List<OrderViewItemDto> getItem(@PathVariable("id") Long id) {
-		return orderService.getAllById(id);
-	}
+	/*
+	 * @GetMapping("/viewitemsorder/{id}") public List<OrderViewItemDto>
+	 * getItem(@PathVariable("id") Long id) { return
+	 * orderService.getAllOrdersById(id); }
+	 */
 
 	/**
 	 * 

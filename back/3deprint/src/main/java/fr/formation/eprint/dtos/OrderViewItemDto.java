@@ -2,10 +2,18 @@ package fr.formation.eprint.dtos;
 
 public interface OrderViewItemDto {
 
-	String getName();
+	Long getId();
 
-	double getPrice();
-
-	int getQuantity();
+	/*
+	 * String getName();
+	 * 
+	 * double getPrice();
+	 * 
+	 * double getTotalPrice();
+	 * 
+	 * double getTotalWeight();
+	 * 
+	 * int getQuantity();
+	 */
 
 }

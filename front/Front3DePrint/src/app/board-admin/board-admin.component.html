@@ -9,22 +9,14 @@
         <p class="owner" *ngIf="i>0 && orders[i-1].customUser.id==order.customUser.id?'':order.customUser.id"> Devis du
           client :
           {{ order.customUser.id}}
+          <button (click)="createBill(order.customUser.id)" class="btn btn-info float-right"
+            style="margin-left: 10px">Générer facture</button>
         </p>
-        <p>{{ order.customUser.id}}</p>
         <p> Impression : {{i>0 && orders[i-1].name==order.name?'':order.name}}</p>
         <p>Quantité à imprimer : {{order.quantity}}</p>
         <p>temps total d'impression : {{ order.timeToPrint}}</p>
         <p>Poids total : {{ order.totalWeight }} gs</p>
         <p>Prix total : {{ order.totalPrice }} €</p>
-        <div class="order" *ngIf="i>0 && orders[i-1].customUser.id==order.customUser.id; then button else nothing">
-          Devis du client :
-          {{ order.customUser.id}}</div>
-        <ng-template #button>
-          <button (click)="createBill(order.customUser.id)" class="btn btn-info float-right"
-            style="margin-left: 10px">Générer facture</button>
-          <p class="eol"><br /></p>
-        </ng-template>
-
       </li>
     </ul>
   </div>
@@ -32,18 +24,24 @@
   <div class="col-6">
     <h3 class="text-center">Factures</h3>
     <div class="card-header">Liste des factures</div>
-    <p class="none" *ngIf="isEmptyObject(bills)">Aucun devis</p>
+    <p class="none" *ngIf="isEmptyObject(bills)">Aucune facture</p>
 
     <ul class="card list-group list-group-flush" *ngFor="let bill of bills">
       <li class="card-body list-group-item">
         <h5 class="card-title">Facture N° {{ bill.id }}</h5>
-        <p class="card-text">Nom : {{ bill.customUser.firstname }} {{ bill.customUser.lastname }} / Email :
+        <p class="card-text">date : {{ bill.billDate }}</p>
+        <p class="card-text">client id : {{ bill.customUser.id }}</p>
+        <p class="card-text">nb articles : {{ bill.totalItem }}</p>
+        <p class="card-text">Prix HT : {{ bill.totalPriceHT }}</p>
+        <p class="card-text">Prix TTC : {{ bill.totalPriceTTC }}</p>
+<!--         <p class="card-text">Nom : {{ bill.customUser.firstname }} {{ bill.customUser.lastname }} / Email :
           {{bill.customUser.email}}</p>
         <p class="card-text">Addresse : {{ bill.customUser.address.num }}, {{ bill.customUser.address.street }} -
           {{ bill.customUser.address.town }} {{ bill.customUser.address.postal }}</p>
         <span>(En cours à valider) </span>
         <button class="badge badge-success mr-2" (click)="validateCommande()">Valider la commande</button>
         <button class="badge badge-danger mr-2" (click)="rejectCommande()">Annuler la commande</button>
+        -->
       </li>
     </ul>
 

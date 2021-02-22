@@ -6,7 +6,6 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import fr.formation.eprint.dtos.BillAdminViewDto;
@@ -48,12 +47,13 @@ public class BillServiceImpl implements BillService {
 		final double TTC;
 		double Weight = 0;
 		double TVA = 1.2;
-		int i, nbItem = 0;
+		int i, nbItem, nbTotalItem = 0;
 
 		List<OrderDto> orders = orderService.getAllByUserIdAndStatus(userId, status);
 		nbItem = orders.size();
 		System.out.println("nbr order" + nbItem);
 		for (i = 0; i < nbItem; i++) {
+			nbTotalItem += orders.get(i).getQuantity();
 			HT += orders.get(i).getTotalPrice();
 			Weight += orders.get(i).getTotalWeight();
 		}
@@ -64,20 +64,19 @@ public class BillServiceImpl implements BillService {
 		bill.setTotalPriceHT(HT);
 		bill.setTotalPriceTTC(TTC);
 		bill.setTotalWeight(Weight);
-		bill.setTotalItem(nbItem);
+		bill.setTotalItem(nbTotalItem);
 		bill.setCustomUser(customUserRepo.getOne(userId));
 		bill.setStatus(Status.I);
 		billRepo.save(bill);
-		Long billId = bill.getId();
-		Status toto = bill.getStatus();
-		orderService.updateOrderStatusOver(billId);
+		// Long billId = bill.getId();
+		// Status toto = bill.getStatus();
+		// orderService.updateOrderStatusOver(billId);
 
 	}
 
 	@Override
-	public List<BillAdminViewDto> getAll() {
-
-		return billRepo.findAllBills(Sort.by("id"));
+	public List<BillAdminViewDto> getAll(Status status) {
+		return billRepo.findAllBills(status);
 	}
 
 }

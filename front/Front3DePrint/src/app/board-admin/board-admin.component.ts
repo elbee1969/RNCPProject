@@ -32,31 +32,43 @@ export class BoardAdminComponent implements OnInit {
       data => {
         this.content = JSON.stringify(data);
         console.log("thiscontent" + this.content);
+
+        
       },
       err => {
         this.content = err.error.message;
       }
-    )
+      )
+      this.billList();
+   
+
     this.orderService.listOrders("V").subscribe(data => {
       this.orders = data;
       console.log("ordersA : " + JSON.stringify(data));
     },
       error => console.log(error)
     );
-    this.billService.listBills().subscribe(
-        bills => {
-          this.bills = bills;
-        console.log('bills : ' + JSON.stringify(bills))
-        }
-      )
+    
+    
   }
+
+ billList(){
+      this.billService.listBills("I").subscribe(data => {
+            this.bills = data;
+          console.log('bills : ' + JSON.stringify(data))
+          },
+        error => console.log(error)
+      );
+
+    }
+
 
   createBill(id) {
     //this.orderStatus = JSON.stringify({ status: "V" });
-    this.billService.createBill(id,"A").subscribe(result => {
+    this.billService.createBill(id,"V").subscribe(result => {
       console.log('bill created');
-      /*
-      return this.orderService.getOrders(this.id, "V")
+
+       return this.orderService.getOrders(id, "V")
         .subscribe(
           (result) => {
             //this.data = JSON.stringify(result);
@@ -73,8 +85,8 @@ export class BoardAdminComponent implements OnInit {
             // modify order status from V to A
 
             for (let i = 0; i < nb; i++) {
-              this.order = JSON.stringify({ status: "A" });
-                  this.orderService.updateOrder("A", result[i].id)
+              this.orderStatus = JSON.stringify({ status: "O" });
+                  this.orderService.updateOrder(this.orderStatus, result[i].id)
                   .subscribe(
                     () => {
                       console.log('order ' + result[i].id + ' updated successfully');
@@ -86,19 +98,21 @@ export class BoardAdminComponent implements OnInit {
             console.log("cpt : " + nb);
             console.log('get order successfully');
             console.log('result : ' + JSON.stringify(result));
+            this.reloadPage();
           },
           error => {
             console.log(error);
           });
-          */
         },
         error => console.log(error)
     );  
-    this.reloadPage();
+
   }
+
   reloadPage() {
     this.ngOnInit();
-        this.router.navigate['/admin'];
+    this.router.navigate['/admin'];
+    window.location.reload();
   }
     
 

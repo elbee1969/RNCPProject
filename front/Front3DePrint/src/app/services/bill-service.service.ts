@@ -28,8 +28,8 @@ export class BillServiceService {
     return this.http.get<Bill>(API_BILL_URL + `/bill/${id}/${status}`);
   }
 
-  listBills(): Observable<Bill> {
-    return this.http.get<Bill>(API_BILL_URL + '/viewbills');
+  listBills(status: string): Observable<Bill> {
+    return this.http.get<Bill>(API_BILL_URL + `/viewbills/${status}`);
 
   }
 }

@@ -22,19 +22,26 @@ public class BillController {
 	@Autowired
 	private BillService billService;
 
+	/**
+	 * 
+	 * @param id
+	 * @param status
+	 */
 	@PreAuthorize("hasRole('ADMIN')") // == @Secured("ROLE_USER")
 	@GetMapping("/create/{id}/{status}")
 	public void createBill(@PathVariable("id") Long id, @PathVariable("status") Status status) {
 		billService.create(id, status);
 	}
 
+	@PreAuthorize("hasAnyRole('USER','ADMIN')") // == @Secured("ROLE_USER & "ROLE ADMIN")
 	@GetMapping("/bill/{id}/{status}")
 	public List<BillDto> getAllById(@PathVariable("id") Long id, @PathVariable("status") Status status) {
 		return billService.getAllByIdAndStatus(id, status);
 	}
 
-	@GetMapping("/viewbills")
-	public List<BillAdminViewDto> getAll() {
-		return billService.getAll();
+	@PreAuthorize("hasAnyRole('USER','ADMIN')") // == @Secured("ROLE_USER & "ROLE ADMIN")
+	@GetMapping("/viewbills/{status}")
+	public List<BillAdminViewDto> getAllBills(@PathVariable("status") Status status) {
+		return billService.getAll(status);
 	}
 }

@@ -2,7 +2,6 @@ package fr.formation.eprint.services;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
@@ -13,7 +12,6 @@ import fr.formation.eprint.dtos.OrderAdminViewDto;
 import fr.formation.eprint.dtos.OrderCreateDto;
 import fr.formation.eprint.dtos.OrderDto;
 import fr.formation.eprint.dtos.OrderPatchDto;
-import fr.formation.eprint.dtos.OrderViewItemDto;
 import fr.formation.eprint.entities.CustomUser;
 import fr.formation.eprint.entities.Image;
 import fr.formation.eprint.entities.Order;
@@ -78,14 +76,13 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public OrderAdminViewDto getOne(Long id) {
-		// TODO Auto-generated method stub
 		return orderRepository.getById(id);
 	}
 
-	@Override
-	public List<OrderViewItemDto> getAllById(Long id) {
-		return orderRepository.getByBillId(id);
-	}
+	/*
+	 * @Override public List<OrderViewItemDto> getAllOrdersById(Long id) { return
+	 * orderRepository.getAllOrdersById(id); }
+	 */
 
 	@Override
 	public void deleteOne(Long id) {
@@ -93,12 +90,14 @@ public class OrderServiceImpl implements OrderService {
 
 	}
 
-	@Transactional
-	@Override
-	public void updateOrderStatusOver(Long billId) {
-		orderRepository.updateOrderStatusOver(billId);
-
-	}
+	/*
+	 * @Transactional
+	 * 
+	 * @Override public void updateOrderStatusOver(Long billId) {
+	 * orderRepository.updateOrderStatusOver(billId);
+	 * 
+	 * }
+	 */
 
 	@Override
 	public void updateOrder(Long id, @Valid OrderPatchDto dto) {

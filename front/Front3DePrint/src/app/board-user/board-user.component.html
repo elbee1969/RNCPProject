@@ -18,17 +18,21 @@
       </li>
     </ul>
    </div>
-  <div class="col-6">
-  <h3 class="text-center">Commandes</h3>
-    <div class="card-header">
-      Commande
-      <div class="card">
-        <div class="card-body">
-        <h5 class="card-title">Numéro de commande : </h5>
-        <p class="card-text">Prix : </p>
-        </div>
-      </div>
-    </div>
+    <div class="col-6">
+    <h3 class="text-center">Factures</h3>
+    <div class="card-header">Liste des factures</div>
+    <p class="none" *ngIf="isEmptyObject(bills)">Aucune facture</p>
+
+    <ul class="card list-group list-group-flush" *ngFor="let bill of bills">
+      <li class="card-body list-group-item">
+        <h5 class="card-title">Facture N° {{ bill.id }}</h5>
+        <p class="card-text">date : {{ bill.billDate }}</p>
+        <p class="card-text">nb articles : {{ bill.totalItem }}</p>
+        <p class="card-text">Prix HT : {{ bill.totalPriceHT }}</p>
+        <p class="card-text">Prix TTC : {{ bill.totalPriceTTC }}</p>
+      </li>
+    </ul>
+
   </div>
   <div class="col-12">
   <h3 class="text-center">Historique</h3>

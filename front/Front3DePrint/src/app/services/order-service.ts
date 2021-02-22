@@ -15,11 +15,11 @@ const httpOptions = {
 })
 export class OrderService {
 
+  constructor(private http: HttpClient) { }
+
   updateOrder(order: Order, id: number) {
     return this.http.patch<Order>(API_ORDER_URL + `/updateorder/${id}`, order, httpOptions);
   }
-
-  constructor(private http: HttpClient) { }
 
   createOrder(order: Order): Observable<Order> {
     return this.http.post<Order>(API_ORDER_URL, order, httpOptions);

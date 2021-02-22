@@ -36,11 +36,13 @@ export class BoardUserComponent implements OnInit {
   order: any;
   orderStatus: any;
   imageStatus: any;
+  bills: any;
 
   constructor(private userService: UserService,
     private tokenStorageService: TokenStorageService,
               private uploadService: UploadFileService,
               private orderService: OrderService,
+              private billService: BillServiceService,
               private router: Router,
               private imageService: UploadFileService) {
 
@@ -53,6 +55,7 @@ export class BoardUserComponent implements OnInit {
         console.log('data in dashboard : ' + JSON.stringify(data));
         this.currentUser = this.tokenStorageService.getUser();
         this.id = JSON.parse(this.currentUser.userId);
+        this.billList(this.id)
         console.log('current user id : ' + this.id);
         //affiche tous les orders de l'utilisateur au status C
         this.orderService.getOrders(this.id, "C").subscribe(data => {
@@ -67,9 +70,17 @@ export class BoardUserComponent implements OnInit {
       }
     );
 
-
   }
 
+  billList(id){
+      this.billService.getBill(id,"I").subscribe(data => {
+            this.bills = data;
+          console.log('bills : ' + JSON.stringify(data))
+          },
+        error => console.log(error)
+      );
+
+    }
 
   annulOrder(orderId, imageId){
       
@@ -114,6 +125,7 @@ export class BoardUserComponent implements OnInit {
               .subscribe(
                 () => {
                   console.log('Image updated successfully');
+                      this.reloadPage();
                 },
                 error => {
                   console.log(error);
@@ -122,8 +134,6 @@ export class BoardUserComponent implements OnInit {
         error => {
           console.log(error);
         });
-   
-    this.ngOnInit();
   }
 
   isEmptyObject(obj) {

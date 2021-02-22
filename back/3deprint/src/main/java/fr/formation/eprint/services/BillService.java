@@ -12,6 +12,6 @@ public interface BillService {
 
 	List<BillDto> getAllByIdAndStatus(Long id, Status status);
 
-	List<BillAdminViewDto> getAll();
+	List<BillAdminViewDto> getAll(Status status);
 
 }
