@@ -26,6 +26,7 @@ import fr.formation.eprint.dtos.ImagePatchStatusDto;
 import fr.formation.eprint.dtos.ImagePatchstatusAndQuantityDto;
 import fr.formation.eprint.dtos.ImageViewDto;
 import fr.formation.eprint.entities.Status;
+import fr.formation.eprint.exception.ImageAlreadyExistExeption;
 import fr.formation.eprint.repositories.ImageRepository;
 import fr.formation.eprint.repositories.NewUserJpaRepository;
 import fr.formation.eprint.response.MessageImage3DResponse;
@@ -50,7 +51,7 @@ public class ImageController {
 
 	@PostMapping("/upload")
 	public ResponseEntity<MessageImage3DResponse> uploadImage(@RequestParam("file") MultipartFile file)
-			throws IOException {
+			throws ImageAlreadyExistExeption, IOException {
 		String message = "";
 
 		imageStorageService.store(file);

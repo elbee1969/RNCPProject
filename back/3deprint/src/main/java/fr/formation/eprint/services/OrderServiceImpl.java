@@ -76,7 +76,9 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public OrderAdminViewDto getOne(Long id) {
-		return orderRepository.getById(id);
+		Order order = orderRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Commande non exixtante : " + id));
+		return mapper.map(order, OrderAdminViewDto.class);
 	}
 
 	/*

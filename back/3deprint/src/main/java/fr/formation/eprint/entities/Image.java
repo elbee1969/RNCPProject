@@ -42,7 +42,7 @@ public class Image extends AbstractEntity {
 	@Column(name = "date")
 	private Date date;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
 	@JoinColumn(name = "customUser_id")
 	private CustomUser customUser;
 

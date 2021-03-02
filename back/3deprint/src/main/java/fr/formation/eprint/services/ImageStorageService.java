@@ -18,6 +18,7 @@ import fr.formation.eprint.dtos.ImagePatchstatusAndQuantityDto;
 import fr.formation.eprint.dtos.ImageViewDto;
 import fr.formation.eprint.entities.Image;
 import fr.formation.eprint.entities.Status;
+import fr.formation.eprint.exception.ImageAlreadyExistExeption;
 
 public interface ImageStorageService {
 
@@ -31,7 +32,7 @@ public interface ImageStorageService {
 
 	Image getFile(Long id);
 
-	BodyBuilder store(MultipartFile file) throws IOException;
+	BodyBuilder store(MultipartFile file) throws ImageAlreadyExistExeption, IOException;
 
 	List<ImageAdminGetDto> getAllByUserAndStatus(Status status);
 

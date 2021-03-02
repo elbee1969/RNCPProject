@@ -27,91 +27,90 @@ import fr.formation.eprint.services.CustomUserService;
 @RequestMapping("/private") // "/api/private/*"
 public class PrivateController<CustomUser> {
 
-    /**
-     * Accessible with "ROLE_USER".
-     *
-     * @return "Hello user!"
-     */
-    @PreAuthorize("hasRole('USER')") // == @Secured("ROLE_USER")
-    @GetMapping("/user/{id}")
-    public String user() {
-	Long id = SecurityHelper.getUserId();
-	String name = SecurityHelper.getUsername();
-	return "Hello " + name + " ! your id is : " + id;
-    }
+	/**
+	 * Accessible with "ROLE_USER".
+	 *
+	 * @return "Hello user!"
+	 */
+	@PreAuthorize("hasRole('USER')") // == @Secured("ROLE_USER")
+	@GetMapping("/user/{id}")
+	public String user() {
+		Long id = SecurityHelper.getUserId();
+		String name = SecurityHelper.getUsername();
+		return "Hello " + name + " ! your id is : " + id;
+	}
 //    @GetMapping("/user")
 //    public Map<String, String> user(Principal user) {
 //        return Collections.singletonMap("message", "user is: "+user().toString());
 //    }
 
-    @GetMapping("/user")
-    public Principal user(Principal user) {
+	@GetMapping("/user")
+	public Principal user(Principal user) {
 		/*
 		 * Long id = SecurityHelper.getUserId(); String str = String.valueOf(id); String
 		 * name = SecurityHelper.getUsername(); String[] tab; tab = new String[2];
 		 * tab[0] = str; tab[1] = name;
 		 */
 
-	return user;
-    }
+		return user;
+	}
 
-    /**
-     * Accessible with "ROLE_ADMIN".
-     *
-     * @return "Hello admin!"
-     */
-    @PreAuthorize("hasRole('ADMIN')") // == @Secured("ROLE_ADMIN")
-    @GetMapping("/admin")
-    public String admin() {
-	return "Hello admin!";
-    }
+	/**
+	 * Accessible with "ROLE_ADMIN".
+	 *
+	 * @return "Hello admin!"
+	 */
+	@PreAuthorize("hasRole('ADMIN')") // == @Secured("ROLE_ADMIN")
+	@GetMapping("/admin")
+	public String admin() {
+		return "Hello admin!";
+	}
 
-    /**
-     * Accessible if fully authenticated (not anonymous).
-     *
-     * @return "Hello fully authenticated!"
-     */
-    @GetMapping("/authenticated")
-    public String secured() {
-	return "Hello fully authenticated!";
-    }
+	/**
+	 * Accessible if fully authenticated (not anonymous).
+	 *
+	 * @return "Hello fully authenticated!"
+	 */
+	@GetMapping("/authenticated")
+	public String secured() {
+		return "Hello fully authenticated!";
+	}
 
 	private CustomUserDetailsService customUserDetailService;
-	
-    protected PrivateController(CustomUserDetailsService customUserDetailService, CustomUserService customUserService, AddressService addressService) {
-	this.customUserDetailService = customUserDetailService;
-    }
 
-    /**
-     * 
-     * @return all users
-     */
-    @GetMapping("/users")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public List<CustomUserInfoDto> getAll() {
-	return customUserDetailService.getAll();
-    }
+	protected PrivateController(CustomUserDetailsService customUserDetailService, CustomUserService customUserService,
+			AddressService addressService) {
+		this.customUserDetailService = customUserDetailService;
+	}
 
-    /**
-     * 
-     * @param id
-     * delete one user
-     */
-    @PreAuthorize("hasRole('ADMIN')") // == @Secured("ROLE_ADMIN")
-    @DeleteMapping("/delete/{id}")
-    public void deleteAccount(@PathVariable("id") Long id) {
-    	customUserDetailService.deleteOne(id);
-    }
-    
-    /**
-     * 
-     * @param id
-     * @return one user
-     */
-    @GetMapping("/details/{id}") 
+	/**
+	 * 
+	 * @return all users
+	 */
+	@GetMapping("/users")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public List<CustomUserInfoDto> getAll() {
+		return customUserDetailService.getAll();
+	}
+
+	/**
+	 * 
+	 * @param id delete one user
+	 */
+	@PreAuthorize("hasRole('ADMIN')") // == @Secured("ROLE_ADMIN")
+	@DeleteMapping("/delete/{id}")
+	public void deleteAccount(@PathVariable("id") Long id) {
+		customUserDetailService.deleteOne(id);
+	}
+
+	/**
+	 * 
+	 * @param id
+	 * @return one user
+	 */
+	@GetMapping("/details/{id}")
 	public ProfileUserInfosDto getOne(@PathVariable Long id) {
 		return customUserDetailService.getOne(id);
 	}
-    
-   
+
 }

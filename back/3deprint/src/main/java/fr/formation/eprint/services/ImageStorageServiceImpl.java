@@ -34,6 +34,7 @@ import fr.formation.eprint.dtos.ImageViewDto;
 import fr.formation.eprint.entities.CustomUser;
 import fr.formation.eprint.entities.Image;
 import fr.formation.eprint.entities.Status;
+import fr.formation.eprint.exception.ImageAlreadyExistExeption;
 import fr.formation.eprint.exception.ResourceNotFoundException;
 import fr.formation.eprint.repositories.ImageRepository;
 import fr.formation.eprint.repositories.NewUserJpaRepository;
@@ -126,9 +127,11 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 
 	/**
 	 * save image in DB and in user directory
+	 * 
+	 * @throws IOException
 	 */
 	@Override
-	public BodyBuilder store(@RequestParam("file") MultipartFile file) throws IOException {
+	public BodyBuilder store(@RequestParam("file") MultipartFile file) throws ImageAlreadyExistExeption, IOException {
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
 		if (fileName.endsWith(".stl") || fileName.endsWith(".STL")) {
@@ -137,14 +140,15 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 			String user = customUser.getUsername();
 			Path url = Paths.get(roots + "\\" + user);
 			Image image0 = new Image();
-			Image image = new Image(fileName, user, file.getContentType(), url.toString(), image0.setStatus(Status.I),
-					image0.setQuantity(1), image0.getDate(), customUser);
-			File existFile = new File(url.toString() + "\\" + fileName);
+			String newImageName = user + "_" + fileName;
+			Image image = new Image(newImageName, user, file.getContentType(), url.toString(),
+					image0.setStatus(Status.I), image0.setQuantity(1), image0.getDate(), customUser);
+			File existFile = new File(url.toString() + "\\" + newImageName);
 			if (!existFile.exists() && !existFile.isDirectory()) {
-				Files.copy(file.getInputStream(), url.resolve(file.getOriginalFilename()));
+				Files.copy(file.getInputStream(), url.resolve(newImageName));
 				imageRepository.save(image);
 			} else {
-				throw new IOException("Cette image existe déjà !");
+				throw new ImageAlreadyExistExeption("Cette image existe déjà !");
 			}
 		}
 		return ResponseEntity.status(HttpStatus.OK);
