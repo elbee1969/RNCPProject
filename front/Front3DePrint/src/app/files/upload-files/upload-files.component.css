@@ -3,3 +3,7 @@ stl-model-viewer {
     height: 25vh;
     width: 50vw;
 }
+.files:hover {
+    cursor:pointer;
+
+}
