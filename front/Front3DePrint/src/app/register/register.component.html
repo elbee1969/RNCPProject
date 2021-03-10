@@ -4,7 +4,7 @@
 		<img
 		id="profile-img"
 		src="../assets/images/avatar.png"
-		class="profile-img-card img-fluid w-25"
+		class="profile-img-card img-fluid w-10"
 		/>
 	</div>
     <form
@@ -27,12 +27,12 @@
           #username="ngModel"
         />
         <div class="alert-danger" *ngIf="f.submitted && username.invalid">
-          <div *ngIf="username.errors.required">Username is required</div>
+          <div *ngIf="username.errors.required">Surnom requis</div>
           <div *ngIf="username.errors.minlength">
-            Username must be at least 3 characters
+            Le surnom doit avoir au moins 3 charactères
           </div>
           <div *ngIf="username.errors.maxlength">
-            Username must be at most 20 characters
+            Le surnom ne doit pas dépasser 20 charactères
           </div>
         </div>
       </div>
@@ -49,12 +49,12 @@
           #firstname="ngModel"
         />
         <div class="alert-danger" *ngIf="f.submitted && firstname.invalid">
-          <div *ngIf="firstname.errors.required">Username is required</div>
+          <div *ngIf="firstname.errors.required">Prénom requis</div>
           <div *ngIf="firstname.errors.minlength">
-            Username must be at least 2 characters
+            Le prénom doit avoir au moins 2 charactères
           </div>
           <div *ngIf="firstname.errors.maxlength">
-            Username must be at most 40 characters
+            Le prénom ne doit pas dépasser 40 charactères
           </div>
         </div>
       </div>
@@ -71,12 +71,12 @@
           #lastname="ngModel"
         />
         <div class="alert-danger" *ngIf="f.submitted && lastname.invalid">
-          <div *ngIf="lastname.errors.required">Username is required</div>
+          <div *ngIf="lastname.errors.required">Nom requis</div>
           <div *ngIf="lastname.errors.minlength">
-            Username must be at least 2 characters
+            Le nom doit avoir au moins 2 charactères
           </div>
           <div *ngIf="lastname.errors.maxlength">
-            Username must be at most 40 characters
+            Le nom ne doit pas dépasser 40 charactères
           </div>
         </div>
       </div>
@@ -92,9 +92,9 @@
           #email="ngModel"
         />
         <div class="alert-danger" *ngIf="f.submitted && email.invalid">
-          <div *ngIf="email.errors.required">Email is required</div>
+          <div *ngIf="email.errors.required">L'email est requis</div>
           <div *ngIf="email.errors.email">
-            Email must be a valid email address
+            Email must be a valid email address, format should be <i>john@doe.com</i>.
           </div>
         </div>
       </div>
@@ -112,7 +112,7 @@
           #password="ngModel"
         />
         <div class="alert-danger" *ngIf="f.submitted && password.invalid">
-          <div *ngIf="password.errors.required">Password is required</div>
+          <div *ngIf="password.errors.required">Le mot de passe est requis</div>
           <div *ngIf="password.errors.minlength">
             Password must be at least 6 characters
           </div>
@@ -125,12 +125,12 @@
       </div>
 
       <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
-        Signup failed!<br />{{ errorMessage }}
+        Echec de l'enregistrement<br />{{ errorMessage }}
       </div>
     </form>
 
     <div class="alert alert-success" *ngIf="isSuccessful">
-      Your registration is successful!
+      Votre compte à bien été créer!
     </div>
   </div>
 </div>

@@ -22,4 +22,9 @@ public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler {
 		return handleExceptionInternal(ex, errorApi, null, HttpStatus.NOT_FOUND, request);
 	}
 
+	@ExceptionHandler(DuplicateEntryException.class)
+	public ResponseEntity<Object> handleUserAlreadyExistException(DuplicateEntryException ex, WebRequest request) {
+		ErrorApi errorApi = new ErrorApi("Ce surnom existe déjà!", ex.getMessage());
+		return handleExceptionInternal(ex, errorApi, null, HttpStatus.NOT_FOUND, request);
+	}
 }

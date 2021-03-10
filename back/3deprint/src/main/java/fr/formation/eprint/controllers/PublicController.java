@@ -14,6 +14,7 @@ import fr.formation.eprint.config.ResourceServerConfig;
 import fr.formation.eprint.config.SecurityHelper;
 import fr.formation.eprint.dtos.UserCreateDto;
 import fr.formation.eprint.dtos.UserDto;
+import fr.formation.eprint.exception.DuplicateEntryException;
 import fr.formation.eprint.services.CustomUserService;
 
 /**
@@ -52,7 +53,7 @@ public class PublicController {
 	private CustomUserService userService;
 
 	@PostMapping("/register")
-	public UserDto create(@Valid @RequestBody UserCreateDto dto) {
+	public UserDto create(@Valid @RequestBody UserCreateDto dto) throws DuplicateEntryException {
 		return userService.create(dto);
 	}
 
