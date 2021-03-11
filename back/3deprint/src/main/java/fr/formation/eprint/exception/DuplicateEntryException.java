@@ -1,8 +1,8 @@
 package fr.formation.eprint.exception;
 
-import java.sql.SQLIntegrityConstraintViolationException;
+import org.springframework.dao.DataIntegrityViolationException;
 
-public class DuplicateEntryException extends SQLIntegrityConstraintViolationException {
+public class DuplicateEntryException extends DataIntegrityViolationException {
 	private static final long serialVersionUID = 1L;
 
 	public DuplicateEntryException(String message) {

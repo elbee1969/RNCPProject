@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ErrorHandler, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertService } from '../services/alert.service';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
+import { ErrorHandlerService } from '../services/error-handler.service';
 
 @Component({
   selector: 'app-register',
@@ -32,7 +33,9 @@ export class RegisterComponent implements OnInit {
         console.log("Enregistrement réussi");
       },
       err => {
-        this.alertService.error(err);
+       this.errorMessage = ErrorHandlerService.catch(err);
+        console.log(this.errorMessage);
+        this.errorMessage = this.errorMessage.slice(22);
         this.isSignUpFailed = true;
       }
     );

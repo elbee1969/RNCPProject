@@ -5,15 +5,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+
 public class ErrorApi {
 
 	private LocalDateTime timestamp = LocalDateTime.now();
+
+	private HttpStatus status;
 
 	private String message;
 
 	private List<String> errors = new ArrayList<>();
 
-	public ErrorApi(LocalDateTime timestamp, String message, List<String> errors) {
+	public ErrorApi(HttpStatus status, LocalDateTime timestamp, String message, List<String> errors) {
+
+		this.status = status;
 		this.timestamp = timestamp;
 		this.message = message;
 		this.errors = errors;
@@ -31,6 +37,18 @@ public class ErrorApi {
 	public ErrorApi(String message, String error) {
 		this.message = message;
 		this.errors = Arrays.asList(error);
+	}
+
+	public ErrorApi(HttpStatus status, String message, String error) {
+		this.status = status;
+		this.message = message;
+		this.errors = Arrays.asList(error);
+	}
+
+	public ErrorApi(HttpStatus status, String message, List<String> errors) {
+		this.status = status;
+		this.message = message;
+		this.errors = errors;
 	}
 
 	public LocalDateTime getTimestamp() {
@@ -55,6 +73,14 @@ public class ErrorApi {
 
 	public void setErrors(List<String> errors) {
 		this.errors = errors;
+	}
+
+	public HttpStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(HttpStatus status) {
+		this.status = status;
 	}
 
 }

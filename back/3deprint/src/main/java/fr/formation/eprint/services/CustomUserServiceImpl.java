@@ -49,16 +49,10 @@ public class CustomUserServiceImpl implements CustomUserService {
 	}
 
 	@Override
-	public boolean isValid(String username) {
-		return false;
-	}
-
-	@Override
 	public UserDto create(UserCreateDto dto) throws DuplicateEntryException {
 		String encodedPassword = passwordEncoder.encode(dto.getPassword());
 		Set<Role> role = new HashSet<>();
 		role.add(roleJpaRepository.findByDefaultRole(true));
-
 		List<Image> images = new ArrayList<>();
 		Address address = new Address();
 		CustomUser user = new CustomUser(dto.getUsername(), dto.getEmail(), encodedPassword, dto.getLastname(),
@@ -100,6 +94,11 @@ public class CustomUserServiceImpl implements CustomUserService {
 	@Override
 	public CustomUserInfoDto getCurrentUserInfo(Long id) {
 		return userJpaRepository.getById(id).orElseThrow(() -> new ResourceNotFoundException("with id:" + id));
+	}
+
+	@Override
+	public boolean isUsernameValid(String username) {
+		return !userJpaRepository.existsByUsername(username);
 	}
 
 }

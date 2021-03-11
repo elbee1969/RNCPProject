@@ -12,8 +12,6 @@ import fr.formation.eprint.exception.DuplicateEntryException;
 
 public interface CustomUserService {
 
-	boolean isValid(String username);
-
 	void deleteOne(Long id);
 
 	UserDto create(@Valid UserCreateDto dto) throws DuplicateEntryException;
@@ -21,5 +19,7 @@ public interface CustomUserService {
 	UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 
 	CustomUserInfoDto getCurrentUserInfo(Long id);
+
+	boolean isUsernameValid(String username);
 
 }

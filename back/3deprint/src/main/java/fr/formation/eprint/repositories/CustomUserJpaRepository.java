@@ -13,27 +13,27 @@ import fr.formation.eprint.entities.CustomUser;
 @Repository
 public interface CustomUserJpaRepository extends JpaRepository<CustomUser, Long> {
 
-    /**
-     * Retrieves a projected view of the {@code User} with given username.
-     *
-     * @param username a username
-     * @return a projected view
-     */
-    Optional<CustomUserAuthDto> findByUsername(String username);
+	/**
+	 * Retrieves a projected view of the {@code User} with given username.
+	 *
+	 * @param username a username
+	 * @return a projected view
+	 */
+	Optional<CustomUserAuthDto> findByUsername(String username);
 
 //    Optional<CustomUserAuthDto> findAll(String username);
-    /**
-     * Retrieves a projected view of the current authenticated {@code User}.
-     *
-     * @param id user id
-     * @return a projected view
-     */
-    Optional<CustomUserInfoDto> getById(Long id);
+	/**
+	 * Retrieves a projected view of the current authenticated {@code User}.
+	 *
+	 * @param id user id
+	 * @return a projected view
+	 */
+	Optional<CustomUserInfoDto> getById(Long id);
 
-    List<CustomUserInfoDto> getAllProjectedBy();
+	List<CustomUserInfoDto> getAllProjectedBy();
+
+	boolean existsByUsername(String username);
 
 //    Optional<UserAuthViewDto> getById(Long id); 
-
-//    boolean existsByUsername(String username);
 
 }
