@@ -2,15 +2,15 @@ package fr.formation.eprint.dtos;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import fr.formation.eprint.annotations.UniqueCustomUser;
 
 public class UserCreateDto {
 
-//	private final String message = "Must contains at least 6 characters, 1 uppercase, 1 lowercase, 1 digit and 1 special char";
-//    private final String pattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*~{}&.,§+=°_();/]).{6,40}$";
-//    @Pattern(regexp = pattern, message = message)
+	private final String message = "Le mot de passe doit contenir au moins 8 caractères, 1 majuscule, 1 minuscule, 1 nombre et 1 caractère spécial";
+	private final String pattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*~{}&.,§+=°_();/]).{6,40}$";
 
 	@NotBlank
 	@Size(min = 3, max = 20)
@@ -24,6 +24,7 @@ public class UserCreateDto {
 
 	@NotBlank
 	@Size(min = 6, max = 40)
+	@Pattern(regexp = pattern, message = message)
 	private String password;
 
 	@NotBlank

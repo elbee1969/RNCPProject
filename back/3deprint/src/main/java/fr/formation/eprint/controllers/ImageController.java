@@ -73,7 +73,7 @@ public class ImageController {
 
 	/**
 	 * 
-	 * @return get all images from a user with "choosen" status ("C")
+	 * @return get all images from a user with "Initial" status ("I")
 	 */
 	@GetMapping("/ownedimages")
 	public List<ImageGetDto> getAllByIdByStatusI() {

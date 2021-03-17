@@ -1,7 +1,5 @@
 import { Component, ErrorHandler, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertService } from '../services/alert.service';
-import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { ErrorHandlerService } from '../services/error-handler.service';
 
@@ -17,7 +15,6 @@ export class RegisterComponent implements OnInit {
   errorMessage = '';
 
   constructor(private userService: UserService,
-              private alertService: AlertService,
               private router: Router) { }
 
   ngOnInit() {

@@ -12,7 +12,7 @@
         <p>Quantité à imprimer : {{order.quantity}}</p>
         <p>temps total d'impression : {{ order.timeToPrint}}</p>
         <p>Poids total : {{ order.totalWeight }} grs</p>
-        <p>Prix total : {{ order.totalPrice }} €</p>
+        <p>Prix total : {{ order.totalPrice }} € HT (TVA: 20%)</p>
         <button (click) = "validateOrder(order.id, order.imageId)" class="btn btn-success float-right" style="margin-left: 10px">Accepter</button>
         <button (click) = "annulOrder(order.id, order.imageId)" class="btn btn-danger float-right" style="margin-left: 10px">Annuller</button>
       </li>
