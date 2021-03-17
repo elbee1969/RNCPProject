@@ -24,7 +24,7 @@ USE `eprintdatabase`;
 CREATE TABLE IF NOT EXISTS `addresses` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `country` VARCHAR(30) NULL DEFAULT NULL,
-  `num` INT(11) NULL DEFAULT NULL,
+  `num` INT(11) NULL DEFAULT 0,
   `postal` VARCHAR(5) NULL DEFAULT NULL,
   `street` VARCHAR(40) NULL DEFAULT NULL,
   `town` VARCHAR(40) NULL DEFAULT NULL,
@@ -193,20 +193,6 @@ CREATE TABLE IF NOT EXISTS `user_role` (
 -- DEFAULT CHARACTER SET = utf8mb4 
  COLLATE utf8mb4_unicode_ci;
 
- -- --------------------------------------------------------
- -- Insert role into database 
- -- -------------------------------------------------------
-
-USE `eprintdatabase`; 
- 
--- By default mysql is in autocommit mode, putted to false during the script execution*/
-SET autocommit=0; 
-
--- characters set for inserted datas */
-SET NAMES utf8mb4;
-
--- role -> 1 for user setted to true by default, 2 for admin, setted to flase by default
-INSERT INTO roles (id, code, default_role) VALUES (1,'ROLE_USER','T'), (2,'ROLE_ADMIN','F');
 
 -- Validation of the inserted datas */
 COMMIT;

@@ -8,11 +8,12 @@ import { Status } from '../model/status';
 import { User } from '../model/user';
 import { AnonymousSubject } from 'rxjs/internal/Subject';
 import { UploadFileService } from '../services/upload-file.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { Image } from '../model/Image';
 import { BillServiceService } from '../services/bill-service.service';
 import { Bill } from '../model/Bill';
 import { Observable } from 'rxjs';
+import { isNull } from 'util';
 
 @Component({
   selector: 'app-board-user',
@@ -37,6 +38,7 @@ export class BoardUserComponent implements OnInit {
   orderStatus: any;
   imageStatus: any;
   bills: any;
+  flag: boolean = true;
 
   constructor(private userService: UserService,
     private tokenStorageService: TokenStorageService,
@@ -44,18 +46,46 @@ export class BoardUserComponent implements OnInit {
               private orderService: OrderService,
               private billService: BillServiceService,
               private router: Router,
+              private route: ActivatedRoute,
               private imageService: UploadFileService) {
 
    }
 
   ngOnInit() {
+
     this.userService.getUserBoard().subscribe(
       data => {
         this.content = data;
         console.log('data in dashboard : ' + JSON.stringify(data));
         this.currentUser = this.tokenStorageService.getUser();
         this.id = JSON.parse(this.currentUser.userId);
-        this.billList(this.id)
+
+        // verif adresse
+        
+    this.userService.getOne(this.id).subscribe(
+      (user: User) => {
+        this.user = user;
+
+        console.log("data user : " + JSON.stringify(this.user));
+        console.log("data addresse : " + this.user.address.num + ' ' + this.user.address.street +  ' ' + this.user.address.town);
+        console.log("username : " + this.user.username);
+        const s = this.user.address.street;
+        const t = this.user.address.town;
+        const c = this.user.address.country;
+        const p = this.user.address.postal;
+        if ( !s || !t || !c || !p) {
+          this.flag = false;
+        }
+        console.log('flag : ' + this.flag);
+
+      },
+      err => {
+        this.user = JSON.parse(err.error).message;
+      }
+    );
+
+
+        this.billList(this.id);
         console.log('current user id : ' + this.id);
         //affiche tous les orders de l'utilisateur au status C
         this.orderService.getOrders(this.id, "C").subscribe(data => {
@@ -112,30 +142,34 @@ export class BoardUserComponent implements OnInit {
          this.router.navigate(['/user']);
   }
 
-
   validateOrder(orderId, imageId) {
-
-    this.orderStatus = JSON.stringify({ status: "V" });
-    this.orderService.updateOrder(this.orderStatus, orderId)
-      .subscribe(
-        () => {
-          console.log('order ' + orderId + ' updated successfully');
-              this.imageStatus = JSON.stringify({ status: "O" });
-              return this.uploadService.updateImageStatus(this.imageStatus, imageId)
+    if (this.flag) {
+      this.orderStatus = JSON.stringify({ status: "V" });
+      this.orderService.updateOrder(this.orderStatus, orderId)
+        .subscribe(
+          () => {
+            console.log('order ' + orderId + ' updated successfully');
+            this.imageStatus = JSON.stringify({ status: "O" });
+            return this.uploadService.updateImageStatus(this.imageStatus, imageId)
               .subscribe(
                 () => {
                   console.log('Image updated successfully');
-                      this.reloadPage();
+                  this.reloadPage();
                 },
                 error => {
                   console.log(error);
                 });
-        },
-        error => {
-          console.log(error);
-        });
+          },
+          error => {
+            console.log(error);
+          });
+    } else {
+      const val = confirm('vous devez renseigner votre addresse avant de valider ce devis');
+      if (val) {
+        this.router.navigate(['/profile'], { relativeTo: this.route });
+      }
+    }
   }
-
   isEmptyObject(obj) {
     return (obj && (Object.keys(obj).length === 0));
   }

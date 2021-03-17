@@ -20,7 +20,7 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 
 @Entity
-@Table(name = "customUser", uniqueConstraints = { @UniqueConstraint(columnNames = "username"),
+@Table(name = "custom_users", uniqueConstraints = { @UniqueConstraint(columnNames = "username"),
 		@UniqueConstraint(columnNames = "email") })
 public class CustomUser extends AbstractEntity {
 

@@ -16,7 +16,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "image")
+@Table(name = "images")
 public class Image extends AbstractEntity {
 
 	@Column(name = "name", length = 255, nullable = false)

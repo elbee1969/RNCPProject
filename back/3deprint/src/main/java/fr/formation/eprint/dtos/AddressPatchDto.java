@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.Length;
 
 public class AddressPatchDto {
 
-	@NotNull
+	// @NotNull
 	private int num;
 
 	@Length(max = 40)

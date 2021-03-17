@@ -1,11 +1,10 @@
 package fr.formation.eprint.dtos;
 
-import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
 public class AddressCreateDto {
 
-	@NotNull
+	// @NotNull
 	private int num;
 
 	@Length(max = 40)

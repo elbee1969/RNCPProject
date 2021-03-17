@@ -1,17 +1,20 @@
 package fr.formation.eprint.entities;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
-@Table(name = "role")
-public class Role extends AbstractEntity  {
+@Table(name = "roles")
+public class Role extends AbstractEntity {
 
-	@Column(name= "code", length = 20)
+	@Column(name = "code", length = 20)
 	private String code;
-	
+
 	@Convert(converter = BooleanConverter.class)
-    @Column(length = 1, nullable = false)
-    private boolean defaultRole = false;
+	@Column(length = 1, nullable = false)
+	private boolean defaultRole = false;
 
 	protected Role() {
 		super();
@@ -28,7 +31,7 @@ public class Role extends AbstractEntity  {
 
 	public Role(String code) {
 		setCode(code);
-	    }
+	}
 
 	public String getCode() {
 		return code;
@@ -52,6 +55,4 @@ public class Role extends AbstractEntity  {
 				+ super.toString() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + "]";
 	}
 
-	
-	
 }

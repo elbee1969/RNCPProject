@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "address")
+@Table(name = "addresses")
 public class Address extends AbstractEntity {
 
 	@Column(name = "num", length = 4)
@@ -27,7 +27,7 @@ public class Address extends AbstractEntity {
 		super();
 	}
 
-	public Address(int num, String street, String town,String postal, String country) {
+	public Address(int num, String street, String town, String postal, String country) {
 		super();
 		this.num = num;
 		this.street = street;
