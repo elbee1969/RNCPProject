@@ -28,6 +28,14 @@ import { UserService } from './services/user.service';
 import { AdminListFilesComponent } from './files/admin-list-files/admin-list-files.component';
 import { PrintImageComponent } from './files/print-image/print-image.component';
 import { OrderService } from './services/order-service';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { HeaderComponent } from './navigation/header/header.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
+import { MatListModule, MatTabsModule } from '@angular/material';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 @NgModule({
@@ -47,7 +55,8 @@ import { OrderService } from './services/order-service';
     UserUpdateComponent,
     ThreeComponent,
     AdminListFilesComponent,
-    PrintImageComponent
+    PrintImageComponent,
+    HeaderComponent
   
 
   ],
@@ -60,8 +69,26 @@ import { OrderService } from './services/order-service';
     NgxPaginationModule,
     BrowserAnimationsModule,
     ModalModule,
-    StlModelViewerModule
+    StlModelViewerModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatTabsModule,
+    MatIconModule,
+    MatListModule,
+    FlexLayoutModule
 
+
+  ],
+   exports: [
+    RouterModule,
+    MatTabsModule,
+    MatSidenavModule,
+     MatToolbarModule,
+    MatButtonModule,
+     MatIconModule,
+     MatListModule,
+    
   ],
   providers: [UserService, {
     provide: HTTP_INTERCEPTORS,
@@ -71,4 +98,5 @@ import { OrderService } from './services/order-service';
   bootstrap: [AppComponent]
  
 })
-export class AppModule { }
+export class AppModule {
+ }
