@@ -5,6 +5,8 @@ import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import fr.formation.eprint.utility.BooleanConverter;
+
 @Entity
 @Table(name = "roles")
 public class Role extends AbstractEntity {
@@ -17,16 +19,6 @@ public class Role extends AbstractEntity {
 	private boolean defaultRole = false;
 
 	protected Role() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @param id
-	 */
-	public Role(Long id) {
-		super(id);
-		// TODO Auto-generated constructor stub
 	}
 
 	public Role(String code) {
@@ -47,12 +39,6 @@ public class Role extends AbstractEntity {
 
 	public void setDefaultRole(boolean defaultRole) {
 		this.defaultRole = defaultRole;
-	}
-
-	@Override
-	public String toString() {
-		return "Role [code=" + code + ", defaultRole=" + defaultRole + ", getId()=" + getId() + ", toString()="
-				+ super.toString() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + "]";
 	}
 
 }

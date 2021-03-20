@@ -38,7 +38,6 @@ public class UserCreateDto {
 	private AddressCreateDto address;
 
 	public UserCreateDto() {
-
 	}
 
 	public String getUsername() {

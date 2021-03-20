@@ -21,12 +21,7 @@ public class AdressServiceImpl implements AddressService {
 	protected AdressServiceImpl(AddressRepository addressRepository, CustomUserJpaRepository userJpaRepository, ModelMapper mapper ) {
 		this.addressRepository = addressRepository;
 		this.mapper = mapper;
-	};
-
-	/**
-	 * Update user address
-	 */
-	@Override
+	}	@Override
 	public void update(Long id, @Valid AddressPatchDto dto) {
 		Address address = addressRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
 		mapper.map(dto, address);

@@ -20,8 +20,7 @@ public class ImageCreateDto {
     @NotNull
     private byte[] data;
 
-    private Long customUserId;;
-
+    private Long customUserId;
     public ImageCreateDto() {
 	super();
 	// TODO Auto-generated constructor stub

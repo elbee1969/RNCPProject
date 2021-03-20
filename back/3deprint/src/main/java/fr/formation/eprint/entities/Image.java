@@ -2,7 +2,6 @@ package fr.formation.eprint.entities;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -42,7 +41,7 @@ public class Image extends AbstractEntity {
 	@Column(name = "date")
 	private Date date;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "customUser_id")
 	private CustomUser customUser;
 
@@ -64,13 +63,11 @@ public class Image extends AbstractEntity {
 	}
 
 	public Image() {
-		super();
-		// TODO Auto-generated constructor stub
+
 	}
 
 	public Image(Long id) {
-		super(id);
-		// TODO Auto-generated constructor stub
+
 	}
 
 	public String getName() {

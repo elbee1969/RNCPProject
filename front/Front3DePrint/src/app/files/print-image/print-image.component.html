@@ -1,39 +1,49 @@
 <div class="col-10 p-0 fond">
 	<form [formGroup]="editForm" (ngSubmit)="onSubmit()">       
 	</form>
-	<input class="mr-1 col-2" placeholder="heure(s)" [(ngModel)]="heure" id="heure" required>
+	<input class="mr-1 col-2" placeholder="heure(s)" [(ngModel)]="heure" id="heure" required="required" />
 	<input class="mr-1 col-2" placeholder="minute(s)" [(ngModel)]="minute" id="minute" required>
 	<input class="mr-1 col-2" placeholder="seconde(s)" [(ngModel)]="seconde" id="seconde" required>
-	<button class="btn btn-dark ml-2 col-4" (click)="calculate($event)">Calcul du temps total d'impression</button>
+	<button class="btn btn-dark ml-2 col-4" (click)="calculate()">Calcul du temps total d'impression</button>
 
 	<div class="form-group">
 		<form [formGroup]="inputForm" (ngSubmit)="onSubmit()">
 			<p class="form-group card-header"><span>Nom de l'image : </span>
-			<input type="text" formControlName="name" name="name" class="form-control" id="name" [(ngModel)]="imageName" readonly="readonly">
+				<input type="text" formControlName="name" name="name" class="form-control" id="name" [(ngModel)]="imageName" readonly="readonly">
 			</p>
 			<p class="form-group card-header"><span>Id de l'image : </span>
-			<input type="number" formControlName="imageId" name="imageId" class="form-control" id="imageId" [(ngModel)]="imageId" readonly="readonly">
+				<input type="number" formControlName="imageId" name="imageId" class="form-control" id="imageId" [(ngModel)]="imageId" readonly="readonly">
 			</p>
 			<p class="form-group card-header"><span>Nom du client : </span>
-			<input type="text" formControlName="userName" name="userName" class="form-control" id="userName" placeholder="userName" placeholder="{{userName}}" readonly="readonly">
+				<input type="text" formControlName="userName" name="userName" class="form-control" id="userName" placeholder="userName" placeholder="{{userName}}" readonly="readonly">
 			</p>
 			<p class="form-group card-header"><span>id du client : </span>
-			<input type="number" formControlName="customUserId" name="customUserId" class="form-control" id="customUserId" [(ngModel)]="customUserId" readonly="readonly">
+				<input type="number" formControlName="customUserId" name="customUserId" class="form-control" id="customUserId" [(ngModel)]="customUserId" readonly="readonly">
 			</p>
-			<p class="form-group card-header"><span>Quantité à imprimer : </span>
-			<input type="number" formControlName="quantity" name="quantity" class="form-control" id="quantity" [(ngModel)]="quantity" readonly="readonly">
+			<p class="form-group card-header">
+				<span>Quantité à imprimer : </span>
+				<input type="number" formControlName="quantity" name="quantity" class="form-control" id="quantity" [(ngModel)]="quantity" readonly="readonly">
 			</p>
 			<div class="form-group card-header">	
 				<label for="weight">Poids (grammes) :</label>
-				<input type="number" formControlName="weight" name="weight" class="form-control" id="weight" required="required">
+				<input type="number" formControlName="weight" name="weight" class="form-control" id="weight" [ngClass]="{ 'is-invalid': submitted && f.weight.errors }" />
+				<div *ngIf="submitted && f.weight.errors" class="invalid-feedback">
+                    <div *ngIf="f.weight.errors.required">le poids est requis</div>
+                </div>
 			</div>
 			<div class="form-group card-header">
 				<label for="price">Prix (€) :</label>
-				<input type="number" formControlName="price" name="price" class="form-control" id="price" required="required">
+				<input type="number" formControlName="price" name="price" class="form-control" id="price" [ngClass]="{ 'is-invalid': submitted && f.price.errors }" />
+				<div *ngIf="submitted && f.price.errors" class="invalid-feedback">
+                    <div *ngIf="f.price.errors.required">le prix est requis</div>
+                </div>
 			</div>
 			<div class="form-group card-header">
 				<label for="timeToPrint">Temps d'impression total :</label>
-				<input type="text" formControlName="timeToPrint" name="timeToPrint" class="form-control" id="timeToPrint" [(ngModel)]="time" readonly="readonly">
+				<input type="text" formControlName="timeToPrint" name="timeToPrint" class="form-control" id="timeToPrint" [(ngModel)]="time" readonly="readonly" [ngClass]="{ 'is-invalid': submitted && f.timeToPrint.errors }" />
+				<div *ngIf="submitted && f.timeToPrint.errors" class="invalid-feedback">
+                    <div *ngIf="f.timeToPrint.errors.required">Vous devez passer par la saisie automatique du temps</div>
+                </div>
 			</div>
 			<button class="btn btn-success float-right ml-2 mt-3">Ok</button>
 			<button (click) = "back()" class="btn btn-info float-right mt-3" style="margin-left: 10px"> <i class="fa fa-undo"> </i></button>

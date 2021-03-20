@@ -24,7 +24,6 @@ public class Address extends AbstractEntity {
 	private String country;
 
 	public Address() {
-		super();
 	}
 
 	public Address(int num, String street, String town, String postal, String country) {

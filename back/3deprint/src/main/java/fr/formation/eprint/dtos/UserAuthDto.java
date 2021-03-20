@@ -2,7 +2,7 @@ package fr.formation.eprint.dtos;
 
 import java.util.Set;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -10,47 +10,47 @@ import fr.formation.eprint.entities.Role;
 
 public class UserAuthDto {
 
-    @NotEmpty
-    @Size(min = 3, max = 20)
-    private String username;
+	@NotBlank
+	@Size(min = 3, max = 20)
+	private String username;
 
-    @NotEmpty
-    @Size(max = 100)
-    private String email;
+	@NotBlank
+	@Size(max = 100)
+	private String email;
 
-    @NotEmpty
-    @Size(min = 6, max = 40)
-    private String password;
+	@NotBlank
+	@Size(min = 6, max = 40)
+	private String password;
 
-    @NotNull
-    private Set<Role> roles;
+	@NotNull
+	private Set<Role> roles;
 
-    @NotEmpty
-    @Size(min = 2, max = 40)
-    private String firstname;
+	@NotBlank
+	@Size(min = 2, max = 40)
+	private String firstname;
 
-    @NotEmpty
-    @Size(min = 2, max = 40)
-    private String lastname;
+	@NotBlank
+	@Size(min = 2, max = 40)
+	private String lastname;
 
-    private AddressCreateDto address;
+	private AddressCreateDto address;
 
-    @NotNull
-    private boolean enabled;
+	@NotNull
+	private boolean enabled;
 
-    @NotNull
-    private boolean accountNonExpired;
+	@NotNull
+	private boolean accountNonExpired;
 
-    @NotNull
-    private boolean accountNonLocked;
+	@NotNull
+	private boolean accountNonLocked;
 
-    @NotNull
-    private boolean credentialsNonExpired;
+	@NotNull
+	private boolean credentialsNonExpired;
 
-    public UserAuthDto() {
-	super();
-	// TODO Auto-generated constructor stub
-    }
+	public UserAuthDto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public String getUsername() {
 		return username;
@@ -140,5 +140,4 @@ public class UserAuthDto {
 		this.credentialsNonExpired = credentialsNonExpired;
 	}
 
-   
 }

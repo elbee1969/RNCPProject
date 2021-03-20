@@ -1,36 +1,27 @@
 package fr.formation.eprint.dtos;
 
 public class UserDto {
-    private String username;
-//    private String email;
-//    private String password;
-    private String firstname;
-    private String lastname;
-//	private Set<Role> roles;
-//	private boolean enabled;
-//    private boolean accountNonExpired;
-//    private boolean accountNonLocked;
-//    private boolean credentialsNonExpired;
-    private AddressCreateDto address;
+	private String username;
 
-    public UserDto() {
+	private String firstname;
+	private String lastname;
+	private AddressCreateDto address;
 
-    }
+	public UserDto() {
 
-//
-    public String getFirstname() {
-	return firstname;
-    }
+	}
 
+	public String getFirstname() {
+		return firstname;
+	}
 
-    public String getLastname() {
-	return lastname;
-    }
+	public String getLastname() {
+		return lastname;
+	}
 
-
-    public String getUsername() {
-	return username;
-    }
+	public String getUsername() {
+		return username;
+	}
 
 	public AddressCreateDto getAddress() {
 		return address;

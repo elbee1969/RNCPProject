@@ -31,8 +31,11 @@ import fr.formation.eprint.repositories.RoleJpaRepository;
 
 @Service
 public class CustomUserServiceImpl implements CustomUserService {
-
+	/**
+	 * path of local downloaded files
+	 */
 	private final Path root = Paths.get("H:\\RNCPProject\\front\\Front3DePrint\\src\\assets\\uploads");
+
 	private final PasswordEncoder passwordEncoder;
 	private final CustomUserJpaRepository userJpaRepository;
 	private final RoleJpaRepository roleJpaRepository;
@@ -41,13 +44,15 @@ public class CustomUserServiceImpl implements CustomUserService {
 	@Autowired
 	protected CustomUserServiceImpl(PasswordEncoder passwordEncoder, CustomUserJpaRepository userRepository,
 			RoleJpaRepository roleJpaRepository, ModelMapper mapper) {
-		// TODO Auto-generated constructor stub
 		this.passwordEncoder = passwordEncoder;
 		this.userJpaRepository = userRepository;
 		this.roleJpaRepository = roleJpaRepository;
 		this.mapper = mapper;
 	}
 
+	/**
+	 * Create a new customUser
+	 */
 	@Override
 	public UserDto create(UserCreateDto dto) throws DuplicateEntryException {
 		String encodedPassword = passwordEncoder.encode(dto.getPassword());
@@ -63,7 +68,7 @@ public class CustomUserServiceImpl implements CustomUserService {
 	}
 
 	/**
-	 * create a personal directory
+	 * create a personal directory with userName
 	 * 
 	 * @param username
 	 */
@@ -77,7 +82,10 @@ public class CustomUserServiceImpl implements CustomUserService {
 		}
 	}
 
-//Throws UsernameNotFoundException (Spring contract)
+	/**
+	 * load user by userName and if not found throws UsernameNotFoundException
+	 * (Spring contract)
+	 */
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		CustomUserAuthDto user = userJpaRepository.findByUsername(username)
@@ -85,17 +93,26 @@ public class CustomUserServiceImpl implements CustomUserService {
 		return new CustomUserDetails(user);
 	}
 
+	/**
+	 * delete a customUser
+	 */
 	@Override
 	public void deleteOne(Long id) {
 
 	}
 
-	// Throws ResourceNotFoundException (restful practice)
+	/**
+	 * get info of customUser by is id and throws ResourceNotFoundException (restful
+	 * practice)
+	 */
 	@Override
 	public CustomUserInfoDto getCurrentUserInfo(Long id) {
 		return userJpaRepository.getById(id).orElseThrow(() -> new ResourceNotFoundException("with id:" + id));
 	}
 
+	/**
+	 * Method use for annotation @UniqueCustomUser
+	 */
 	@Override
 	public boolean isUsernameValid(String username) {
 		return !userJpaRepository.existsByUsername(username);

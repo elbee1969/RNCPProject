@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { TokenStorageService } from './services/token-storage.service';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -18,6 +18,8 @@ export class AppComponent {
   greeting = {};
   showUserBoard: boolean = false;
   username: any;
+
+  @Output() public sidenavToggle = new EventEmitter();
   
   constructor(private tokenStorageService: TokenStorageService, private router: Router) { 
     
@@ -49,5 +51,9 @@ export class AppComponent {
     // window.location.reload();
     this.router.navigate(['/home']);
   }
-        
+      
+    public onToggleSidenav = () => { 
+  this.sidenavToggle.emit();
+}
+
 }

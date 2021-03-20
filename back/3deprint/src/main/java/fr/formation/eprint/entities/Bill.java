@@ -28,12 +28,6 @@ public class Bill extends AbstractEntity {
 	@Column(name = "date", nullable = false)
 	private LocalDate billDate;
 
-	/*
-	 * @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-	 * 
-	 * @Column(name = "orders", nullable = false) private List<Order> orders;
-	 */
-
 	@Column(name = "totalPriceHT", columnDefinition = "DECIMAL(10, 2) UNSIGNED", nullable = false)
 	private double totalPriceHT;
 

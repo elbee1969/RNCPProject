@@ -60,15 +60,11 @@ export class BoardUserComponent implements OnInit {
         this.currentUser = this.tokenStorageService.getUser();
         this.id = JSON.parse(this.currentUser.userId);
 
-        // verif adresse
-        
-    this.userService.getOne(this.id).subscribe(
+        // verify if adress in filled
+    
+      this.userService.getOne(this.id).subscribe(
       (user: User) => {
         this.user = user;
-
-        console.log("data user : " + JSON.stringify(this.user));
-        console.log("data addresse : " + this.user.address.num + ' ' + this.user.address.street +  ' ' + this.user.address.town);
-        console.log("username : " + this.user.username);
         const s = this.user.address.street;
         const t = this.user.address.town;
         const c = this.user.address.country;

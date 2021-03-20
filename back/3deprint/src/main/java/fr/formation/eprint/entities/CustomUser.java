@@ -17,17 +17,18 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.Email;
+
+import fr.formation.eprint.utility.BooleanConverter;
 
 @Entity
-@Table(name = "custom_users", uniqueConstraints = { @UniqueConstraint(columnNames = "username"),
-		@UniqueConstraint(columnNames = "email") })
+@Table(name = "custom_users", uniqueConstraints = {
+		@UniqueConstraint(name = "UK_username", columnNames = { "username" }),
+		@UniqueConstraint(name = "UK_email", columnNames = { "email" }) })
 public class CustomUser extends AbstractEntity {
 
 	@Column(name = "username", length = 40, nullable = false)
 	private String username;
 
-	@Email
 	@Column(name = "email", length = 100, nullable = false)
 	private String email;
 
@@ -71,7 +72,7 @@ public class CustomUser extends AbstractEntity {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customUser", cascade = CascadeType.REFRESH)
 	private List<Order> orders = new ArrayList<Order>();
 
-	public CustomUser(String username, @Email String email, String password, String firstname, String lastname,
+	public CustomUser(String username, String email, String password, String firstname, String lastname,
 			Set<Role> roles, Address address, boolean enabled, boolean accountNonExpired, boolean accountNonLocked,
 			boolean credentialsNonExpired) {
 		this.username = username;
@@ -88,7 +89,7 @@ public class CustomUser extends AbstractEntity {
 
 	}
 
-	public CustomUser(String username, @Email String email, String password, String firstname, String lastname,
+	public CustomUser(String username, String email, String password, String firstname, String lastname,
 			Set<Role> roles, Address address, boolean enabled, boolean accountNonExpired, boolean accountNonLocked,
 			boolean credentialsNonExpired, List<Image> images) {
 		super();
@@ -247,7 +248,6 @@ public class CustomUser extends AbstractEntity {
 	}
 
 	public void setAddress(Long id, int num, String street, String town, String country) {
-		// TODO Auto-generated method stub
 		this.setAddress(id, num, street, town, country);
 	}
 

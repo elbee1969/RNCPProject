@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UploadFileService } from 'src/app/services/upload-file.service';
 import { Image } from 'src/app/model/Image';
@@ -16,17 +16,18 @@ export class PrintImageComponent implements OnInit {
   image: any;
   imageId: number;
   imageName: string;
-  editForm: any;
+  editForm: FormGroup;
   customUserId: number;
   user: User;
   userName: any;
   quantity: number;
-  inputForm: any;
+  inputForm: FormGroup;
   heure: number;
   minute: number;
   seconde: number;
   obj: any = {};
   time: any;
+  submitted = false;
   
   constructor(private route: ActivatedRoute,
               private orderService: OrderService,
@@ -80,28 +81,34 @@ export class PrintImageComponent implements OnInit {
     });
   }
 
+  
+// convenience getter for easy access to form fields of inputForm
+    get f() { return this.inputForm.controls; }
+
   onSubmit() {
+    this.submitted = true;
     console.log("this.editForm.value " + JSON.stringify(this.editForm.value));
     console.log("this input form : " + JSON.stringify(this.inputForm.value));
-    
-    return this.uploadService.updateImageStatus(this.editForm.value, this.imageId)
-      .subscribe(
-        () => {
-          console.log('Image updated successfully');
-          this.create();
-        },
-        error => {
-          console.log(error);
-        });
+     // stop here if form is invalid
+        if (this.inputForm.invalid) {
+            return;
+        }
+        return this.uploadService.updateImageStatus(this.editForm.value, this.imageId)
+          .subscribe(
+            () => {
+              console.log('Image updated successfully');
+              this.create();
+            },
+            error => {
+              console.log(error);
+            });
   }
   
   create(){
     return this.orderService.createOrder(this.inputForm.value)
       .subscribe(
         () => {
-          console.log('Order created successfully');
-          this.ngOnInit();
-         
+          console.log('Order created successfully');       
           this.back();
           //window.location.reload();
         },
@@ -148,5 +155,8 @@ export class PrintImageComponent implements OnInit {
 
     console.log("time : " + this.time);
   }
-
+onReset() {
+        this.submitted = false;
+        this.inputForm.reset();
+    }
 }

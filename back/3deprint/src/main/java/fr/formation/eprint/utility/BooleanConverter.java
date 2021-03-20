@@ -1,4 +1,4 @@
-package fr.formation.eprint.entities;
+package fr.formation.eprint.utility;
 
 import javax.persistence.AttributeConverter;
 
