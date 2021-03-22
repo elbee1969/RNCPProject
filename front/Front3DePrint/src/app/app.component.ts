@@ -36,15 +36,16 @@ export class AppComponent {
       if (this.roles.includes('ROLE_USER')) {
         this.showUserBoard = this.roles.includes('ROLE_USER');
         // this.router.navigate(['/user']);
-      } else {
+      } else if (this.roles.includes('ROLE_ADMIN')) {
         this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-        // this.router.navigate(['/admin']);
+        
+      }else {
+      this.router.navigate(['/home']);
       }
     }
-    // this.showUserBoard = this.roles.includes('ROLE_USER');
     
   }
-
+ 
   
   logout() {
     this.tokenStorageService.signOut();
@@ -52,8 +53,4 @@ export class AppComponent {
     this.router.navigate(['/home']);
   }
       
-    public onToggleSidenav = () => { 
-  this.sidenavToggle.emit();
-}
-
 }

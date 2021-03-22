@@ -19,22 +19,22 @@ import { PrintImageComponent } from './files/print-image/print-image.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent},
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'profile', component: ProfileComponent  },
-  { path: 'user', component: BoardUserComponent },
-  { path: 'users', component: UsersComponent },
-  { path: 'update/:id', component: UserUpdateComponent },
-  { path: 'details/:id', component: DetailsComponent },
-  { path: 'upload', component: UploadFilesComponent},
-  { path: 'files', component: ListFilesComponent },
-  { path: 'adminfiles', component: AdminListFilesComponent },
-  { path: 'image/:id', component: ShowFileComponent },
-  { path: 'print/:id', component: PrintImageComponent },
-   { path: 'admin', component: BoardAdminComponent  },
-  { path: 'three/:id', component: ThreeComponent }
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]  },
+  { path: 'user', component: BoardUserComponent, canActivate: [AuthGuard] },
+  { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
+  { path: 'update/:id', component: UserUpdateComponent, canActivate: [AuthGuard] },
+  { path: 'details/:id', component: DetailsComponent, canActivate: [AuthGuard] },
+  { path: 'upload', component: UploadFilesComponent, canActivate: [AuthGuard]},
+  { path: 'files', component: ListFilesComponent, canActivate: [AuthGuard] },
+  { path: 'adminfiles', component: AdminListFilesComponent, canActivate: [AuthGuard] },
+  { path: 'image/:id', component: ShowFileComponent, canActivate: [AuthGuard] },
+  { path: 'print/:id', component: PrintImageComponent, canActivate: [AuthGuard] },
+  { path: 'admin', component: BoardAdminComponent, canActivate: [AuthGuard]  },
+  { path: 'three/:id', component: ThreeComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
