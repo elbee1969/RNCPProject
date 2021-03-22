@@ -94,7 +94,7 @@
         <div class="alert-danger" *ngIf="f.submitted && email.invalid">
           <div *ngIf="email.errors.required">L'email est requis</div>
           <div *ngIf="email.errors.email">
-            Email must be a valid email address, format should be <i>john@doe.com</i>.
+            Email invalide, le format doit être <i>john@doe.com</i>.
           </div>
         </div>
       </div>
@@ -108,13 +108,13 @@
           name="password"
           [(ngModel)]="form.password"
           required
-          minlength="6"
+          minlength="8"
           #password="ngModel"
         />
         <div class="alert-danger" *ngIf="f.submitted && password.invalid">
           <div *ngIf="password.errors.required">Le mot de passe est requis</div>
           <div *ngIf="password.errors.minlength">
-            Password must be at least 6 characters
+            le mot de passe doit comporter au moins 8 charactères
           </div>
         </div>
       </div>

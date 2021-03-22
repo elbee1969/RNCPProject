@@ -10,7 +10,7 @@ import fr.formation.eprint.annotations.UniqueCustomUser;
 public class UserCreateDto {
 
 	private final String message = "Le mot de passe doit contenir au moins 8 caractères, 1 majuscule, 1 minuscule, 1 nombre et 1 caractère spécial";
-	private final String pattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*~{}&.,§+=°_();/]).{6,40}$";
+	private final String pattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*~{}&.,§+=°_();/]).{8,40}$";
 
 	@NotBlank
 	@Size(min = 3, max = 20)
@@ -23,7 +23,7 @@ public class UserCreateDto {
 	private String email;
 
 	@NotBlank
-	@Size(min = 6, max = 40)
+	@Size(min = 8, max = 40)
 	@Pattern(regexp = pattern, message = message)
 	private String password;
 
