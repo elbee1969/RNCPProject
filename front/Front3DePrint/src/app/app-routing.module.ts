@@ -16,6 +16,7 @@ import { UserUpdateComponent } from './user-update/user-update.component';
 import { ThreeComponent } from './three/three.component';
 import { AdminListFilesComponent } from './files/admin-list-files/admin-list-files.component';
 import { PrintImageComponent } from './files/print-image/print-image.component';
+import { FourofourComponent } from './fourofour/fourofour.component';
 
 
 const routes: Routes = [
@@ -34,7 +35,8 @@ const routes: Routes = [
   { path: 'image/:id', component: ShowFileComponent, canActivate: [AuthGuard] },
   { path: 'print/:id', component: PrintImageComponent, canActivate: [AuthGuard] },
   { path: 'admin', component: BoardAdminComponent, canActivate: [AuthGuard]  },
-  { path: 'three/:id', component: ThreeComponent, canActivate: [AuthGuard] }
+  { path: 'three/:id', component: ThreeComponent, canActivate: [AuthGuard] },
+  { path: '**', component: FourofourComponent }  // Wildcard route for a 404 page
 ];
 
 @NgModule({

@@ -37,6 +37,7 @@ import { RouterModule } from '@angular/router';
 import { MatListModule, MatTabsModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AuthGuard } from './helpers/auth.guard';
+import { FourofourComponent } from './fourofour/fourofour.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { AuthGuard } from './helpers/auth.guard';
     ThreeComponent,
     AdminListFilesComponent,
     PrintImageComponent,
-    HeaderComponent
+    HeaderComponent,
+    FourofourComponent
   
 
   ],

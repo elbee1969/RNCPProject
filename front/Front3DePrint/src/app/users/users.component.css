@@ -24,7 +24,6 @@ div {
 }
 
 .flex-table:first-of-type {
-    border-top: solid 1px #1565C0;
     border-left: solid 1px #1565C0;
 }
 
