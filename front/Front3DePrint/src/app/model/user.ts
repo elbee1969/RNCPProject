@@ -9,6 +9,18 @@ export class User {
     lastname: string;
     firstname: string;
     address: Address;
-    role: Role;
+    roles: Role[];
+constructor(username : string, id : number, roles : Role[]) {
+        this.username = username;
+        this.id = id;
+        this.roles = roles;
+    }
+    
+    checkRole(roles: Role[]): boolean {
+        return this.roles.some(role => roles.includes(role));
+    }
 
+    isAdmin() : boolean{
+        return this.roles.includes(Role.ROLE_ADMIN);
+    }
 }

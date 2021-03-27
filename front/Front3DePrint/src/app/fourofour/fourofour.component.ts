@@ -14,5 +14,5 @@ export class FourofourComponent implements OnInit {
   }
   return() {
       this.router.navigate(['/home']);
-}
+  }
 }

@@ -24,19 +24,20 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent},
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]  },
-  { path: 'user', component: BoardUserComponent, canActivate: [AuthGuard] },
-  { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
-  { path: 'update/:id', component: UserUpdateComponent, canActivate: [AuthGuard] },
-  { path: 'details/:id', component: DetailsComponent, canActivate: [AuthGuard] },
-  { path: 'upload', component: UploadFilesComponent, canActivate: [AuthGuard]},
-  { path: 'files', component: ListFilesComponent, canActivate: [AuthGuard] },
-  { path: 'adminfiles', component: AdminListFilesComponent, canActivate: [AuthGuard] },
-  { path: 'image/:id', component: ShowFileComponent, canActivate: [AuthGuard] },
-  { path: 'print/:id', component: PrintImageComponent, canActivate: [AuthGuard] },
-  { path: 'admin', component: BoardAdminComponent, canActivate: [AuthGuard]  },
-  { path: 'three/:id', component: ThreeComponent, canActivate: [AuthGuard] },
-  { path: '**', component: FourofourComponent }  // Wildcard route for a 404 page
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard], data: { roles: ["ROLE_USER"] }  },
+  { path: 'user', component: BoardUserComponent, canActivate: [AuthGuard], data: { roles: ["ROLE_USER"] } },
+  { path: 'users', component: UsersComponent, canActivate: [AuthGuard], data: { roles: ["ROLE_ADMIN"] } },
+  { path: 'update/:id', component: UserUpdateComponent, canActivate: [AuthGuard], data: { roles: ["ROLE_USER"] } },
+  { path: 'details/:id', component: DetailsComponent, canActivate: [AuthGuard], data: { roles: ["ROLE_USER"] } },
+  { path: 'upload', component: UploadFilesComponent, canActivate: [AuthGuard], data: { roles: ["ROLE_USER"] }},
+  { path: 'files', component: ListFilesComponent, canActivate: [AuthGuard], data: { roles: ["ROLE_USER"] } },
+  { path: 'adminfiles', component: AdminListFilesComponent, canActivate: [AuthGuard], data: { roles: ["ROLE_ADMIN"] } },
+  { path: 'image/:id', component: ShowFileComponent, canActivate: [AuthGuard], data: { roles: ["ROLE_USER"] } },
+  { path: 'print/:id', component: PrintImageComponent, canActivate: [AuthGuard], data: { roles: ["ROLE_ADMIN"] } },
+  { path: 'admin', component: BoardAdminComponent, canActivate: [AuthGuard], data: { roles: ["ROLE_ADMIN"] }  },
+  { path: 'three/:id', component: ThreeComponent, canActivate: [AuthGuard], data: { roles: ["ROLE_USER"] } },
+  { path: 'FourofourComponent', component: FourofourComponent },  // Wildcard route for a 404 page
+  { path: '**', redirectTo: '/FourofourComponent', pathMatch: "full" }
 ];
 
 @NgModule({
