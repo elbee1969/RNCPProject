@@ -30,9 +30,9 @@ public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler {
 	}
 
 	@ExceptionHandler(DuplicateEntryException.class)
-	public ResponseEntity<Object> handleUserAlreadyExistException(DuplicateEntryException ex, WebRequest request) {
-		ErrorApi errorApi = new ErrorApi("Ce surnom existe déjà!", ex.getMessage());
-		return handleExceptionInternal(ex, errorApi, null, HttpStatus.NOT_FOUND, request);
+	public ResponseEntity<Object> handleEmailAlreadyExistException(DuplicateEntryException ex, WebRequest request) {
+		ErrorApi errorApi = new ErrorApi("Ce mail existe déjà!", ex.getMessage());
+		return handleExceptionInternal(ex, errorApi, null, HttpStatus.CONFLICT, request);
 	}
 
 	@Override

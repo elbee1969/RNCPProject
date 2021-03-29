@@ -23,11 +23,13 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     this.userService.register(this.form).subscribe(
       data => {
-        console.log("data : " + data);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
-        this.router.navigate(['login']);
-        console.log("Enregistrement réussi");
+        setTimeout(() => {
+          this.router.navigate(['login']);
+        }, 3000);
+
+        
       },
       err => {
        this.errorMessage = ErrorHandlerService.catch(err);

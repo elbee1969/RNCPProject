@@ -3,10 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { TokenStorageService } from './token-storage.service';
-import { Address } from '../model/address';
 import { ApiResponse } from '../model/api.response';
 import { User } from '../model/user';
-import { FormBuilder, FormGroup } from '@angular/forms';
 
 const API_PUBLIC_URL = 'http://localhost:9090/api/public/';
 const API_PRIVATE_URL = 'http://localhost:9090/api/private';
@@ -37,7 +35,6 @@ export class UserService {
   }
 
   getAll(): Observable<User>  {
-    // return this.http.get<User[]>(API_PRIVATE_URL + `/users`);
     return this.http.get<User>(API_PRIVATE_URL + `/users`);
   }
 
@@ -61,9 +58,9 @@ export class UserService {
   }
 
 
-  register(user): Observable<any> {
+  register(user): Observable<User> {
     console.log("in register profile : " + user.username);
-    return this.http.post<any>(API_PUBLIC_URL + 'register', {
+    return this.http.post<User>(API_PUBLIC_URL + 'register', {
       username: user.username,
       firstname: user.firstname,
       lastname: user.lastname,

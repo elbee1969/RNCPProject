@@ -78,18 +78,18 @@ import { FourofourComponent } from './fourofour/fourofour.component';
     MatTabsModule,
     MatIconModule,
     MatListModule,
-    FlexLayoutModule
-
+    FlexLayoutModule,
 
   ],
    exports: [
     RouterModule,
     MatTabsModule,
     MatSidenavModule,
-     MatToolbarModule,
+    MatToolbarModule,
     MatButtonModule,
-     MatIconModule,
-     MatListModule,
+    MatIconModule,
+    MatListModule,
+
     
   ],
   providers: [UserService, {

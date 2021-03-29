@@ -28,7 +28,7 @@ const routes: Routes = [
   { path: 'user', component: BoardUserComponent, canActivate: [AuthGuard], data: { roles: ["ROLE_USER"] } },
   { path: 'users', component: UsersComponent, canActivate: [AuthGuard], data: { roles: ["ROLE_ADMIN"] } },
   { path: 'update/:id', component: UserUpdateComponent, canActivate: [AuthGuard], data: { roles: ["ROLE_USER"] } },
-  { path: 'details/:id', component: DetailsComponent, canActivate: [AuthGuard], data: { roles: ["ROLE_USER"] } },
+  { path: 'details/:id', component: DetailsComponent, canActivate: [AuthGuard], data: { roles: ["ROLE_ADMIN"] } },
   { path: 'upload', component: UploadFilesComponent, canActivate: [AuthGuard], data: { roles: ["ROLE_USER"] }},
   { path: 'files', component: ListFilesComponent, canActivate: [AuthGuard], data: { roles: ["ROLE_USER"] } },
   { path: 'adminfiles', component: AdminListFilesComponent, canActivate: [AuthGuard], data: { roles: ["ROLE_ADMIN"] } },
