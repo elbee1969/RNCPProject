@@ -9,9 +9,8 @@ export class ErrorHandlerService {
 
   static catch(error: any) {
     let message = "";
-    message += error.error.status + " : ";
     const errors = error.error.errors;
-    errors.forEach((err: any) => message += err +  ", " );
+    errors.forEach((err: any) => message += err +  ".  " );
     return message;
   }
 }

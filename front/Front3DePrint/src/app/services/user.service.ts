@@ -6,7 +6,7 @@ import { TokenStorageService } from './token-storage.service';
 import { ApiResponse } from '../model/api.response';
 import { User } from '../model/user';
 
-const API_PUBLIC_URL = 'http://localhost:9090/api/public/';
+const API_PUBLIC_URL = 'http://localhost:9090/api/public';
 const API_PRIVATE_URL = 'http://localhost:9090/api/private';
 const API_ADDRESS_URL = 'http://localhost:9090/api/address';
 
@@ -23,7 +23,7 @@ export class UserService {
   constructor(private http: HttpClient, private tokenStorage: TokenStorageService) { }
 
   getPublicContent(): Observable<any> {
-    return this.http.get(API_PUBLIC_URL + 'all', { responseType: 'text' });
+    return this.http.get(API_PUBLIC_URL + '/all', { responseType: 'text' });
   }
 
   getUserBoard(): Observable<any> {
@@ -59,8 +59,7 @@ export class UserService {
 
 
   register(user): Observable<User> {
-    console.log("in register profile : " + user.username);
-    return this.http.post<User>(API_PUBLIC_URL + 'register', {
+    return this.http.post<User>(API_PUBLIC_URL + '/register', {
       username: user.username,
       firstname: user.firstname,
       lastname: user.lastname,

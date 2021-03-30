@@ -8,18 +8,19 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import fr.formation.eprint.dtos.CustomUserInfoDto;
 import fr.formation.eprint.dtos.UserCreateDto;
 import fr.formation.eprint.dtos.UserDto;
-import fr.formation.eprint.exception.DuplicateEntryException;
 
 public interface CustomUserService {
 
-	void deleteOne(Long id);
+	UserDto create(@Valid UserCreateDto dto);
 
-	UserDto create(@Valid UserCreateDto dto) throws DuplicateEntryException;
+	boolean isUsernameValid(String username);
+
+	boolean isEmailValid(String email);
 
 	UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 
 	CustomUserInfoDto getCurrentUserInfo(Long id);
 
-	boolean isUsernameValid(String username);
+	void deleteOne(Long id);
 
 }

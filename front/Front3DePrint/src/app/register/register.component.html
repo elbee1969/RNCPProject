@@ -121,11 +121,12 @@
       
       
       <div class="form-group">
-        <button class="btn btn-primary">S'enregistrer</button>
+        <div class="d-flex justify-content-center">
+          <button class="btn btn-primary">Senregistrer</button>
+        </div>
       </div>
-
       <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
-        Echec de l'enregistrement {{ errorMessage }}
+        Echec de la création de votre compte: <br> <span>{{ errorMessage }}</span>
       </div>
     </form>
 

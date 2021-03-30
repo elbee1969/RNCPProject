@@ -10,10 +10,9 @@ import javax.validation.Payload;
 
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = UniqueCustomUserValidator.class)
-public @interface UniqueCustomUser {
-
-	String message() default "Surnom déjà pris!";
+@Constraint(validatedBy = UniqueEmailValidator.class)
+public @interface UniqueEmail {
+	String message() default " cet Email est déjà utilisé!";
 
 	Class<?>[] groups() default {};
 

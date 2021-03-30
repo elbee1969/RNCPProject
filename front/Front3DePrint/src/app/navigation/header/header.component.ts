@@ -11,7 +11,7 @@ import { TokenStorageService } from 'src/app/services/token-storage.service';
 export class HeaderComponent implements OnInit {
   title = 'Front3DePrint';
   private roles: string[];
-
+  public isCollapsed = true;
 
   showAdminBoard: boolean = false;
   isLoggedIn: boolean;

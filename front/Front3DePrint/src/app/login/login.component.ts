@@ -3,7 +3,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { TokenStorageService } from '../services/token-storage.service';
 import * as jwt_decode from 'jwt-decode';
-import { decode } from 'punycode';
 import { AlertService } from '../services/alert.service';
 @Component({
   selector: 'app-login',
@@ -54,8 +53,6 @@ export class LoginComponent implements OnInit {
         this.isLoggedIn = true;
         this.roles = this.tokenStorage.getUser().authorities;
         this.username = this.tokenStorage.getUser().user_name
-        console.log('roles : ' + this.roles);
-        console.log('name : ' + this.username);
         this.reloadPage();
         this.rediRectPage();
 
@@ -72,10 +69,9 @@ export class LoginComponent implements OnInit {
   };
   rediRectPage() {
     if (this.roles.includes('ROLE_USER')) {
-
-    this.router.navigate(['/user']);
+        this.router.navigate(['/user']);
     } else {
-    this.router.navigate(['/admin']);
+        this.router.navigate(['/admin']);
     }
   }
 }

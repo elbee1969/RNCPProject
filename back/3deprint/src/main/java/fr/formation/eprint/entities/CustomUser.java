@@ -1,7 +1,5 @@
 package fr.formation.eprint.entities;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -13,7 +11,6 @@ import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -66,11 +63,13 @@ public class CustomUser extends AbstractEntity {
 	@Column(name = "credentialsNonExpired", length = 1, nullable = false)
 	private boolean credentialsNonExpired;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customUser", cascade = CascadeType.REFRESH)
-	private List<Image> images = new ArrayList<Image>();
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customUser", cascade = CascadeType.REFRESH)
-	private List<Order> orders = new ArrayList<Order>();
+	/*
+	 * @OneToMany(fetch = FetchType.LAZY, mappedBy = "customUser", cascade =
+	 * CascadeType.REFRESH) private List<Image> images = new ArrayList<Image>();
+	 * 
+	 * @OneToMany(fetch = FetchType.LAZY, mappedBy = "customUser", cascade =
+	 * CascadeType.REFRESH) private List<Order> orders = new ArrayList<Order>();
+	 */
 
 	public CustomUser(String username, String email, String password, String firstname, String lastname,
 			Set<Role> roles, Address address, boolean enabled, boolean accountNonExpired, boolean accountNonLocked,
@@ -89,23 +88,17 @@ public class CustomUser extends AbstractEntity {
 
 	}
 
-	public CustomUser(String username, String email, String password, String firstname, String lastname,
-			Set<Role> roles, Address address, boolean enabled, boolean accountNonExpired, boolean accountNonLocked,
-			boolean credentialsNonExpired, List<Image> images) {
-		super();
-		this.username = username;
-		this.email = email;
-		this.password = password;
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.roles = roles;
-		this.address = address;
-		this.enabled = enabled;
-		this.accountNonExpired = accountNonExpired;
-		this.accountNonLocked = accountNonLocked;
-		this.credentialsNonExpired = credentialsNonExpired;
-		this.images = images;
-	}
+	/*
+	 * public CustomUser(String username, String email, String password, String
+	 * firstname, String lastname, Set<Role> roles, Address address, boolean
+	 * enabled, boolean accountNonExpired, boolean accountNonLocked, boolean
+	 * credentialsNonExpired, List<Image> images) { super(); this.username =
+	 * username; this.email = email; this.password = password; this.firstname =
+	 * firstname; this.lastname = lastname; this.roles = roles; this.address =
+	 * address; this.enabled = enabled; this.accountNonExpired = accountNonExpired;
+	 * this.accountNonLocked = accountNonLocked; this.credentialsNonExpired =
+	 * credentialsNonExpired; this.images = images; }
+	 */
 
 	/*
 	 * public CustomUser(String username, String password, String firstname, String
@@ -235,14 +228,11 @@ public class CustomUser extends AbstractEntity {
 		this.lastname = lastname;
 	}
 
-	public List<Image> getImages() {
-		return images;
-	}
-
-	public void setImages(List<Image> images) {
-		this.images = images;
-	}
-
+	/*
+	 * public List<Image> getImages() { return images; }
+	 * 
+	 * public void setImages(List<Image> images) { this.images = images; }
+	 */
 	public void setAddress(Long id, int num, String street, String town, String country) {
 		this.setAddress(id, num, street, town, country);
 	}

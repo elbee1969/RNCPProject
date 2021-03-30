@@ -2,7 +2,6 @@ package fr.formation.eprint.controllers;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +13,6 @@ import fr.formation.eprint.config.ResourceServerConfig;
 import fr.formation.eprint.config.SecurityHelper;
 import fr.formation.eprint.dtos.UserCreateDto;
 import fr.formation.eprint.dtos.UserDto;
-import fr.formation.eprint.exception.DuplicateEntryException;
 import fr.formation.eprint.services.CustomUserService;
 
 /**
@@ -49,11 +47,15 @@ public class PublicController {
 	 * 
 	 * 
 	 */
-	@Autowired
+
 	private CustomUserService userService;
 
+	protected PublicController(CustomUserService userService) {
+		this.userService = userService;
+	}
+
 	@PostMapping("/register")
-	public UserDto create(@Valid @RequestBody UserCreateDto dto) throws DuplicateEntryException {
+	public UserDto create(@Valid @RequestBody UserCreateDto dto) {
 		return userService.create(dto);
 	}
 

@@ -29,12 +29,6 @@ public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler {
 		return handleExceptionInternal(ex, errorApi, null, HttpStatus.NOT_FOUND, request);
 	}
 
-	@ExceptionHandler(DuplicateEntryException.class)
-	public ResponseEntity<Object> handleEmailAlreadyExistException(DuplicateEntryException ex, WebRequest request) {
-		ErrorApi errorApi = new ErrorApi("Ce mail existe déjà!", ex.getMessage());
-		return handleExceptionInternal(ex, errorApi, null, HttpStatus.CONFLICT, request);
-	}
-
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {

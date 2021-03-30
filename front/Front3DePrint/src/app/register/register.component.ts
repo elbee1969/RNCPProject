@@ -27,14 +27,11 @@ export class RegisterComponent implements OnInit {
         this.isSignUpFailed = false;
         setTimeout(() => {
           this.router.navigate(['login']);
-        }, 3000);
-
-        
+        }, 20000);
+      
       },
       err => {
-       this.errorMessage = ErrorHandlerService.catch(err);
-        console.log(this.errorMessage);
-        this.errorMessage = this.errorMessage.slice(22);
+        this.errorMessage = ErrorHandlerService.catch(err);
         this.isSignUpFailed = true;
       }
     );

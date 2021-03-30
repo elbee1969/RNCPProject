@@ -57,7 +57,6 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
 	public void deleteOne(Long id) {
 		Optional<CustomUserInfoDto> value = userRepo.getById(id);
 		if (value.isPresent()) {
-			// orderRepo.deleteOrderByUserId(id);
 			imageRepo.deletImagesByUserId(id);
 			userRepo.deleteById(id);
 

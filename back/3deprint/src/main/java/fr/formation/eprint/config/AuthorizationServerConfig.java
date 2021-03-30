@@ -34,7 +34,7 @@ import fr.formation.eprint.services.CustomUserDetailsService;
 
 @Configuration
 @EnableAuthorizationServer
-@RestController // for "/me" endpoint
+@RestController
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
 	// Get custom properties from application.properties
@@ -169,7 +169,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	/**
 	 * Standard enpoint returning a view of the current authenticated user.
 	 * <p>
-	 * Could be in a "user controller".
+	 * Could be in a "PrivateController".
 	 *
 	 * @param authentication injected authentication object
 	 * @return a view of the current authenticated user

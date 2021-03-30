@@ -21,7 +21,6 @@ public interface CustomUserJpaRepository extends JpaRepository<CustomUser, Long>
 	 */
 	Optional<CustomUserAuthDto> findByUsername(String username);
 
-//    Optional<CustomUserAuthDto> findAll(String username);
 	/**
 	 * Retrieves a projected view of the current authenticated {@code User}.
 	 *
@@ -34,6 +33,6 @@ public interface CustomUserJpaRepository extends JpaRepository<CustomUser, Long>
 
 	boolean existsByUsername(String username);
 
-//    Optional<UserAuthViewDto> getById(Long id); 
+	boolean existsByEmail(String email);
 
 }

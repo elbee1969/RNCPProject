@@ -4,7 +4,6 @@ import org.hibernate.validator.constraints.Length;
 
 public class AddressCreateDto {
 
-	// @NotNull
 	private int num;
 
 	@Length(max = 40)
@@ -20,8 +19,7 @@ public class AddressCreateDto {
 	private String country;
 
 	public AddressCreateDto() {
-		super();
-		// TODO Auto-generated constructor stub
+
 	}
 
 	public int getNum() {
