@@ -79,8 +79,6 @@ export class BoardUserComponent implements OnInit {
         this.user = JSON.parse(err.error).message;
       }
     );
-
-
         this.billList(this.id);
         console.log('current user id : ' + this.id);
         //affiche tous les orders de l'utilisateur au status C
@@ -105,7 +103,6 @@ export class BoardUserComponent implements OnInit {
           },
         error => console.log(error)
       );
-
     }
 
   annulOrder(orderId, imageId){
@@ -120,15 +117,11 @@ export class BoardUserComponent implements OnInit {
           .subscribe(
             () => {
               console.log('Image updated successfully');
-              // this.router.navigate(['/upload']);
               this.ngOnInit();
             },
             error => {
               console.log(error);
-            });
-            
-            
-            
+            });            
           },
           error => {
             console.log(error);
@@ -172,6 +165,5 @@ export class BoardUserComponent implements OnInit {
   reloadPage() {
     this.ngOnInit();
     this.router.navigate['/user'];
-    // window.location.reload();
   };
 }

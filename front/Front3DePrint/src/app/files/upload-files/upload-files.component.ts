@@ -62,9 +62,7 @@ export class UploadFilesComponent implements OnInit {
 
         }
         this.router.navigate(['/upload']);
-        //window.location.reload();
-        //this.fileInfos = this.uploadService.getOwnedImages();
-       
+      
       },
       err => {
         console.log(JSON.stringify(err));

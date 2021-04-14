@@ -64,14 +64,12 @@ export class BoardAdminComponent implements OnInit {
 
 
   createBill(id) {
-    //this.orderStatus = JSON.stringify({ status: "V" });
     this.billService.createBill(id,"V").subscribe(result => {
       console.log('bill created');
 
        return this.orderService.getOrders(id, "V")
         .subscribe(
           (result) => {
-            //this.data = JSON.stringify(result);
             this.data = result;
             // get the number of orders
             let nb = 0;
@@ -83,7 +81,6 @@ export class BoardAdminComponent implements OnInit {
             }
             console.log(" keys by record : " + nb);
             // modify order status from V to A
-
             for (let i = 0; i < nb; i++) {
               this.orderStatus = JSON.stringify({ status: "O" });
                   this.orderService.updateOrder(this.orderStatus, result[i].id)

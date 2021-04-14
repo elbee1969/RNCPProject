@@ -110,7 +110,6 @@ export class PrintImageComponent implements OnInit {
         () => {
           console.log('Order created successfully');       
           this.back();
-          //window.location.reload();
         },
         error => {
           console.log(error);

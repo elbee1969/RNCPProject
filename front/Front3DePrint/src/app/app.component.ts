@@ -15,11 +15,5 @@ export class AppComponent {
   @Output() public sidenavToggle = new EventEmitter();
   
   constructor() {
-  }
-
-
- 
-  
-
-      
+  }      
 }

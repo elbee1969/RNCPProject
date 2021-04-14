@@ -1,4 +1,4 @@
-package fr.formation.eprint;
+package fr.formation.eprint.services;
 
 import java.io.File;
 import java.nio.file.FileSystem;
@@ -7,19 +7,20 @@ import java.nio.file.Path;
 
 import javax.annotation.Resource;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import fr.formation.eprint.services.ImageStorageService;
-
-@SpringBootApplication
-public class EprintApplication {
+@Service
+public class FileService {
 	@Resource
 	ImageStorageService imageStorageService;
 
-	public static void main(String[] args) {
+	@Value("${3deprint.myAppPath}")
+	public String myAppPath;
 
-		SpringApplication.run(EprintApplication.class, args);
+	public void uploadFile(MultipartFile file) {
+
 		/**
 		 * DECLARATION OF DEFAULT FILESYSTEM
 		 */
@@ -28,7 +29,8 @@ public class EprintApplication {
 		/**
 		 * declaration of the root directory
 		 */
-		Path path = fs.getPath("H:\\RNCPProject\\front\\Front3DePrint\\src\\assets");
+		// Path path = fs.getPath("H:\\RNCPProject\\front\\Front3DePrint\\src\\assets");
+		Path path = fs.getPath(myAppPath);
 
 		/**
 		 * create directory first time
@@ -40,7 +42,5 @@ public class EprintApplication {
 		} else {
 			directory.mkdir();
 		}
-
 	}
-
 }

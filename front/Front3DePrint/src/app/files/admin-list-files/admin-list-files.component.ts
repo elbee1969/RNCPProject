@@ -105,8 +105,6 @@ export class AdminListFilesComponent implements OnInit {
       error => {
         console.log(error);
       });
-    console.log ("id clientinit : " + this.clientId);
-    console.log("status : " + this.status);
   }
 
   printImage(id: number) {
@@ -116,7 +114,6 @@ export class AdminListFilesComponent implements OnInit {
  
 reloadPage() {
   window.location.reload();
-  //this.router.navigate(['/adminfiles']);
   };
 
   isEmptyObject(obj) {

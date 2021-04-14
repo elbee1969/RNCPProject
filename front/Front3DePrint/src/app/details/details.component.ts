@@ -16,8 +16,7 @@ export class DetailsComponent implements OnInit {
 
   ngOnInit() {
 
-    this.id = this.route.snapshot.params['id'];
- 
+    this.id = this.route.snapshot.params['id']; 
     this.userService.getOne(this.id).subscribe(
       data => {
         this.user = data;
@@ -29,10 +28,6 @@ export class DetailsComponent implements OnInit {
       }
     );
   }
-  
-
-
-  
 
   backToUserlist() {
     this.router.navigate(['/users']);

@@ -151,7 +151,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		clients.inMemory().withClient("3D-ePrint-app").secret(passwordEncoder().encode("")).scopes("trusted")
 				.authorizedGrantTypes("password", "refresh_token")
-				// .redirectUris("http://localhost:4200/oauth/callback")
 				.accessTokenValiditySeconds(accessTokenValiditySeconds)
 				.refreshTokenValiditySeconds(refreshTokenValiditySeconds);
 	}
@@ -203,4 +202,5 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	public List<CustomUserInfoDto> getAll() {
 		return userDetailsService.getAll();
 	}
+
 }

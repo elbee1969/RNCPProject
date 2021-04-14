@@ -15,8 +15,8 @@
 					<div class="flex-row text-wrap" role="cell"> {{ user.firstname }}</div>
 					<div class="flex-row text-wrap" role="cell"> {{ user.lastname }}</div>
 					<div class="flex-row text-wrap ow-anywhere" role="cell"> {{ user.email }}</div>
-					<div class="flex"  ><button (click)="deleteUser(user.id)" class="btn btn-danger">Delete</button></div>
-					<div class="flex"  ><button (click)="userDetails(user.id)" class="btn btn-info" style="margin-left: 10px">Details</button></div>
+					<div class="flex-row"  ><button (click)="deleteUser(user.id)" class="btn btn-danger">Delete</button></div>
+					<div class="flex-row"  ><button (click)="userDetails(user.id)" class="btn btn-info" style="margin-left: 10px">Details</button></div>
 					
 					<!--<lb-modal id="custom-modal-1">
 						<p class="modal-content">Suppression de l'utilisateur {{user.username | async}}</p>

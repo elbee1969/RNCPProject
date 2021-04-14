@@ -35,8 +35,6 @@ ngOnInit() {
 
   this.id = this.route.snapshot.params['id'];
 
-
-
     console.log("pas admin!");
     this.uploadService.getOwnedImages().subscribe(result => {
       console.log("result "+JSON.stringify(result));
@@ -44,7 +42,6 @@ ngOnInit() {
     },
       error => console.log(error)
     );
-
 
     this.uploadService.getChoosedImages().subscribe(result => {
       console.log("result " + JSON.stringify(result));
@@ -61,7 +58,6 @@ ngOnInit() {
       .subscribe(
         () => {
           console.log('Image updated successfully');
-          // this.router.navigate(['/upload']);
           this.ngOnInit();
         },
         error => {
@@ -79,7 +75,6 @@ ngOnInit() {
       .subscribe(
         () => {
           console.log('Image updated successfully');
-          //this.router.navigate(['/upload']);
           this.ngOnInit();
         },
         error => {

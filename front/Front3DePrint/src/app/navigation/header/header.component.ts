@@ -23,15 +23,12 @@ export class HeaderComponent implements OnInit {
   constructor(private tokenStorageService: TokenStorageService, private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
-     //this.isLoggedIn = !!this.tokenStorageService.getToken();
     this.isLoggedIn = this.authService.isAuthenticated();
     if (this.isLoggedIn) {
       this.username = this.tokenStorageService.getUser().user_name
-      //const user = this.tokenStorageService.getUser();
       this.roles = this.tokenStorageService.getUser().authorities;
       if (this.roles.includes('ROLE_USER')) {
         this.showUserBoard = this.roles.includes('ROLE_USER');
-        // this.router.navigate(['/user']);
       } else if (this.roles.includes('ROLE_ADMIN')) {
         this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
         
@@ -45,7 +42,6 @@ export class HeaderComponent implements OnInit {
   }
    logout() {
     this.tokenStorageService.signOut();
-    // window.location.reload();
     this.router.navigate(['/home']);
   }
 }
