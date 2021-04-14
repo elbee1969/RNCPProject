@@ -15,11 +15,6 @@ public abstract class AbstractEntity {
 
 	}
 
-	public AbstractEntity(Long id) {
-		super();
-		this.id = id;
-	}
-
 	public Long getId() {
 		return id;
 	}
@@ -28,10 +23,4 @@ public abstract class AbstractEntity {
 		this.id = id;
 	}
 
-	@Override
-	public String toString() {
-		return "AbstractEntity [id=" + id + ", getId()=" + getId() + ", getClass()=" + getClass() + ", hashCode()="
-				+ hashCode() + ", toString()=" + super.toString() + "]";
-	}
-	
 }

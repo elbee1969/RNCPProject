@@ -1,6 +1,48 @@
-<div class="container">
-  <header class="jumbotron">
-    <p>{{ content }}</p>
-  </header>
 
-</div>
+<div class="container row">
+
+
+  <div class="col-6">
+  <h3 class="text-center">Devis</h3>
+  <div class="card-header">Liste de vos devis à valider et envoyer</div>
+    <p class="none" *ngIf="isEmptyObject(orders)">Aucun devis</p>
+    <ul class="list-group list-group-flush" *ngFor="let order of orders;let i=index">
+      <li class="list-group-item">
+        <p> Impression : {{order.name}}</p>
+        <p>Quantité à imprimer : {{order.quantity}}</p>
+        <p>temps total d'impression : {{ order.timeToPrint}}</p>
+        <p>Poids total : {{ order.totalWeight }} grs</p>
+        <p>Prix total : {{ order.totalPrice }} € HT (TVA: 20%)</p>
+        <button (click) = "validateOrder(order.id, order.imageId)" class="btn btn-success float-right" style="margin-left: 10px">Accepter</button>
+        <button (click) = "annulOrder(order.id, order.imageId)" class="btn btn-danger float-right" style="margin-left: 10px">Annuller</button>
+      </li>
+    </ul>
+   </div>
+    <div class="col-6">
+    <h3 class="text-center">Factures</h3>
+    <div class="card-header">Liste des factures</div>
+    <p class="none" *ngIf="isEmptyObject(bills)">Aucune facture</p>
+
+    <ul class="card list-group list-group-flush" *ngFor="let bill of bills">
+      <li class="card-body list-group-item">
+        <h5 class="card-title">Facture du {{ bill.billDate }} N° {{ bill.id }} </h5>
+        <p class="card-text">Adresse : {{ bill.num }}, {{ bill.street }}, {{ bill.postal }} {{ bill.town }}, {{ bill.country }} </p>
+        <p [hidden]="bill.totalItem > 1" class="card-text">{{ bill.totalItem }} article </p>
+        <p [hidden]="bill.totalItem == 1" class="card-text">{{ bill.totalItem }} articles </p>
+        <p class="card-text">Prix HT : {{ bill.totalPriceHT }} € + TVA 20% = <span>Prix TTC : {{ bill.totalPriceTTC }} €</span></p>
+<!--         <p class="card-text">Nom : {{ bill.customUser.firstname }} {{ bill.customUser.lastname }} / Email :
+          {{bill.customUser.email}}</p>
+        <p class="card-text">Addresse : {{ bill.customUser.address.num }}, {{ bill.customUser.address.street }} -
+          {{ bill.customUser.address.town }} {{ bill.customUser.address.postal }}</p>
+        <span>(En cours à valider) </span>
+        <button class="badge badge-success mr-2" (click)="validateCommande()">Valider la commande</button>
+        <button class="badge badge-danger mr-2" (click)="rejectCommande()">Annuler la commande</button>
+        -->
+      </li>
+    </ul>
+
+  </div>
+
+  </div>
+  
+

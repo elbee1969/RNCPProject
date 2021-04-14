@@ -1,72 +1,46 @@
 package fr.formation.eprint.dtos;
 
-import java.util.List;
-import java.util.Set;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import fr.formation.eprint.entities.Album;
-import fr.formation.eprint.entities.Role;
+import fr.formation.eprint.annotations.UniqueCustomUser;
+import fr.formation.eprint.annotations.UniqueEmail;
 
 public class UserCreateDto {
-	
-	
-	
-//	private final String message = "Must contains at least 6 characters, 1 uppercase, 1 lowercase, 1 digit and 1 special char";
-//    private final String pattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*~{}&.,§+=°_();/]).{8,30}$";
-//    @Pattern(regexp = pattern, message = message)
-    
-    @NotBlank
-    @Size(min = 3, max = 20)
-    private String username;
- 
-    @NotBlank
-    @Size(max = 50)
-    @Email
-    private String email;
-    
-    
-    @NotBlank
-    @Size(min = 6, max = 40)
-    private String password;
-    
-    @NotBlank
-    @Size(min = 2, max = 40)
-    private String firstname;
 
-    @NotBlank
-    @Size(min = 2, max = 40)
-    private String lastname;
-    
+	@NotBlank
+	@Size(min = 3, max = 20)
+	@UniqueCustomUser
+	private String username;
 
-    private AlbumCreateDto album;
-    
-	
-	
+	@NotBlank
+	@Size(max = 50)
+	@Email
+	@UniqueEmail
+	private String email;
 
-	public UserCreateDto(String username, String email, String password, String firstname, String lastname,	AlbumCreateDto album) {
-		super();
-		this.username = username;
-		this.email = email;
-		this.password = password;
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.album = album;
+	private final String message = "Le mot de passe doit contenir au moins 8 caractères, 1 majuscule, 1 minuscule, 1 nombre et 1 caractère spécial";
+	private final String pattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*~{}&.,§+=°_();/]).{8,40}$";
+
+	@NotBlank
+	@Size(min = 8, max = 40)
+	@Pattern(regexp = pattern, message = message)
+	private String password;
+
+	@NotBlank
+	@Size(min = 2, max = 40)
+	private String firstname;
+
+	@NotBlank
+	@Size(min = 2, max = 40)
+	private String lastname;
+
+	private AddressCreateDto address;
+
+	public UserCreateDto() {
 	}
-
-
-	public AlbumCreateDto getAlbum() {
-		return album;
-	}
-
-
-	public void setAlbum(AlbumCreateDto album) {
-		this.album = album;
-	}
-
 
 	public String getUsername() {
 		return username;
@@ -106,6 +80,14 @@ public class UserCreateDto {
 
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
+	}
+
+	public AddressCreateDto getAddress() {
+		return address;
+	}
+
+	public void setAddress(AddressCreateDto address) {
+		this.address = address;
 	}
 
 	public String getMessage() {

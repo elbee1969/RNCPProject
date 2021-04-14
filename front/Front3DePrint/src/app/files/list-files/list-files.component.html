@@ -1,15 +1,31 @@
-<div class="card">
-  <div class="card-header">List of Files et merde</div>
-  <ul
-    class="list-group list-group-flush"
-    *ngFor="let file of fileInfos | async"
-  >
-    <li class="list-group-item">
-      <a href="{{ file.url }}">{{ file.name }}</a>
-      <button class="badge badge-danger mr-2" (click)="deleteFile()">
-    Delete
-  </button>
 
-    </li>
-  </ul>
+<div class="row">
+  <div class="col-sm-6"><div class="card">
+    <div class="card-header">Liste des images chargées</div>
+        <p class="none" *ngIf="isEmptyObject(imageIs)">Aucune image chargée</p>
+      <ul  class="list-group list-group-flush" *ngFor="let image of imageIs">
+        <li class="list-group-item">
+          <p>{{ image.name }} </p>
+          <button (click) = "imageDetail(image.id)" class="btn btn-info float-right" style="margin-left: 10px">Voir et valider pour impression</button>
+        </li>
+      </ul>
+      
+    </div>
+  </div>
+  <div class="col-sm-6"><div class="card">
+    <div class="card">
+      <div class="card-header">Vous avez  {{ imageCs.length}} objet(s) à imprimer</div>
+
+      <ul class="list-group list-group-flush" *ngFor="let image of imageCs">
+        <li class="list-group-item">
+          <p>{{ image.name }},  
+          <span>Quantité à imprimer</span> : <span>{{ image.quantity}}</span>
+          </p>
+          <button (click) = "validation(image.id)" class="btn btn-success float-right" style="margin-left: 10px"><i class="fa fa-check"></i></button>
+          <button (click) = "annulChoise(image.id)" class="btn btn-info float-right" style="margin-left: 10px"><i class="fa fa-undo"></i></button>
+        </li>
+      </ul>
+    </div>
+    
+  </div>
 </div>

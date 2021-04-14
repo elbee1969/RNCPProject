@@ -1,0 +1,38 @@
+
+<div class="row">
+  <div class="col-6"><div class="card">
+
+    <div class="card-header">Liste des objets à imprimer</div>
+    <p class="none" *ngIf="isEmptyObject(images)">Aucun objet à imprimer</p>
+      <ul class="list-group list-group-flush" *ngFor="let image of images;let i=index">
+        <li class="list-group-item">
+          <p class="owner" *ngIf="i>0 && images[i-1].ownerName==image.ownerName?'':image.ownerName"> Client(id : {{image.userId}}) : 
+          {{i>0 && images[i-1].ownerName==image.ownerName?'':image.ownerName}}</p>
+          <p> Objet : {{i>0 && images[i-1].name==image.name?'':image.name}}</p>
+          <p>Quantité à imprimer : {{image.quantity}}</p>
+          <p>date : {{ image.date}}
+
+          <button (click) = "printImage(image.id)" class="btn btn-info float-right" style="margin-left: 10px">ouvrir</button>
+          </p>
+        </li>
+      </ul>
+    </div>
+  </div>
+   <div class="col-6"><div class="card">
+      <div class="card-header">Liste des devis à envoyer</div>
+      <p class="none" *ngIf="isEmptyObject(orders)">Aucun devis</p>
+        <ul class="list-group list-group-flush" *ngFor="let order of orders;let i=index">
+          <li class="list-group-item">
+            <p class="order" *ngIf="i>0 && orders[i-1].customUser.id==order.customUser.id?'':order.customUser.id"> Devis du client : 
+            {{ order.customUser.id}}
+            <button (click) = "validateOrder(order.customUser.id, order.status)" class="btn btn-info float-right" style="margin-left: 10px">Envoyer</button>
+            </p>
+            <p> Nom de l'image : {{i>0 && orders[i-1].name==order.name?'':order.name}}</p>
+            <p>Quantité à imprimer : {{order.quantity}}</p>
+            <p>temps total d'impression : {{ order.timeToPrint}}</p>
+            <p>Poids total : {{ order.totalWeight }} gs</p>
+            <p>Prix total : {{ order.totalPrice }} €</p>
+          </li>
+        </ul>
+   </div>
+</div>

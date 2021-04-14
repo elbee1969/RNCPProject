@@ -2,48 +2,50 @@ package fr.formation.eprint.dtos;
 
 import java.util.Set;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import fr.formation.eprint.entities.Role;
 
 public class UserAuthDto {
-	
-	@NotEmpty
-    @Size(min = 3, max = 20)
+
+	@NotBlank
+	@Size(min = 3, max = 20)
 	private String username;
-	
-	@NotEmpty
-    @Size(max = 100)
+
+	@NotBlank
+	@Size(max = 100)
 	private String email;
-	
-	@NotEmpty
-    @Size(min = 6, max = 40)
+
+	@NotBlank
+	@Size(min = 6, max = 40)
 	private String password;
-	
+
 	@NotNull
 	private Set<Role> roles;
-	
-	@NotEmpty
-    @Size(min = 2, max = 40)
+
+	@NotBlank
+	@Size(min = 2, max = 40)
 	private String firstname;
-	
-	@NotEmpty
-    @Size(min = 2, max = 40)
+
+	@NotBlank
+	@Size(min = 2, max = 40)
 	private String lastname;
-	
+
+	private AddressCreateDto address;
+
 	@NotNull
-    private boolean enabled;
-	
+	private boolean enabled;
+
 	@NotNull
-    private boolean accountNonExpired;
-	
+	private boolean accountNonExpired;
+
 	@NotNull
-    private boolean accountNonLocked;
-	
+	private boolean accountNonLocked;
+
 	@NotNull
-    private boolean credentialsNonExpired;
+	private boolean credentialsNonExpired;
 
 	public UserAuthDto() {
 		super();
@@ -98,6 +100,14 @@ public class UserAuthDto {
 		this.lastname = lastname;
 	}
 
+	public AddressCreateDto getAddress() {
+		return address;
+	}
+
+	public void setAddress(AddressCreateDto address) {
+		this.address = address;
+	}
+
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -129,7 +139,5 @@ public class UserAuthDto {
 	public void setCredentialsNonExpired(boolean credentialsNonExpired) {
 		this.credentialsNonExpired = credentialsNonExpired;
 	}
-	
-	
 
 }

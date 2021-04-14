@@ -5,29 +5,27 @@ import java.util.Set;
 import fr.formation.eprint.entities.Role;
 
 public interface UserAuthViewDto {
-	
-	  	Long getId();
 
-	    String getUsername();
-	    
-	    String getFirstname();
+    Long getId();
 
-	    String getLastname();
+    String getUsername();
 
-	    String getPassword();
-	    
-	    String getEmail();
+    String getFirstname();
 
-	    Set<Role> getRoles();
-	    
-	    Long getAlbumId();
+    String getLastname();
 
-	    boolean isEnabled();
+    String getPassword();
 
-	    boolean isAccountNonExpired();
+    String getEmail();
 
-	    boolean isAccountNonLocked();
+    Set<Role> getRoles();
 
-	    boolean isCredentialsNonExpired();
-	}
+    boolean isEnabled();
 
+    boolean isAccountNonExpired();
+
+    boolean isAccountNonLocked();
+
+    boolean isCredentialsNonExpired();
+
+}

@@ -1,0 +1,12 @@
+p span {
+    font-weight: bold;
+    font-style: initial;
+}
+
+p span:nth-child(2n) {
+    color: red;
+}
+
+.none {
+    text-align: center;
+}

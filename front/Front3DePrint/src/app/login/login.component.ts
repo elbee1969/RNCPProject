@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { TokenStorageService } from '../services/token-storage.service';
 import * as jwt_decode from 'jwt-decode';
-import { decode } from 'punycode';
+import { AlertService } from '../services/alert.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -12,14 +13,25 @@ export class LoginComponent implements OnInit {
   form: any = {};
   isLoggedIn = false;
   isLoginFailed = false;
-  errorMessage = '';
-    roles: string[] = [];
+  roles: string[] = [];
   oauthResponse: any;
   account: Object;
   username: any;
   info: any;
+  errorMessage: string;
 
-  constructor(private authService: AuthService, private tokenStorage: TokenStorageService) { }
+  constructor(private authService: AuthService,
+              private tokenStorage: TokenStorageService,
+              private alertService: AlertService,
+              private router: Router) { 
+
+                // redirect to home if already logged in
+                     if (this.authService.currentUserValue) { 
+                         this.router.navigate(['/home']);
+                     }
+              this.errorMessage = "Les identifications sont erronées!";
+              }
+
 
   ngOnInit() {
     console.log('in on init');
@@ -34,37 +46,31 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.authService.login(this.form).subscribe(
       data => {
-        //this.authService.login(Credential);
         this.tokenStorage.saveToken(data.access_token);
-        //console.log('getted token : ' + this.tokenStorage.getToken());
-        //console.log("data.access token decode : " + JSON.stringify(jwt_decode(data.access_token)));
-        //console.log('data JS : ' + JSON.stringify(data));
         this.tokenStorage.saveUser(JSON.stringify(jwt_decode(JSON.stringify(this.tokenStorage.getToken()))));
-        //console.log('get user : ' + this.tokenStorage.getUser());
-        //console.log('get user stringify : ' + JSON.stringify(this.tokenStorage.getUser()));
-        //console.log('get user stringify AT decode : ' + (JSON.stringify(jwt_decode(JSON.stringify(this.tokenStorage.getUser().access_token)))));
-        //this.info = JSON.parse(JSON.stringify(jwt_decode(JSON.stringify(this.tokenStorage.getUser().access_token))));
-
-        //console.log('get user stringify AT decode : ' + (JSON.stringify(jwt_decode(JSON.stringify(this.tokenStorage.getUser().access_token)))));
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         this.roles = this.tokenStorage.getUser().authorities;
         this.username = this.tokenStorage.getUser().user_name
-        console.log('roles : ' + this.roles);
-        //this.username = this.tokenStorage.getUser().user_name;
-        console.log('name : ' + this.username);
-        //console.log('roles : ' + this.info.authorities);
         this.reloadPage();
+        this.rediRectPage();
 
       },
-      err => {
-        this.errorMessage = err.error.message;
+      error => {
+        this.alertService.error(error);
         this.isLoginFailed = true;
       }
     );
     }
-
   reloadPage() {
     window.location.reload();
+    
+  };
+  rediRectPage() {
+    if (this.roles.includes('ROLE_USER')) {
+        this.router.navigate(['/user']);
+    } else {
+        this.router.navigate(['/admin']);
+    }
   }
 }
