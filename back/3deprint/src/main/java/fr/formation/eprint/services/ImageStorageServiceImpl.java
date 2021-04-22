@@ -34,6 +34,7 @@ import fr.formation.eprint.dtos.ImageViewDto;
 import fr.formation.eprint.entities.CustomUser;
 import fr.formation.eprint.entities.Image;
 import fr.formation.eprint.entities.Status;
+import fr.formation.eprint.exception.FileStorageTooBigException;
 import fr.formation.eprint.exception.ImageAlreadyExistExeption;
 import fr.formation.eprint.exception.ResourceNotFoundException;
 import fr.formation.eprint.repositories.ImageRepository;
@@ -131,9 +132,14 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 	 * @throws IOException
 	 */
 	@Override
-	public BodyBuilder store(@RequestParam("file") MultipartFile file) throws ImageAlreadyExistExeption, IOException {
+	public BodyBuilder store(@RequestParam("file") MultipartFile file)
+			throws ImageAlreadyExistExeption, FileStorageTooBigException, IOException {
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-
+		long size = file.getSize();
+		if (size > 40000000) {
+			System.out.println("size = " + size);
+			throw new FileStorageTooBigException("Too big !");
+		}
 		if (fileName.endsWith(".stl") || fileName.endsWith(".STL")) {
 			Long userId = SecurityHelper.getUserId();
 			CustomUser customUser = userRepository.findById(userId).orElseThrow(ResourceNotFoundException::new);
