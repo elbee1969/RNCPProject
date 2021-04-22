@@ -44,7 +44,7 @@ public class OrderServiceImpl implements OrderService {
 		Order order = new Order();
 		mapper.map(dto, order);
 		float p = dto.getPrice();
-		p = p + (p / 2);
+		p = p + (p / 2) * 10;
 		int q = dto.getQuantity();
 		float w = dto.getWeight();
 		Double totalPrice = (double) (q * p);

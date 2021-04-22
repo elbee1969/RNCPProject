@@ -29,6 +29,12 @@ public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler {
 		return handleExceptionInternal(ex, errorApi, null, HttpStatus.NOT_FOUND, request);
 	}
 
+	@ExceptionHandler(FileStorageTooBigException.class)
+	public ResponseEntity<Object> handleMaxSizeException(FileStorageTooBigException ex, WebRequest request) {
+		ErrorApi errorApi = new ErrorApi("La taille de l'image est trop grande (> 40Mo)", ex.getMessage());
+		return handleExceptionInternal(ex, errorApi, null, HttpStatus.NOT_FOUND, request);
+	}
+
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
