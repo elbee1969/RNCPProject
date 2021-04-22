@@ -7,7 +7,6 @@ import java.nio.file.Path;
 
 import javax.annotation.Resource;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,9 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileService {
 	@Resource
 	ImageStorageService imageStorageService;
-
-	@Value("${3deprint.myAppPath}")
-	public String myAppPath;
 
 	public void uploadFile(MultipartFile file) {
 
@@ -29,8 +25,7 @@ public class FileService {
 		/**
 		 * declaration of the root directory
 		 */
-		// Path path = fs.getPath("H:\\RNCPProject\\front\\Front3DePrint\\src\\assets");
-		Path path = fs.getPath(myAppPath);
+		Path path = fs.getPath("H:\\RNCPProject\\front\\Front3DePrint\\src\\assets");
 
 		/**
 		 * create directory first time
