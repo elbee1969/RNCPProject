@@ -26,6 +26,7 @@ import fr.formation.eprint.dtos.ImagePatchStatusDto;
 import fr.formation.eprint.dtos.ImagePatchstatusAndQuantityDto;
 import fr.formation.eprint.dtos.ImageViewDto;
 import fr.formation.eprint.entities.Status;
+import fr.formation.eprint.exception.FileStorageTooBigException;
 import fr.formation.eprint.exception.ImageAlreadyExistExeption;
 import fr.formation.eprint.repositories.ImageRepository;
 import fr.formation.eprint.repositories.NewUserJpaRepository;
@@ -51,12 +52,11 @@ public class ImageController {
 
 	@PostMapping("/upload")
 	public ResponseEntity<MessageImage3DResponse> uploadImage(@RequestParam("file") MultipartFile file)
-			throws ImageAlreadyExistExeption, IOException {
+			throws ImageAlreadyExistExeption, FileStorageTooBigException, IOException {
 		String message = "";
-
 		imageStorageService.store(file);
 
-		message = "Uploaded the file successfully: " + file.getOriginalFilename();
+		message = "L'image à bien été chargée : " + file.getOriginalFilename();
 		return ResponseEntity.status(HttpStatus.OK).body(new MessageImage3DResponse(message));
 
 	}
