@@ -63,14 +63,6 @@ public class CustomUser extends AbstractEntity {
 	@Column(name = "credentialsNonExpired", length = 1, nullable = false)
 	private boolean credentialsNonExpired;
 
-	/*
-	 * @OneToMany(fetch = FetchType.LAZY, mappedBy = "customUser", cascade =
-	 * CascadeType.REFRESH) private List<Image> images = new ArrayList<Image>();
-	 * 
-	 * @OneToMany(fetch = FetchType.LAZY, mappedBy = "customUser", cascade =
-	 * CascadeType.REFRESH) private List<Order> orders = new ArrayList<Order>();
-	 */
-
 	public CustomUser(String username, String email, String password, String firstname, String lastname,
 			Set<Role> roles, Address address, boolean enabled, boolean accountNonExpired, boolean accountNonLocked,
 			boolean credentialsNonExpired) {
@@ -87,28 +79,6 @@ public class CustomUser extends AbstractEntity {
 		this.credentialsNonExpired = credentialsNonExpired;
 
 	}
-
-	/*
-	 * public CustomUser(String username, String email, String password, String
-	 * firstname, String lastname, Set<Role> roles, Address address, boolean
-	 * enabled, boolean accountNonExpired, boolean accountNonLocked, boolean
-	 * credentialsNonExpired, List<Image> images) { super(); this.username =
-	 * username; this.email = email; this.password = password; this.firstname =
-	 * firstname; this.lastname = lastname; this.roles = roles; this.address =
-	 * address; this.enabled = enabled; this.accountNonExpired = accountNonExpired;
-	 * this.accountNonLocked = accountNonLocked; this.credentialsNonExpired =
-	 * credentialsNonExpired; this.images = images; }
-	 */
-
-	/*
-	 * public CustomUser(String username, String password, String firstname, String
-	 * lastname, Set<Role> roles, boolean enabled, boolean accountNonExpired,
-	 * boolean accountNonLocked, boolean credentialsNonExpired) { super();
-	 * this.username = username; this.password = password; this.firstname =
-	 * firstname; this.lastname = lastname; this.roles = roles; this.enabled =
-	 * enabled; this.accountNonExpired = accountNonExpired; this.accountNonLocked =
-	 * accountNonLocked; this.credentialsNonExpired = credentialsNonExpired; }
-	 */
 
 	/**
 	 * Creates a new enabled user.
@@ -228,11 +198,6 @@ public class CustomUser extends AbstractEntity {
 		this.lastname = lastname;
 	}
 
-	/*
-	 * public List<Image> getImages() { return images; }
-	 * 
-	 * public void setImages(List<Image> images) { this.images = images; }
-	 */
 	public void setAddress(Long id, int num, String street, String town, String country) {
 		this.setAddress(id, num, street, town, country);
 	}

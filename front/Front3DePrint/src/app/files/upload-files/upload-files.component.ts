@@ -65,8 +65,8 @@ export class UploadFilesComponent implements OnInit {
       
       },
       err => {
-        console.log(JSON.stringify(err));
-        this.message = 'Impossible à charger : ' + err.error.message;
+        console.log("err :" + JSON.stringify(err));
+        this.message = 'Impossible à charger :  taille > 40 Mo'; // + err.error.message;
         this.currentFile = undefined;
         this.progress = 0;
           this.router.navigate(['/upload']);

@@ -2,6 +2,7 @@ package fr.formation.eprint.entities;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -41,7 +42,7 @@ public class Image extends AbstractEntity {
 	@Column(name = "date")
 	private Date date;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "customUser_id")
 	private CustomUser customUser;
 

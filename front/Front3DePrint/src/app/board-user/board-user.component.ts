@@ -39,6 +39,8 @@ export class BoardUserComponent implements OnInit {
   imageStatus: any;
   bills: any;
   flag: boolean = true;
+  priceTtc: number;
+  TTC: any;
 
   constructor(private userService: UserService,
     private tokenStorageService: TokenStorageService,
@@ -85,6 +87,10 @@ export class BoardUserComponent implements OnInit {
         this.orderService.getOrders(this.id, "C").subscribe(data => {
           this.orders = data;
           console.log("orders : " + JSON.stringify(data));
+          console.log('Totalprice : ' + this.orders[0]['totalPrice']);
+          this.priceTtc = (this.orders[0]['totalPrice']*1.2);
+          this.TTC = this.priceTtc.toFixed(2);
+
         },
           error => console.log(error)
         );
@@ -100,6 +106,8 @@ export class BoardUserComponent implements OnInit {
       this.billService.getBill(id,"I").subscribe(data => {
             this.bills = data;
           console.log('bills : ' + JSON.stringify(data))
+
+
           },
         error => console.log(error)
       );

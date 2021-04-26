@@ -12,7 +12,7 @@
         <p>Quantité à imprimer : {{order.quantity}}</p>
         <p>temps total d'impression : {{ order.timeToPrint}}</p>
         <p>Poids total : {{ order.totalWeight }} grs</p>
-        <p>Prix total : {{ order.totalPrice }} € HT (TVA: 20%)</p>
+        <p><b>Prix total TTC : {{ TTC }} € </b> ({{ order.totalPrice }} € HT + TVA: 20%)</p>
         <button (click) = "validateOrder(order.id, order.imageId)" class="btn btn-success float-right" style="margin-left: 10px">Accepter</button>
         <button (click) = "annulOrder(order.id, order.imageId)" class="btn btn-danger float-right" style="margin-left: 10px">Annuller</button>
       </li>
@@ -29,20 +29,11 @@
         <p class="card-text">Adresse : {{ bill.num }}, {{ bill.street }}, {{ bill.postal }} {{ bill.town }}, {{ bill.country }} </p>
         <p [hidden]="bill.totalItem > 1" class="card-text">{{ bill.totalItem }} article </p>
         <p [hidden]="bill.totalItem == 1" class="card-text">{{ bill.totalItem }} articles </p>
-        <p class="card-text">Prix HT : {{ bill.totalPriceHT }} € + TVA 20% = <span>Prix TTC : {{ bill.totalPriceTTC }} €</span></p>
-<!--         <p class="card-text">Nom : {{ bill.customUser.firstname }} {{ bill.customUser.lastname }} / Email :
-          {{bill.customUser.email}}</p>
-        <p class="card-text">Addresse : {{ bill.customUser.address.num }}, {{ bill.customUser.address.street }} -
-          {{ bill.customUser.address.town }} {{ bill.customUser.address.postal }}</p>
-        <span>(En cours à valider) </span>
-        <button class="badge badge-success mr-2" (click)="validateCommande()">Valider la commande</button>
-        <button class="badge badge-danger mr-2" (click)="rejectCommande()">Annuler la commande</button>
-        -->
+        <p class="card-text"><b>Prix TTC : {{ bill.totalPriceTTC }} €</b> (Prix HT : {{ bill.totalPriceHT }} € + TVA 20%)</p>
       </li>
     </ul>
 
   </div>
 
   </div>
-  
 
