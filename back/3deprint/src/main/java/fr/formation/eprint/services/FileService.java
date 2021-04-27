@@ -24,6 +24,7 @@ public class FileService {
 
 		/**
 		 * declaration of the root directory
+		 * C:\\Users\\utilisateur\\Documents\\GitHub\\RNCPProject\\front\\Front3DePrint\\src\\assets\\uploads
 		 */
 		Path path = fs.getPath("H:\\RNCPProject\\front\\Front3DePrint\\src\\assets");
 

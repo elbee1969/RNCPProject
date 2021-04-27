@@ -1,7 +1,5 @@
 package fr.formation.eprint.dtos;
 
-import fr.formation.eprint.entities.CustomUser;
-
 public class ImageGetDto {
 	private Long id;
 	private String name;
@@ -10,9 +8,6 @@ public class ImageGetDto {
 	private String status;
 	private int quantity;
 	private Long userId;
-//    private String type;
-//    private byte[] data;
-//    private CustomUser customUser;
 
 	public ImageGetDto() {
 	}
@@ -72,32 +67,5 @@ public class ImageGetDto {
 	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
-
-//    public String getType() {
-//	return type;
-//    }
-//
-//    public void setType(String type) {
-//	this.type = type;
-//    }
-//
-// 
-//    public byte[] getData() {
-//		return data;
-//	}
-//
-//
-//	public void setData(byte[] data) {
-//		this.data = data;
-//	}
-
-//	public CustomUser getCustomUser() {
-//		return customUser;
-//	}
-//
-//
-//	public void setCustomUser(CustomUser customUser) {
-//		this.customUser = customUser;
-//	}
 
 }

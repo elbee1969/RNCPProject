@@ -21,6 +21,7 @@ public class ApplicationPath {
 
 		/**
 		 * declaration of the root directory
+		 * C:\\Users\\utilisateur\\Documents\\GitHub\\RNCPProject\\front\\Front3DePrint\\src\\assets
 		 */
 		Path path = fs.getPath("H:\\RNCPProject\\front\\Front3DePrint\\src\\assets");
 

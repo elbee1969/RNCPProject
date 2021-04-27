@@ -58,6 +58,8 @@ public class CustomUserServiceImpl implements CustomUserService {
 
 	/**
 	 * create a personal directory with userName in path of local downloaded files
+	 * "C:\\Users\\utilisateur\\Documents\\GitHub\\RNCPProject\\front\\Front3DePrint\\src\\assets\\uploads"
+	 * "H:\\RNCPProject\\front\\Front3DePrint\\src\\assets\\uploads"
 	 * 
 	 * @param username
 	 */

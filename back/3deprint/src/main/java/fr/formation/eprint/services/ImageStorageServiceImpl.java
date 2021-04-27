@@ -42,7 +42,9 @@ import fr.formation.eprint.repositories.NewUserJpaRepository;
 
 @Service
 public class ImageStorageServiceImpl implements ImageStorageService {
-
+	/**
+	 * C:\\Users\\utilisateur\\Documents\\GitHub\\RNCPProject\\front\\Front3DePrint\\src\\assets\\uploads
+	 */
 	private final Path roots = Paths.get("H:\\RNCPProject\\front\\Front3DePrint\\src\\assets\\uploads");
 
 	private ImageRepository imageRepository;
@@ -186,7 +188,8 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 		Optional<Image> image = imageRepository.findById(id);
 		String imageName = image.get().getName();
 		System.out.println("nom image : " + imageName);
-		// Files.(Paths.get("H:\\RNCPProject\\front\\Front3DePrint\\src\\assets\\uploads\\"+userName+"\\"+imageName));
+		// C:\\Users\\utilisateur\\Documents\\GitHub\\RNCPProject\\front\\Front3DePrint\\src\\assets\\uploads"
+		// +userName+"\\"+imageName));
 		Path fileToDeletePath = Paths
 				.get("H:\\RNCPProject\\front\\Front3DePrint\\src\\assets\\uploads\\" + userName + "\\" + imageName);
 		Files.delete(fileToDeletePath);

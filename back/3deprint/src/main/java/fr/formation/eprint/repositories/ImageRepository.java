@@ -20,8 +20,6 @@ public interface ImageRepository extends JpaRepository<Image, Long> {
 
 	Optional<Image> findByname(String name);
 
-//    @Query(value = "SELECT i.id FROM image i INNER JOIN custom_user u ON i.custom_user_id = u.id WHERE custom_user_id = :customUserId", nativeQuery = true)
-
 	@Query("SELECT i FROM Image i INNER JOIN CustomUser u ON i.customUser.id = u.id WHERE i.customUser.id = :customUserId AND i.status = :status")
 	public List<Image> getAllImageByUserId(@Param("customUserId") Long customUserId, @Param("status") Status status);
 

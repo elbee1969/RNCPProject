@@ -22,14 +22,8 @@ public interface OrderService {
 
 	OrderAdminViewDto getOne(Long id);
 
-	// List<OrderViewItemDto> getAllById(Long id);
-
 	void deleteOne(Long id);
 
-	// void updateOrderStatusOver(Long billId);
-
 	void updateOrder(Long id, @Valid OrderPatchDto dto);
-
-	// List<OrderViewItemDto> getAllOrdersById(Long id);
 
 }

@@ -17,12 +17,6 @@ public interface BillRepository extends JpaRepository<Bill, Long> {
 	List<BillAdminViewDto> getAllBillByUserIdAndStatus(@Param("customUserId") Long customUserId,
 			@Param("status") Status status);
 
-	// long, java.lang.String, java.lang.String, java.lang.String,
-	// java.time.LocalDate, double, double, double, int
-	// long, long, java.lang.String, java.lang.String, int, java.lang.String,
-	// java.lang.String, java.lang.String, java.lang.String, java.lang.String,
-	// java.time.LocalDate, double, double, double, int,
-	// fr.formation.eprint.entities.Status
 	@Query(value = "SELECT new fr.formation.eprint.dtos.BillAdminViewDto(b.id, b.customUser.id, b.customUser.firstname, b.customUser.lastname, a.num, a.street, a.town, a.postal, a.country, b.customUser.email,  b.billDate, b.totalPriceHT, b.totalPriceTTC, b.totalWeight"
 			+ " ,b.totalItem, b.status) FROM Bill b, Address a WHERE b.status = :status AND b.customUser.id = a.id")
 	List<BillAdminViewDto> findAllBills(@Param("status") Status status);

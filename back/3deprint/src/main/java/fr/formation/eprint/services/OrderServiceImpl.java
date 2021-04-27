@@ -81,25 +81,11 @@ public class OrderServiceImpl implements OrderService {
 		return mapper.map(order, OrderAdminViewDto.class);
 	}
 
-	/*
-	 * @Override public List<OrderViewItemDto> getAllOrdersById(Long id) { return
-	 * orderRepository.getAllOrdersById(id); }
-	 */
-
 	@Override
 	public void deleteOne(Long id) {
 		orderRepository.deleteById(id);
 
 	}
-
-	/*
-	 * @Transactional
-	 * 
-	 * @Override public void updateOrderStatusOver(Long billId) {
-	 * orderRepository.updateOrderStatusOver(billId);
-	 * 
-	 * }
-	 */
 
 	@Override
 	public void updateOrder(Long id, @Valid OrderPatchDto dto) {

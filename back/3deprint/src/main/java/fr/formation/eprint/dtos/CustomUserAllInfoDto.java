@@ -16,16 +16,4 @@ public class CustomUserAllInfoDto {
 		this.id = id;
 	}
 
-	// AddressViewDto getAddress();
-
-	/*
-	 * String getFirstname();
-	 * 
-	 * String getLastname();
-	 * 
-	 * String getEmail();
-	 * 
-	 * AddressViewDto getAddress();
-	 */
-
 }

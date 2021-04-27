@@ -32,7 +32,7 @@ public class BillServiceImpl implements BillService {
 	}
 
 	/*
-	 * public void toto() { List<OrderAdminViewDto> dtos = orderService.getAll(); }
+	 * 
 	 */
 	@Override
 	public List<BillAdminViewDto> getAllByIdAndStatus(Long id, Status status) {
@@ -58,7 +58,6 @@ public class BillServiceImpl implements BillService {
 		}
 		TTC = HT * TVA;
 		Bill bill = new Bill();
-// 		List<Order> newOrders = convertList(orders, Order.class);
 		bill.setBillDate(LocalDate.now());
 		bill.setTotalPriceHT(HT);
 		bill.setTotalPriceTTC(TTC);
@@ -67,9 +66,6 @@ public class BillServiceImpl implements BillService {
 		bill.setCustomUser(customUserRepo.getOne(userId));
 		bill.setStatus(Status.I);
 		billRepo.save(bill);
-		// Long billId = bill.getId();
-		// Status toto = bill.getStatus();
-		// orderService.updateOrderStatusOver(billId);
 
 	}
 
