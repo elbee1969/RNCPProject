@@ -22,7 +22,7 @@ COMMIT;
 
 -- insert of 15 users
 INSERT INTO custom_users (id, account_non_expired, account_non_locked, credentials_non_expired, email, enabled, firstname, lastname, password, username, address_id)
-	VALUES (1,'T','T','T','laurent.berthelot1969@gmail.com','T','Laurent','BERTHELOT','$2a$10$VdQQpPC9NPCf4AF96aedIOpQ6/5NYoyBzX4a.ncqyanBcS5joxNWi','admin',1),
+	VALUES (1,'T','T','T','laurent.berthelot1969@gmail.com','T','Laurent','BERTHELOT','$2a$10$xhP/mNATiqI29MvcpgUaD.lb9pzp19FT3HDGSJk.K72RRaON84MM.','admin',1),
     (2,'T','T','T','charles.darwin@gmail.com','T','Charles','DARWIN','$2a$10$VdQQpPC9NPCf4AF96aedIOpQ6/5NYoyBzX4a.ncqyanBcS5joxNWi','darwin',2),
 	(3,'T','T','T','albert.einstein@gmail.com','T','Albert','EINSTEIN','$2a$10$VdQQpPC9NPCf4AF96aedIOpQ6/5NYoyBzX4a.ncqyanBcS5joxNWi','einstein',3),
     (4,'T','T','T','william.shakespeare@gmail.com','T','William','SHAKESPEARE','$2a$10$VdQQpPC9NPCf4AF96aedIOpQ6/5NYoyBzX4a.ncqyanBcS5joxNWi','shakespeare',4),
