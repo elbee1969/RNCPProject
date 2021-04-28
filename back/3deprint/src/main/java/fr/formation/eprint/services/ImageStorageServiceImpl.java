@@ -34,7 +34,6 @@ import fr.formation.eprint.dtos.ImageViewDto;
 import fr.formation.eprint.entities.CustomUser;
 import fr.formation.eprint.entities.Image;
 import fr.formation.eprint.entities.Status;
-import fr.formation.eprint.exception.FileStorageTooBigException;
 import fr.formation.eprint.exception.ImageAlreadyExistExeption;
 import fr.formation.eprint.exception.ResourceNotFoundException;
 import fr.formation.eprint.repositories.ImageRepository;
@@ -134,13 +133,12 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 	 * @throws IOException
 	 */
 	@Override
-	public BodyBuilder store(@RequestParam("file") MultipartFile file)
-			throws ImageAlreadyExistExeption, FileStorageTooBigException, IOException {
+	public BodyBuilder store(@RequestParam("file") MultipartFile file) throws ImageAlreadyExistExeption, IOException {
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 		long size = file.getSize();
 		if (size > 40000000) {
 			System.out.println("size = " + size);
-			throw new FileStorageTooBigException("Too big !");
+			throw new IOException("image trop grande : > 40 Mo");
 		}
 		if (fileName.endsWith(".stl") || fileName.endsWith(".STL")) {
 			Long userId = SecurityHelper.getUserId();
@@ -175,7 +173,7 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 	}
 
 	/**
-	 * Delete image from DB and user directory
+	 * Delete image from user directory
 	 */
 	@Override
 	public void deleteOne(Long id) throws IOException {
@@ -187,13 +185,13 @@ public class ImageStorageServiceImpl implements ImageStorageService {
 
 		Optional<Image> image = imageRepository.findById(id);
 		String imageName = image.get().getName();
-		System.out.println("nom image : " + imageName);
+
 		// C:\\Users\\utilisateur\\Documents\\GitHub\\RNCPProject\\front\\Front3DePrint\\src\\assets\\uploads"
 		// +userName+"\\"+imageName));
 		Path fileToDeletePath = Paths
 				.get("H:\\RNCPProject\\front\\Front3DePrint\\src\\assets\\uploads\\" + userName + "\\" + imageName);
 		Files.delete(fileToDeletePath);
-		imageRepository.deleteById(id);
+		// imageRepository.deleteById(id);
 
 	}
 

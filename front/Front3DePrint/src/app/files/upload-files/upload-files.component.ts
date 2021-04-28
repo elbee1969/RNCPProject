@@ -5,6 +5,7 @@ import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { ErrorHandlerService } from 'src/app/services/error-handler.service';
 
 @Component({
   selector: 'app-Upload-files',
@@ -66,7 +67,7 @@ export class UploadFilesComponent implements OnInit {
       },
       err => {
         console.log("err :" + JSON.stringify(err));
-        this.message = 'Impossible à charger :  taille > 40 Mo'; // + err.error.message;
+        this.message = "Impossible à charger : " + err.error.message;
         this.currentFile = undefined;
         this.progress = 0;
           this.router.navigate(['/upload']);

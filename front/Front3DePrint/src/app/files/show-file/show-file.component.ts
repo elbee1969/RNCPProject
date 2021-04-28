@@ -34,7 +34,7 @@ export class ShowFileComponent implements OnInit {
   constructor(private uploadService: UploadFileService,
     private route: ActivatedRoute,
     private token: TokenStorageService, 
-    private sanitizer: DomSanitizer,
+    private imageService: UploadFileService,
     private router: Router,
     private formBuilder: FormBuilder
     ) {}
@@ -92,12 +92,23 @@ export class ShowFileComponent implements OnInit {
       this.uploadService.delete(imageId)
       .subscribe(
         response => {
+          this.image  = JSON.stringify({ status: "O", quantity: 1 });
+          console.log("reset : " +this.image);
+          return this.imageService.updateImageStatusAndQuantity(this.image, imageId)
+          .subscribe(
+            () => {
+              console.log('Image updated successfully');
+              this.ngOnInit();
+            },
+            error => {
+              console.log(error);
+            });            
           console.log(response);
-          this.router.navigate(['/upload']);
         },
         error => {
           console.log(error);
         });
+        this.router.navigate(['/upload']);
     }  
   }
 }

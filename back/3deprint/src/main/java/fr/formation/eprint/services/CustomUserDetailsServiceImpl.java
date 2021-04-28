@@ -1,5 +1,9 @@
 package fr.formation.eprint.services;
 
+import java.io.File;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +16,7 @@ import fr.formation.eprint.config.CustomUserDetails;
 import fr.formation.eprint.dtos.CustomUserAuthDto;
 import fr.formation.eprint.dtos.CustomUserInfoDto;
 import fr.formation.eprint.dtos.ProfileUserInfosDto;
+import fr.formation.eprint.entities.CustomUser;
 import fr.formation.eprint.exception.AccountNotFoundException;
 import fr.formation.eprint.exception.ResourceNotFoundException;
 import fr.formation.eprint.repositories.CustomUserJpaRepository;
@@ -55,14 +60,35 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
 	@Transactional
 	@Override
 	public void deleteOne(Long id) {
+		FileSystem fs = FileSystems.getDefault();
+		// Path path =
+		// fs.getPath("C:\\Users\\utilisateur\\Documents\\GitHub\\RNCPProject\\front\\Front3DePrint\\src\\assets\\uploads");
+		Path path = fs.getPath("H:\\RNCPProject\\front\\Front3DePrint\\src\\assets\\uploads");
+		// Long userId = SecurityHelper.getUserId();
+		Optional<CustomUser> customUser = userRepo.findById(id);
+		String userName = customUser.get().getUsername();
 		Optional<CustomUserInfoDto> value = userRepo.getById(id);
 		if (value.isPresent()) {
+			System.out.println("name : " + userName);
 			imageRepo.deletImagesByUserId(id);
 			userRepo.deleteById(id);
 
+			File index = new File(path + "\\" + userName);
+			System.out.println("index : " + index);
+			deleteDir(index);
 		} else {
 			throw new AccountNotFoundException("Invalid id : " + id);
 		}
+	}
+
+	void deleteDir(File file) {
+		File[] contents = file.listFiles();
+		if (contents != null) {
+			for (File f : contents) {
+				deleteDir(f);
+			}
+		}
+		file.delete();
 	}
 
 	@Override

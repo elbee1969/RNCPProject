@@ -146,7 +146,7 @@ export class BoardUserComponent implements OnInit {
         .subscribe(
           () => {
             console.log('order ' + orderId + ' updated successfully');
-            this.imageStatus = JSON.stringify({ status: "O" });
+            this.imageStatus = JSON.stringify({ status: "I" });
             return this.uploadService.updateImageStatus(this.imageStatus, imageId)
               .subscribe(
                 () => {
