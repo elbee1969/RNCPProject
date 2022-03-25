@@ -7,7 +7,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "prepare": "npm run snyk-protect",
+    "snyk-protect": "snyk-protect"
   },
   "private": true,
   "dependencies": {
@@ -41,7 +43,8 @@
     "three-orbitcontrols": "^2.110.3",
     "three-orbitcontrols-ts": "^0.1.2",
     "tslib": "^2.0.0",
-    "zone.js": "~0.11.4"
+    "zone.js": "~0.11.4",
+    "@snyk/protect": "latest"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1200.0-next.3",
@@ -66,5 +69,6 @@
   },
   "permissions": [
     "http://localhost:9090/"
-  ]
+  ],
+  "snyk": true
 }
